@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+
+cp -Lrv ../pass-cli-server/lib .
+
+if [ $? -ne 0 ]; then
+  echo "Failed to copy lib. Exit code $?"
+  exit
+fi
+
+cp -Lrv ../pass-cli-server/bin .
+
+if [ $? -ne 0 ]; then
+  echo "Failed to copy bin. Exit code $?"
+  exit
+fi
+
+docker build --network=host --tag pass:latest .
+
+if [ $? -ne 0 ]; then
+   echo "Docker build failed with return code $?"
+   exit
+fi
+
+rm -rf bin lib 

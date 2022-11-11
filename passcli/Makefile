@@ -13,6 +13,7 @@ dist	: ../dist/pass-cli.zip
 	mkdir -p ../dist
 
 lib/pass-cli.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dickimawbooks/passcli/PassCliMain.class
+	make -C ../passlib lib/passlib.jar
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli.jar \
 	com/dickimawbooks/passcli/PassCliMain.class
