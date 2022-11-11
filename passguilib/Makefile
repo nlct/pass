@@ -10,6 +10,7 @@ classes/com/dickimawbooks/passguilib/PassGui.class	: classes/com/dickimawbooks/p
 	java/PassGuiTools.java \
 	java/ProgressPanel.java
 	cd java; javac -d ../classes \
+	-cp ../lib/passlib.jar \
 	-Xlint:unchecked -Xlint:deprecation \
 	*.java
 
