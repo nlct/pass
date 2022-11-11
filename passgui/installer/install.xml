@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- 
+    Installation file for PASS.
+-->
+
+<izpack:installation version="5.0" xmlns:izpack="http://izpack.org/schema/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+
+  <properties>
+    <property name="info.appName" value="PASS (Preparing Programming Assignments for Submission System)"/>
+    <property name="info.url" value="https://www.dickimaw-books.com/software/pass/"/>
+    <property name="project.version" value="1.26" />
+  </properties>
+
+    <!-- 
+        The info section.
+    -->
+    <info>
+        <appname>@{info.appName}</appname>
+        <appversion>@{project.version}</appversion>
+        <authors>
+            <author name="Nicola L. C. Talbot" email="dickimaw-books.com/contact"/>
+        </authors>
+        <url>@{info.url}</url>
+        <javaversion>11</javaversion>
+        <run-privileged condition="izpack.windowsinstall|izpack.macinstall"/>
+    </info>
+
+    <guiprefs width="800" height="500" resizable="yes" >
+     <!-- Show the splashScreen for a minimum of 1000 milliseconds -->   
+     <modifier key="useSplashScreen" value="1000"/> 
+    </guiprefs>
+
+   <variables>
+        <variable name="DesktopShortcutCheckboxEnabled" value="true"/>
+   </variables>
+
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <resources>
+        <res id="Splash.image" src="lib/icons/pass-splash.png" />
+        <res id="LicencePanel.licence" src="LICENSE-2.0.txt"/>
+        <res id="InfoPanel.info" src="README"/>
+        <res id="shortcutSpec.xml" src="installer/shortcutSpec.xml"/>
+        <res id="Unix_shortcutSpec.xml" src="installer/unix_shortcutSpec.xml"/>
+
+    </resources>
+
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="ShortcutPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+
+    <packs>
+        <pack name="Base" required="yes">
+            <description>The base files</description>
+            <file src="README" targetdir="$INSTALL_PATH"/>
+            <file src="POST-INSTALL.md" targetdir="$INSTALL_PATH"/>
+            <file src="LICENSE-2.0.txt" targetdir="$INSTALL_PATH"/>
+            <file src="lib/resources.xml" targetdir="$INSTALL_PATH/lib" override="askfalse"/>
+            <file src="lib/manual.html" targetdir="$INSTALL_PATH/lib"/>
+            <fileset dir="lib" includes="**/*.jar"
+              targetdir="$INSTALL_PATH/lib"/>
+            <fileset dir="lib/dictionary" includes="**/*.xml"
+              targetdir="$INSTALL_PATH/lib/dictionary"/>
+            <fileset dir="bin" excludes="**/*.bat"
+              targetdir="$INSTALL_PATH/bin"/>
+            <fileset dir="bin" includes="**/*.bat"
+              targetdir="$INSTALL_PATH/bin">
+                <os family="windows"/>
+            </fileset>
+            <file src="lib/icons" targetdir="$INSTALL_PATH/lib"/>
+            <executable targetfile="$INSTALL_PATH/bin/progassignsys"
+            stage="never"/>
+        </pack>
+    </packs>
+
+    <natives>
+     <native type="izpack" name="ShellLink.dll"/>
+     <native type="izpack" name="ShellLink_x64.dll"/>
+    </natives>
+
+</izpack:installation>

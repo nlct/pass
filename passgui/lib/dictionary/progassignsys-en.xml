@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>English language file for PASS GUI</comment>
+
+<entry key="button.remove.tooltip">Remove</entry>
+<entry key="button.cancel">Cancel</entry>
+<entry key="button.cancel.mnemonic">C</entry>
+<entry key="button.okay">Okay</entry>
+<entry key="button.okay.mnemonic">O</entry>
+
+<entry key="button.addstudent.tooltip">Add student</entry>
+<entry key="button.removestudent.tooltip">Remove student</entry>
+<entry key="button.movestudentup.tooltip">Move row up</entry>
+<entry key="button.movestudentdown.tooltip">Move row down</entry>
+
+<entry key="button.choosedir">Select</entry>
+<entry key="button.choosedir.mnemonic">Select</entry>
+
+<entry key="button.addfile.tooltip">Add</entry>
+
+<entry key="button.previous">Previous</entry>
+<entry key="button.previous.mnemonic">P</entry>
+<entry key="button.next">Next</entry>
+<entry key="button.next.mnemonic">N</entry>
+<entry key="button.savetex">Save TeX As...</entry>
+<entry key="button.savetex.mnemonic">T</entry>
+<entry key="button.openlog">Open Log</entry>
+<entry key="button.openlog.mnemonic">O</entry>
+<entry key="button.save">Save PDF As...</entry>
+<entry key="button.save.mnemonic">S</entry>
+<entry key="button.openpdf">Open PDF</entry>
+<entry key="button.openpdf.mnemonic">O</entry>
+<entry key="button.quit">Exit</entry>
+<entry key="button.quit.mnemonic">E</entry>
+
+<!-- Main Window and Transcript Messages -->
+
+<entry key="message.title">Message</entry>
+<entry key="message.transcript.title">Transcript</entry>
+<entry key="message.confirm_blurb">{0} is designed to help you &lt;strong&gt;prepare&lt;/strong&gt; programming assignments for submission. It''s your responsibility to ensure that the generated PDF correctly represents your work, and it''s your responsibility to ensure that you submit the PDF in a timely manner.
+
+&lt;strong&gt;If you encounter any problems with {0} please inform your lecturer before you submit your work.&lt;/strong&gt;
+
+&lt;p&gt;PASS FAQ: &lt;a href="{1}"&gt;{1}&lt;/a&gt;</entry>
+
+<entry key="message.select_course">Please select your course.
+(Cancel will exit this application.)</entry>
+<entry key="message.select_course.title">Select Course</entry>
+<entry key="message.course">Course: {0}</entry>
+
+<entry key="message.assignment">Assignment: {0} (Due: {1})</entry>
+<entry key="message.base_directory">Base directory: {0} (sub-paths: {1}).</entry>
+<entry key="message.select_code_dir">Select Code Directory</entry>
+<entry key="message.code_dir">Code Directory:</entry>
+<entry key="message.code_dir.mnemonic">D</entry>
+<entry key="message.use_rel_paths">Use relative paths</entry>
+<entry key="message.use_rel_paths.mnemonic">U</entry>
+
+<entry key="message.code_dir.note">You can optionally set the directory that contains all your assignment files in the above field. If the assignment has required files, {0} will search the directory for them, otherwise you will need to select each file manually using the buttons in the next panel.
+
+If a relative directory structure must be maintained, click on the ''{1}'' checkbox and ensure that the above field is set to the base directory.</entry>
+
+<entry key="message.file_problems.confirm">There are one or more problems with the required file list.
+{0}
+Do you want to continue anyway?</entry>
+<entry key="message.confirm_continue.title">Confirm continue</entry>
+<entry key="message.finished.saved">Finished.
+File saved as ''{0}''</entry>
+<entry key="message.finished_with_errors.saved">Process Failed.
+File saved as ''{0}''</entry>
+<entry key="message.file_saved">File saved as ''{0}''</entry>
+<entry key="message.processing">Processing</entry>
+<entry key="message.tick">&#x2714;</entry>
+<entry key="message.finished.not_saved">Process finished.
+Use ''{0}'' button to save the PDF file.
+Use ''{1}'' button to quit without saving.</entry>
+<entry key="message.finished_with_errors.not_saved">Process failed.
+Use ''{0}'' button to save the PDF file.
+Use ''{1}'' button to quit without saving.</entry>
+
+<entry key="message.failed.not_tmpdir">Process Failed.</entry>
+<entry key="message.failed.tmpdir">Process Failed. Temporary files in ''{0}'' will be deleted on exit.</entry>
+
+<!-- Main Window Titles -->
+<entry key="message.completed">{0} - Completed</entry>
+<entry key="message.completed.warning">{0} - Completed with warning</entry>
+<entry key="message.failed">{0} - Process Failed</entry>
+
+<entry key="message.about.title">About</entry>
+<entry key="message.licence.title">Licence</entry>
+
+<entry key="message.confirm_overwrite">File ''{0}'' exists. Overwrite?</entry>
+<entry key="message.confirm_overwrite.title">Confirm overwrite</entry>
+<entry key="message.confirm_agree.title">Confirm</entry>
+
+<!-- Main GUI elements-->
+
+<entry key="message.select_assignment.title">Select Assignment</entry>
+<entry key="message.select_assignment">Assignment: </entry>
+<entry key="message.select_assignment.mnemonic">A</entry>
+<entry key="message.assignment_due">Due: </entry>
+<entry key="message.group_project">Group Project</entry>
+<entry key="message.pdfpages_note">You may include PDF, DOC or DOCX files with your submission. These will be added as attachments. In the case of PDF files, if you additionally want them included directly in the document with \includepdf, provided by the pdfpages package (http://ctan.org/pkg/pdfpages), then make sure the check box below is selected. (Not available for PDF files that contain spaces in the filename.)</entry>
+<entry key="message.use_pdfpages">use pdfpages</entry>
+<entry key="message.use_pdfpages.mnemonic">P</entry>
+<entry key="message.with_options"> with options: </entry>
+<entry key="message.with_options.mnemonic">W</entry>
+<entry key="message.file_encoding">File encoding: </entry>
+<entry key="message.file_encoding.mnemonic">F</entry>
+<entry key="message.username">Username: </entry>
+<entry key="message.username.mnemonic">R</entry>
+<entry key="message.blackboard_id">Blackboard ID: </entry>
+<entry key="message.blackboard_id.mnemonic">R</entry>
+<entry key="message.required">(Required)</entry>
+<entry key="message.reg_num">Student Number: </entry>
+<entry key="message.reg_num.mnemonic">U</entry>
+<entry key="message.username.header">Username</entry>
+<entry key="message.blackboard_id.header">Blackboard ID</entry>
+<entry key="message.reg_num.header">Student Number</entry>
+
+<entry key="message.file_format.note">Make sure that the drop-down menu has the correct file format set. (Use ''{0}'' for unlisted languages.)</entry>
+<entry key="message.project_files">Project Files</entry>
+<entry key="message.no_required_files">No required files.</entry>
+<entry key="message.required_files">Required Files:</entry>
+<entry key="message.resource_files">Resource Files</entry>
+<entry key="message.optional_files">Additional Files (Optional):</entry>
+<entry key="message.binary_files">Binary Files:</entry>
+<entry key="message.select_assignment_for_course">Select the required assignment for course {0}.</entry>
+<entry key="message.file_search">File search</entry>
+<entry key="message.file_search.found.choice">0#No match found|1#Found 1 file|1&lt;Found {0,number} files</entry>
+<entry key="message.abort_search">Abort file search?</entry>
+<entry key="message.abort_search.title">Confirm Abort</entry>
+<entry key="message.cancelling">Cancelling</entry>
+
+<!-- Encoding info -->
+
+<entry key="encoding_info.ascii">pdflatex will be used for ASCII files.</entry>
+<entry key="encoding_info.latin1">pdflatex will be used for Latin-1 files.</entry>
+<entry key="encoding_info.utf8">lualatex will be used for UTF-8 files.</entry>
+
+<!-- Menu -->
+
+<entry key="menu.title">Menu</entry>
+<entry key="menu.title.mnemonic">M</entry>
+<entry key="menu.settings">Settings</entry>
+<entry key="menu.settings.mnemonic">S</entry>
+<entry key="menu.help">Help</entry>
+<entry key="menu.help.mnemonic">H</entry>
+<entry key="menu.transcript">Show Transcript</entry>
+<entry key="menu.transcript.mnemonic">T</entry>
+<entry key="menu.licence">Licence</entry>
+<entry key="menu.licence.mnemonic">L</entry>
+<entry key="menu.about">About</entry>
+<entry key="menu.about.mnemonic">A</entry>
+
+<!-- Properties Dialog-->
+
+<entry key="properties.title">Settings</entry>
+<entry key="properties.shared">These settings are shared with {0}.</entry>
+
+<entry key="properties.default_dir.title">Default Directory</entry>
+<entry key="properties.default_dir.mnemonic">D</entry>
+<entry key="properties.last">Last</entry>
+<entry key="properties.last.mnemonic">L</entry>
+<entry key="properties.home">Home</entry>
+<entry key="properties.home.mnemonic">M</entry>
+<entry key="properties.custom">Custom</entry>
+<entry key="properties.custom.mnemonic">U</entry>
+
+<entry key="properties.timeout.title">Time-Out</entry>
+<entry key="properties.timeout.mnemonic">T</entry>
+<entry key="properties.process_timeout">Process time-out (seconds):</entry>
+<entry key="properties.process_timeout.mnemonic">P</entry>
+<entry key="properties.fixed_timeout">Timeout has been fixed at {0,number} seconds.</entry>
+<entry key="properties.max_file_search">Maximum files to search:</entry>
+<entry key="properties.max_file_search.mnemonic">X</entry>
+
+<entry key="properties.ui.title">UI</entry>
+<entry key="properties.ui.mnemonic">I</entry>
+<entry key="properties.lookandfeel">Look and feel: </entry>
+<entry key="properties.lookandfeel.mnemonic">F</entry>
+
+<!-- File Field -->
+
+<entry key="filefield.select">Select</entry>
+<entry key="filefield.select.mnemonic">S</entry>
+
+<entry key="filefilter.pdf">PDF files (*.pdf)</entry>
+<entry key="filefilter.tex">TeX files (*.tex)</entry>
+
+<!-- Manual -->
+
+<entry key="manual.title">Manual</entry>
+
+<entry key="warning.title">Warning</entry>
+
+<!-- Errors -->
+
+<entry key="error.title">Error</entry>
+<entry key="error.fatal">Fatal Error: {0}</entry>
+<entry key="error.no_course_data">No course data provided in {0}!
+Can''t continue.</entry>
+<entry key="error.invalid_reg_num">Invalid student number: {0}</entry>
+<entry key="error.invalid_username">Invalid Blackboard ID: {0}</entry>
+<entry key="error.missing_username_for">Missing BlackBoard ID for student {0}</entry>
+<entry key="error.missing_reg_num_for">Missing student number for {0}</entry>
+<entry key="error.group_project_min">At least {0,number} students required for group project.</entry>
+<entry key="error.missing_reg_num">Missing student number.</entry>
+<entry key="error.missing_username">Missing Blackboard ID.</entry>
+<entry key="error.invalid_input">Invalid {0} {1}</entry>
+<entry key="error.required_file_missing">{0} missing</entry>
+<entry key="error.subpath_not_relative">Sub-path {0} is not relative to base path {1}</entry>
+<entry key="error.file_doesnt_exist">File
+{0}
+doesn''t exist.</entry>
+<entry key="error.misnamed_file">File
+{0}
+should be called ''{1}''.</entry>
+<entry key="error.file_not_in_subtree">File
+{0}
+should be in the sub-directory tree ''{1}''.</entry>
+<entry key="error.no_file_lang">Language not set for {0} (use ''{1}'' for unsupported languages).</entry>
+<entry key="error.no_lang_set">Language not set for {0} (assuming ''{1}'').</entry>
+<entry key="error.relpath_required">This assignment requires a relative path structure.
+(Setting located on previous panel.) Path structure may be lost.</entry>
+<entry key="error.not_allowed_binary">File ''{0}'' is not an allowed binary file.</entry>
+<entry key="error.file_search.maxed">File search terminated. Exceeded maximum {0,number} files.</entry>
+
+</properties>

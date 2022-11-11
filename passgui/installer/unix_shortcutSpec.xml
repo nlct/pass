@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<izpack:shortcuts version="5.0" xmlns:izpack="http://izpack.org/schema/shortcuts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/shortcuts http://izpack.org/schema/5.0/izpack-shortcuts-5.0.xsd">
+
+  <programGroup defaultName="DickimawBooks/PASS"
+  location="applications"/>
+
+  <shortcut
+     name="PASS GUI"
+     programGroup="yes"
+     applications="no"
+     desktop="yes"
+     target="$INSTALL_PATH/bin/progassignsys"
+     commandLine=""
+     workingDirectory=""
+     description="Application to prepare assignment source code for submission"
+     iconFile="$INSTALL_PATH/lib/icons/pass-logo-64x64.png"
+     iconIndex="0"
+     type="Application"
+     encoding="UTF-8"
+     terminal="false"
+     KdeSubstUID="false"
+     initialState="normal">
+     <createForPack name="Base"/>
+   </shortcut>
+
+   <shortcut
+     name="PASS GUI Documentation"
+     programGroup="yes"
+     applications="no"
+     desktop="no"
+     workingDirectory=""
+     target="evince"
+     commandLine="$INSTALL_PATH/lib/manual.html"
+     initialState="normal"
+     url="$INSTALL_PATH/lib/manual.html"
+     type="Link"
+     mimetype="text/html"
+     encoding="UTF-8"
+     description="PASS documentation (HTML format)">
+
+     <createForPack name="Base"/>
+   </shortcut>
+
+   <shortcut
+     name="PASS GUI Uninstaller"
+     programGroup="yes"
+     applications="no"
+     desktop="no"
+     target="java"
+     workingDirectory=""
+     commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/uninstaller.jar&quot;"
+     initialState="normal"
+     type="Application"
+     encoding="UTF-8"
+     description="PASS GUI uninstaller">
+     <createForPack name="Base" />
+   </shortcut>
+
+</izpack:shortcuts>

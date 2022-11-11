@@ -1,0 +1,23 @@
+Preparing Programming Assignments for Submission System (PASS)
+==============================================================
+
+PASS is an application to help students bundle up their
+assignment source code into a PDF ready for submission.
+The source code may be compiled and tested by PASS, depending
+on the language and associated settings. The results of the
+compilation and testing are included in the PDF (including any
+errors or warnings).
+
+Requirements: 
+
+ * Java Runtime Environment;
+ * TeX installation with packages: listings, attachfile, verbatim,
+   upquote, graphicx, hyperref, fontspec, fontenc, inputenc, 
+   lmodern, geometry, marvosym. These packages should be 
+   available with both MikTeX and TeX Live.
+ * Software development tools (such as gcc or javac) required to compile
+   and run the assignment source code.
+
+Please read the post installation instructions in the
+POST-INSTALL file.
+
