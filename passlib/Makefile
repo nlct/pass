@@ -4,30 +4,33 @@ lib/passlib.jar	: classes/com/dickimawbooks/passlib/Pass.class lib/resources.xml
 	com/dickimawbooks/passlib/*.class
 
 classes/com/dickimawbooks/passlib/Pass.class	: classes/com/dickimawbooks/passlib \
-	AgreementRequiredException.java \
-	AllowedBinaryFile.java \
-	AllowedBinaryFilter.java \
-	AssignmentData.java \
-	AssignmentDataParser.java \
-	AssignmentProcessConfig.java \
-	AssignmentProcess.java \
-	Course.java \
-	CourseParser.java \
-	DuplicateFileException.java \
-	InputResourceException.java \
-	InvalidFileException.java \
-	PassFile.java \
-	Pass.java \
-	PassTask.java \
-	PassTools.java \
-	ProgressListener.java \
-	RequiredPassFile.java \
-	ResourceFile.java \
-	ResultFile.java \
-	Student.java
-	cd java/passlib; javac -d ../classes \
+	java/AgreementRequiredException.java \
+	java/AllowedBinaryFile.java \
+	java/AllowedBinaryFilter.java \
+	java/AssignmentData.java \
+	java/AssignmentDataParser.java \
+	java/AssignmentProcessConfig.java \
+	java/AssignmentProcess.java \
+	java/Course.java \
+	java/CourseParser.java \
+	java/DuplicateFileException.java \
+	java/InputResourceException.java \
+	java/InvalidFileException.java \
+	java/PassFile.java \
+	java/Pass.java \
+	java/PassTask.java \
+	java/PassTools.java \
+	java/ProgressListener.java \
+	java/RequiredPassFile.java \
+	java/ResourceFile.java \
+	java/ResultFile.java \
+	java/Student.java
+	cd java; javac -d ../classes \
 	-Xlint:unchecked -Xlint:deprecation \
 	*.java
+
+classes/com/dickimawbooks/passlib	:
+	mkdir -p classes/com/dickimawbooks/passlib
 
 clean	:
 	\rm -rf classes lib/passlib.jar
