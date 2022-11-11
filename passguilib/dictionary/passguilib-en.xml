@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>English language file for PASS GUI Lib</comment>
+
+<entry key="confirm.abort">Are you sure you want to abort the current process?</entry>
+<entry key="confirm.abort.title">Confirm Abort</entry>
+
+<entry key="message.i_we_confirm.mnemonic">I</entry>
+
+<entry key="process.abort">Abort</entry>
+<entry key="process.abort.tooltip">Abort current process</entry>
+
+<entry key="process.subtask_aborted">Sub-process aborted. Finishing off...</entry>
+
+<entry key="error.file_not_found">File not found.</entry>
+<entry key="error.cant_view_file">Can''t view file {0}.</entry>
+
+</properties>
