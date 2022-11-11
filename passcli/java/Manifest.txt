@@ -1,0 +1,2 @@
+Main-Class: com/dickimawbooks/passcli/PassCliMain
+Class-Path: . passlib.jar pass-cli-lib.jar

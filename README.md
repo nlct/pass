@@ -525,8 +525,9 @@ of Pass in an IDE or with a simple text editor and command prompt.
 The idea for this system was devised by Dr Gavin Cawley.
 Russell Smith installed the software, setup a server for Server
 Pass, and provided technical advice. The Island of TeX community
-provided advice on using TeX Live with Docker. Lecturers and
-students in CMP tested the system and provided feedback.
+provided advice on using TeX Live with Docker. Thank you to 
+Dr Gavin Cawley and Dr Jason Lines, and the students in CMP who
+tested the system and provided feedback.
 
 ## LICENSE
    Copyright 2022 Nicola L. C. Talbot

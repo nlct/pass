@@ -1,0 +1,325 @@
+=head1 SYNOPSIS
+
+B<pass-cli> [I<setting>]+
+
+=head1 DESCRIPTION
+
+B<pass-cli> is a command line version of PASS (prepare programming
+assignments for submission system). The F<lib/resources.xml> file
+should contain a reference to a remote resources file with the
+course labels and URLs to the relevant assignment XML file (as with
+the GUI PASS). The resources file may also contain the full pathname
+of binaries such as F<gcc> or F<pdflatex> if for some reason they
+can't be found on the system C<PATH>. If the F<lib/resources.xml> is
+missing it should be copied over from GUI PASS with path names
+modified where appropriate.
+
+The syntax for the XML files can be found at
+L<https://www.dickimaw-books.com/software/pass/>. Note that URLs
+must be the exact address (not a redirect). Any SSL/TCP (https)
+addresses must have the certificate registered with Java's cacerts file.
+
+=head1 OPTIONS
+
+Options that take one or more values may be passed on the command
+line using the syntax:
+
+=over 4 
+
+=item B<--I<long-option>=I<value> [I<value>]*> or 
+
+=item B<--I<long-option> [I<value>]+>
+
+=back
+
+Some options have a short version, which should have the syntax:
+
+=over 4 
+
+=item B<-I<short-option> [I<value>]+>
+
+=back
+
+Most (but not all) settings may be provided in a plain text file
+(input with B<--from-file>) where each line should be in the form:
+
+I<Option>B<:> I<value>
+
+If multiple values are required, they should be separated by a
+B<TAB> character. For a boolean option, the value should be either
+C<true> or C<false>.  Any lines starting with C<#> will be treated
+as comments.
+
+The option name should be the same as the long
+switch without the leading C<--> and with the first character
+converted to uppercase. For example, the course code can be
+specified on the command line using:
+
+=over 4 
+
+=item B<--course=CMP-123XY> or
+
+=item B<--course CMP-123XY> or
+
+=item B<-c CMP-123XY> or in a file:
+
+=item B<Course: CMP-123XY>
+
+=back
+
+=head2 INITIAL OPTIONS
+
+These options aren't required, but if present will always be
+processed before all other options. They can't be specified in the
+file loaded with B<--from-file>.
+
+=over 4
+
+=item B<--help> or B<-h>
+
+Prints help message and exits.
+
+=item B<--version> or B<-V>
+
+Prints version details and exits.
+
+=item B<--encoding> I<name>
+
+The file encoding used for the file identified by B<--from-file> and
+for the transcript file (identified by B<--transcript>). If not set,
+the default for the Java installation will be used.
+
+=item B<--directory> I<dir> or B<-d> I<dir>
+
+If set, files identified with B<--file> (or B<File:>) 
+are relative to the directory I<dir>.
+
+=item B<--message> I<id> or B<-m> I<id>
+
+Identifies the types of messages that are printed to STDOUT or STDERR. The
+I<id> may be either a numeric value or a keyword:
+
+=over 4
+
+=item C<0>	C<silent>
+
+No messages.
+
+=item C<1>	C<errors>
+
+Errors only (STDERR).
+
+=item C<2>	C<errors and warnings>
+
+Errors and warnings only (STDERR).
+
+=item C<3>	C<errors and warnings and info>
+
+Errors and warnings to STDERR and informational messages to STDOUT.
+
+=item C<4>	C<verbose>
+
+All messages (except debugging).
+
+=item C<5>	C<debug>
+
+Include debugging messages.
+
+=back 
+
+The silent option will print fatal messages to STDERR if no
+transcript file has been specified otherwise it won't print anything
+to STDOUT or STDERR.
+
+If a transcript file has been specified, then all messages will be
+written to it regardless of the message ID. (Except for debugging
+messages, which will only be written for the 5/debug setting.)
+
+=item B<--silent>
+
+Equivalent to B<--message=silent>
+
+=item B<--transcript> I<filename> or B<-l> I<filename>
+
+Write transcript messages to I<filename>.
+
+=item B<--from-file> I<filename> or B<-F> I<filename>
+
+Read settings from I<filename>. Additional settings may be provided
+on the command line as long as they don't conflict with settings in
+I<filename>.
+
+=back
+
+=head2 REQUIRED SETTINGS
+
+=over 4
+
+=item B<--course> I<label> or B<-c> I<label>
+
+Identifies the course. There must be a corresponding C<course>
+element in the F<lib/resources.xml> file with a matching name that
+provides a reference to the course assignment data.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<Course:> I<label>
+
+=item B<--file> I<filename> [I<language>] or B<-f> [I<language>]
+
+Identifies a project file (source code or PDF/DOC). The optional
+second argument is the language name (make, C, C++ etc) where the
+file extension is missing or ambiguous. This setting is cumulative;
+use one instance for each file. At least one file must be specified.
+If B<--directory> I<dir> is used then I<filename> is relative to
+the specified directory I<dir>.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<File:> I<filename>
+
+or (TAB separating I<filename> and I<language>)
+
+B<File:> I<filename>	I<language>
+
+Note that the project files must be either text files or PDF/DOC.
+Binary files will trigger an error if they are identified as source
+code/plain text.
+
+If the given filename clashes with a resource file or output file
+associated with the assignment then B<pass-cli> will terminate with exit
+code 6 (invalid file). This will also occur if the filename is
+C<a.out> or has a forbidden extension (such as C<.exe> or C<.jar>).
+
+=item B<--assignment> I<label> or B<-a> I<label>
+
+Identifies the assignment. There must be a corresponding
+C<assignment> element in the assignment data file with a matching
+name.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<Assignment:> I<label>
+
+=item B<--student> I<id> I<n> or B<-s> I<id> I<n>
+
+Identifies a student with Blackboard ID I<id> and registration
+number I<n>.
+
+If you are using B<--from-file> the equivalent setting is (TAB
+separating I<id> and I<n>):
+
+B<Student:> I<id>	I<n>
+
+Alternatively, you can use B<--user-id> and
+B<--student-number> to specify the ID and registration number
+separately. 
+
+For a group project use multiple instances of this
+setting. However, you can't mix B<--student> with 
+B<--user-id> and B<--student=number>.
+
+=item B<--user-id> I<id>[,I<id>]*
+
+Identifies the student's Blackboard ID. For a group project use a
+comma-separated list of IDs. This option must be used with
+B<--student-number> (with the same length list). This option can't
+be used with B<--student>.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<User-id:> I<id>[,I<n>]*
+
+=item B<--student-number> I<n>[,I<n>]*
+
+Identifies the student's registration number. For a group project use a
+comma-separated list of numbers. This option must be used with
+B<--user-id> (with the same length list). This option can't
+be used with B<--student>.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<Student-number:> I<id>[,I<n>]*
+
+=item B<--pdf-result> I<file> or B<-r> I<file>
+
+Specifies the filename of the output PDF file. 
+
+=item B<--agree> or B<-Y>
+
+This option has no value and indicates that the "I agree that by
+submitting a PDF generated by PASS I am confirming that I have
+checked the PDF and that it correctly represents my submission"
+checkbox should be ticked.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<Agree: true>
+
+This option is required unless the F<lib/resources.xml> file has
+C<E<lt>agree required="false" /E<gt>> set.
+
+=back
+
+=head2 OPTIONAL SETTINGS
+
+=over 4
+
+=item B<--no-agree> or B<-N>
+
+This option has no value and indicates that the "I agree..."
+checkbox should not be ticked. This setting is the default. However,
+by default agreement is required so the user will typically need to
+explicitly use B<--agree> otherwise B<pass-cli> will exit with a fatal
+error.
+
+If you are using B<--from-file> the equivalent setting is:
+
+B<Agree: false>
+
+In order to enable this option, the F<lib/resources.xml> file needs
+C<E<lt>agree required="false" /E<gt>> set.
+
+=item B<--submission-timestamp> I<ISO datetime>
+
+This option is only available for B<pass-cli-server> (a slightly
+modified version of B<pass-cli> designed to run on a server in a
+Docker container). This option should not be made available for any
+version of PASS that can be run directly by students.
+
+The server version uses a queuing system so there may be a delay
+before the project can be processed. The server backend should use
+this option to instruct PASS to show the provided timestamp on the
+title page instead of the current time.
+
+=back
+
+=head1 EXIT CODES
+
+=over 4
+
+=item 0 - successful
+
+=item 1 - syntax error
+
+=item 2 - no course data
+
+=item 3 - I/O error
+
+=item 4 - XML parser error
+
+=item 5 - unsupported setting
+
+=item 6 - invalid file
+
+=item 100 - other error
+
+=back
+
+=head1 AUTHOR
+
+Nicola L. C. Talbot
+L<https://www.dickimaw-books.com/>
+
+=cut
+

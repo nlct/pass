@@ -1,0 +1,16 @@
+PASS-CLI : a command line equivalent to PASS (Prepare Assignment
+Submission System).
+
+Home page: https://www.dickimaw-books.com/software/pass
+
+After installing, you will need to copy over the lib/resources.xml
+file from PASS (GUI) into the pass-cli/lib directory and make any
+appropriate changes.
+
+Syntax: pass-cli <settings>
+
+Use pass-cli --help or pass-cli -h for a summary of available
+options.
+
+Nicola Talbot
+dickimaw-books.com

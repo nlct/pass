@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>English language file for PASS CLI</comment>
+
+<entry key="message.warning">WARNING: {0}</entry>
+<entry key="message.error">ERROR: {0}</entry>
+
+<entry key="syntax.summary">Usage: {0} &lt;setting&gt;+</entry>
+<entry key="syntax.available_settings">Available settings:</entry>
+<entry key="syntax.course_assignment">Course and Assignment Identification</entry>
+<entry key="syntax.course">{0} &lt;code&gt; (or {1} &lt;code&gt;)		The course code (e.g. CMP-123XY).</entry>
+<entry key="syntax.assignment">{0} &lt;label&gt; (or {1} &lt;label&gt;)	The assignment label (as given in the XML file).</entry>
+<entry key="syntax.student_identification">Student Identification</entry>
+<entry key="syntax.user_id">--user-id &lt;id&gt;[,&lt;id&gt;]+ (or -u &lt;id&gt;[,&lt;id&gt;]+)	Username(s).</entry>
+<entry key="syntax.reg_num">{0} &lt;n&gt;[,&lt;n&gt;]+ (or {1} &lt;n&gt;[,&lt;n&gt;]+)	Student number(s).</entry>
+<entry key="syntax.group_project.note">For group projects use comma-separated lists (of the same length and in the same order) for both {0} and {1}. Alternatively use {2} student described below.</entry>
+<entry key="syntax.student">{0} &lt;id&gt; &lt;number&gt;		Student username and number. Multiple instances should be used for group projects.</entry>
+<entry key="syntax.agree">{0} (or {1})			Tick ''I agree'' checkbox.</entry>
+<entry key="syntax.agree.default">{0} (or {1})			Tick ''I agree'' checkbox (default).</entry>
+<entry key="syntax.no_agree">{0} (or {1})		Don''t tick ''I agree'' checkbox.</entry>
+<entry key="syntax.no_agree.default">{0} (or {1})		Don''t tick ''I agree'' checkbox (default).</entry>
+<entry key="syntax.latex_settings">LaTeX Settings</entry>
+<entry key="syntax.pdfpages">{0} &lt;options&gt; (or {1} &lt;options&gt;)	Set the pdfpages options. Default: {2}</entry>
+<entry key="syntax.nopdfpages">{0}				Don''t use pdfpages.</entry>
+<entry key="syntax.file_settings">File Settings</entry>
+<entry key="syntax.encoding">{0} &lt;name&gt;	The encoding for the transcript and {1} files. If not supplied the default for the JVM is used.</entry>
+<entry key="syntax.pdf_result">{0} &lt;filename&gt; ({1} &lt;filename&gt;)	Save the resulting PDF as &lt;filename&gt;.</entry>
+<entry key="syntax.base_path">{0} &lt;path&gt; (or {1} &lt;path&gt;)	Use file names relative to &lt;path&gt; when copying them to the temporary directory created by the PASS Lib backend.</entry>
+<entry key="syntax.file">{0} &lt;path&gt; [&lt;language&gt;] (or {1} &lt;path&gt; [&lt;language&gt;])	An input file and (optionally) its associated language label. This option is cumulative. Use a separate {0} for each file. If {2} &lt;dir&gt; is set, &lt;path&gt; is relative to the given directory.</entry>
+<entry key="syntax.project_encoding">{0} &lt;name&gt; (or {1} &lt;name&gt;)	Set the file encoding for project files.
+Supported encodings for project files (case-insensitive): </entry>
+<entry key="syntax.project_encoding.ascii">ASCII or US-ASCII</entry>
+<entry key="syntax.project_encoding.ascii.default">ASCII or US-ASCII (default)</entry>
+<entry key="syntax.project_encoding.latin1">Latin-1 or Latin1 or ''Latin 1''</entry>
+<entry key="syntax.project_encoding.latin1.default">Latin-1 or Latin1 or ''Latin 1'' (default)</entry>
+<entry key="syntax.project_encoding.utf8">UTF-8 or UTF8</entry>
+<entry key="syntax.project_encoding.utf8.default">UTF-8 or UTF8 (default)</entry>
+<entry key="syntax.project_encoding.note">LuaLaTeX will be used for UTF-8 otherwise PDFLaTeX will be used.</entry>
+
+<entry key="syntax.general">General</entry>
+<entry key="syntax.submission_timestamp">{0} &lt;time&gt;	Set the submission timestamp. The &lt;time&gt; should be in ISO date and time.</entry>
+<entry key="syntax.from_file">{0} &lt;file&gt; (or {1} &lt;file&gt;)	Read settings from &lt;file&gt;.</entry>
+<entry key="syntax.directory">{0} &lt;dir&gt; (or {1} &lt;dir&gt;)		Files identified by {2} are relative to &lt;dir&gt;.</entry>
+<entry key="syntax.message">{0} &lt;id&gt; (or {1} &lt;id&gt;)	Type of messages to print to STDERR and STDOUT. The value &lt;id&gt; may either be an integer or label:</entry>
+<entry key="syntax.silent">{0} (or {1})	Equivalent to {2} {3} (no messages).</entry>
+<entry key="syntax.debug">{0}			Equivalent to {1} {2}</entry>
+<entry key="syntax.transcript">{0} &lt;file&gt; (or {1} &lt;file&gt;)	Write messages to &lt;file&gt;. Note that messages will be written to the transcript file even if the silent setting is on. If an error on startup occurs before the transcript file has been opened the error will be written to STDERR. Use {2} before {0} if that encoding is required for the transcript file as well.</entry>
+<entry key="syntax.timeout">{0} &lt;seconds&gt;	Timeout for long-running processes. Default: {1}</entry>
+<entry key="syntax.help">{0} (or {1})		Print this help message and exit.</entry>
+<entry key="syntax.version">{0} (or {1})	Print version information and exit.</entry>
+
+<entry key="error.submission_date_not_supported">Submission date setting not supported for {0}.</entry>
+<entry key="error.invalid_datestamp">Invalid date-time stamp {0}. Required format: {1}.</entry>
+<entry key="error.unknown_file_language">Unknown language for file ''{0}''.</entry>
+<entry key="error.cant_find_assignment">Can''t find assignment ''{0}''.</entry>
+<entry key="error.unknown_encoding">Unknown encoding name ''{0}''.</entry>
+<entry key="error.invalid_timeout">Invalid timeout value: {0}.</entry>
+<entry key="error.unknown_message_level">Unknown message level {0}.</entry>
+<entry key="error.missing_value_or_unknown">Missing value for ''{0}'' or unknown option.</entry>
+<entry key="error.option_clash">Option clash - can''t use {0} with {1} &amp; {2}.</entry>
+<entry key="error.missing_second_val">Missing second value for {0} &lt;id&gt; &lt;number&gt;.</entry>
+<entry key="error.unknown_option">Unknown option ''{0}''.</entry>
+<entry key="error.missing_regnums">Missing student number(s)</entry>
+<entry key="error.missing_usernames">Missing Username(s)</entry>
+
+<entry key="error.parse.no_key_val">{0}:{1,number,integer}: expected ''&lt;Key&gt;: &lt;Value&gt;'' found ''{2}''.</entry>
+<entry key="error.parse.option_clash">{0}:{1,number,integer}: option clash - can''t use {2} with {3} &amp; {4}.</entry>
+<entry key="error.parse.missing_second_val">{0}:{1,number,integer}: missing second value for {2}.</entry>
+<entry key="error.parse.invalid_bool">{0}:{1,number,integer}: invalid ''{2}'' value ''{3}'' (''true'' or ''false'' expected).</entry>
+<entry key="error.parse.unknown_key">{0}:{1,number,integer}: unknown identifier ''{2}''.</entry>
+<entry key="error.no_such_dir">No such directory ''{0}''.</entry>
+<entry key="error.not_a_dir">Not a directory ''{0}''.</entry>
+<entry key="error.cant_find_file">Can''t find file ''{0}''. Tried:
+{1}</entry>
+
+</properties>

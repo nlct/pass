@@ -1,0 +1,4 @@
+#!/bin/sh
+
+bindir="$(dirname "$(readlink -f "$0")")"
+java -jar "$bindir/../lib/pass-cli.jar" "$@"

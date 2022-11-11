@@ -34,10 +34,13 @@ classes/com/dickimawbooks/passgui	:
 	mkdir -p classes/com/dickimawbooks/passgui
 
 
-pass-installer.jar	: lib/progassignsys.jar installer/*.xml README POST-INSTALL.md lib/manual.html
+../dist/pass-installer.jar	: ../dist lib/progassignsys.jar installer/*.xml README POST-INSTALL.md lib/manual.html
 	$(IZPACKDIR)/bin/compile installer/install.xml -b . \
 	-h $(IZPACKDIR) \
-	-o pass-installer.jar  -k standard
+	-o ../dist/pass-installer.jar  -k standard
+
+../dist	:
+	mkdir -p ../dist
 
 clean	:
 	\rm -f classes
