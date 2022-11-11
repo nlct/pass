@@ -68,15 +68,11 @@
             <file src="lib/resources.xml" targetdir="$INSTALL_PATH/lib" override="askfalse"/>
             <file src="lib/manual.html" targetdir="$INSTALL_PATH/lib"/>
             <fileset dir="lib" includes="**/*.jar"
-              targetdir="$INSTALL_PATH/lib"/>
+              targetdir="$INSTALL_PATH/lib" followSymLinks="true" />
             <fileset dir="lib/dictionary" includes="**/*.xml"
-              targetdir="$INSTALL_PATH/lib/dictionary"/>
+              targetdir="$INSTALL_PATH/lib/dictionary" followSymLinks="true" />
             <fileset dir="bin" excludes="**/*.bat"
               targetdir="$INSTALL_PATH/bin"/>
-            <fileset dir="bin" includes="**/*.bat"
-              targetdir="$INSTALL_PATH/bin">
-                <os family="windows"/>
-            </fileset>
             <file src="lib/icons" targetdir="$INSTALL_PATH/lib"/>
             <executable targetfile="$INSTALL_PATH/bin/progassignsys"
             stage="never"/>
