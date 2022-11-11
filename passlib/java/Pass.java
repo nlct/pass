@@ -223,8 +223,8 @@ public interface Pass
    /**
     * Version information for passlib.jar.
     */ 
-   public static final String PASSLIB_VERSION = "1.28";
-   public static final String PASSLIB_VERSION_DATE = "2022-11-06";
+   public static final String PASSLIB_VERSION = "1.27";
+   public static final String PASSLIB_VERSION_DATE = "2022-11-11";
 
    /**
     * This library only supports three encodings: UTF-8, ASCII and
