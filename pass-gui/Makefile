@@ -23,8 +23,8 @@ classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class	: classes/com/di
 	java/ResourceFilePanel.java \
 	java/StartupDirType.java \
 	java/TranscriptFrame.java
-	make -C ../passlib lib/passlib.jar
-	make -C ../passguilib lib/passguilib.jar
+	make -C ../pass-lib lib/passlib.jar
+	make -C ../pass-gui-lib lib/passguilib.jar
 	cd java; javac -d ../classes \
 	  -Xlint:unchecked -Xlint:deprecation \
 	  -cp ../lib/jlfgr-1_0.jar:../lib/passlib.jar:../lib/passguilib.jar \

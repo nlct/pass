@@ -2,18 +2,15 @@ all	: lib/pass-cli.jar
 
 dist	: ../dist/pass-cli.zip
 
-../dist/pass-cli.zip	: ../dist/pass-cli lib/pass-cli.jar ../dist/pass-cli doc/pass-cli.1 doc/README
+../dist/pass-cli.zip	: ../dist lib/pass-cli.jar doc/pass-cli.1 doc/README
 	make -C doc
-	cd ../dist ; zip pass-cli.zip pass-cli/bin/pass-cli pass-cli/lib/*.jar pass-cli/doc/*.{1,pdf} pass-cli/doc/README
-
-../dist/pass-cli	: ../dist
-	cd ../dist; ln -s ../passcli pass-cli
+	cd .. ; zip dist/pass-cli.zip pass-cli/bin/pass-cli pass-cli/lib/*.jar pass-cli/doc/*.{1,pdf} pass-cli/doc/README
 
 ../dist	:
 	mkdir -p ../dist
 
 lib/pass-cli.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dickimawbooks/passcli/PassCliMain.class
-	make -C ../passlib lib/passlib.jar
+	make -C ../pass-lib lib/passlib.jar
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli.jar \
 	com/dickimawbooks/passcli/PassCliMain.class

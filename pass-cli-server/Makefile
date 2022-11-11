@@ -14,7 +14,8 @@ lib/pass-cli-server.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dic
 	com/dickimawbooks/passcli/server/PassCliServer.class
 
 classes/com/dickimawbooks/passcli/server/PassCliServer.class	: classes/com/dickimawbooks/passcli/server java/PassCliServer.java
-	make -C ../passlib lib/passlib.jar
+	make -C ../pass-lib lib/passlib.jar
+	make -C ../pass-cli-lib lib/pass-cli-lib.jar
 	cd java; \
 	javac -cp ../lib/passlib.jar:../lib/pass-cli-lib.jar \
 	-d ../classes -Xlint:unchecked -Xlint:deprecation *.java
