@@ -3,7 +3,7 @@ IZPACKDIR=/usr/local/IzPack
 test	: lib/progassignsys.jar
 	bin/progassignsys --debug
 
-lib/progassignsys.jar	: src/passgui/Manifest.txt  \
+lib/progassignsys.jar	: java/Manifest.txt  \
 		classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class 
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/progassignsys.jar \
@@ -23,7 +23,7 @@ classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class	: classes/com/di
 	java/ResourceFilePanel.java \
 	java/StartupDirType.java \
 	java/TranscriptFrame.java
-	cd src/passgui; javac -d ../classes \
+	cd java; javac -d ../classes \
 	  -Xlint:unchecked -Xlint:deprecation \
 	  -cp ../lib/jlfgr-1_0.jar:../lib/passlib.jar:../lib/passguilib.jar \
 	  *.java
