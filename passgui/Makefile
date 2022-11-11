@@ -23,6 +23,8 @@ classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class	: classes/com/di
 	java/ResourceFilePanel.java \
 	java/StartupDirType.java \
 	java/TranscriptFrame.java
+	make -C ../passlib lib/passlib.jar
+	make -C ../passguilib lib/passguilib.jar
 	cd java; javac -d ../classes \
 	  -Xlint:unchecked -Xlint:deprecation \
 	  -cp ../lib/jlfgr-1_0.jar:../lib/passlib.jar:../lib/passguilib.jar \
@@ -34,7 +36,8 @@ classes/com/dickimawbooks/passgui	:
 
 pass-installer.jar	: lib/progassignsys.jar installer/*.xml README POST-INSTALL.md lib/manual.html
 	$(IZPACKDIR)/bin/compile installer/install.xml -b . \
-	-o dist/pass-installer.jar  -k standard
+	-h $(IZPACKDIR) \
+	-o pass-installer.jar  -k standard
 
 clean	:
 	\rm -f classes
