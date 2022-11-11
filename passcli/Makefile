@@ -44,9 +44,6 @@ classes/com/dickimawbooks/passcli/lib	:
 classes/com/dickimawbooks/passcli	:
 	mkdir -p classes/com/dickimawbooks/passcli
 
-../dist/pass-cli	:
-			cd ../dist ; ln -s ../src pass-cli
-
 doc/pass-cli.1	: doc/pass-cli.pod
 		make -C doc
 
