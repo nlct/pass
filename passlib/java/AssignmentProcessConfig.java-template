@@ -1,0 +1,473 @@
+// TEMPLATE INSTRUCTIONS:
+// Copy this file to AssignmentProcessConfig.java 
+// and replace "xxxxxxxxxxxxxxxx" with the encryption key.
+
+/*
+   Copyright 2022 Nicola L. C. Talbot
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+package com.dickimawbooks.passlib;
+
+import java.util.Random;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+
+import java.io.IOException;
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Key;
+import java.security.InvalidKeyException;
+   
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+
+import java.util.Base64;
+
+/**
+ * Configuration settings. These include encryption keys, regular
+ * expressions for student user name and registration number, and
+ * date-time localisation settings. The regular expressions are
+ * designed to help new students who are a bit confused as to the
+ * difference between their user name, registration number and real
+ * name.
+ *
+ * The encryption isn't intended to be ultra secure. If a student is
+ * capable of breaking encryption methods then they're capable of
+ * doing the assignments, and if they're prepared to pay someone
+ * then they'll pay someone to do the assignment rather than pay to make
+ * non-compilable or late code pass off as working code that was
+ * successfully processed before the deadline.
+ *
+ * The encryption is used to store information in custom PDF fields
+ * that duplicates unencrypted information in the PDF, such as the
+ * user name, the timestamp the PDF was created, and the checksum of
+ * the attached archive. The PassChecker application can be used to
+ * compare the encrypted information with the unencrypted
+ * information. This is mainly designed to help students who
+ * had Internet connection issues around the handing-in deadline. If the
+ * timestamp in the PDF confirms that the PDF was successfully
+ * created before the deadline then they can be given the benefit of
+ * the doubt. Since it's easy to alter the unencrypted content,
+ * the encrypted content can be used to confirm the timestamp.
+ *
+ * <strong>It's therefore important to instruct students not to
+ * attempt re-processing their assignment after the deadline if 
+ * they were prevented from submitting on time by circumstances
+ * outside of their control.</strong> Students should keep a copy of
+ * the final PDF to be created before the submission time.
+ *
+ * The other problem the encryption tries to address is if a
+ * student tries to modify the PDF content to make it appear as if
+ * their application compiled and ran correctly. This can be done by
+ * finding the temporary directory while PASS is still running, and
+ * opening the .tex file after it has been created. This file can
+ * then be edited but the encrypted information can't be changed
+ * without knowing the encryption key. The time taken to edit the
+ * file and rerun LaTeX will cause the PDF time to be
+ * different from the encrypted timestamp.
+ *
+ * Each PASS instance creates a new temporary directory and deletes it on exit.
+ * It's not possible to re-process the assignment files in the same
+ * instance. This means that if an error occurs the student must
+ * exit PASS to fix it and start up a new instance to reprocess the
+ * corrected files. This helps to prevent tampering of the local
+ * copies of files stored in the temporary directory.
+ *
+ * The PassChecker application has settings to determine how much variation between
+ * the timestamps is acceptable. The various timestamps are:
+ *
+ * <ul>
+ * <li>The PDF creation date in <code>\pdfinfo</code> uses a timestamp 
+ * established when AssignmentData.createPdf() is called. This is
+ * stored in the PDF dictionary as <code>/CreationDate</code>.
+ *
+ * <li>The date supplied in <code>\date</code> will be the same as the PDF
+ * creation date (but with a different format) unless ServerPass is
+ * used, in which case it will be the submission timestamp. The
+ * submission timestamp is when the assignment was 
+ * uploaded on the ServerPass site. The queuing system means 
+ * that it will be earlier than the start of the assignment 
+ * processing. ServerPass also logs the submission, which makes 
+ * it harder to fake the timestamp.
+ *
+ * <li>The PDF modified date is the time LaTeX (PDFLaTeX or LuaLaTeX) is called.
+ * This will never be exactly the same as the creation date as there
+ * will be a time delay caused by the time taken to fetch resource
+ * files, compile the code, run the code, and finally to run LaTeX.
+ * So if the .tex file is modified after PASS has created it and
+ * LaTeX is rerun, the modification date will be some time later than
+ * the creation date. The allowed time variation supplied to PassChecker
+ * needs to take into account the complexity of the assignment
+ * build.
+ * </ul>
+ *
+ * Although a student could work out how to alter the PDF
+ * modification date so that it doesn't get flagged by PassChecker,
+ * if their assignment code doesn't actually compile or produce the
+ * claimed output, it will likely be detected by the marker anyway,
+ * and the original source code is attached to the PDF, which means
+ * the marker can extract it and test it. The encrypted checksum can
+ * be used to verify the checksum of the attachment. Again, it is
+ * possible for a student to overcome this by using the birthday
+ * problem to create a malicious zip file with the same checksum and
+ * swap it for the zip file created by PASS, but since the PDF is
+ * uploaded via the student's university account it can be traced to
+ * them. The encrypted username can be used to confirm that the
+ * student's user name matches the declare user name in the author
+ * details.
+ */
+public class AssignmentProcessConfig
+{
+   /**
+    * Encrypt using the given key.
+    * @param data the data to encrypt
+    * @param keyValue the encryption key
+    * @return encrypted data
+    */ 
+   public byte[] encrypt(byte[] data, byte[] keyValue)
+     throws NoSuchAlgorithmException,
+            InvalidKeyException,
+            IllegalBlockSizeException,
+            NoSuchPaddingException,
+            BadPaddingException
+   { 
+      Key key = new SecretKeySpec(keyValue, ALGORITHM);
+      Cipher cipher = Cipher.getInstance(ALGORITHM);
+      cipher.init(Cipher.ENCRYPT_MODE, key);
+      byte[] encValue = cipher.doFinal(data);
+   
+      return encValue;
+   }
+
+   /**
+    * Encrypt using PassLib v1.16 key.
+    * @param data the data to encrypt
+    * @return encrypted data
+    */ 
+   public byte[] encrypt_1_16(byte[] data)
+     throws NoSuchAlgorithmException,
+            InvalidKeyException,
+            IllegalBlockSizeException,
+            NoSuchPaddingException,
+            BadPaddingException
+   { 
+      return encrypt(data, KEY_1_16);
+   }
+
+   /**
+    * Decrypt using the given key. Version 1.15 and lower just had
+    * one key (now called KEY_1_15), so if keyValue is null assume
+    * that key.
+    * @param data the data to decrypt
+    * @param keyValue the encryption key
+    * @return decrypted data
+    */ 
+   public byte[] decrypt(byte[] data, byte[] keyValue)
+     throws NoSuchAlgorithmException,
+            InvalidKeyException,
+            IllegalBlockSizeException,
+            NoSuchPaddingException,
+            BadPaddingException
+   {
+      if (keyValue == null)
+      {
+         keyValue = KEY_1_15;
+      }
+
+      Key key = new SecretKeySpec(keyValue, ALGORITHM);
+      Cipher cipher = Cipher.getInstance(ALGORITHM);
+      cipher.init(Cipher.DECRYPT_MODE, key);
+      byte[] decryptedValue = cipher.doFinal(data);
+
+      return decryptedValue;
+   }
+
+   /**
+    * Decrypt using the v1.16 key.
+    * @param data the data to decrypt
+    * @param keyValue the encryption key
+    * @return decrypted data
+    */ 
+   public byte[] decrypt_1_16(byte[] data)
+     throws NoSuchAlgorithmException,
+            InvalidKeyException,
+            IllegalBlockSizeException,
+            NoSuchPaddingException,
+            BadPaddingException
+   {
+      return decrypt(data, KEY_1_16);
+   }
+
+   /**
+    * Decrypt using the v1.16 key.
+    * @param stringData the data to decrypt
+    * @param keyValue the encryption key
+    * @return decrypted data
+    */ 
+   public byte[] decrypt_1_16(String stringData)
+     throws NoSuchAlgorithmException,
+            InvalidKeyException,
+            IllegalBlockSizeException,
+            NoSuchPaddingException,
+            BadPaddingException
+   {
+      return decrypt(toData(stringData), KEY_1_16);
+   }
+
+   /**
+    * Converts a string to an array of bytes in preparation for decryption.
+    * The encrypted content has to be written to the .tex as an ASCII string.
+    * That string will need to be converted to the binary data
+    * required by the decrypt method.
+    * @param stringData the string data
+    * @return the binary data
+    */ 
+   public byte[] toData(String stringData)
+   {
+      if (stringData.isEmpty())
+      {
+         throw new IllegalArgumentException("Invalid hash (empty)");
+      }
+
+      if (stringData.length()%2 != 0)
+      {
+         throw new IllegalArgumentException(String.format(
+            "Invalid hash (length %d not even)", stringData.length()));
+      }
+
+      byte[] data = new byte[stringData.length()/2];
+      int j = 0;
+
+      for (int i = 0; i < stringData.length(); i += 2)
+      {
+         data[j] = (byte)0;
+         data[j] |= mapHexDigit(stringData.charAt(i)) << 4;
+         data[j] |= mapHexDigit(stringData.charAt(i+1));
+         j++;
+      }
+
+      return data;
+   }
+
+   /**
+    * Converts a character representing a hexadecimal digit to a
+    * byte. Upper case A-F digits expected.
+    * @param hexDigit the character
+    * @return the byte value
+    */
+   public byte mapHexDigit(char hexDigit)
+     throws IllegalArgumentException
+   {
+      switch (hexDigit)
+      {  
+         case '0' : return (byte)0x0;
+         case '1' : return (byte)0x1;
+         case '2' : return (byte)0x2;
+         case '3' : return (byte)0x3;
+         case '4' : return (byte)0x4;
+         case '5' : return (byte)0x5;
+         case '6' : return (byte)0x6;
+         case '7' : return (byte)0x7;
+         case '8' : return (byte)0x8;
+         case '9' : return (byte)0x9;
+         case 'A' : return (byte)0xA;
+         case 'B' : return (byte)0xB;
+         case 'C' : return (byte)0xC;
+         case 'D' : return (byte)0xD;
+         case 'E' : return (byte)0xE;
+         case 'F' : return (byte)0xF;
+      }
+      
+      throw new IllegalArgumentException("Invalid hexadecimal digit: "
+        +hexDigit); 
+   }
+
+   /**
+    * Creates a randomly generated alphanumeric key.
+    * @return the randomly generated key
+    */ 
+   public byte[] createRandomKey()
+   {           
+      StringBuilder builder = new StringBuilder(KEY_LENGTH);
+
+      for (int i = 0; i < KEY_LENGTH; i++)
+      {
+         builder.append(getKeyChar(random.nextInt(36)));
+      }     
+   
+      return builder.toString().getBytes();
+   }
+
+   /**
+    * Gets the character associated with the given integer for the
+    * randomly generated alphanumeric ASCII key. Maps 0-9 to the digit characters
+    * '0'-'9' and other values to 'a'-'z'.
+    * @param i the integer value, which must be &gt;=0 and &lt;36
+    * @return the character
+    */ 
+   public char getKeyChar(int i)
+   {        
+      if (i >= 0 || i <= 9)
+      {     
+         return (char)(0x30+i);
+      }     
+      else if (i < 36)
+      {
+         return (char)(0x61+(i-10));
+      }
+      else
+      {
+         throw new ArrayIndexOutOfBoundsException(i);
+      }
+   } 
+
+   /**
+    * Calculates the SHA-256 checksum of the given file.
+    * @param file the file
+    * @return the checksum of the file
+    */ 
+   public String getCheckSum(File file)
+     throws IOException, NoSuchAlgorithmException
+   {        
+      byte[] b = Files.readAllBytes(file.toPath());
+      MessageDigest md = MessageDigest.getInstance("SHA-256");
+      byte[] hash = md.digest(b);
+      return Base64.getEncoder().encodeToString(hash);
+   }
+
+
+   /**
+    * Formats the date that will be written in the <code>\date</code> command
+    * in the LaTeX source code.
+    */ 
+   public String formatDocDate(Date date)
+   {
+      return DOC_DATE_FORMAT.format(date);
+   }
+
+   /**
+    * Gets the LaTeX code for the student's name. As used in
+    * <code>\author</code> and in the page header.
+    * @param student the student details
+    * @return the LaTeX code
+    */ 
+   public String getAuthor(Student student)
+   {
+      return String.format(
+          "\\texttt{\\detokenize{%s}} (\\texttt{\\detokenize{%s}})",
+          student.getRegNumber(),
+          student.getBlackboardId());
+   }
+
+   /**
+    * Writes any additional LaTeX code to the preamble.
+    * @param out the output stream
+    * @throws IOException if I/O error occurs
+    */ 
+   public void writeExtraPreambleCode(PrintWriter out)
+   throws IOException
+   {
+   }
+
+   /**
+    * Length of the encryption/decryption key.
+    */ 
+   private static final int KEY_LENGTH=16;
+
+   /**
+    * Key used as from v1.16 to store the randomly generated key.
+    * This should be an ASCII alphanumeric value with the length given by KEY_LENGTH.
+    */ 
+   private static final byte[] KEY_1_16 = "xxxxxxxxxxxxxxxx".getBytes();
+
+   /**
+    * Key used in v1.15 and lower. This should be an ASCII
+    * alphanumeric value with the length given by KEY_LENGTH.
+    * No longer required unless there's a chance that Pass v1.15 or
+    * lower is still in use.
+    */ 
+   private static final byte[] KEY_1_15 = "xxxxxxxxxxxxxxxx".getBytes();
+
+   /**
+    * Encryption algorithm.
+    */ 
+   private static final String ALGORITHM = "AES";
+
+   /**
+    * Random number generator.
+    */ 
+   private Random random = new Random();
+
+   /**
+    * User name label.
+    */ 
+   public static final String USER_NAME_LABEL = "message.blackboard_id";
+
+   /**
+    * Registration number label.
+    */ 
+   public static final String REG_NUM_LABEL = "message.reg_num";
+
+   /**
+    * User name regular expression. Used to verify that the user
+    * name supplied by the student matches the University's user
+    * name format. This helps to prevent them from using their
+    * email address, registration number or real name by mistake.
+    */ 
+   public static final String USER_NAME_REGEX = "([a-z]+|[a-z]{3}[0-9]{2}[a-z]{3})";
+
+   /**
+    * Registration number regular expression. Used to verify that the 
+    * registration number supplied by the student matches the University's 
+    * registration number format. This helps to prevent them from using their
+    * email address, user name or real name by mistake. (Or from
+    * just writing '0' or 'X' or '-' when they don't
+    * know what it is and can't be bothered to find out.)
+    */ 
+   public static final String REG_NUM_REGEX = "[A-Z]?[0-9]{7,9}";
+
+   /** The LaTeX document date format.
+   * Used by formatDocDate(Date) when writing the
+   * document date in the LaTeX source code within the argument of
+   * <code>\date</code>, which is shown below the 
+   * title and author on the first page.
+   */
+   public static final SimpleDateFormat DOC_DATE_FORMAT
+     = new SimpleDateFormat("EEE, d MMM yyyy HH:mm");
+
+   /**
+   * The timestamp format used in the XML assignment files for the
+   * due date.
+   * Used by AssignmentData.setDueDate(String)
+   */
+   public static final DateTimeFormatter DATE_TIME_PARSER
+     =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.UK);
+
+   /**
+   * The timestamp format for the due date shown in the GUI interface.
+   * Used by AssignmentData.formatDueDate()
+   */
+   public static final DateTimeFormatter DATE_TIME_FORMATTER
+     =  DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm", Locale.UK);
+}

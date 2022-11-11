@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+  TEMPLATE INSTRUCTIONS:
+  Copy this file to resources.xml and replace www.example.com/pass 
+  to the appropriate URL.
+-->
+<resources>
+
+<!--
+ Remote resource file. Change the URL as applicable.
+ The remote resources.xml file should define each course.
+-->
+
+<courses href="http://www.example.com/pass/resources.xml" />
+
+<!--
+ Setting the timeout value in the resource file will 
+ prevent it from being changed in the PASS GUI settings dialog.
+
+ <processes timeout="360" />
+
+ -->
+
+<!-- 
+ Application paths. If an application isn't on the system path
+ or has a different name to the default name, 
+  use the application element to set the path. For example:
+
+ <application
+   name="javac"
+   uri="file:///usr/java/latest/bin/javac"
+ />
+
+-->
+
+<!--
+  If the "Open PDF" button doesn't work for GUI versions, set the following
+  to the path of the PDF viewer.
+
+ <application
+   name="pdfviewer"
+   uri="file:///usr/bin/okular"
+ />
+-->
+
+<!--
+  If the "Open LOG" button doesn't work for GUI versions, set the following
+  to the path of a text editor.
+
+ <application
+   name="editor"
+   uri="file:///usr/bin/gedit"
+ />
+-->
+
+</resources>
