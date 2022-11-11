@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<assignments>
+
+<!-- 
+  Example file for hypothetical course CMP-101
+-->
+
+<!--
+  Each assignment must have a unique name that identifies it.
+  This identifier is used as part of a filename, so ensure 
+  that it doesn't contain awkward characters.
+-->
+ <assignment name="helloworldjava" >
+<!--
+ The assignment title is required.
+-->
+  <title>Hello World Java</title>
+<!--
+ The due date is required. This helps PASS GUI to set the 
+ default selected assignment to the one closest to (but 
+ not passed) its due date. The information is also written
+ in the PDF metadata.
+-->
+  <due>2017-02-30 16:30</due>
+<!--
+  Compiler arguments can also be specified but this is optional.
+  Each argument must be in a separate compiler-arg element.
+-->
+  <compiler-arg>-verbose</compiler-arg>
+<!--
+  If you want PASS to compile and run the application then
+  you need to identify the main source code file. This is 
+  the file containing the "main" method for Java, C and C++
+  assignments or the runnable file for scripting languages.
+-->
+  <mainfile>HelloWorld.java</mainfile>
+ </assignment>
+
+ <assignment name="testreadfileinfo">
+  <title>Test Read File Info Java</title>
+  <due>2021-02-01 16:30</due>
+  <mainfile>TestReadFileInfo.java</mainfile>
+<!--
+  This assignment requires these files. The student's will 
+  have their own local copy for testing their application,
+  but PASS will fetch fresh copies. These may be the same
+  as the files the students are given or may be slightly
+  different to determine if the student has hard-coded a solution
+  specific to the test files.
+-->
+  <resourcefile src="http://www.example.com/pass/dummy.txt"/>
+  <resourcefile src="http://www.example.com/pass/dummy.png" type="image/png"/>
+ </assignment>
+
+ <assignment name="shop">
+  <title>Shop</title>
+  <due>2023-03-30 16:30</due>
+<!--
+  This assignment requires the student to create four 
+  files with specific names. They will be listed in 
+  the PDF in the same order that they are listed here.
+  The students may have additional source code files which they can also select.
+  The extra files will be listed after the required files.
+-->
+  <file>Product.java</file>
+  <file>Shop.java</file>
+  <mainfile>Main.java</mainfile>
+  <file>UnknownProductException.java</file>
+<!--
+  This assignment requires the following CSV file:
+-->
+  <resourcefile src="http://example.com/pass/products.csv" />
+<!--
+  The student's application must create the following file.
+  Text files will be included verbatim in the PDF. Image files
+  can optionally be included with \includegraphics but the file
+  will also be attached to the PDF.
+-->
+  <resultfile type="text/plain" name="receipt.txt" />
+ </assignment>
+
+<!--
+ The following assignment is for a GUI application, which PASS
+ isn't able to test. It can compile it but if the application is run, 
+ PASS won't be able to capture the output and it will interfere with 
+ the creation of the PDF, so this will compile but not run the application.
+ Since no files are specified, the language must be identified.
+-->
+ <assignment name="imageconvert" language="Java" run="false">
+  <title>Graphical Image Converter</title>
+  <due>2023-04-20 16:30</due>
+<!--
+ This assignment requires an accompanying report that needs to be in a 
+ file called "projectreport.pdf" or "projectreport.doc" or "projectreport.docx".
+ The report will be attached to the PDF.
+-->
+  <report>projectreport</report>
+<!--
+  PASS usually rejects binary files, but in this case PNG and JPEG images are allowed
+  to be included:
+-->
+  <allowedbinary ext="png" type="image/png" listing="true" />
+  <allowedbinary ext="jpeg,jpg" type="image/jpeg" listing="true" />
+ </assignment>
+
+</assignments>

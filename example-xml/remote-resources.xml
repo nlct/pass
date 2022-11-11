@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<resources>
+
+<!-- 
+   Example file defining some courses. Change URLs as applicable.
+   Each course has its own XML file where the assignments are defined.
+   Redirects aren't permitted (including redirects from http to https)
+   so make sure that the URL is the exact location.
+-->
+
+ <resource name="CMP-101" 
+  href="http://www.example.com/pass/CMP-101.xml">
+  Introduction to Java
+ </resource>
+
+ <resource name="CMP-102" 
+  href="http://www.example.com/pass/CMP-102.xml">
+  Introduction to C and C++
+ </resource>
+
+<!--
+ The following course will only be available if PASS is run in debug mode.
+ -->
+ <resource name="XYZ-100" debug="true"
+  href="http://www.example.com/pass/dummy-assignments.xml">
+  Dummy Course for Testing
+ </resource>
+
+</resources>
