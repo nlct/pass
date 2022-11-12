@@ -8,10 +8,13 @@
 ../dist	:
 	mkdir -p ../dist
 
-lib/pass-cli-server.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dickimawbooks/passcli/server/PassCliServer.class
+lib/pass-cli-server.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt classes/com/dickimawbooks/passcli/server/PassCliServer.class
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli-server.jar \
 	com/dickimawbooks/passcli/server/PassCliServer.class
+
+lib/resources.xml	:
+	cd lib; ln -s ../../pass-cli/lib/resources.xml
 
 classes/com/dickimawbooks/passcli/server/PassCliServer.class	: classes/com/dickimawbooks/passcli/server java/PassCliServer.java
 	make -C ../pass-lib lib/passlib.jar
