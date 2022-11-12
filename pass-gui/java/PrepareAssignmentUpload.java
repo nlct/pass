@@ -1625,6 +1625,12 @@ public class PrepareAssignmentUpload extends JFrame
    }
 
    @Override
+   public PassGuiTools getPassGuiTools()
+   {
+      return passGuiTools;
+   }
+
+   @Override
    public String getMessage(String label, Object... params)
    {
       return passTools.getMessage(label, params);

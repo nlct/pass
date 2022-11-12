@@ -95,4 +95,10 @@ public interface PassGui extends Pass,PropertyChangeListener
     * @return the tooltip text or null if no tooltip associated with label
     */
    public String getToolTipMessage(String label, Object... params);
+
+   /**
+    * Gets the PassGuiTools.
+    * @return the PassGuiTools
+    */ 
+   public PassGuiTools getPassGuiTools();
 }
