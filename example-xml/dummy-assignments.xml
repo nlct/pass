@@ -48,8 +48,10 @@
  <assignment name="helloworldjava">
   <title>Hello World Java</title>
   <due>2017-02-30 16:30</due>
-<!-- This assignment requires the following compiler option -->
+<!-- This assignment requires the following javac option -->
   <compiler-arg>-verbose</compiler-arg>
+<!-- This assignment requires the following java option -->
+  <invoker-arg>-Dline.separator=&#x0D;&#x0A;</invoker-arg>
   <mainfile>HelloWorld.java</mainfile>
  </assignment>
 

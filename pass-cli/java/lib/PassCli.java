@@ -104,7 +104,8 @@ public class PassCli implements Pass
       if (!file.exists())
       {
          throw new FileNotFoundException(passTools.getMessageWithDefault(
-          "error.cant_find_file", "Can''t find file ''{0}''. Tried:\n{1}", tried));
+          "error.cant_find_file", "Can''t find file ''{0}''. Tried:\n{1}",
+          file, tried));
       }
 
       return file;

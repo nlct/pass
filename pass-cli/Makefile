@@ -1,6 +1,10 @@
 all	: lib/pass-cli.jar
 
-dist	: ../dist/pass-cli.zip
+test-hello	: lib/pass-cli.jar
+		bin/pass-cli --debug -F examples/HelloWorldJava.txt
+
+test-subdirs	: lib/pass-cli.jar
+		bin/pass-cli --debug -F examples/subdirs.txt
 
 ../dist/pass-cli.zip	: ../dist lib/pass-cli.jar doc/pass-cli.1 doc/README
 	make -C doc

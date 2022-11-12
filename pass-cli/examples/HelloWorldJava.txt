@@ -1,6 +1,6 @@
 Student: abc01xyz	123456789
 Course: CMP-123XY
 Assignment: helloworldjava
-File: /home/abc01xyz/Assignments/HelloWorldJava/HelloWorld.java
+File: ../tests/HelloWorldJava/HelloWorld.java
 Agree: true
-Pdf-result: helloworldjava-abc01xyz.pdf
+Pdf-result: ../tests/results/helloworldjava-abc01xyz.pdf
