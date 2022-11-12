@@ -60,7 +60,7 @@ public interface PassGui extends Pass,PropertyChangeListener
    /**
     * Creates an action button.
     */ 
-   public JButton createButton(Icon icon, String action,
+   public JButton createJButton(Icon icon, String action,
      ActionListener listener, JComponent component, KeyStroke keyStroke,
      boolean isDefault, String toolTip, boolean isCompact);
 

@@ -52,7 +52,7 @@ public class ProgressPanel extends JPanel implements ActionListener
       JPanel panel = new JPanel();
       add(panel, "West");
 
-      panel.add(gui.createButton(
+      panel.add(gui.createJButton(
        gui.getToolIcon("general/Stop", gui.getMessage("process.abort"), true),
        "abort", this, this, null, false, gui.getToolTipMessage("process.abort"), true));
 

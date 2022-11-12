@@ -20,6 +20,13 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 import java.awt.Desktop;
+import java.awt.event.ActionListener;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JButton;
+import javax.swing.KeyStroke;
+import javax.swing.Icon;
+import javax.swing.JTextArea;
 
 /**
  * Set of methods useful for a GUI.
@@ -119,6 +126,169 @@ public class PassGuiTools
          }
       }
 
+   }
+
+   /**
+    * Creates a new menu item using localisation. 
+    * @param parent label prefix
+    * @param action label suffix and action command
+    */
+   public JMenuItem createJMenuItem(String parent, String action,
+     ActionListener listener, KeyStroke keyStroke)
+   {  
+      String propLabel = parent+"."+action;
+      String text = gui.getMessage(propLabel);
+      int mnemonic = gui.getMnemonic(propLabel);
+      String tooltip = gui.getToolTipMessage(propLabel);
+
+      return createJMenuItem(text, mnemonic, listener, action, tooltip, keyStroke);
+   }
+
+   /**
+    * Creates a new menu item. 
+    * @param text the menu item text
+    * @param mnemonic the mnemonic code point or -1 if none
+    * @param listener action listener (may be null)
+    * @param action the action command (may be null)
+    * @param tooltip the tooltip text (may be null)
+    * @param keyStroke the accelerator (may be null)
+    * @return new menu item
+    */ 
+   public JMenuItem createJMenuItem(String text, int mnemonic,
+    ActionListener listener, String action,
+    String tooltip, KeyStroke keyStroke)
+   {
+      JMenuItem item = new JMenuItem(text, mnemonic);
+
+      if (listener != null)
+      {
+         item.addActionListener(listener);
+      }
+
+      if (action != null)
+      {
+         item.setActionCommand(action);
+      }
+
+      if (tooltip != null)
+      {
+         item.setToolTipText(tooltip);
+      }
+
+      if (keyStroke != null)
+      {
+         item.setAccelerator(keyStroke);
+      }
+      
+      return item;
+   }
+
+   /**
+    * Creates a label with localised text.
+    * @param propLabel the label identifying the dictionary message
+    * @param params the message parameters
+    */  
+   public JLabel createJLabel(String propLabel, Object... params)
+   {
+      JLabel label = new JLabel(gui.getMessage(propLabel, params));
+   
+      int mnemonic = gui.getMnemonic(propLabel);
+         
+      if (mnemonic != -1)
+      {     
+         label.setDisplayedMnemonic(mnemonic);
+      }  
+   
+      return label;
+   }
+
+   /**
+    * Creates a new button with the localised text.
+    * @param parent label prefix
+    * @param action label suffix and button action command
+    * @param listener button action listener
+    * @param icon the button icon (may be null)
+    */ 
+   public JButton createJButton(String parent, String action,
+     ActionListener listener, Icon icon)
+   {     
+      String label = parent+"."+action;
+      
+      return createJButton(gui.getMessage(label),
+        gui.getMnemonic(label), icon, action, listener,
+        gui.getToolTipMessage(label));
+   }
+
+   /**
+    * Creates a new button with the given text.
+    * @param text button text
+    * @param mnemonic button mnemonic codepoint or -1 if none
+    * @param icon button icon or null if none
+    * @param action button action command
+    * @param listener button action listener
+    * @param tooltipText button tooltip text
+    */ 
+   public JButton createJButton(String text, int mnemonic, Icon icon,
+      String action, ActionListener listener, String tooltipText)
+   {
+      JButton button = new JButton(text);
+      
+      if (tooltipText != null)
+      {  
+         button.setToolTipText(tooltipText);
+      }
+      
+      if (icon != null)
+      {  
+         button.setIcon(icon);
+      }
+      
+      if (mnemonic != -1)
+      {  
+         button.setMnemonic(mnemonic);
+      }
+
+      if (action != null)
+      {  
+         button.setActionCommand(action);
+      }
+
+      if (listener != null)
+      {  
+         button.addActionListener(listener);
+      }
+
+      return button;
+   }
+
+   /**
+    * Creates a non-editable plain text message area with line wrap.
+    * @param text the message text
+    * @return the new text area
+    */ 
+   public JTextArea createMessageArea(String message)
+   {
+      JTextArea textArea = new JTextArea(message);
+      textArea.setLineWrap(true);
+      textArea.setWrapStyleWord(true);
+      textArea.setEditable(false);
+      return textArea;
+   }
+
+   /**
+    * Creates a non-editable plain text message area with line wrap.
+    * @param text the message text
+    * @param rows number of rows
+    * @param columns number of columns
+    * @return the new text area
+    */ 
+   public JTextArea createMessageArea(String message, int rows, int columns)
+   {
+      JTextArea textArea = new JTextArea(message, rows, columns);
+      textArea.setLineWrap(true);
+      textArea.setWrapStyleWord(true);
+      textArea.setEditable(false);
+      return textArea;
    }
 
    protected PassGui gui;
