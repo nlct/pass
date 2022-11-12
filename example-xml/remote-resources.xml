@@ -21,7 +21,7 @@
 <!--
  The following course will only be available if PASS is run in debug mode.
  -->
- <resource name="XYZ-100" debug="true"
+ <resource name="CMP-123XY" debug="true"
   href="http://www.example.com/pass/dummy-assignments.xml">
   Dummy Course for Testing
  </resource>
