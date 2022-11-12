@@ -101,6 +101,7 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.select_assignment.mnemonic">A</entry>
 <entry key="message.assignment_due">Due: </entry>
 <entry key="message.group_project">Group Project</entry>
+<entry key="message.group_project.mnemonic">G</entry>
 <entry key="message.pdfpages_note">You may include PDF, DOC or DOCX files with your submission. These will be added as attachments. In the case of PDF files, if you additionally want them included directly in the document with \includepdf, provided by the pdfpages package (http://ctan.org/pkg/pdfpages), then make sure the check box below is selected. (Not available for PDF files that contain spaces in the filename.)</entry>
 <entry key="message.use_pdfpages">use pdfpages</entry>
 <entry key="message.use_pdfpages.mnemonic">P</entry>
@@ -108,16 +109,9 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.with_options.mnemonic">W</entry>
 <entry key="message.file_encoding">File encoding: </entry>
 <entry key="message.file_encoding.mnemonic">F</entry>
-<entry key="message.username">Username: </entry>
-<entry key="message.username.mnemonic">R</entry>
-<entry key="message.blackboard_id">Blackboard ID: </entry>
-<entry key="message.blackboard_id.mnemonic">R</entry>
+<entry key="message.username">{0}: </entry>
 <entry key="message.required">(Required)</entry>
-<entry key="message.reg_num">Student Number: </entry>
-<entry key="message.reg_num.mnemonic">U</entry>
-<entry key="message.username.header">Username</entry>
-<entry key="message.blackboard_id.header">Blackboard ID</entry>
-<entry key="message.reg_num.header">Student Number</entry>
+<entry key="message.reg_num">{0}: </entry>
 
 <entry key="message.file_format.note">Make sure that the drop-down menu has the correct file format set. (Use ''{0}'' for unlisted languages.)</entry>
 <entry key="message.project_files">Project Files</entry>
@@ -132,6 +126,7 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.abort_search">Abort file search?</entry>
 <entry key="message.abort_search.title">Confirm Abort</entry>
 <entry key="message.cancelling">Cancelling</entry>
+<entry key="message.finished_instructions">If you make any subsequent modifications to your assignment, you will need to rerun {0}. Once you have checked the PDF, please submit it according to your lecturer's instructions.</entry>
 
 <!-- Encoding info -->
 
@@ -139,20 +134,25 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="encoding_info.latin1">pdflatex will be used for Latin-1 files.</entry>
 <entry key="encoding_info.utf8">lualatex will be used for UTF-8 files.</entry>
 
-<!-- Menu -->
+<!-- Menus -->
 
-<entry key="menu.title">Menu</entry>
-<entry key="menu.title.mnemonic">M</entry>
-<entry key="menu.settings">Settings</entry>
-<entry key="menu.settings.mnemonic">S</entry>
-<entry key="menu.help">Help</entry>
-<entry key="menu.help.mnemonic">H</entry>
-<entry key="menu.transcript">Show Transcript</entry>
-<entry key="menu.transcript.mnemonic">T</entry>
-<entry key="menu.licence">Licence</entry>
-<entry key="menu.licence.mnemonic">L</entry>
-<entry key="menu.about">About</entry>
-<entry key="menu.about.mnemonic">A</entry>
+<entry key="menu.options.title">Options</entry>
+<entry key="menu.options.title.mnemonic">O</entry>
+<entry key="menu.options.settings">Settings</entry>
+<entry key="menu.options.settings.mnemonic">S</entry>
+<entry key="menu.options.transcript">Show Transcript</entry>
+<entry key="menu.options.transcript.mnemonic">T</entry>
+<entry key="menu.options.quit">Exit</entry>
+<entry key="menu.options.quit.mnemonic">X</entry>
+
+<entry key="menu.help.title">Help</entry>
+<entry key="menu.help.title.mnemonic">H</entry>
+<entry key="menu.help.handbook">Handbook</entry>
+<entry key="menu.help.handbook.mnemonic">H</entry>
+<entry key="menu.help.licence">Licence</entry>
+<entry key="menu.help.licence.mnemonic">L</entry>
+<entry key="menu.help.about">About</entry>
+<entry key="menu.help.about.mnemonic">A</entry>
 
 <!-- Properties Dialog-->
 
@@ -201,13 +201,9 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="error.fatal">Fatal Error: {0}</entry>
 <entry key="error.no_course_data">No course data provided in {0}!
 Can''t continue.</entry>
-<entry key="error.invalid_reg_num">Invalid student number: {0}</entry>
-<entry key="error.invalid_username">Invalid Blackboard ID: {0}</entry>
-<entry key="error.missing_username_for">Missing BlackBoard ID for student {0}</entry>
-<entry key="error.missing_reg_num_for">Missing student number for {0}</entry>
+<entry key="error.missing_input_for">Missing {0} for student {1}</entry>
 <entry key="error.group_project_min">At least {0,number} students required for group project.</entry>
-<entry key="error.missing_reg_num">Missing student number.</entry>
-<entry key="error.missing_username">Missing Blackboard ID.</entry>
+<entry key="error.missing_input">Missing {0}.</entry>
 <entry key="error.invalid_input">Invalid {0} {1}</entry>
 <entry key="error.required_file_missing">{0} missing</entry>
 <entry key="error.subpath_not_relative">Sub-path {0} is not relative to base path {1}</entry>

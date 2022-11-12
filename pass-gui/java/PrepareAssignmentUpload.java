@@ -87,10 +87,7 @@ public class PrepareAssignmentUpload extends JFrame
          setIconImage(ic.getImage());
       }
 
-      messageArea = new JTextArea(10, 40);
-      messageArea.setEditable(false);
-      messageArea.setLineWrap(true);
-      messageArea.setWrapStyleWord(true);
+      messageArea = passGuiTools.createMessageArea("", 10, 40);
       messageAreaSp = new JScrollPane(messageArea);
 
       setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -343,6 +340,44 @@ public class PrepareAssignmentUpload extends JFrame
       }
 
       return new File(prop);
+   }
+
+   /**
+    * Gets a keystroke defined in the properties.
+    * @param prop the property
+    * @return the keystroke or null if not found
+    */ 
+   public KeyStroke getKeyStrokeProperty(String prop)
+   {
+      return getKeyStrokeProperty(prop, null);
+   }
+
+   /**
+    * Gets a keystroke defined in the properties.
+    * @param prop the property
+    * @param defVal default if not found
+    * @return the keystroke
+    */ 
+   public KeyStroke getKeyStrokeProperty(String prop, KeyStroke defVal)
+   {
+      String val = properties.getProperty(prop);
+
+      if (val == null || val.isEmpty())
+      {
+         return defVal;
+      }
+
+      KeyStroke keyStroke = KeyStroke.getKeyStroke(val);
+
+      if (keyStroke == null)
+      {
+         debug(String.format("Invalid value '%s' for keystroke property '%s'",
+           val, prop));
+
+         return defVal;
+      }
+
+      return keyStroke;
    }
 
    /**
@@ -1016,8 +1051,8 @@ public class PrepareAssignmentUpload extends JFrame
 
                   for (int row = 0; row < model.getRowCount(); row++)
                   {
-                     String num = model.getValueAt(row, 0).toString();
-                     String id = model.getValueAt(row, 1).toString();
+                     String id = model.getValueAt(row, 0).toString();
+                     String num = model.getValueAt(row, 1).toString();
 
                      boolean numFound = !num.isEmpty();
                      boolean idFound = !id.isEmpty();
@@ -1026,13 +1061,15 @@ public class PrepareAssignmentUpload extends JFrame
                      {
                         if (!passTools.isValidRegNum(num))
                         {
-                           error(passTools.getMessage("error.invalid_reg_num", num));
+                           error(passTools.getMessage("error.invalid_input",
+                             passTools.getConfig().getRegNumText(), num));
                            return;
                         }
 
                         if (!passTools.isValidUserName(id))
                         {
-                           error(passTools.getMessage("error.invalid_username", id));
+                           error(passTools.getMessage("error.invalid_input",
+                            passTools.getConfig().getUserNameText(), id));
                            return;
                         }
 
@@ -1040,12 +1077,14 @@ public class PrepareAssignmentUpload extends JFrame
                      }
                      else if (idFound && !numFound)
                      {
-                        error(passTools.getMessage("error.missing_username_for", id));
+                        error(passTools.getMessage("error.missing_input_for",
+                          passTools.getConfig().getUserNameText(), id));
                         return;
                      }
                      else if (!idFound && numFound)
                      {
-                        error(passTools.getMessage("error.missing_reg_num_for", num));
+                        error(passTools.getMessage("error.missing_input_for",
+                          passTools.getConfig().getRegNumText(), num));
                         return;
                      }
                   }
@@ -1060,13 +1099,15 @@ public class PrepareAssignmentUpload extends JFrame
                {
                   if (studentNumberField.getText().isEmpty())
                   {
-                     error(passTools.getMessage("error.missing_reg_num"));
+                     error(passTools.getMessage("error.missing_input",
+                        passTools.getConfig().getRegNumText()));
                      return;
                   }
 
                   if (studentIdField.getText().isEmpty())
                   {
-                     error(passTools.getMessage("error.missing_username"));
+                     error(passTools.getMessage("error.missing_input", 
+                       passTools.getConfig().getUserNameText()));
                      return;
                   }
                }
@@ -1356,7 +1397,7 @@ public class PrepareAssignmentUpload extends JFrame
       {
          propertiesDialog.display();
       }
-      else if ("help".equals(action))
+      else if ("handbook".equals(action))
       {
          helpFrame.setVisible(true);
       }
@@ -1628,10 +1669,8 @@ public class PrepareAssignmentUpload extends JFrame
     */ 
    private JTextArea createTextArea(String text)
    {
-      JTextArea textArea = new JTextArea(text);
-      textArea.setEditable(false);
-      textArea.setLineWrap(true);
-      textArea.setWrapStyleWord(true);
+      JTextArea textArea = passGuiTools.createMessageArea(text);
+
       textArea.setOpaque(false);
 
       return textArea;
@@ -1931,7 +1970,10 @@ public class PrepareAssignmentUpload extends JFrame
       gbc.gridy=0;
       gbc.anchor=GridBagConstraints.LINE_START;
 
-      JLabel nameLabel = createJLabel(AssignmentProcessConfig.USER_NAME_LABEL);
+      JLabel nameLabel = createJLabel(
+       passTools.getConfig().getUserNameMnemonic(),
+       passTools.getConfig().getUserNameTitle());
+
       nameLabel.setAlignmentX(0);
       box.add(nameLabel, gbc);
 
@@ -1957,7 +1999,10 @@ public class PrepareAssignmentUpload extends JFrame
       gbc.gridx++;
       box.add(new JLabel(requiredText), gbc);
 
-      JLabel numLabel = createJLabel(AssignmentProcessConfig.REG_NUM_LABEL);
+      JLabel numLabel = createJLabel(
+        passTools.getConfig().getRegNumMnemonic(),
+        passTools.getConfig().getRegNumTitle()
+      );
       numLabel.setAlignmentX(0);
 
       gbc.gridx=0;
@@ -2000,8 +2045,9 @@ public class PrepareAssignmentUpload extends JFrame
         new Object[] {"", ""},
         new Object[]{"", ""}},
        new Object[]{
-        passTools.getMessage(AssignmentProcessConfig.USER_NAME_LABEL+".header"), 
-        passTools.getMessage(AssignmentProcessConfig.REG_NUM_LABEL+".header")});
+        passTools.getConfig().getUserNameTitle(), 
+        passTools.getConfig().getRegNumTitle()
+       });
 
       groupProjectTable = new JTable(model);
 
@@ -2016,21 +2062,21 @@ public class PrepareAssignmentUpload extends JFrame
       JPanel box = new JPanel(new GridLayout(2, 2));
       panel.add(box);
 
-      JButton addStudentButton = createButton(
+      JButton addStudentButton = createJButton(
         "table/RowInsertAfter", "addstudent");
       box.add(addStudentButton);
 
-      removeStudentButton = createButton(
+      removeStudentButton = createJButton(
         "table/RowDelete", "removestudent");
       removeStudentButton.setEnabled(false);
       box.add(removeStudentButton);
 
-      studentUpButton = createButton(
+      studentUpButton = createJButton(
         "navigation/Up", "movestudentup");
       studentUpButton.setEnabled(false);
       box.add(studentUpButton);
 
-      studentDownButton = createButton(
+      studentDownButton = createJButton(
         "navigation/Down", "movestudentdown");
       studentDownButton.setEnabled(false);
       box.add(studentDownButton);
@@ -2084,17 +2130,12 @@ public class PrepareAssignmentUpload extends JFrame
                      if (column == 0 && !passTools.isValidUserName(text))
                      {
                         error(passTools.getMessage("error.invalid_input", 
-                          passTools.getMessage(
-                           AssignmentProcessConfig.USER_NAME_LABEL
-                             + ".header"), 
-                          text));
+                          passTools.getConfig().getUserNameText(), text));
                      }
                      else if (column == 1 && !passTools.isValidRegNum(text))
                      {
                         error(passTools.getMessage("error.invalid_input", 
-                          AssignmentProcessConfig.REG_NUM_LABEL
-                           + passTools.getMessage(".header"),
-                          text));
+                          passTools.getConfig().getRegNumText(), text));
                      }
                   }
                }
@@ -2160,7 +2201,7 @@ public class PrepareAssignmentUpload extends JFrame
       panel.add(dirField);
       label.setLabelFor(dirField);
 
-      panel.add(createButton("general/Open", "choosedir"));
+      panel.add(createJButton("general/Open", "choosedir"));
 
       relativizeBox = createJCheckBox(false, "message.use_rel_paths");
       relativizeBox.setEnabled(false);
@@ -2228,14 +2269,21 @@ public class PrepareAssignmentUpload extends JFrame
 
       fileSearchPanel = new JPanel(new BorderLayout());
       fileSearchPanel.setAlignmentX(0);
-      fileSearchPanel.add(new JLabel(getMessage("message.file_search")),
-        BorderLayout.WEST);
+      fileSearchPanel.setAlignmentY(0);
 
-      fileSearcherInfoField = new JTextField(40);
-      fileSearcherInfoField.setEditable(false);
-      fileSearchPanel.add(fileSearcherInfoField, BorderLayout.CENTER);
+      JLabel fileSearchLabel = new JLabel(getMessage("message.file_search"));
+      fileSearchLabel.setAlignmentX(0);
+      fileSearchLabel.setAlignmentY(0);
+      fileSearchLabel.setVerticalAlignment(SwingConstants.TOP);
 
-      fileSearchAbortButton = createButton(
+      fileSearchPanel.add(fileSearchLabel, BorderLayout.WEST);
+
+      fileSearcherInfo = passGuiTools.createMessageArea("", 2, 40);
+      fileSearcherInfo.setAlignmentX(0);
+      fileSearcherInfo.setAlignmentY(0);
+      fileSearchPanel.add(fileSearcherInfo, BorderLayout.CENTER);
+
+      fileSearchAbortButton = createJButton(
         getToolIcon("general/Stop", getMessage("process.abort"), true),
         "abortsearch", this, null, null, false, 
         getToolTipMessage("process.abort"), true
@@ -2273,7 +2321,7 @@ public class PrepareAssignmentUpload extends JFrame
       box.add(panel);
       panel.setAlignmentX(0);
 
-      panel.add(createButton("table/RowInsertAfter", "addfile"));
+      panel.add(createJButton("table/RowInsertAfter", "addfile"));
 
       binaryLabel = new JLabel(passTools.getMessage("message.binary_files"));
       binaryLabel.setAlignmentX(0);
@@ -2287,7 +2335,7 @@ public class PrepareAssignmentUpload extends JFrame
       box.add(panel);
       panel.setAlignmentX(0);
 
-      binaryAddButton = createButton("table/RowInsertAfter", "addbinaryfile");
+      binaryAddButton = createJButton("table/RowInsertAfter", "addbinaryfile");
       panel.add(binaryAddButton);
 
       return fileListSp;
@@ -2314,6 +2362,9 @@ public class PrepareAssignmentUpload extends JFrame
       doneField.setFont(doneField.getFont().deriveFont(Font.BOLD, 100.0f));
       panel.add(doneField, "Center");
 
+      panel.add(passGuiTools.createMessageArea(
+        getMessage("message.finished_instructions", getApplicationName())), "South");
+
       return panel;
    }
 
@@ -2322,10 +2373,11 @@ public class PrepareAssignmentUpload extends JFrame
     * obtained from the dictionary. The label should be in the form 
     * "menu.<em>action</em>".
     * @param action the action command and label suffix
+    * @return the new menu item
     */ 
-   private JMenuItem createMenuItem(String action)
+   private JMenuItem createJMenuItem(String action)
    {
-      return createMenuItem("menu", action);
+      return createJMenuItem("menu", action);
    }
 
    /**
@@ -2334,12 +2386,28 @@ public class PrepareAssignmentUpload extends JFrame
     * "<em>label</em>.<em>action</em>".
     * @param parent the label prefix
     * @param action the action command and label suffix
+    * @return the new menu item
     */ 
-   private JMenuItem createMenuItem(String parent, String action)
+   private JMenuItem createJMenuItem(String parent, String action)
    {
-      String propLabel = parent+"."+action;
-      return createMenuItem(passTools.getMessage(propLabel), 
-        passTools.getMnemonic(propLabel, -1), action);
+      return passGuiTools.createJMenuItem(parent, action, this, 
+        getKeyStrokeProperty(action));
+   }
+
+   /**
+    * Creates a new menu item. The menu text and mnemonic are
+    * obtained from the dictionary. The label should be in the form 
+    * "<em>label</em>.<em>action</em>".
+    * @param parent the label prefix
+    * @param action the action command and label suffix
+    * @param keyStroke the accelerator
+    * @return the new menu item
+    */ 
+   private JMenuItem createJMenuItem(String parent, String action,
+      KeyStroke keyStroke)
+   {
+      return passGuiTools.createJMenuItem(parent, action, this, 
+        keyStroke);
    }
 
    /**
@@ -2347,22 +2415,21 @@ public class PrepareAssignmentUpload extends JFrame
     * @param text the menu item text
     * @param mnemonic the mnemonic code point or -1 if none
     * @param action the action command
+    * @return the new menu item
     */ 
-   private JMenuItem createMenuItem(String text, int mnemonic, String action)
+   private JMenuItem createJMenuItem(String text, int mnemonic, String action)
    {
-      JMenuItem item = new JMenuItem(text, mnemonic);
-      item.setActionCommand(action);
-      item.addActionListener(this);
-
-      return item;
+      return passGuiTools.createJMenuItem(text, mnemonic, this, action,
+        null, null);
    }
 
    /**
     * Creates a new menu item. The menu text and mnemonic are
     * obtained from the dictionary.
     * @param label identifying the localised text
+    * @return the new menu item
     */ 
-   private JMenu createMenu(String label)
+   private JMenu createJMenu(String label)
    {
       JMenu menu = new JMenu(passTools.getMessage(label));
       int mnemonic = passTools.getMnemonic(label, -1);
@@ -2406,41 +2473,48 @@ public class PrepareAssignmentUpload extends JFrame
       JMenuBar mBar = new JMenuBar();
       setJMenuBar(mBar);
 
-      JMenu menu = createMenu("menu.title");
-      mBar.add(menu);
+      JMenu optionsM = createJMenu("menu.options.title");
+      mBar.add(optionsM);
+
+      JMenu helpM = createJMenu("menu.help.title");
+      mBar.add(helpM);
 
       String year = String.format("%d-%s",
            START_COPYRIGHT_YEAR, VERSION_DATE.substring(0, 4));
 
-      JTextArea licenceArea = new JTextArea(
+      JTextArea licenceArea = passGuiTools.createMessageArea(
        passTools.getMessage("message.licence", year, COPYRIGHT_OWNER), 10, 40);
-      licenceArea.setLineWrap(true);
-      licenceArea.setWrapStyleWord(true);
-      licenceArea.setEditable(false);
+
       licenceComp = new JScrollPane(licenceArea);
 
       propertiesDialog = new ApplicationProperties(this, disableTimeOutProp);
 
-      menu.add(createMenuItem("settings"));
+      optionsM.add(createJMenuItem("menu.options", "settings"));
+
+      transFrame = new TranscriptFrame(this);
+
+      transFrame.message(passTools.getMessage("message.course", course.getCode()));
+
+      optionsM.add(createJMenuItem("menu.options", "transcript"));
+
+      optionsM.add(createJMenuItem("menu.options", "quit",
+       getKeyStrokeProperty("quit", 
+        KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK))));
 
       try
       {
          helpFrame = new HelpFrame(this);
-         menu.add(createMenuItem("help"));
+         helpM.add(createJMenuItem("menu.help", "handbook",
+           getKeyStrokeProperty("quit", 
+             KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0))));
       }
       catch (IOException e)
       {
          error(e);
       }
 
-      transFrame = new TranscriptFrame(this);
-
-      transFrame.message(passTools.getMessage("message.course", course.getCode()));
-
-      menu.add(createMenuItem("transcript"));
-
-      menu.add(createMenuItem("licence"));
-      menu.add(createMenuItem("about"));
+      helpM.add(createJMenuItem("menu.help", "licence"));
+      helpM.add(createJMenuItem("menu.help", "about"));
 
       layout = new CardLayout();
 
@@ -2450,38 +2524,35 @@ public class PrepareAssignmentUpload extends JFrame
       JPanel buttonPanel = new JPanel();
       getContentPane().add(buttonPanel, "South");
 
-      topField = new JTextArea(4, 60);
-      topField.setEditable(false);
-      topField.setLineWrap(true);
+      topField = passGuiTools.createMessageArea(course.getCode(), 4, 60);
       topField.setBorder(BorderFactory.createEtchedBorder());
-      topField.setText(course.getCode());
       getContentPane().add(new JScrollPane(topField), "North");
 
-      prevButton = createButton("navigation/Back", "previous");
+      prevButton = createJButton("navigation/Back", "previous");
       prevButton.setEnabled(false);
       buttonPanel.add(prevButton);
 
-      nextButton = createButton("navigation/Forward", "next");
+      nextButton = createJButton("navigation/Forward", "next");
       nextButton.setEnabled(false);
       buttonPanel.add(nextButton);
 
-      saveTeXButton = createButton("general/Save", "savetex");
+      saveTeXButton = createJButton("general/Save", "savetex");
       saveTeXButton.setVisible(false);
       buttonPanel.add(saveTeXButton);
 
-      openLogButton = createButton("general/Open", "openlog");
+      openLogButton = createJButton("general/Open", "openlog");
       openLogButton.setVisible(false);
       buttonPanel.add(openLogButton);
 
-      saveButton = createButton("general/Save", "save");
+      saveButton = createJButton("general/Save", "save");
       saveButton.setVisible(false);
       buttonPanel.add(saveButton);
 
-      openButton = createButton("general/Open", "openpdf");
+      openButton = createJButton("general/Open", "openpdf");
       openButton.setVisible(false);
       buttonPanel.add(openButton);
 
-      exitButton = createButton("quit");
+      exitButton = createJButton("quit");
       exitButton.setVisible(false);
       buttonPanel.add(exitButton);
 
@@ -2739,7 +2810,7 @@ public class PrepareAssignmentUpload extends JFrame
 
    public void fileSearchMessage(String msg)
    {
-      fileSearcherInfoField.setText(msg);
+      fileSearcherInfo.setText(msg);
    }
 
    public void fileSearchMessage(Exception exc)
@@ -3644,11 +3715,11 @@ public class PrepareAssignmentUpload extends JFrame
     * Creates a new button with the localised text.
     * @param action button action command
     */ 
-   public JButton createButton(String action)
+   public JButton createJButton(String action)
    {
       String label = "button."+action;
 
-      return createButton(passTools.getMessage(label), 
+      return createJButton(passTools.getMessage(label), 
            passTools.getMnemonic(label, -1), action);
    }
 
@@ -3657,11 +3728,11 @@ public class PrepareAssignmentUpload extends JFrame
     * @param action button action command
     * @param listener button action listener
     */ 
-   public JButton createButton(String action, ActionListener listener)
+   public JButton createJButton(String action, ActionListener listener)
    {
       String label = "button."+action;
 
-      return createButton(passTools.getMessage(label), 
+      return createJButton(passTools.getMessage(label), 
            passTools.getMnemonic(label, -1), action, listener);
    }
 
@@ -3671,9 +3742,9 @@ public class PrepareAssignmentUpload extends JFrame
     * @param mnemonic the button mnemonic
     * @param action button action command
     */ 
-   public JButton createButton(String text, int mnemonic, String action)
+   public JButton createJButton(String text, int mnemonic, String action)
    {
-      return createButton(text, mnemonic, action, this);
+      return createJButton(text, mnemonic, action, this);
    }
 
    /**
@@ -3683,7 +3754,7 @@ public class PrepareAssignmentUpload extends JFrame
     * @param action button action command
     * @param listener button action listener
     */ 
-   public JButton createButton(String text, int mnemonic, String action, 
+   public JButton createJButton(String text, int mnemonic, String action, 
       ActionListener listener)
    {
       JButton button = new JButton(text);
@@ -3710,9 +3781,9 @@ public class PrepareAssignmentUpload extends JFrame
     * getImageURL(String)
     * @param action button action command
     */ 
-   public JButton createButton(String imageName, String action)
+   public JButton createJButton(String imageName, String action)
    {
-      return createButton(imageName, action, this);
+      return createJButton(imageName, action, this);
    }
 
    /**
@@ -3727,12 +3798,12 @@ public class PrepareAssignmentUpload extends JFrame
     * @param action button action command
     * @param listener button action listener
     */ 
-   public JButton createButton(String imageName, String action, 
+   public JButton createJButton(String imageName, String action, 
      ActionListener listener)
    {
       String label = "button."+action;
 
-      return createButton(passTools.getMessageWithDefault(label, null), 
+      return createJButton(passTools.getMessageWithDefault(label, null), 
            passTools.getMnemonic(label, -1), imageName, action, listener,
            passTools.getMessageWithDefault(label+".tooltip", null));
    }
@@ -3745,10 +3816,10 @@ public class PrepareAssignmentUpload extends JFrame
     * getImageURL(String)
     * @param action button action command
     */ 
-   public JButton createButton(String text, int mnemonic, String imageName,
+   public JButton createJButton(String text, int mnemonic, String imageName,
       String action)
    {
-      return createButton(text, mnemonic, imageName, action, this);
+      return createJButton(text, mnemonic, imageName, action, this);
    }
 
    /**
@@ -3760,10 +3831,10 @@ public class PrepareAssignmentUpload extends JFrame
     * @param action button action command
     * @param listener button action listener
     */ 
-   public JButton createButton(String text, int mnemonic, String imageName,
+   public JButton createJButton(String text, int mnemonic, String imageName,
       String action, ActionListener listener)
    {
-      return createButton(text, mnemonic, imageName, action, listener, null);
+      return createJButton(text, mnemonic, imageName, action, listener, null);
    }
 
    /**
@@ -3776,7 +3847,7 @@ public class PrepareAssignmentUpload extends JFrame
     * @param listener button action listener
     * @param tooltipText button tooltip text
     */ 
-   public JButton createButton(String text, int mnemonic, String imageName,
+   public JButton createJButton(String text, int mnemonic, String imageName,
       String action, ActionListener listener, String tooltipText)
    {
       URL imageURL = getImageURL(imageName);
@@ -3788,7 +3859,7 @@ public class PrepareAssignmentUpload extends JFrame
          icon = new ImageIcon(imageURL, text);
       }
 
-      return createButton(text, mnemonic, icon, action, listener, tooltipText);
+      return createJButton(text, mnemonic, icon, action, listener, tooltipText);
    }
 
    /**
@@ -3800,35 +3871,11 @@ public class PrepareAssignmentUpload extends JFrame
     * @param listener button action listener
     * @param tooltipText button tooltip text
     */ 
-   public JButton createButton(String text, int mnemonic, Icon icon,
+   public JButton createJButton(String text, int mnemonic, Icon icon,
       String action, ActionListener listener, String tooltipText)
    {
-      JButton button = new JButton(text);
-
-      if (tooltipText != null)
-      {
-         button.setToolTipText(tooltipText);
-      }
-
-      if (icon != null)
-      {
-         button.setIcon(icon);
-      }
-
-      if (mnemonic != -1)
-      {
-         button.setMnemonic(mnemonic);
-      }
-
-      if (action != null)
-      {
-         button.setActionCommand(action);
-      }
-
-      if (listener != null)
-      {
-         button.addActionListener(listener);
-      }
+      JButton button = passGuiTools.createJButton(text, mnemonic, icon,
+       action, listener, tooltipText);
 
       button.setAlignmentX(0);
 
@@ -3843,9 +3890,9 @@ public class PrepareAssignmentUpload extends JFrame
     * getImageURL(String)
     * @param action button action command
     */ 
-   public JButton createButton(String text, String imageName, String action)
+   public JButton createJButton(String text, String imageName, String action)
    {
-      return createButton(text, imageName, action, this);
+      return createJButton(text, imageName, action, this);
    }
 
    /**
@@ -3857,7 +3904,7 @@ public class PrepareAssignmentUpload extends JFrame
     * @param action button action command
     * @param listener button action listener
     */ 
-   public JButton createButton(String text, String imageName, String action,
+   public JButton createJButton(String text, String imageName, String action,
      ActionListener listener)
    {
       URL imageURL = getImageURL(imageName);
@@ -3903,11 +3950,11 @@ public class PrepareAssignmentUpload extends JFrame
     * @param isCompact if true, insets will all be 0
     */ 
    @Override
-   public JButton createButton(Icon icon, String action,
+   public JButton createJButton(Icon icon, String action,
      ActionListener listener, JComponent component, KeyStroke keyStroke,
      boolean isDefault, String toolTip, boolean isCompact)
    {
-      return createButton(null, -1, icon, action, listener, component, keyStroke,
+      return createJButton(null, -1, icon, action, listener, component, keyStroke,
        isDefault, toolTip, isCompact);
    }
 
@@ -3928,11 +3975,11 @@ public class PrepareAssignmentUpload extends JFrame
     * @param toolTip button tooltip text or null if none
     * @param isCompact if true, insets will all be 0
     */ 
-   public JButton createButton(String text, int mnemonic, Icon icon, String action,
+   public JButton createJButton(String text, int mnemonic, Icon icon, String action,
      ActionListener listener, JComponent component, KeyStroke keyStroke,
      boolean isDefault, String toolTip, boolean isCompact)
    {
-      JButton button = createButton(text, mnemonic, icon, action, listener, toolTip);
+      JButton button = createJButton(text, mnemonic, icon, action, listener, toolTip);
 
       if (isCompact)
       {
@@ -3965,9 +4012,17 @@ public class PrepareAssignmentUpload extends JFrame
     */ 
    public JLabel createJLabel(String propLabel, Object... params)
    {
-      JLabel label = new JLabel(passTools.getMessage(propLabel, params));
+      return passGuiTools.createJLabel(propLabel, params);
+   }
 
-      int mnemonic = passTools.getMnemonic(propLabel, -1);
+   /**
+    * Creates a label with the given text and mnemonic.
+    * @param mnemonic the mnemonic codepoint
+    * @param text the label text
+    */ 
+   public JLabel createJLabel(int mnemonic, String text)
+   {
+      JLabel label = new JLabel(text);
 
       if (mnemonic != -1)
       {
@@ -4116,7 +4171,7 @@ public class PrepareAssignmentUpload extends JFrame
    private ResourceFilePanel[] resourceFileFields;
 
    private JComponent fileSearchPanel;
-   private JTextField fileSearcherInfoField;
+   private JTextArea fileSearcherInfo;
    private JButton fileSearchAbortButton;
    private FileSearcher fileSearcher = null;
 
@@ -4179,7 +4234,7 @@ public class PrepareAssignmentUpload extends JFrame
 
    private static final int START_COPYRIGHT_YEAR=2016;
    public static final String VERSION="1.27";
-   public static final String VERSION_DATE="2022-11-11";
+   public static final String VERSION_DATE="2022-11-12";
 
    private JComponent licenceComp;
 

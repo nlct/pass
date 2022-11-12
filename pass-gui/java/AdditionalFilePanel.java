@@ -40,7 +40,7 @@ public class AdditionalFilePanel extends FilePanel
    public AdditionalFilePanel(PrepareAssignmentUpload main,
      JFileChooser chooser)
    {
-      this(null, "", main, chooser);
+      this(null, main, chooser);
    }
 
    /**
@@ -53,16 +53,14 @@ public class AdditionalFilePanel extends FilePanel
      PrepareAssignmentUpload main,
      JFileChooser chooser)
    {
-      this(file.getParentFile(), file.getName(), main, chooser);
-   }
+      super(main, null, "", chooser, main.getImageURL("general/Open"));
 
-   public AdditionalFilePanel(File dir, String filename,
-     PrepareAssignmentUpload main,
-     JFileChooser chooser)
-   {
-      super(main, dir, filename, chooser, main.getImageURL("general/Open"));
+      addLeftComponent(main.createJButton("table/RowDelete", "remove", this));
 
-      addLeftComponent(main.createButton("table/RowDelete", "remove", this));
+      if (file != null)
+      {
+         setFilename(file);
+      }
    }
 
    @Override

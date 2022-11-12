@@ -123,20 +123,6 @@ public class FilePanel extends JPanel implements PassFile
       textField.setAlignmentX(0);
       add(textField, "Center");
 
-      if (dir != null && filename != null && !filename.isEmpty())
-      {
-         File file = new File(dir, filename);
-
-         if (file.exists())
-         {
-            textField.setText(file.getAbsolutePath());
-         }
-      }
-      else
-      {
-         textField.setText(filename);
-      }
-
       rightComponent = new JPanel();
       rightComponent.setAlignmentX(0);
       add(rightComponent, "East");
@@ -148,6 +134,20 @@ public class FilePanel extends JPanel implements PassFile
 
       languageBox.setAlignmentX(0);
       rightComponent.add(languageBox);
+
+      if (dir != null && filename != null && !filename.isEmpty())
+      {
+         File file = new File(dir, filename);
+
+         if (file.exists())
+         {
+            setFilename(file);
+         }
+      }
+      else if (filename != null)
+      {
+         setFilename(filename);
+      }
    }
 
    /**
@@ -273,7 +273,7 @@ public class FilePanel extends JPanel implements PassFile
     */ 
    public void setFilename(File file)
    {
-      textField.setText(file.getAbsolutePath());
+      setFilename(file.getAbsolutePath());
    }
 
    /**
@@ -283,6 +283,7 @@ public class FilePanel extends JPanel implements PassFile
    public void setFilename(String filename)
    {
       textField.setText(filename);
+      textField.setCaretPosition(textField.getText().length());
    }
 
    private JTextField textField;

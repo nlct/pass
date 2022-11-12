@@ -41,10 +41,7 @@ public class BinaryFilePanel extends FilePanel
    public BinaryFilePanel(PrepareAssignmentUpload main,
      JFileChooser chooser, FileFilter... filters)
    {
-      super(main, null, "", false, chooser, 
-       main.getImageURL("general/Open"), filters);
-
-      addLeftComponent(main.createButton("table/RowDelete", "remove", this));
+      this(main, null, chooser, filters);
    }
 
    /**
@@ -56,14 +53,16 @@ public class BinaryFilePanel extends FilePanel
    public BinaryFilePanel(PrepareAssignmentUpload main, File file,
      JFileChooser chooser, FileFilter... filters)
    {
-      super(main, file == null ? null : file.getParentFile(), 
-        file == null ? "" : file.getName(), false, 
+      super(main, null, "", false, 
         chooser, main.getImageURL("general/Open"), filters);
 
-      addLeftComponent(main.createButton("table/RowDelete", "remove", this));
+      addLeftComponent(main.createJButton("table/RowDelete", "remove", this));
+
+      if (file != null)
+      {
+         setFilename(file);
+      }
    }
-
-
 
    @Override
    public void actionPerformed(ActionEvent evt)
