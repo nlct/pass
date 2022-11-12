@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
@@ -27,6 +28,8 @@ import javax.swing.JButton;
 import javax.swing.KeyStroke;
 import javax.swing.Icon;
 import javax.swing.JTextArea;
+
+import com.dickimawbooks.passlib.AssignmentProcessConfig;
 
 /**
  * Set of methods useful for a GUI.
@@ -199,6 +202,72 @@ public class PassGuiTools
          label.setDisplayedMnemonic(mnemonic);
       }  
    
+      return label;
+   }
+
+   /**
+    * Creates a label with localised text.
+    * @param comp component this label is for
+    * @param propLabel the label identifying the dictionary message
+    * @param params the message parameters
+    */  
+   public JLabel createJLabel(Component comp, String propLabel, Object... params)
+   {
+      JLabel label = createJLabel(propLabel, params);
+
+      if (comp != null)
+      {
+         label.setLabelFor(comp);
+      }
+
+      return label;
+   }
+
+   /**
+    * Creates label for username field.
+    */ 
+   public JLabel createUserNameLabel(Component comp)
+   {
+      AssignmentProcessConfig config = gui.getPassTools().getConfig();
+
+      JLabel label = new JLabel(config.getUserNameTitle());
+   
+      int mnemonic = config.getUserNameMnemonic();
+         
+      if (mnemonic != -1)
+      {     
+         label.setDisplayedMnemonic(mnemonic);
+      }  
+   
+      if (comp != null)
+      {
+         label.setLabelFor(comp);
+      }
+
+      return label;
+   }
+
+   /**
+    * Creates label for registration number field.
+    */ 
+   public JLabel createRegNumLabel(Component comp)
+   {
+      AssignmentProcessConfig config = gui.getPassTools().getConfig();
+
+      JLabel label = new JLabel(config.getRegNumTitle());
+   
+      int mnemonic = config.getRegNumMnemonic();
+         
+      if (mnemonic != -1)
+      {     
+         label.setDisplayedMnemonic(mnemonic);
+      }  
+   
+      if (comp != null)
+      {
+         label.setLabelFor(comp);
+      }
+
       return label;
    }
 

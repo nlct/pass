@@ -1970,13 +1970,6 @@ public class PrepareAssignmentUpload extends JFrame
       gbc.gridy=0;
       gbc.anchor=GridBagConstraints.LINE_START;
 
-      JLabel nameLabel = createJLabel(
-       passTools.getConfig().getUserNameMnemonic(),
-       passTools.getConfig().getUserNameTitle());
-
-      nameLabel.setAlignmentX(0);
-      box.add(nameLabel, gbc);
-
       String blackboardId = getDefaultBlackboardId();
 
       studentIdField = new JTextField(new PlainDocument()
@@ -1989,8 +1982,12 @@ public class PrepareAssignmentUpload extends JFrame
        },
        blackboardId, 20);
 
+      JLabel nameLabel = passGuiTools.createUserNameLabel(studentIdField);
+
+      nameLabel.setAlignmentX(0);
+      box.add(nameLabel, gbc);
+
       studentIdField.setAlignmentX(0);
-      nameLabel.setLabelFor(studentIdField);
       gbc.gridx++;
       box.add(studentIdField, gbc);
 
@@ -1998,16 +1995,6 @@ public class PrepareAssignmentUpload extends JFrame
 
       gbc.gridx++;
       box.add(new JLabel(requiredText), gbc);
-
-      JLabel numLabel = createJLabel(
-        passTools.getConfig().getRegNumMnemonic(),
-        passTools.getConfig().getRegNumTitle()
-      );
-      numLabel.setAlignmentX(0);
-
-      gbc.gridx=0;
-      gbc.gridy++;
-      box.add(numLabel, gbc);
 
       studentNumberField = new JTextField(new PlainDocument()
        {
@@ -2019,7 +2006,13 @@ public class PrepareAssignmentUpload extends JFrame
        },
        getStudentNumberProperty(), 20);
       studentNumberField.setAlignmentX(0);
-      numLabel.setLabelFor(studentNumberField);
+
+      JLabel numLabel = passGuiTools.createRegNumLabel(studentNumberField);
+      numLabel.setAlignmentX(0);
+
+      gbc.gridx=0;
+      gbc.gridy++;
+      box.add(numLabel, gbc);
 
       gbc.gridx++;
       box.add(studentNumberField, gbc);
