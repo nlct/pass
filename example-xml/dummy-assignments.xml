@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<assignments>
+
+<!-- Extra options for listings.sty -->
+ <listings>basicstyle=\ttfamily\normalsize</listings>
+ <listings>stringstyle=\color{lightgray}</listings>
+
+<!-- Extra options for geometry.sty -->
+ <geometry>margin=0.6in</geometry>
+
+<!-- Change default fonts -->
+
+ <fontenc options="T1">
+<!-- Used with ASCII and Latin-1 Encodings -->
+ \usepackage{dejavu}
+ </fontenc>
+
+ <fontspec>
+<!-- Used with UTF-8 -->
+ \setromanfont{FreeSerif}
+ \setsansfont{FreeSans}
+ \setmonofont{FreeMono}
+ </fontspec>
+
+<!-- Guard against overly verbose chatter -->
+ <maxoutput>10000</maxoutput>
+
+<!-- Plain text verbatim (not listings) settings -->
+ <verbatim maxchars="85" tabcount="4" />
+
+<!-- Assignment Data -->
+
+ <assignment name="helloworld">
+  <title>Hello World C</title>
+  <due>2016-10-02 16:30</due>
+<!-- This assignment requires the following compiler options -->
+  <compiler-arg>-ansi</compiler-arg>
+  <compiler-arg>-Wpedantic</compiler-arg>
+  <mainfile>helloworld.c</mainfile>
+ </assignment>
+
+ <assignment name="helloworldcpp">
+  <title>Hello World C++</title>
+  <due>2017-02-20 16:30</due>
+  <mainfile>helloworld.cpp</mainfile>
+ </assignment>
+
+ <assignment name="helloworldjava">
+  <title>Hello World Java</title>
+  <due>2017-02-30 16:30</due>
+<!-- This assignment requires the following compiler option -->
+  <compiler-arg>-verbose</compiler-arg>
+  <mainfile>HelloWorld.java</mainfile>
+ </assignment>
+
+ <assignment name="testreadfile">
+  <title>Test Read File Java</title>
+  <due>2017-03-01 16:30</due>
+  <mainfile>TestReadFile.java</mainfile>
+<!-- This assignment requires the following file -->
+  <resourcefile src="http://www.dickimaw-books.com/software/pass/dummy.txt" />
+ </assignment>
+
+ <assignment name="makeimage">
+   <title>Make a PNG Image Java</title>
+   <due>2017-03-04 17:00</due>
+   <mainfile>MakeImage.java</mainfile>
+<!-- This assignment needs to create the following files -->
+   <resultfile type="image/png" name="image.png" />
+   <resultfile type="text/plain" name="output.txt"/>
+ </assignment>
+
+ <assignment name="helloinput">
+   <title>Hello Input Perl</title>
+   <due>2017-05-10 15:00</due>
+   <mainfile>hello.pl</mainfile>
+<!-- This assignment needs to read the following lines from STDIN -->
+   <input>Sample Name</input>
+   <input>Sample Colour</input>
+ </assignment>
+
+ <assignment name="helloarg" variant="5.0">
+   <title>Hello Arg Lua</title>
+   <due>2017-04-12 15:00</due>
+   <mainfile>hello.lua</mainfile>
+<!-- This assignment needs to be invoked with the following argument -->
+   <arg>Sample Name</arg>
+ </assignment>
+
+ <assignment name="freeform" language="Java">
+  <title>Free-Form</title>
+  <due>2017-04-30 15:00</due>
+<!--
+ This assignment doesn't have a specific filename scheme for the code
+ but the code must be accompanied by a file called reportdoc1.pdf
+ or reportdoc1.doc or reportdoc1.docx
+ -->
+  <report>reportdoc1</report>
+ </assignment>
+
+<!--
+  This assignment has its own build script that should be used instead
+  of PASS's normal action.
+-->
+ <assignment name="testbuild" build="http://www.dickimaw-books.com/software/pass/dummy-build.sh ">
+   <title>Test Build Hello Lua</title>
+   <due>2021-01-01 15:00</due>
+   <mainfile>hello.lua</mainfile>
+ </assignment> 
+
+<!--
+  This assignment has its own build script that should be used instead
+  of PASS's normal action.
+-->
+ <assignment name="testbuild2" build="http://www.dickimaw-books.com/software/pass/dummy-build2.sh" >
+   <title>Test Build Hello Lua (With Output File)</title>
+   <due>2021-01-02 15:00</due>
+   <mainfile>hello.lua</mainfile>
+<!--
+  This assignment (or the custom build script) is expected 
+  to create the following file.
+-->
+   <resultfile type="text/plain" name="output.txt"/>
+ </assignment>
+
+ <assignment name="foobar" >
+  <title>Java Classes</title>
+  <due>2021-02-28 16:30</due>
+  <mainfile>FooBar.java</mainfile>
+  <file>Foo.java</file>
+  <file>Bar.java</file>
+ </assignment>
+
+ <assignment name="subdirs" >
+  <title>Java With Sub-Directories</title>
+  <due>2021-03-30 16:30</due>
+  <mainfile>Main.java</mainfile>
+  <file>subdir1/Foo.java</file>
+  <file>subdir2/Bar.java</file>
+ </assignment>
+
+<!-- This assignment is intended for use with PASS Editor -->
+ <assignment name="helloworldjavatemplate">
+  <title>Hello World Template (Java)</title>
+  <due>2021-01-31 16:30</due>
+<!-- The following file has a template that the student needs to modify -->
+  <mainfile template="http://www.dickimaw-books.com/software/pass/dummy-HelloWorld.java">HelloWorld.java</mainfile>
+ </assignment>
+
+ <assignment name="testreadfileinfo">
+  <title>Test Read File Info Java</title>
+  <due>2021-02-01 16:30</due>
+  <mainfile>TestReadFileInfo.java</mainfile>
+<!-- This assignment needs the following files -->
+  <resourcefile src="http://www.dickimaw-books.com/software/pass/dummy.txt"/>
+  <resourcefile src="http://www.dickimaw-books.com/software/pass/dummy.png" type="image/png"/>
+ </assignment>
+
+<!-- 
+  This assignment has a graphical interface so it shouldn't be run
+  but it will still be compiled.
+ -->
+ <assignment name="helloworldgui" run="false" >
+  <title>Hello World GUI</title>
+  <due>2022-12-02 16:30</due>
+  <mainfile>HelloWorldGUI.java</mainfile>
+<!-- The student is permitted to attach the following binaries -->
+  <allowedbinary ext="png" type="image/png" listing="true" />
+  <allowedbinary ext="jpeg,jpg" type="image/jpeg" listing="true" />
+ </assignment>
+
+</assignments>
