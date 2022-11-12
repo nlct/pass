@@ -139,6 +139,11 @@ import java.util.Base64;
  */
 public class AssignmentProcessConfig
 {
+   public AssignmentProcessConfig(PassTools passTools)
+   {
+      this.passTools = passTools;
+   }
+
    /**
     * Encrypt using the given key.
     * @param data the data to encrypt
@@ -391,10 +396,146 @@ public class AssignmentProcessConfig
    }
 
    /**
+    * Gets the localised username text. 
+    * @return the localised username text
+    */ 
+   public String getUserNameText()
+   {
+      if (usernameText == null)
+      {
+         usernameText = passTools.getMessage(USER_NAME_LABEL);
+      }
+
+      return usernameText;
+   }
+
+   /**
+    * Gets the localised username title text. 
+    * @return the localised username title text
+    */ 
+   public String getUserNameTitle()
+   {
+      if (usernameTitle == null)
+      {
+         usernameTitle = passTools.getMessageWithDefault(
+            USER_NAME_LABEL+".title", null);
+
+         if (usernameTitle == null)
+         {
+            usernameTitle = toTitleCase(getUserNameText());
+         }
+      }
+
+      return usernameTitle;
+   }
+
+   /**
+    * Gets the localised username mnemonic. 
+    * @return the localised username mnemonic
+    */ 
+   public int getUserNameMnemonic()
+   {
+      if (usernameMnemonic == -1)
+      {
+         usernameMnemonic = passTools.getMnemonic(USER_NAME_LABEL);
+      }
+
+      return usernameMnemonic;
+   }
+
+   /**
+    * Gets the localised registration number text. 
+    * @return the localised registration number text
+    */ 
+   public String getRegNumText()
+   {
+      if (regnumText == null)
+      {
+         regnumText = passTools.getMessage(REG_NUM_LABEL);
+      }
+
+      return regnumText;
+   }
+
+   /**
+    * Gets the localised registration number title text. 
+    * @return the localised registration number title text
+    */ 
+   public String getRegNumTitle()
+   {
+      if (regnumTitle == null)
+      {
+         regnumTitle = passTools.getMessageWithDefault(
+            REG_NUM_LABEL+".title", null);
+
+         if (regnumTitle == null)
+         {
+            regnumTitle = toTitleCase(getRegNumText());
+         }
+      }
+
+      return regnumTitle;
+   }
+
+   /**
+    * Gets the localised registration number mnemonic. 
+    * @return the localised registration number mnemonic
+    */ 
+   public int getRegNumMnemonic()
+   {
+      if (regnumMnemonic == -1)
+      {
+         regnumMnemonic = passTools.getMnemonic(REG_NUM_LABEL);
+      }
+
+      return regnumMnemonic;
+   }
+
+   /**
+    * Simplistic conversion to title case.
+    * This is just used for the username and registration number
+    * titles.
+    */ 
+   public String toTitleCase(String str)
+   {
+      if (str.isEmpty())
+      {
+         return str;
+      }
+
+      StringBuilder builder = new StringBuilder(str.length());
+      boolean done = false;
+
+      for (int i = 0; i < str.length(); )
+      {
+         int cp = str.codePointAt(i);
+         i+= Character.charCount(cp);
+
+         if (done || !Character.isAlphabetic(cp))
+         {
+            builder.appendCodePoint(cp);
+
+            if (Character.isWhitespace(cp))
+            {
+               done = false;
+            }
+         }
+         else
+         {
+            builder.appendCodePoint(Character.toTitleCase(cp));
+            done = true;
+         }
+      }
+
+      return builder.toString();
+   }
+
+   /**
     * Length of the encryption/decryption key.
     */ 
    private static final int KEY_LENGTH=16;
 
+   // TEMPLATE INSTRUCTION: SET ENCRYPTION KEY
    /**
     * Key used as from v1.16 to store the randomly generated key.
     * This should be an ASCII alphanumeric value with the length given by KEY_LENGTH.
@@ -419,15 +560,23 @@ public class AssignmentProcessConfig
     */ 
    private Random random = new Random();
 
+   private PassTools passTools;
+
    /**
     * User name label.
     */ 
-   public static final String USER_NAME_LABEL = "message.blackboard_id";
+   public static final String USER_NAME_LABEL = "label.blackboard_id";
+
+   private String usernameText, usernameTitle;
+   private int usernameMnemonic = -1;
 
    /**
     * Registration number label.
     */ 
-   public static final String REG_NUM_LABEL = "message.reg_num";
+   public static final String REG_NUM_LABEL = "label.reg_num";
+
+   private String regnumText, regnumTitle;
+   private int regnumMnemonic = -1;
 
    /**
     * User name regular expression. Used to verify that the user

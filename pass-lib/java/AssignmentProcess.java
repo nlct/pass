@@ -94,6 +94,7 @@ public class AssignmentProcess
    public AssignmentProcess(Pass main)
    {
       this.main = main;
+      this.config = main.getPassTools().getConfig();
 
       temporaryFiles = new Vector<File>();
    }
@@ -109,6 +110,7 @@ public class AssignmentProcess
    public AssignmentProcess(Pass main, ProgressListener listener)
    {
       this(main);
+      this.config = main.getPassTools().getConfig();
       progressListener = listener;
    }
 
@@ -3831,7 +3833,7 @@ public class AssignmentProcess
    /**
     * Encryption keys and localisation settings.
     */ 
-   private AssignmentProcessConfig config = new AssignmentProcessConfig();
+   private AssignmentProcessConfig config;
 
    /**
     * Abnormal exit code values. (That hopefully won't be produced

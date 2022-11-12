@@ -44,6 +44,8 @@ public class PassTools
    public PassTools(Pass pass)
    {
       this.pass = pass;
+      config = new AssignmentProcessConfig(this);
+
       applications = new HashMap<String,File>();
 
       isWindows = System.getProperty("os.name").startsWith("Win");
@@ -187,6 +189,15 @@ public class PassTools
             in.close();
          }
       }
+   }
+
+   /**
+    * Gets the configuration.
+    * @return the confiuration
+    */ 
+   public AssignmentProcessConfig getConfig()
+   {
+      return config;
    }
 
    /**
@@ -1456,6 +1467,8 @@ public class PassTools
    private HashMap<String,String> processEnvMap;
 
    private HashMap<String,Object> dictionary;
+
+   private AssignmentProcessConfig config;
 
    private File tmpDir = null;
 }
