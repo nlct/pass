@@ -9,6 +9,8 @@
 <!--
  Remote resource file. Change the URL as applicable.
  The remote resources.xml file should define each course.
+ An example remote resources.xml file can be found in the 
+ example-xml directory
 -->
 
 <courses href="http://www.example.com/pass/resources.xml" />
@@ -44,7 +46,7 @@
 -->
 
 <!--
-  If the "Open LOG" button doesn't work for GUI versions, set the following
+  If the "Open Log" button doesn't work for GUI versions, set the following
   to the path of a text editor.
 
  <application
