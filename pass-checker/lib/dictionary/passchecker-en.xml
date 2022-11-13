@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>English language file for PASS Checker</comment>
+
+<entry key="message.decrypted_checksum_identical">Decrypted checksum identical to {0}</entry>
+<entry key="message.calculated_checksum_identical">Calculated checksum identical to {0}</entry>
+
+<entry key="header.filename">PDF Filename</entry>
+<entry key="header.author">Author</entry>
+<entry key="header.author_check">Author Check</entry>
+<entry key="header.date_check">Date Check</entry>
+<entry key="header.creation_date">Creation Date</entry>
+<entry key="header.mod_date">Mod Date</entry>
+<entry key="header.pass_version">PASS Version</entry>
+<entry key="header.application">Application</entry>
+<entry key="header.submission_date">Submission Date (Server PASS Only)</entry>
+<entry key="header.notes">Notes</entry>
+
+<entry key="syntax.filenames">One or more filenames are required.</entry>
+<entry key="syntax.options">Options:</entry>
+<entry key="syntax.help">{0} (or {1})		Display help and exit.</entry>
+<entry key="syntax.version">{0} (or {1})	Display version and exit.</entry>
+<entry key="syntax.debug">{0}			Run in debug mode.</entry>
+<entry key="syntax.out">{0} &lt;TSV file&gt; (or {1})
+			Save the results to given TAB separated variable file.</entry>
+<entry key="syntax.max_time_diff">{0} &lt;n&gt;	Set the maximum time difference to &lt;n&gt; (seconds).
+			(Default: {1,number} seconds.)</entry>
+
+<entry key="warning">Warning: {0}</entry>
+<entry key="warning.invalid_no_appname">No application name found. Old version of PASS possibly used.</entry>
+<entry key="warning.attach_size_less">Embedded attachment ''{0}'' claims to be size {1,number} but only {2,number} bytes found</entry>
+<entry key="warning.attach_size_more">Embedded attachment ''{0}'' claims to be size {1,number} but more than {1,number} bytes found</entry>
+<entry key="warning.page_mimetype">Page {0,number}: found attachment that has MIME type ''{1}''</entry>
+
+<entry key="error">Error: {0}</entry>
+<entry key="error.invalid_key">Invalid key (decrypt failed).</entry>
+<entry key="error.invalid_checksum">Invalid checksum (decrypt failed).</entry>
+<entry key="error.invalid_datestamp">Invalid date stamp (decrypt failed).</entry>
+<entry key="error.invalid_version">Invalid version (decrypt failed).</entry>
+<entry key="error.invalid_duedate">Invalid due date (decrypt failed).</entry>
+<entry key="error.invalid_author">Invalid author (decrypt failed).</entry>
+<entry key="error.invalid_appname">Invalid application name (decrypt failed).</entry>
+<entry key="error.no_attachments">{0}: No attachments found on page {1,number}.</entry>
+<entry key="error.multiple_attachments">{0}: {1,number} attachments found on page {2,number}.</entry>
+<entry key="error.zip_attachment_no_checksum">{0}: Failed to obtain checksum for zip attachment.</entry>
+<entry key="error.missing_value">Missing value.</entry>
+<entry key="error.process_failed">Failed to process {0}</entry>
+<entry key="error.parsing_failed">PDF parsing failed</entry>
+
+<entry key="error.syntax.no_filenames">At least one file name required. Use {0} for help.</entry>
+<entry key="error.syntax.unknown">Unknown option ''{0}''. Use {1} for help.</entry>
+<entry key="error.syntax.missing_arg">Missing argument for option: {0}</entry>
+<entry key="error.syntax.invalid_arg">Invalid argument for option ''{0}'': {1}</entry>
+
+<entry key="info.zip_attachment_no_checksum">Couldn't obtain checksum (zip attachment missing or invalid).</entry>
+<entry key="info.invalid_or_missing_author">Invalid or missing encrypted author.</entry>
+<entry key="info.missing_pdf_author">Missing PDF author.</entry>
+<entry key="info.mismatched_author">Mismatched author.</entry>
+<entry key="info.invalid_or_missing_checksum">Invalid or missing encrypted checksum.</entry>
+<entry key="info.mismatched_checksum">Mismatched checksum.</entry>
+<entry key="info.invalid_or_missing_version">Invalid or missing encrypted version.</entry>
+<entry key="info.invalid_or_missing_date">Invalid or missing encrypted date.</entry>
+<entry key="info.missing_pdf_creation_date">Missing PDF creation date.</entry>
+<entry key="info.missing_pdf_mod_date">Missing PDF modification date.</entry>
+<entry key="info.invalid_or_missing_due_date">Invalid or missing encrypted due date.</entry>
+<entry key="info.mismatched_creation_date">Mismatched creation date.</entry>
+<entry key="info.mod_le_creation_date">Modification date &lt;= creation date.</entry>
+<entry key="info.mod_gt_creation_date">Modification date &gt; creation date + {0,number} seconds.</entry>
+<entry key="info.submission_date_not_server_pass">Encrypted submission date included but application not ''{0}''.</entry>
+<entry key="info.late_submission">Late submission.</entry>
+
+</properties>

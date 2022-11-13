@@ -1,0 +1,46 @@
+=head1 SYNOPSIS
+
+B<pass-checker> [I<option>]+ I<PDF>+
+
+=head1 DESCRIPTION
+
+B<pass-checker> is a command line application that may be used to
+check that the supplied PDFs were created by one of the PASS
+applications and that the encrypted metadata written by PASS matches
+the unencrypted information.
+
+One or more PDF files must be listed in the argument.
+
+=head1 OPTIONS
+
+The following options are available:
+
+=over 4
+
+=item B<--help> or B<-h>
+
+Prints help message and exits.
+
+=item B<--version> or B<-V>
+
+Prints version details and exits.
+
+=item B<--out> I<file> or B<-o> I<file>
+
+Writes the output to I<file> instead of to STDOUT.
+
+=item B<--max-time-diff> I<n> or B<-m> I<n>
+
+Sets the maximum time deviation in seconds.
+This should take into account the expected length of time
+it takes PASS to compile and test the application and to run LaTeX.
+
+=back
+
+=head1 AUTHOR
+
+Nicola L. C. Talbot
+L<https://www.dickimaw-books.com/>
+
+=cut
+

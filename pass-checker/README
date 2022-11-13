@@ -1,0 +1,37 @@
+PASS Checker
+===========
+
+A member of the suite of PASS applications.
+
+PASS Checker decrypts information in metadata in PDF
+files created by PASS applications and compares it with 
+the unencrypted information also saved in the file.
+
+Principally:
+
+  - checks for signs that the creation date has been tampered with;
+
+  - checks for signs that the PDF wasn't actually created by PASS;
+
+  - checks the zip file attachment's checksum matches the checksum
+    calculated by PASS when it created the zip file.
+
+This isn't really needed for Server PASS as the PDF files will be
+retained on the server and the logs will show when the project was
+uploaded, but it can still be used to double-check.
+
+All files can be processed in one call:
+
+pass-checker *.pdf
+
+Third Party Libraries
+=====================
+
+  * pdfbox-2.0.13.jar
+    PDF Box
+    https://pdfbox.apache.org/
+
+  * commons-logging.jar
+    Apache Commons Logging
+    https://commons.apache.org/proper/commons-logging/
+    (Required by PDF Box)

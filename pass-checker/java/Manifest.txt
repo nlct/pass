@@ -1,0 +1,3 @@
+Main-Class: com.dickimawbooks.passchecker.PassChecker
+Class-Path: . passlib.jar pdfbox-2.0.13.jar commons-logging.jar
+

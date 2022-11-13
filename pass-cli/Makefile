@@ -8,7 +8,7 @@ test-subdirs	: lib/pass-cli.jar
 
 ../dist/pass-cli.zip	: ../dist lib/pass-cli.jar doc/pass-cli.1 doc/README
 	make -C doc
-	cd .. ; zip dist/pass-cli.zip pass-cli/bin/pass-cli pass-cli/lib/*.jar pass-cli/doc/*.{1,pdf} pass-cli/doc/README
+	cd .. ; zip dist/pass-cli.zip pass-cli/bin/pass-cli pass-cli/lib/*.jar pass-cli/lib/resources.xml pass-cli/lib/dictionary/*.xml pass-cli/doc/*.{1,pdf} pass-cli/doc/README
 
 ../dist	:
 	mkdir -p ../dist
@@ -17,7 +17,7 @@ lib/pass-cli.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt clas
 	make -C ../pass-lib lib/passlib.jar
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli.jar \
-	com/dickimawbooks/passcli/PassCliMain.class
+	com/dickimawbooks/passcli/*.class
 
 lib/resources.xml	:
 	cd lib; ln -s ../../pass-lib/lib/resources.xml
