@@ -1,3 +1,18 @@
+/*
+   Copyright 2022 Nicola L. C. Talbot
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 package com.dickimawbooks.passcli.lib;
 
 import java.io.*;
@@ -124,7 +139,7 @@ public class PassCli implements Pass
          }
       }
 
-      files.add(new PassCliFile(resolve(filename), listingLanguage));
+      files.add(new PassCliFile(resolve(filename), listingLanguage, language));
    }
 
    public Vector<PassFile> getFiles()
@@ -163,19 +178,33 @@ public class PassCli implements Pass
 
          if (language.equals(AssignmentData.UNKNOWN_LANGUAGE))
          {
-            String listingLanguage = assignmentData.getListingLanguage(
-             passfile.getExtension());
+            String identifier = passfile.getIdentifier();
 
-            if (listingLanguage.equals(AssignmentData.UNKNOWN_LANGUAGE))
+            File file = passfile.getFile();
+
+            AllowedBinaryFilter filter 
+              = assignmentData.getAllowedBinaryFilter(file, identifier);
+
+            if (filter == null)
             {
-               throw new UnknownIdentifierException(
-                 getMessageWithDefault("error.unknown_file_language", 
-                   "Unknown language for file ''{0}''.",
-                   passfile.getFilename()));
+               String listingLanguage = assignmentData.getListingLanguage(
+                passfile.getExtension());
+
+               if (listingLanguage.equals(AssignmentData.UNKNOWN_LANGUAGE))
+               {
+                  throw new UnknownIdentifierException(
+                    getMessageWithDefault("error.unknown_file_language", 
+                      "Unknown language for file ''{0}''.",
+                      passfile.getFilename()));
+               }
+               else
+               {
+                  passfile.setLanguage(listingLanguage);
+               }
             }
             else
             {
-               passfile.setLanguage(listingLanguage);
+               files.set(i, new AllowedBinaryFile(file, filter));
             }
          }
       }
@@ -961,6 +990,8 @@ public class PassCli implements Pass
       String fromFile = null;
       String encodingName = null;
 
+      AssignmentProcessConfig config = passTools.getConfig();
+
       for (int i = 0; i < args.length; i++)
       {
          if (args[i].equals("--help") || args[i].equals("-h"))
@@ -1270,22 +1301,24 @@ public class PassCli implements Pass
          if (studentNumber == null)
          {
             throw new InvalidSyntaxException(
-              getMessageWithDefault("error.missing_regnums", 
-                "Missing student number(s)"));
+              getMessageWithDefault("error.missing_student_id",
+                "Missing {0}(s)", config.getRegNumText()));
          }
 
          if (blackboardId == null)
          {
             throw new InvalidSyntaxException(
-              getMessageWithDefault("error.missing_usernames",
-                "Missing Blackboard ID(s)"));
+              getMessageWithDefault("error.missing_student_id",
+                "Missing {0}(s)", config.getUserNameText()));
          }
 
          if (studentNumber.length != blackboardId.length)
          {
-            throw new InvalidSyntaxException(String.format(
-              "Unequal lists of student numbers (%d) and Blackboard IDs (%d)",
-                studentNumber.length, blackboardId.length));
+            throw new InvalidSyntaxException(getMessageWithDefault(
+              "error.unequal_student_lists",
+              "Unequal lists of {0} ({1,number}) and {2} ({3,number})",
+                config.getRegNumText(), studentNumber.length,
+                config.getUserNameText(), blackboardId.length));
          }
 
          students = new Vector<Student>(studentNumber.length);
@@ -1298,7 +1331,8 @@ public class PassCli implements Pass
 
       if (courseCode == null)
       {
-         throw new InvalidSyntaxException("Missing course code");
+         throw new InvalidSyntaxException(
+           getMessageWithDefault("error.missing_course", "Missing course code"));
       }
 
       for (Course c : courseData)
@@ -1313,12 +1347,15 @@ public class PassCli implements Pass
       if (course == null)
       {
          throw new UnknownIdentifierException(
-           String.format("Unknown course code '%s'", courseCode));
+           getMessageWithDefault(
+             "error.unknown_course",
+             "Unknown course code ''{0}''", courseCode));
       }
 
       if (assignmentLabel == null)
       {
-         throw new InvalidSyntaxException("Missing assignment label");
+         throw new InvalidSyntaxException(getMessageWithDefault(
+           "error.missing_assignment", "Missing assignment label"));
       }
 
       readXML();
@@ -1326,22 +1363,26 @@ public class PassCli implements Pass
       if (assignmentData == null)
       {
          throw new UnknownIdentifierException(
-           String.format("Unknown assignment label '%s'", assignmentLabel));
+           getMessageWithDefault("error.unknown_assignment",
+            "Unknown assignment label ''{0}''", assignmentLabel));
       }
 
       if (files.size() == 0)
       {
-         throw new InvalidSyntaxException("At least one file must be specified.");
+         throw new InvalidSyntaxException(getMessageWithDefault(
+           "error.missing_files",
+           "At least one file must be specified."));
       }
 
       if (pdfResult == null)
       {
-         throw new InvalidSyntaxException("--pdf-result required");
+         throw new InvalidSyntaxException(getMessageWithDefault(
+           "error.missing_arg", "{0} required", "--pdf-result"));
       }
 
       for (int i = 0; i < files.size(); i++)
       {
-         PassCliFile pf = (PassCliFile)files.get(i);
+         PassFile pf = files.get(i);
 
          passTools.checkFileName(assignmentData, pf.getFile());
 
@@ -1356,13 +1397,16 @@ public class PassCli implements Pass
    throws IOException,InterruptedException,URISyntaxException,
      AgreementRequiredException
    {
-      info("Main language: "+assignmentData.getMainLanguage());
+      info(getMessageWithDefault(
+         "message.main",
+         "Main language: {0}", assignmentData.getMainLanguage()));
 
       String mainFile = assignmentData.getMainFile();
 
       if (mainFile != null)
       {
-         info("Main file: "+mainFile);
+         info(getMessageWithDefault("message.main_file",
+           "Main file: {0}", mainFile));
       }
 
       AssignmentProcess process = new AssignmentProcess(this);
@@ -1373,7 +1417,8 @@ public class PassCli implements Pass
       {
          File dest = new File(pdfResult);
 
-         info(String.format("Creating %s", dest));
+         info(getMessageWithDefault("message.creating",
+           "message.creating", dest));
 
          Files.copy(pdfFile.toPath(), dest.toPath(), 
             StandardCopyOption.REPLACE_EXISTING);
@@ -1384,8 +1429,10 @@ public class PassCli implements Pass
    {
       if (args.length == 0)
       {
-         System.err.println(String.format(
-           "%s: no arguments provided. Use --help for help", getApplicationName()));
+         System.err.println(getMessageWithDefault("error.no_args", 
+            "{0}: no arguments provided. Use {1} for help",
+            getApplicationName(), "--help"));
+
          System.exit(EXIT_SYNTAX);
       }
 
@@ -1474,8 +1521,8 @@ public class PassCli implements Pass
    private int verboseLevel=MESSAGES_ERRORS_AND_WARNINGS_AND_INFO;
 
    public static final String APP_NAME="pass-cli";
-   public static final String APP_VERSION="1.08";
-   public static final String APP_DATE="2021-05-25";
+   public static final String APP_VERSION="1.09";
+   public static final String APP_DATE="2022-11-13";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

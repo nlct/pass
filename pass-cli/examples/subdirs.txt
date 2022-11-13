@@ -2,7 +2,7 @@ Student: abc01xyz	123456789
 Course: CMP-123XY
 Assignment: subdirs
 Base-path: ../tests/JavaSubDirs/
-File: Main.java
+File: FooBar.java
 File: subdir1/Foo.java
 File: subdir2/Bar.java
 File: subdir2/Foo.java

@@ -6,6 +6,10 @@
 <entry key="message.warning">WARNING: {0}</entry>
 <entry key="message.error">ERROR: {0}</entry>
 
+<entry key="message.main">Main language: {0}</entry>
+<entry key="message.main_file">Main file: {0}</entry>
+<entry key="message.creating">Creating {0}</entry>
+
 <entry key="syntax.summary">Usage: {0} &lt;setting&gt;+</entry>
 <entry key="syntax.available_settings">Available settings:</entry>
 <entry key="syntax.course_assignment">Course and Assignment Identification</entry>
@@ -61,8 +65,7 @@ Supported encodings for project files (case-insensitive): </entry>
 <entry key="error.option_clash">Option clash - can''t use {0} with {1} &amp; {2}.</entry>
 <entry key="error.missing_second_val">Missing second value for {0} &lt;id&gt; &lt;number&gt;.</entry>
 <entry key="error.unknown_option">Unknown option ''{0}''.</entry>
-<entry key="error.missing_regnums">Missing student number(s)</entry>
-<entry key="error.missing_usernames">Missing Username(s)</entry>
+<entry key="error.missing_student_id">Missing {0}(s)</entry>
 
 <entry key="error.parse.no_key_val">{0}:{1,number,integer}: expected ''&lt;Key&gt;: &lt;Value&gt;'' found ''{2}''.</entry>
 <entry key="error.parse.option_clash">{0}:{1,number,integer}: option clash - can''t use {2} with {3} &amp; {4}.</entry>
@@ -73,5 +76,15 @@ Supported encodings for project files (case-insensitive): </entry>
 <entry key="error.not_a_dir">Not a directory ''{0}''.</entry>
 <entry key="error.cant_find_file">Can''t find file ''{0}''. Tried:
 {1}</entry>
+
+<entry key="error.missing_course">Missing course code</entry>
+<entry key="error.unequal_student_lists">Unequal lists of {0} ({1,number}) and {2} ({3,number})</entry>
+<entry key="error.unknown_course">Unknown course code ''{0}''</entry>
+<entry key="error.missing_assignment">Missing assignment label</entry>
+<entry key="error.unknown_assignment">Unknown assignment label ''{0}''</entry>
+<entry key="error.missing_files">At least one file must be specified.</entry>
+
+<entry key="error.missing_arg">{0} required</entry>
+<entry key="error.no_args">{0}: no arguments provided. Use {1} for help"</entry>
 
 </properties>
