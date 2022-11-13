@@ -85,6 +85,6 @@ Supported encodings for project files (case-insensitive): </entry>
 <entry key="error.missing_files">At least one file must be specified.</entry>
 
 <entry key="error.missing_arg">{0} required</entry>
-<entry key="error.no_args">{0}: no arguments provided. Use {1} for help"</entry>
+<entry key="error.no_args">{0}: no arguments provided. Use {1} for help</entry>
 
 </properties>
