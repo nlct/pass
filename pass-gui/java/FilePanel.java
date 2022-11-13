@@ -154,6 +154,7 @@ public class FilePanel extends JPanel implements PassFile
     * Gets the selected file's language (type).
     * @return the language selector's selected item
     */ 
+   @Override
    public String getLanguage()
    {
       return languageBox.getSelectedItem().toString();

@@ -30,6 +30,7 @@ import javax.swing.Icon;
 import javax.swing.JTextArea;
 
 import com.dickimawbooks.passlib.AssignmentProcessConfig;
+import com.dickimawbooks.passlib.AssignmentData;
 
 /**
  * Set of methods useful for a GUI.
@@ -43,6 +44,8 @@ public class PassGuiTools
 
    /**
     * Opens a PDF file.
+    * @param pdfFile the pdf file
+    * @throws IOException if I/O error occurs
     */ 
    public void openPdf(File pdfFile) throws IOException
    {
@@ -51,10 +54,52 @@ public class PassGuiTools
 
    /**
     * Opens a text file. 
+    * @param textFile the text file
+    * @throws IOException if I/O error occurs
     */ 
    public void openEditor(File textFile) throws IOException
    {
       open(textFile, "editor", "EDITOR");
+   }
+
+   /**
+    * Opens an image file.
+    * @param imageFile the image file
+    * @throws IOException if I/O error occurs
+    */ 
+   public void openImage(File imageFile) throws IOException
+   {
+      open(imageFile, "imageviewer", null);
+   }
+
+   /**
+    * Opens a file based on MIME type.
+    * @param mimetype the MIME type
+    * @param file the file
+    * @throws IOException if I/O error occurs
+    */ 
+   public void open(String mimeType, File file) throws IOException
+   {
+      if (mimeType == null)
+      {
+         open(file, null, null);
+      }
+      else if (mimeType.startsWith("text/"))
+      {
+         openEditor(file);
+      }
+      else if (mimeType.startsWith("image/"))
+      {
+         openImage(file);
+      }
+      else if (mimeType.equals(AssignmentData.MIME_PDF))
+      {
+         openPdf(file);
+      }
+      else
+      {
+         open(file, null, null);
+      }
    }
 
    /**

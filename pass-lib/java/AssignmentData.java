@@ -370,9 +370,23 @@ public class AssignmentData
     */ 
    public AllowedBinaryFilter getAllowedBinaryFilter(File file)
    {
+      return getAllowedBinaryFilter(file, null);
+   }
+
+   /**
+    * Gets the allowed binary filter that matches the given file or
+    * mime type.
+    * @param file the file to test
+    * @param mimeType the mime type
+    * @return the allowed binary filter or null if no match
+    */ 
+   public AllowedBinaryFilter getAllowedBinaryFilter(File file, String mimeType)
+   {
       for (AllowedBinaryFilter filter : allowedBinaryFilters)
       {
-         if (filter.accept(file))
+         if ((file != null && filter.accept(file))
+          || (mimeType != null && filter.getMimeType().equals(mimeType))
+            )
          {
             return filter;
          }
@@ -686,6 +700,72 @@ public class AssignmentData
    }
 
    /**
+    * Gets the mime type for the given language.
+    * This assumes that the given language is source code, plain
+    * text, PDF or DOC. The filename is used to distinguish between
+    * ".doc" and ".docx". No content probe performed (which is
+    * performed by AssignmentProcess).
+    * @param language the language name
+    * @param filename the filename
+    * @return the mime type
+    */
+   public static String getMimeType(String language, String filename)
+   {
+      if ("PDF".equals(language))
+      {
+         return MIME_PDF;
+      }
+      else if ("DOC".equals(language))
+      {
+         if (filename.endsWith(".docx"))
+         {
+            return MIME_DOCX;
+         }
+         else
+         {
+            return MIME_DOC;
+         }
+      }
+      else if (UNKNOWN_LANGUAGE.equals(language)
+            || PLAIN_TEXT.equals(language))
+      {
+         return "text/plain";
+      }
+      else
+      {
+         return "text/x-source";
+      }
+   }
+
+   /**
+    * Determines if the given language should be considered 
+    * as having text source.
+    * @param language the language to test
+    * @return true if the given language is identified in
+    * LISTING_LANGUAGES, unless "PDF" or "DOC", otherwise returns
+    * false
+    */ 
+   public static boolean isText(String language)
+   {
+      if ("PDF".equals(language) || "DOC".equals(language))
+      {
+         return false;
+      }
+      else
+      {
+         for (String l : LISTING_LANGUAGES)
+         {
+            if (l.equals(language))
+            {
+               return true;
+            }
+         }
+      }
+
+      return false;
+   }
+
+   /**
     * Gets the assignment label. If no label has been set, this will
     * return the title with non-alphanumerics and any punctuation
     * that's not ".", "-" or "+" stripped.
@@ -803,12 +883,47 @@ public class AssignmentData
    }
 
    /**
+    * Indicates if noPDF test build should try running the student's application.
+    * This will only be done if there are no errors at the compiler
+    * stage, if applicable.
+    * @return true if noPDF test build should try running the student's
+    * application
+    */ 
+   public boolean isNoPdfRunTestOn()
+   {
+      return noPdfRunTest;
+   }
+
+   /**
     * Sets whether or not PASS should try running the student's
     * application.
+    * @param doTest true if PASS should try running the application
     */ 
    public void setRunTest(boolean doTest)
    {
       runTest = doTest;
+   }
+
+   /**
+    * Sets whether or not PASS should try running the student's
+    * application.
+    * @param doTest true if PASS should try running the application
+    * @param doNoPdfTest true if the noPdf test build should try running the application
+    */ 
+   public void setRunTest(boolean doTest, boolean doNoPdfTest)
+   {
+      runTest = doTest;
+      noPdfRunTest = doNoPdfTest;
+   }
+
+   /**
+    * Sets whether or not the noPDF test build should try running the student's
+    * application.
+    * @param doNoPdfTest true if the noPdf test build should try running the application
+    */ 
+   public void setNoPdfRunTest(boolean doNoPdfTest)
+   {
+      noPdfRunTest = doNoPdfTest;
    }
 
    /**
@@ -858,6 +973,26 @@ public class AssignmentData
    }
 
    /**
+    * Sets the noPDF build script to use to compile (if applicable) and
+    * run the student's application. The supplied URL must be the
+    * actual script. Redirects aren't permitted.
+    * @param url the URL to fetch the build script from
+    */ 
+   public void setNoPdfBuildScript(URL url)
+   {
+      noPdfBuildScript = url;
+   }
+
+   /**
+    * Gets the location of the noPDF build script.
+    * @param the URL of the build script or null if not set
+    */ 
+   public URL getNoPdfBuildScript()
+   {
+      return noPdfBuildScript;
+   }
+
+   /**
     * Gets the location of the template for the given filename.
     * @param name the filename identifying the template
     * @return the URL of the template or null if not set
@@ -894,9 +1029,10 @@ public class AssignmentData
    private Vector<ResultFile> resultList;
    private String mainFile;
    private LocalDateTime due;
-   private boolean runTest=true;
+   private boolean runTest=true, noPdfRunTest=true;
    private boolean compileTest=true;
    private URL buildScript = null;
+   private URL noPdfBuildScript = null;
    private HashMap<String,URL> templates = null;
 
    private Vector<String> reports;
@@ -1003,4 +1139,8 @@ public class AssignmentData
       "XML",
       "XSLT"
    };
+
+   public static final String MIME_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+   public static final String MIME_DOC = "application/msword";
+   public static final String MIME_PDF = "application/pdf";
 }

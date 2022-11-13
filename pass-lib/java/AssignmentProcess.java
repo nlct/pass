@@ -1136,25 +1136,17 @@ public class AssignmentProcess
             {
                boolean ext_warn = false;
 
-               String docContentType;
+               String docContentType = AssignmentData.getMimeType(language, filename);
 
                out.println("\\attachfile");
                out.print("[mimetype=");
 
-               if (filename.endsWith(".docx"))
-               {
-                  out.println("application/vnd.openxmlformats-officedocument.wordprocessingml.document,");
-                  docContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-               }
-               else
-               {
-                  out.println("application/msword,");
-                  docContentType = "application/msword";
+               out.print(docContentType);
+               out.println(",");
 
-                  if (!filename.endsWith(".doc"))
-                  {
-                     ext_warn = true;
-                  }
+               if (!(filename.endsWith(".docx") || filename.endsWith(".doc")))
+               {
+                  ext_warn = true;
                }
 
                out.println(String.format("description={%s},",
@@ -1795,8 +1787,19 @@ public class AssignmentProcess
      throws IOException,InterruptedException,URISyntaxException
    {
       int exitCode = 0;
+      URL buildURL;
 
-      URL buildURL = data.getBuildScript();
+      if (noPdf)
+      {
+         runTest = main.getAssignment().isNoPdfRunTestOn();
+         buildURL = data.getNoPdfBuildScript();
+      }
+      else
+      {
+         runTest = main.getAssignment().isRunTestOn();
+         buildURL = data.getBuildScript();
+      }
+
       PassTools passTools = getPassTools();
 
       if (buildURL != null)
@@ -2285,7 +2288,7 @@ public class AssignmentProcess
 
       if (exitCode == 0)
       {
-         if (main.getAssignment().isRunTestOn())
+         if (runTest)
          {
             exitCode = runJavaApplication(writer, classes, mainClass);
          }
@@ -2485,7 +2488,7 @@ public class AssignmentProcess
    {
       int exitCode = 1;
 
-      if (main.getAssignment().isRunTestOn())
+      if (runTest)
       {
          File file = new File(dir, outputName);
 
@@ -2627,7 +2630,7 @@ public class AssignmentProcess
 
       int exitCode = EXIT_UNSET;
 
-      if (main.getAssignment().isRunTestOn())
+      if (runTest)
       {
          exitCode = runApplication(writer, dir, args);
       }
@@ -2669,7 +2672,7 @@ public class AssignmentProcess
 
       int exitCode = EXIT_UNSET;
 
-      if (main.getAssignment().isRunTestOn())
+      if (runTest)
       {
          exitCode = runApplication(writer, dir, args);
       }
@@ -2719,7 +2722,7 @@ public class AssignmentProcess
 
       int exitCode = EXIT_UNSET;
 
-      if (main.getAssignment().isRunTestOn())
+      if (runTest)
       {
          exitCode = runApplication(writer, dir, args);
       }
@@ -3791,6 +3794,8 @@ public class AssignmentProcess
     * PassEditor sets this to false for trial runs.
     */ 
    private boolean alwaysFetchResources = true;
+
+   private boolean runTest;
 
    private ProgressListener progressListener;
 

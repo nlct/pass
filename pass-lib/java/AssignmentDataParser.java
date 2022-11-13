@@ -163,13 +163,14 @@ public class AssignmentDataParser extends XMLReaderAdapter
          }
 
          String build = atts.getValue("build");
+         URL buildURL = null;
 
          if (build != null && !build.isEmpty())
          {
             try
             {
-               URL url = new URI(build).toURL();
-               current.setBuildScript(url);
+               buildURL = new URI(build).toURL();
+               current.setBuildScript(buildURL);
             }
             catch (URISyntaxException | MalformedURLException e)
             {
@@ -180,13 +181,40 @@ public class AssignmentDataParser extends XMLReaderAdapter
             }
          }
 
+         String nopdfbuild = atts.getValue("nopdfbuild");
+         URL nopdfBuildURL = null;
+
+         if (nopdfbuild != null)
+         {
+            if (!nopdfbuild.isEmpty())
+            {
+               try
+               {
+                  nopdfBuildURL = new URI(nopdfbuild).toURL();
+                  current.setNoPdfBuildScript(nopdfBuildURL);
+               }
+               catch (URISyntaxException | MalformedURLException e)
+               {
+                  throw new SAXException(
+                    passTools.getMessageWithDefault("error.uri_tag_attribute_required",
+                    "<{0}> tag attribute ''{1}'' must be a well-formed URI (found ''{2}'').",
+                    qName, "nopdfbuild", nopdfbuild), e);
+               }
+            }
+         }
+         else if (buildURL != null)
+         {
+            nopdfBuildURL = buildURL;
+            current.setNoPdfBuildScript(buildURL);
+         }
+
          if (atts.getValue("run") == null)
          {
             current.setRunTest(true);
          }
          else if (passTools.isBoolAttributeOn("run", atts, qName, true))
          {
-            if (build != null)
+            if (buildURL != null)
             {
                throw new SAXException(
                   passTools.getMessageWithDefault("error.tag_attribute_conflict",
@@ -201,6 +229,29 @@ public class AssignmentDataParser extends XMLReaderAdapter
          else
          {
             current.setRunTest(false);
+         }
+
+         if (atts.getValue("nopdfrun") == null)
+         {
+            current.setNoPdfRunTest(true);
+         }
+         else if (passTools.isBoolAttributeOn("nopdfrun", atts, qName, true))
+         {
+            if (nopdfBuildURL != null)
+            {
+               throw new SAXException(
+                  passTools.getMessageWithDefault("error.tag_attribute_conflict",
+                  "<{0}> tag contains conflicting attributes ''{1}'' and ''{2}''.",
+                  qName, "nopdfbuild", "nopdfrun"));
+            }
+            else
+            {
+               current.setNoPdfRunTest(true);
+            }
+         }
+         else
+         {
+            current.setNoPdfRunTest(false);
          }
 
          if (atts.getValue("compile") == null)
