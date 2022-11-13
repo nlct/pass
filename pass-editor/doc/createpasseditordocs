@@ -22,7 +22,7 @@ if ($#ARGV == 1)
 my $downloadurl = 'https://www.dickimaw-books.com/software/pass/';
 my $targetdir = '../lib/manual';
 my $dictdir = '../lib/dictionary';
-my $mainclass = "../src/PassEditor.java";
+my $mainclass = "../java/PassEditor.java";
 my $base = "passeditor";
 
 my $fontenc = 'T1';

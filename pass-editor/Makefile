@@ -7,6 +7,7 @@ lib/manual/en/passeditor.html	: doc/passeditor-en.xml doc/createpasseditordocs
 	make -C doc
 
 lib/pass-editor.jar	: java/Manifest.txt lib/resources.xml \
+		lib/manual/en/passeditor.html \
 		classes/com/dickimawbooks/passeditor/PassEditor.class 
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-editor.jar \
