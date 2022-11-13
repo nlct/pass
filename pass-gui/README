@@ -21,3 +21,12 @@ Requirements:
 Please read the post installation instructions in the
 POST-INSTALL file.
 
+Third Party Library
+===================
+
+ * jlfgr-1_0.jar
+   Java look and feel Graphics Repository
+   https://www.oracle.com/java/technologies/java-look-and-feel-graphics-repository.html
+   Oracle License Agreement (https://www.oracle.com/a/tech/docs/software-icon-license-943-2012.html)
+   Download from:
+   https://www.oracle.com/java/technologies/java-archive-downloads-java-client-downloads.html#7520-jlf-1.0-oth-JPR

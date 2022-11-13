@@ -1,0 +1,96 @@
+PASS Editor
+===========
+
+A member of the suite of PASS applications. PASS Editor:
+
+- Provides a primitive text editor interface for use by students
+  sitting a practical exam in the lab. Unlike common IDEs, this
+  doesn’t provide any hints or autofilling. (So it’s like switching
+  off the spellchecker and grammar checker for students who are
+  allowed to use a word processor when sitting an English exam.)
+  There’s no syntax highlighting or line wrapping.
+
+- Has basic editing functions (undo/redo, copy, cut, paste, go to line,
+  and search/replace). There is a basic project file navigation
+  panel with the ability to create additional files. 
+
+- Provides a function for compiling and running the code in the
+  project directory for testing purposes. As with other PASS
+  applications, this obeys the compile, run and build attributes
+  specified in the assignment XML file. However, this function doesn’t 
+  refresh the project resource files from the original remote location as it’s 
+  designed for quick testing.
+
+- Provides a function that runs the PASS backend which copies the
+  project files to PASS’s working directory and will fetch the
+  project resource files from their remote location. So if the student
+  does use another editor to modify their local copy of the resource
+  files those modifications won’t make it into the version used by the
+  backend. The PDF can then be saved and viewed.
+
+On creating a new project required files (specified with <mainfile>
+or <file> elements in the assignment XML file) are created
+automatically and assignment resource files are fetched.  The editor
+panel doesn’t allow the resource files to be edited.  However it is
+possible for the student to use another installed text editor to
+modify them. Resource files are assumed to be plain text. Any binary
+resource files will need to be identified by their mime type using
+the type attribute in the <resourcefile> tag. (This attribute is
+ignored by the other PASS applications.)
+
+Example:
+
+ <assignment name="testreadfileinfo">
+  <title>Test Read File Info Java</title>
+  <due>2021-02-01 16:30</due>
+  <mainfile>TestReadFileInfo.java</mainfile>
+  <resourcefile src="http://www.dickimaw-books.com/software/pass/dummy.txt"/>
+  <resourcefile src="http://www.dickimaw-books.com/software/pass/dummy.png" type="image/png"/>
+ </assignment>
+
+
+Required files may be provided with a template file that
+will be fetched when creating the project files. For example, if
+students are required to fix bugs and fill in stub methods/functions.
+The URL for the template file should be specified using the template
+attribute in the associated <mainfile> or <file> tag. The filename
+in the URL doesn’t need to match the required filename. It will be
+given the appropriate name when it’s downloaded. (The template attribute is
+ignored by the other PASS applications.)
+
+Example:
+
+ <assignment name="helloworldjavatemplate">
+  <title>Hello World Template (Java)</title>
+  <due>2021-01-31 16:30</due>
+  <mainfile template="http://www.dickimaw-books.com/software/pass/dummy-HelloWorld.java">HelloWorld.java</mainfile>
+ </assignment>
+
+
+Requirements: 
+
+ * Java Runtime Environment;
+ * TeX installation with packages: listings, attachfile, verbatim,
+   upquote, graphicx, hyperref, fontspec, fontenc, inputenc, 
+   lmodern, geometry, marvosym. These packages should be 
+   available with both MikTeX and TeX Live.
+ * Software development tools (such as gcc or javac) required to compile
+   and run the assignment source code.
+
+
+Third Party Libraries
+=====================
+
+ * jlfgr-1_0.jar
+   Java look and feel Graphics Repository
+   https://www.oracle.com/java/technologies/java-look-and-feel-graphics-repository.html
+   Oracle License Agreement (https://www.oracle.com/a/tech/docs/software-icon-license-943-2012.html)
+   Download from:
+   https://www.oracle.com/java/technologies/java-archive-downloads-java-client-downloads.html#7520-jlf-1.0-oth-JPR
+
+ * javahelp2.jar
+   JavaHelp
+   https://github.com/javaee/javahelp/
+   Can be installed with a package manager for example
+   sudo dnf install javahelp2
+   This may need replacing. (Obsolete?)

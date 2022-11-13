@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>English language file for PASS Editor</comment>
+
+<!-- Menus -->
+
+<entry key="file.title">File</entry>
+<entry key="file.title.mnemonic">F</entry>
+<entry key="file.save">Save</entry>
+<entry key="file.save.mnemonic">S</entry>
+<entry key="file.save_all">Save All</entry>
+<entry key="file.save_all.mnemonic">A</entry>
+<entry key="file.build">Test Build</entry>
+<entry key="file.build.mnemonic">B</entry>
+<entry key="file.runpass">Run PASS</entry>
+<entry key="file.runpass.mnemonic">P</entry>
+<entry key="file.openpdf">View PDF</entry>
+<entry key="file.openpdf.mnemonic">V</entry>
+<entry key="file.close">Close</entry>
+<entry key="file.close.mnemonic">C</entry>
+<entry key="file.quit">Quit</entry>
+<entry key="file.quit.mnemonic">Q</entry>
+
+<entry key="edit.title">Edit</entry>
+<entry key="edit.title.mnemonic">E</entry>
+<entry key="edit.undo">Undo</entry>
+<entry key="edit.undo.mnemonic">U</entry>
+<entry key="edit.redo">Redo</entry>
+<entry key="edit.redo.mnemonic">R</entry>
+<entry key="edit.gotoline">Go To Line...</entry>
+<entry key="edit.gotoline.mnemonic">G</entry>
+<entry key="edit.find">Find...</entry>
+<entry key="edit.find.mnemonic">F</entry>
+<entry key="edit.findagain">Find Next</entry>
+<entry key="edit.findagain.mnemonic">N</entry>
+<entry key="edit.findprev">Find Previous</entry>
+<entry key="edit.findprev.mnemonic">E</entry>
+<entry key="edit.replace">Find and Replace...</entry>
+<entry key="edit.replace.mnemonic">L</entry>
+<entry key="edit.copy">Copy</entry>
+<entry key="edit.copy.mnemonic">C</entry>
+<entry key="edit.cut">Cut</entry>
+<entry key="edit.cut.mnemonic">T</entry>
+<entry key="edit.paste">Paste</entry>
+<entry key="edit.paste.mnemonic">P</entry>
+
+<entry key="edit.incfont">Increase Font</entry>
+<entry key="edit.incfont.mnemonic">I</entry>
+<entry key="edit.decfont">Decrease Font</entry>
+<entry key="edit.decfont.mnemonic">D</entry>
+<entry key="edit.setproperties">Properties...</entry>
+<entry key="edit.setproperties.mnemonic">S</entry>
+
+<entry key="project.title">Project</entry>
+<entry key="project.title.mnemonic">P</entry>
+<entry key="project.details">Project Details...</entry>
+<entry key="project.details.mnemonic">P</entry>
+<entry key="project.newfolder">New Folder...</entry>
+<entry key="project.newfolder.mnemonic">D</entry>
+<entry key="project.newfile">New File...</entry>
+<entry key="project.newfile.mnemonic">F</entry>
+<entry key="project.import">Import Files...</entry>
+<entry key="project.import.mnemonic">I</entry>
+<entry key="project.deletefile">Delete</entry>
+<entry key="project.deletefile.mnemonic">T</entry>
+<entry key="project.removefromproject">Remove from project</entry>
+<entry key="project.removefromproject.mnemonic">V</entry>
+<entry key="project.removefromproject.tooltip">Remove file from project listing (doesn''t delete file)</entry>
+<entry key="project.movefile">Move to...</entry>
+<entry key="project.movefile.mnemonic">M</entry>
+<entry key="project.renamefile">Rename...</entry>
+<entry key="project.renamefile.mnemonic">N</entry>
+<entry key="project.reload">Reload</entry>
+<entry key="project.reload.mnemonic">R</entry>
+
+<entry key="help.title">Help</entry>
+<entry key="help.title.mnemonic">H</entry>
+<entry key="help.about">About</entry>
+<entry key="help.about.mnemonic">A</entry>
+<entry key="help.manual">Manual</entry>
+<entry key="help.manual.mnemonic">M</entry>
+<entry key="help.licence">Licence</entry>
+<entry key="help.licence.mnemonic">L</entry>
+
+<!-- Syntax invocation messages -->
+
+<entry key="syntax.summary">{0} [&lt;option&gt;]+</entry>
+<entry key="syntax.options">Options</entry>
+<entry key="syntax.help">{0} (or {1})	Print this help message.</entry>
+<entry key="syntax.version">{0} (or {1})	Print version details.</entry>
+<entry key="syntax.messages">{0} &lt;type&gt;	Set the message level. Possible values:
+	''{1}'' (suppress messages)
+	''{2}'' (extra messages)
+	''{3}'' (debugging messages, and enables courses with debug=true)</entry>
+<entry key="syntax.silent">{0}	Equivalent to {1}.</entry>
+<entry key="syntax.debug">{0}	Equivalent to {1}.</entry>
+
+<!-- Dialog Windows -->
+
+<entry key="button.select">Select</entry>
+<entry key="button.okay">Okay</entry>
+<entry key="button.okay.mnemonic">O</entry>
+<entry key="button.cancel">Cancel</entry>
+<entry key="button.cancel.mnemonic">C</entry>
+<entry key="button.exit">Exit</entry>
+<entry key="button.exit.mnemonic">X</entry>
+<entry key="button.help">Help</entry>
+<entry key="button.help.mnemonic">H</entry>
+
+<entry key="message.about.title">About</entry>
+<entry key="message.licence.title">Licence</entry>
+<entry key="startup.title">Initialising {0}</entry>
+<entry key="message.choose_project_dir">Choose an Empty Directory for the Project</entry>
+<entry key="message.select_project_dir">Select Directory Containing Project Files</entry>
+
+<entry key="confirm.title">Confirm</entry>
+<entry key="confirm.quit.title">Confirm Quit</entry>
+<entry key="confirm.quit">Are you sure you want to quit?</entry>
+
+<entry key="confirm.discard.title">Confirm Discard</entry>
+<entry key="confirm.discard">File ''{0}'' has been modified.
+Do you want to discard your changes?</entry>
+
+<entry key="confirm.overwrite.title">Confirm Overwrite</entry>
+<entry key="confirm.overwrite">Overwrite {0}?</entry>
+
+<entry key="confirm.file_exists">File ''{0}'' already exists. Overwrite?</entry>
+
+<entry key="confirm.delmessages">Are you sure you want to delete all messages?</entry>
+<entry key="confirm.delfile">Are you sure you want to permanently delete file ''{0}''?</entry>
+<entry key="confirm.delfile.title">Confirm Delete File</entry>
+
+<entry key="confirm.removefromproject">Are you sure you want to remove ''{0}'' from the project listing?
+This won''t delete the file. It will just remove it from the navigation list. If you change your mind you can import it again later.</entry>
+<entry key="confirm.removefromproject.title">Confirm Remove from Project</entry>
+
+<entry key="confirm.copy_file">Copy file ''{0}'' to ''{1}''?</entry>
+<entry key="confirm.copy_file.title">Confirm Copy</entry>
+
+<entry key="navigator.base">base</entry>
+<entry key="navigator.add_file_prompt">Add a new file to {0} directory.
+File name:</entry>
+<entry key="navigator.new_file.title">New File Name</entry>
+<entry key="navigator.new_folder_prompt">Add a new sub-directory to {0} directory.
+Folder name:</entry>
+<entry key="navigator.new_folder.title">New Folder Name</entry>
+
+<entry key="navigator.rename_folder_prompt">Rename folder ''{0}''
+Enter new name:</entry>
+<entry key="navigator.rename_folder.title">Rename Folder</entry>
+
+<entry key="navigator.rename_file_prompt">Rename file ''{0}''
+Enter new name:</entry>
+<entry key="navigator.rename_file.title">Rename File</entry>
+
+<entry key="info.course_assignment">{0}: {1}</entry>
+
+<entry key="main.title">{0} - {1}</entry>
+<entry key="main.title_modified">{0} - {1} [modified]</entry>
+
+<entry key="course.select.title">Select Course</entry>
+<entry key="course.select_prompt">Please select your course.</entry>
+
+<entry key="assignment_selector.title">Course {0}</entry>
+<entry key="assignment_selector.assignment">Assignment:</entry>
+<entry key="assignment_selector.assignment.mnemonic">A</entry>
+<entry key="assignment_selector.due">Due:</entry>
+
+<entry key="filepane.required">Required File</entry>
+<entry key="filepane.additional">Additional File</entry>
+<entry key="filepane.resource">Supplied Project File (read only)</entry>
+<entry key="filepane.result">Result File (read only)</entry>
+<entry key="filepane.language">Language</entry>
+<entry key="filepane.binary">Binary {0}</entry>
+<entry key="filepane.view">View</entry>
+<entry key="filepane.close.tooltip">Close</entry>
+<entry key="filepane.location_long.line">line: {0,number,integer}</entry>
+<entry key="filepane.location_short.line">Ln: {0,number,integer}</entry>
+<entry key="filepane.location_long.column">column: {0,number,integer}</entry>
+<entry key="filepane.location_short.column">Cn: {0,number,integer}</entry>
+<entry key="filepane.location_long.position">position: {0,number,integer}</entry>
+<entry key="filepane.location_short.position">Pn: {0,number,integer}</entry>
+<entry key="filepane.location.numeric_sep">, </entry>
+
+<entry key="filepane.query_download">Download original remote source of ''{0}''?
+Choose ''No'' to simply reload local copy.
+Choose ''Yes'' to download and overwrite local copy.
+(Your existing local copy will be backed up as ''{1}''.)</entry>
+<entry key="filepane.query_download.readonly">Download original remote source of ''{0}''?
+Choose ''No'' to simply reload local copy.</entry>
+<entry key="filepane.reloading">Reloading {0}</entry>
+
+<entry key="filedir.info.default">Select directory</entry>
+<entry key="filedir.info.moveto">Move ''{0}'' to:</entry>
+<entry key="filedir.title.moveto">Move To</entry>
+<entry key="filedir.info.copyto">Copy ''{0}'' to:</entry>
+<entry key="filedir.title.copyto">Copy To</entry>
+
+<entry key="find.title">Find</entry>
+<entry key="find.replace.title">Find and Replace</entry>
+<entry key="find.search">Search:</entry>
+<entry key="find.search.mnemonic">S</entry>
+<entry key="find.replace_with">Replace With:</entry>
+<entry key="find.replace_with.mnemonic">W</entry>
+<entry key="find.regexp">Regular expression</entry>
+<entry key="find.regexp.mnemonic">X</entry>
+<entry key="find.match_case">Match case</entry>
+<entry key="find.match_case.mnemonic">M</entry>
+<entry key="find.search_from">Search from:</entry>
+<entry key="find.cursor">Cursor</entry>
+<entry key="find.cursor.mnemonic">U</entry>
+<entry key="find.start">Start</entry>
+<entry key="find.start.mnemonic">T</entry>
+<entry key="find.direction">Direction:</entry>
+<entry key="find.forwards">Forwards</entry>
+<entry key="find.forwards.mnemonic">F</entry>
+<entry key="find.backwards">Backwards</entry>
+<entry key="find.backwards.mnemonic">B</entry>
+<entry key="find.find">Find</entry>
+<entry key="find.find.mnemonic">N</entry>
+<entry key="find.findnext">Next</entry>
+<entry key="find.findnext.mnemonic">N</entry>
+<entry key="find.findprev">Previous</entry>
+<entry key="find.findprev.mnemonic">P</entry>
+<entry key="find.replaceall">Replace All</entry>
+<entry key="find.replaceall.mnemonic">A</entry>
+<entry key="find.replace">Replace</entry>
+<entry key="find.replace.mnemonic">R</entry>
+<entry key="find.close">Close</entry>
+<entry key="find.close.mnemonic">C</entry>
+<entry key="find.not_found">Not found</entry>
+<entry key="find.found">Found {0,number,integer}/{1,number,integer} {2}</entry>
+<entry key="find.n_replaced">{0,number,integer} replaced.</entry>
+<entry key="find.brief_found">{0,number,integer}/{1,number,integer} found</entry>
+<entry key="find.settings">Settings</entry>
+
+<entry key="goto.title">Go To Line</entry>
+<entry key="goto.line">Line number:</entry>
+<entry key="goto.line.mnemonic">L</entry>
+
+<entry key="manual.title">Manual</entry>
+
+<entry key="projectdetails.title">Project Details</entry>
+<entry key="projectdetails.course_not_set">Course not set</entry>
+<entry key="projectdetails.assignment_not_set">Assignment not set</entry>
+<entry key="projectdetails.due_date">Due date:</entry>
+<entry key="projectdetails.group_info">For group projects, add a row for each member of the group.</entry>
+<entry key="projectdetails.insertrow">Insert new row</entry>
+<entry key="projectdetails.appendrow">Append new row</entry>
+<entry key="projectdetails.deleterow">Delete selected row</entry>
+<entry key="projectdetails.course_info">{0}: {1}</entry>
+<entry key="projectdetails.due_info">Due: {0}</entry>
+<entry key="projectdetails.solo_student">Student</entry>
+<entry key="projectdetails.student_n">Student {0,number,integer}</entry>
+
+<entry key="selectproject.title">Select Project</entry>
+<entry key="selectproject.new">New project</entry>
+<entry key="selectproject.new.mnemonic">N</entry>
+<entry key="selectproject.open">Open existing project</entry>
+<entry key="selectproject.open.mnemonic">E</entry>
+<entry key="selectproject.import">Import assignment data</entry>
+<entry key="selectproject.import.mnemonic">I</entry>
+<entry key="selectproject.info">If you have already edited your code in {0}, select ''{1}'' to continue editing it. If you have already written some source code in another editor, select ''{2}'' to import the PASS assignment data. Otherwise select ''{3}''.</entry>
+
+<entry key="properties.title">Properties</entry>
+<entry key="properties.code_editor">Editor</entry>
+<entry key="properties.code_editor.mnemonic">D</entry>
+<entry key="properties.code_font">Code Font</entry>
+<entry key="properties.manual_font">Manual Font</entry>
+<entry key="properties.manual_font.mnemonic">T</entry>
+<entry key="properties.ui">UI</entry>
+<entry key="properties.ui.mnemonic">U</entry>
+<entry key="properties.code_sample_1">"The quick, brown fox jumped lightly over the woozy kitty-cats!";</entry>
+<entry key="properties.code_sample_2">&amp;&amp; || &lt;&lt; &gt;&gt; : ` ' . , [ ] { } ( ) ^ ~ * # $ @ + - = _ / \\ ! ?</entry>
+<entry key="properties.notcode_sample_1">&#x201C;The &lt;em&gt;quick&lt;/em&gt;, &lt;strong&gt;brown&lt;/strong&gt; fox jumped lightly over the woozy kitty-cat&#x2019;s tail.&#x201D;</entry>
+<entry key="properties.notcode_sample_2">, . ! ? &lt;span class="symbol"&gt;&#x27E8; &#x27E9; &#x25C0; &#x25B6; &#x2023; &#x279C;&lt;/span&gt; &lt;span class="menu"&gt;menu&lt;/span&gt; &lt;code&gt;code&lt;/code&gt; &lt;kbd&gt;Return &#x23CE;&lt;/kbd&gt; &lt;kbd&gt;Tab &#x21B9;&lt;/kbd&gt;</entry>
+<entry key="properties.code_font.info">This font size will also be used in message tabs.</entry>
+<entry key="properties.monospaced">Monospaced</entry>
+<entry key="properties.monospaced.mnemonic">M</entry>
+<entry key="properties.font">Font:</entry>
+<entry key="properties.font.mnemonic">F</entry>
+<entry key="properties.fontsize">Size:</entry>
+<entry key="properties.fontsize.mnemonic">S</entry>
+<entry key="properties.bold">Bold</entry>
+<entry key="properties.bold.mnemonic">B</entry>
+<entry key="properties.italic">Italic</entry>
+<entry key="properties.italic.mnemonic">I</entry>
+<entry key="properties.lookandfeel">Look and Feel:</entry>
+<entry key="properties.lookandfeel.mnemonic">F</entry>
+<entry key="properties.lookandfeel.info">You will need to quit and restart for some of the changes below to take effect properly.</entry>
+<entry key="properties.widgetfontsize">Widget Font Size:</entry>
+<entry key="properties.widgetfontsize.mnemonic">W</entry>
+<entry key="properties.restart_required">(restart required)</entry>
+<entry key="properties.cursor_location">Cursor Location</entry>
+<entry key="properties.display">Display:</entry>
+<entry key="properties.show">Show:</entry>
+<entry key="properties.line_number">line number</entry>
+<entry key="properties.line_number.mnemonic">L</entry>
+<entry key="properties.column_number">column number</entry>
+<entry key="properties.column_number.mnemonic">M</entry>
+<entry key="properties.position_number">position number</entry>
+<entry key="properties.position_number.mnemonic">P</entry>
+<entry key="properties.format">Format:</entry>
+<entry key="properties.format_long">long</entry>
+<entry key="properties.format_long.mnemonic">G</entry>
+<entry key="properties.format_short">short</entry>
+<entry key="properties.format_short.mnemonic">S</entry>
+<entry key="properties.format_numeric">numeric</entry>
+<entry key="properties.format_numeric.mnemonic">N</entry>
+<entry key="properties.toolbarbuttons.info">Toolbar Buttons:</entry>
+<entry key="properties.toolbarbuttons.small">Small</entry>
+<entry key="properties.toolbarbuttons.large">Large</entry>
+<entry key="properties.toolbarbuttons.visible">Visible Buttons</entry>
+
+<entry key="properties.toolbarseps">Toolbar Separators</entry>
+
+<entry key="toolbarsep.file_edit">File/Edit</entry>
+<entry key="toolbarsep.edit_pref">Edit/Preferences</entry>
+<entry key="toolbarsep.pref_project">Preferences/Project</entry>
+
+<!-- File Filters -->
+
+<entry key="filter.pdf">PDF Documents</entry>
+<entry key="filter.passed">PASS Editor File</entry>
+
+<!-- toolbar scroll button tooltips -->
+
+<entry key="tooltip.vScrollBlockDown">Block scroll down</entry>
+<entry key="tooltip.vScrollBlockUp">Block scroll up</entry>
+<entry key="tooltip.vScrollEndDown">Scroll down to end</entry>
+<entry key="tooltip.vScrollEndUp">Scroll up to start</entry>
+<entry key="tooltip.vScrollUnitDown">Scroll down</entry>
+<entry key="tooltip.vScrollUnitUp">Scroll up</entry>
+<entry key="tooltip.hScrollBlockLeft">Block scroll left</entry>
+<entry key="tooltip.hScrollBlockRight">Block scroll right</entry>
+<entry key="tooltip.hScrollEndLeft">Scroll left to start</entry>
+<entry key="tooltip.hScrollEndRight">Scroll right to end</entry>
+<entry key="tooltip.hScrollUnitLeft">Scroll left</entry>
+<entry key="tooltip.hScrollUnitRight">Scroll right</entry>
+
+<!-- Message Area Widgets -->
+
+<entry key="messages.delmessages.icon">Remove</entry>
+<entry key="messages.delmessages">Delete all messages</entry>
+<entry key="messages.copymessages.icon">Copy</entry>
+<entry key="messages.copymessages">Copy messages to clipboard</entry>
+<entry key="messages.title">Messages</entry>
+<entry key="messages.title.mnemonic">M</entry>
+<entry key="messages.compiler">Compiler Messages</entry>
+<entry key="messages.compiler.mnemonic">C</entry>
+<entry key="messages.stderr">Messages to STDERR</entry>
+<entry key="messages.stderr.mnemonic">R</entry>
+<entry key="messages.stdout">Messages to STDOUT</entry>
+<entry key="messages.stdout.mnemonic">O</entry>
+
+<!-- Messages -->
+
+<entry key="message.initialising">Initialising {0} version {1} ({2}).</entry>
+<entry key="message.loading_props">Loading properties</entry>
+<entry key="message.creating_main">Creating main GUI elements</entry>
+<entry key="message.finding_files">Finding files</entry>
+<entry key="message.creating_directory_dialog">Creating file directory dialog</entry>
+<entry key="message.creating_goto">Creating go to dialog</entry>
+<entry key="message.creating_find">Creating find dialog</entry>
+<entry key="message.creating_props">Creating properties dialog</entry>
+<entry key="message.creating.main">Creating main panel</entry>
+<entry key="message.screen_size">Obtaining screen size</entry>
+<entry key="message.close_startup">Closing startup frame</entry>
+
+<entry key="message.passed_file.choice">0#I have found 1 (.passed) file in that directory. Do you want to select it?|2&lt;I have found {0} (.passed) files in that directory. Do you want to select one of them?</entry>
+
+<entry key="message.required_file">Required file {0}</entry>
+<entry key="message.fetching">Fetching {0}</entry>
+<entry key="message.creating">Creating {0}</entry>
+<entry key="message.detected_local">Detecting local copy of {0}</entry>
+<entry key="message.found_result_file">Found result file {0}</entry>
+<entry key="message.not_found_result_file">Result file {0} not found</entry>
+<entry key="message.optional_file">Optional project file {0}</entry>
+<entry key="message.optional_file_with_lang">Optional project file {0} ({1})</entry>
+
+<entry key="message.fetching_course">Fetching course data</entry>
+<entry key="message.fetching_assignment">Fetching assignment data</entry>
+
+<entry key="message.runpass">Running PASS...</entry>
+<entry key="message.build">Testing build...</entry>
+<entry key="message.build_finished">Build finished with exit code: {0,number,integer}.</entry>
+<entry key="message.process_finished">Process finished.</entry>
+<entry key="message.process_failed">Process failed.</entry>
+
+<entry key="message.nb_pdf">Remember to check the PDF.</entry>
+
+<!-- Warnings -->
+
+<entry key="message.warning">Warning: {0}</entry>
+<entry key="warning.nodesktop">Desktop isn''t supported. (Can''t automatically open PDF files.)</entry>
+<entry key="warning.unsaved">Unsaved modifications.</entry>
+<entry key="warning.no_pdf">You haven''t created a PDF yet.</entry>
+<entry key="warning.pdf_not_updated">You haven''t updated the PDF file after making modifications.</entry>
+
+<!-- Errors -->
+
+<entry key="error.title">Error</entry>
+<entry key="error.lookandfeel_failed">Unable to set L&amp;amp;F to ''{0}'': {1}.</entry>
+<entry key="error.project_file_not_found">Project file {0} doesn''t exist.</entry>
+<entry key="error.agree_required">Agreement required</entry>
+<entry key="error.missing_student_id">Missing student ID</entry>
+<entry key="error.missing_input">Missing {0}</entry>
+<entry key="error.invalid_input">Invalid {0} ''{1}''</entry>
+<entry key="error.file_exists_in_dir">''{0}'' already exists in {1} directory</entry>
+<entry key="error.is_dir">''{0}'' is a directory</entry>
+<entry key="error.cant_create_file">Unable to create file ''{0}''</entry>
+<entry key="error.cant_create_folder">Unable to create folder ''{0}''</entry>
+<entry key="error.del_forbidden">Deletion not permitted</entry>
+<entry key="error.remove_forbidden">Removal not permitted</entry>
+<entry key="error.dir_not_empty">Directory ''{0}'' isn''t empty.</entry>
+<entry key="error.dir_contains_project_files">Directory ''{0}'' contains project files.</entry>
+<entry key="error.unknown_course">No course matching code ''{0}''.</entry>
+<entry key="error.no_courses">No course data provided in ''{0}''!</entry>
+<entry key="error.unknown_assignment">No assignment for course ''{0}'' matching label ''{1}''.</entry>
+<entry key="error.missing_value">Missing value for ''{0}''.</entry>
+<entry key="error.unknown_option">Unknown option ''{0}''.</entry>
+<entry key="error.invalid_setting">Invalid value ''{1}'' for ''{0}''.</entry>
+<entry key="error.invalid_message_type">Invalid message type ''{0}''.</entry>
+
+<entry key="error.no_dir_selected">No directory selected</entry>
+<entry key="error.no_search_term">No search term!</entry>
+<entry key="error.missing_input_in_row">Missing {0} for student in row {1,number,integer}.</entry>
+<entry key="error.no_helpset">No helpset</entry>
+
+<!-- Manual -->
+
+<entry key="manual.title">Manual</entry>
+<entry key="manual.figure">Figure</entry>
+<entry key="manual.table">Table</entry>
+<entry key="manual.next">Next</entry>
+<entry key="manual.prev">Previous</entry>
+<entry key="manual.home">Home</entry>
+<entry key="manual.options">options</entry>
+<entry key="manual.file.extensions">file extensions</entry>
+<entry key="manual.toc">Table of Contents</entry>
+<entry key="manual.index">Index</entry>
+<entry key="manual.search">Search</entry>
+<entry key="manual.example">Example</entry>
+<entry key="manual.abbreviations">Abbreviations</entry>
+<entry key="manual.cont_explanation">(The symbol \continuesymbol\ above indicates a~line wrap. Don't insert a~line break at that point.)</entry>
+<entry key="manual.prompt">prompt</entry>
+<entry key="manual.labelled">labelled</entry>
+<entry key="manual.seealso">See also:</entry>
+<entry key="manual.cont.cap.text">Continued</entry>
+<entry key="manual.cont.nextpage.text">Continued on next page.</entry>
+<entry key="manual.warning">warning</entry>
+<entry key="manual.chapter">Chapter</entry>
+<entry key="manual.subsection">section</entry>
+<entry key="manual.subsubsection">section</entry>
+<entry key="manual.paragraph">section</entry>
+<entry key="manual.subparagraph">section</entry>
+<entry key="manual.kbd.Space">Space Bar</entry>
+<entry key="manual.kbd.Tab">Tab</entry>
+<entry key="manual.kbd.Backspace">Backspace</entry>
+<entry key="manual.kbd.Return">Return</entry>
+<entry key="manual.kbd.Enter">Enter</entry>
+<entry key="manual.kbd.Del">Del</entry>
+<entry key="manual.kbd.Ins">Ins</entry>
+<entry key="manual.kbd.Esc">Esc</entry>
+<entry key="manual.kbd.Shift">Shift</entry>
+<entry key="manual.kbd.Ctrl">Ctrl</entry>
+<entry key="manual.kbd.Home">Home</entry>
+<entry key="manual.kbd.End">End</entry>
+<entry key="manual.kbd.Pageup">PgUp</entry>
+<entry key="manual.kbd.Pagedown">PgDn</entry>
+<entry key="manual.kbd.PrtSc">PrtSc</entry>
+<entry key="manual.kbd.Up">Up Arrow</entry>
+<entry key="manual.kbd.Down">Down Arrow</entry>
+<entry key="manual.kbd.Left">Left Arrow</entry>
+<entry key="manual.kbd.Right">Right Arrow</entry>
+
+
+</properties>

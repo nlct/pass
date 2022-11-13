@@ -1,0 +1,5 @@
+#!/bin/sh
+
+bindir="$(dirname "$(readlink -f "$0")")"
+java -splash:"$bindir/../lib/icons/pass-splash.png" -jar "$bindir/../lib/pass-editor.jar" "$@"
+

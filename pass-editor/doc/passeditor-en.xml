@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE manual SYSTEM "flowframtk.dtd">
+<manual fontenc="T1">
+  <preamble>
+    <!-- Document Info -->
+    <title>User Manual for <dict tag="appname"/> version
+      <dict tag="appversion" /></title>
+    <author>Nicola L. C. Talbot<br/><url www="www.dickimaw-books.com" /></author>
+
+    <date><dict tag="appdate" /></date>
+
+    <!-- Define Abbreviations -->
+
+    <!-- Abbreviations defined with newacro tag.
+         Content is the description.
+         Attributes:
+          required: short, long, tag
+          optional: prefix, prefixfirst
+      -->
+   <newacro tag="pass" short="PASS" long="Preparing Programming Assignments for Submission System" >
+   A system designed to help prepare programming assignments for submission.
+   The assignment specifications (such as required files) are provided by
+   lecturers in a remote XML file. 
+   <strong>This system doesn’t submit your work.</strong>
+   </newacro>
+
+    <!-- Define Terms. If a description is
+         included it's a glossary term otherwise it goes in the index. -->
+
+    <!-- Defined with newterm tag.
+         Content is the description.
+         Attributes:
+          required: tag
+          optional: text, plural, alias
+    -->
+    <newterm tag="passgui" text="PASS GUI">
+    An application with a graphical user interface that uses the <acr tag="pass"/>
+    library to help prepare project code for submission.
+    </newterm>
+
+    <newterm tag="requiredfile" text="required file">
+    A file that’s required by the assignment specifications. The file name
+    (case-sensitive) must match the name identified in the specification.
+    Required files are listed first in the PDF in the order identified by
+    the assignment specifications.
+    </newterm>
+
+    <newterm tag="additionalfile" text="additional file">
+    A supplementary file that’s not required by the assignment specification but
+    forms part of your project code and should be included in the PDF submission.
+    Additional files will be listed after any required files in the PDF.
+    </newterm>
+
+    <newterm tag="resourcefile" text="resource file">
+    A file provided by your lecturer as part of the assignment specifications
+    that your project code must read. Resource files should not be edited or
+    renamed by you. They are not listed in the PDF.
+    </newterm>
+
+    <newterm tag="resultfile" text="result file">
+    A file that should be created by your project code. If successfully created,
+    result files will be included in the PDF.
+    </newterm>
+
+    <!-- Optional boilerplate tag for text to go on the title page (such as licence) -->
+  </preamble>
+
+  <document>
+<!--
+ Tags:
+  mnemonic - attributes:
+             'tag' (required),
+             'menu' (boolean, default=false), 
+             'pre' (default=""), 'post' (default="")
+  No content.
+
+  widget - attributes: 'tag' (required)
+  No content.
+
+  menu - attributes:
+            'tag' (required)
+            'popup' (boolean, default=false), 
+            indexing attributes
+  No content.
+
+  ext - attributes:
+            'name' (required)
+            indexing attributes
+  No content.
+
+  acr - attributes:
+            'tag' (required)
+            'prefix' (boolean, default=false)
+            'plural' (boolean, default=false)
+            'case' ('none', 'uc', 'ucfirst')
+            indexing attributes
+  No content.
+
+  term - attributes:
+            'tag' (required)
+            'prefix' (boolean, default=false)
+            'plural' (boolean, default=false)
+            'case' ('none', 'uc', 'ucfirst')
+            indexing attributes
+  No content.
+
+  plural - shortcut for term plural="true"
+
+  ref - attributes:
+            'tag' (required)
+            'case' ('none', 'uc', 'ucfirst')
+  Content (optional) is hyperlink text. If content empty, hyperlink text is
+  constructed from reference title.
+
+  nameref - attributes:
+            'tag' (required)
+            'prefix' (boolean, default=false)
+            'class' (default="")
+  No content.
+
+  envvar - attributes:
+            'name' (required)
+            indexing attributes
+  No content.
+
+  Indexing attributes:
+   'index' (boolean)
+   'primary' (boolean)
+   'texoptions'
+  Can't have both index=true and primary=true
+
+  Standard HTML: br, hr, ol, ul, li, dl, dt, dd
+
+  cont - continue line marker
+  contexplan - explanation of continue line marker
+  percent - percent symbol %
+  relax - \relax in LaTeX code does nothing in HTML
+  app - application name
+  appversion - application version
+
+  htmlonly - content only for HTML
+  latexonly - content only for LaTeX
+
+  Floats:
+
+   float - attributes: 
+       'type' (required: 'table', 'figure' or other float supported by cls),
+       'tag' (required),
+       'long' (boolean, default="false"),
+       'doublespec' (boolean, default="false"),
+       'pos' ('c' or 't' or 'b'),
+       'tabcolsep'
+
+   Content:
+
+      caption
+      tableheader (type=table only, must come after caption if required)
+      tablefooter (type=table only)
+
+   Tabular:
+      tabular - attributes: 'spec' (required)
+      tr - attributes:
+                'prohibitbreak' (boolean,default=false),
+                'rule' (boolean,default=false)
+      td - attributes:
+                 'colspan' (default=1),
+                 'spec' (default inherited)
+                 'indent' (length)
+
+   Graphics:
+
+     image - attributes:
+               'src' (required)
+               'valign' ('middle', 'top', 'bottom', default="middle")
+               'scale' (default=1)
+               'width' (obtained from image if both width and height omitted)
+               'height' (obtained from image if both width and height omitted)
+               'alt'
+               'alttag' (alternative text obtained from dictionary)
+
+     No content.
+
+     Images are first searched for in images-<locale> sub-directory
+     then sharedimages.
+-->
+   <frontmatter />
+   <tableofcontents/>
+   <mainmatter />
+
+   <node tag="introduction" type="chapter" title="Introduction">
+   <p>
+   <app/> is a simple IDE with the <acr tag="pass"/> library integrated into it. It’s designed
+   for use in practical exams or tests conducted in the lab where a standard
+   IDE would provide too much help. It therefore has a very basic interface 
+   and only works with projects that have been setup for use with 
+   <acr tag="pass"/>.
+   </p>
+   <p><strong><app/> is not a general purpose IDE.</strong></p>
+   <p><app/> shares the same settings file as <term tag="passgui"/>.
+   By default, this is a file called <file>.progassignsys.prop</file> 
+   saved in your home directory.</p>
+   </node>
+
+   <node tag="selectproject" type="chapter" title="Select a Project">
+   <float tag="fig:selectproject" type="figure">
+    <p>
+    <image src="select-project" alt="Image of select a project dialog." />
+    </p>
+    <caption>Select a Project</caption>
+   </float>
+   <p>
+   When you launch <app/> you need to select a project, which must correspond
+   to an assignment that has been setup to use <acr tag="pass"/>.
+   </p>
+   <ul>
+   <li>
+   <p>If you haven’t started working on any code yet, choose 
+   <widget tag="selectproject.new"/> and click on <widget tag="button.okay"/>. 
+   You will then need to specify an empty folder to store your project files in. 
+   With most look and feels, the directory selection dialog box allows you to 
+   create a new folder, which you can then select. For example, 
+   <ref tag="fig:chooseemptydir"/> shows the dialog with the Nimbus look and feel.
+   </p>
+   <float tag="fig:chooseemptydir" type="figure">
+    <p>
+    <image src="choose-empty-dir" alt="Image of file chooser dialog." />
+    </p>
+    <caption>Choose an Empty Directory</caption>
+   </float>
+   <p>Once you have selected the folder, you next need to <ref tag="selectcourse">select a course</ref>.
+   </p>
+   </li>
+
+   <li><p>If you have already
+   started work on a project with <app/>, choose <widget tag="selectproject.open"/>
+   and click on <widget tag="button.okay"/>. You can then select the project
+   file (which has the <ext index="true" name="passed"/> extension).
+   </p>
+   <float tag="fig:choosepassed" type="figure">
+    <p>
+    <image src="choose-passed" alt="Image of file chooser dialog." />
+    </p>
+    <caption>Choose an Existing <app/> Project File</caption>
+   </float>
+   </li>
+
+   <li><p>If you have started work on a project using another editor and now want 
+   to work on it with <app/>, choose <widget tag="selectproject.import"/> and click on 
+   <widget tag="button.okay"/>. You then need to select the folder the project
+   files are in (<ref tag="fig:chooseprojectdir"/>).
+   </p>
+   <float tag="fig:chooseprojectdir" type="figure">
+    <p>
+    <image src="choose-project-dir" alt="Image of file chooser dialog." />
+    </p>
+    <caption>Choose the Project Directory</caption>
+   </float>
+   <p>Once you have selected the folder, you next need to <ref tag="selectcourse">select a course</ref>.
+   </p>
+   </li>
+
+   </ul>
+   </node>
+
+   <node type="section" tag="selectcourse" title="Select a Course">
+   <p>Once you have <ref tag="selectproject">chosen your project folder</ref>, you then need 
+   to select the course. For example, in <ref tag="fig:selectcourse"/> the
+   course <dq>CMP-4008Y (Programming 1)</dq> has been selected. Click
+   <widget tag="button.okay" /> to continue.
+   </p>
+   <float tag="fig:selectcourse" type="figure">
+    <p>
+    <image src="select-course" alt="Image of select course dialog." />
+    </p>
+    <caption>Select a Course</caption>
+   </float>
+   <p>Next you need to <ref tag="selectassignment">select an assignment</ref>.</p>
+   </node>
+
+   <node type="section" tag="selectassignment" title="Select an Assignment">
+   <p>
+   The assignment selector (<ref tag="fig:selectassignment"/>) has a drop-down widget
+   where you can select the assignment.
+   You also need to provide your Blackboard ID and student registration number.
+   If you have already used <term tag="passgui"/> on the same device, 
+   <app/> can fetch the information as it shares the same settings file as 
+   <term tag="passgui"/>. As with other <acr tag="pass"/> applications, you
+   can’t proceed any further until you check the agreement box. <strong>It’s
+   important that you check the PDF file created by <acr tag="pass"/>
+   correctly represents your work before you submit it.</strong>
+   </p>
+   <float tag="fig:selectassignment" type="figure">
+    <p>
+    <image src="select-assignment" alt="Image of select assignment dialog." />
+    </p>
+    <caption>Select an Assignment</caption>
+   </float>
+   <p>In <ref tag="fig:selectassignment"/>, the assignment
+   <dq>CMP-4008Y Coursework 1 - Film Information Database</dq> has been chosen.
+   This assignment has three <plural index="true" tag="requiredfile"/>: <file>Film.java</file>,
+   <file>FilmDatabase.java</file> and <file>Main.java</file>. If this is a new project,
+   <app/> will automatically create them. If you are importing files that have
+   been created in a different IDE, then <app/> will create any missing
+   <plural tag="requiredfile"/>. The assignment data may provide a template for
+   one or more <plural tag="requiredfile"/>. If so, the template will be used when
+   creating the file. (For example, your task may be to fix bugs and complete
+   code stubs.)
+   </p>
+   <p>Once found or created, all the <plural tag="requiredfile"/> will then 
+   be opened in read/write mode. Any <plural index="true" tag="additionalfile"/> can be imported 
+   or created using the <ref tag="projectmenu"><menu index="false" tag="project"/> menu</ref>.
+   </p>
+   <p>If the assignment comes with any <plural index="true" tag="resourcefile"/> that your project code needs
+   to read, then <app/> will automatically fetch those files and open them in 
+   read-only mode.
+   For example, the CMP-4008Y assignment comes with a data file <file>films.txt</file> 
+    so <app/> will fetch this file and open it in read-only mode.</p>
+   <p>If the project code must create any <plural index="true" tag="resultfile"/> then
+   <app/> will search for them and, if found, open them in read-only mode.</p>
+   <p><strong>Any local resource or result files viewable in <app/> are only 
+   input/output by the quick test build function (<menu index="true" tag="file.build"/>).</strong>
+   When you use the full <acr tag="pass"/> function (<menu index="true" tag="file.runpass"/>), 
+   fresh copies of any <plural tag="resourcefile"/> will be fetched from their
+   remote location. The <plural tag="resultfile"/> included in the PDF will be those
+   created by that build not the local copies in your project folder.
+   </p>
+   </node>
+
+   <node tag="mainwindow" type="chapter" title="Main Window">
+   <p>
+   The main window consists of a <ref tag="navigation">navigation panel</ref> on the 
+   left, <ref tag="editorpanel">tabbed editor panes</ref> on the right, 
+   a <ref tag="toolbar">toolbar</ref> above and tabbed message areas 
+   below. You can remove unwanted buttons on the toolbar using the 
+   <ref tag="properties">Properties dialog</ref> to reduce clutter.
+   </p>
+   </node>
+
+   <node tag="navigation" type="section" title="Navigation Panel">
+   <p>
+   The navigation panel only shows those <ref tag="projectfiles">files associated with the project</ref>.
+   Double-click on the file name to open the file or single-click to select 
+   the associated tab if the file is already open. A popup menu is available 
+   that provides some of the items from the 
+   <ref tag="projectmenu"><menu index="false" tag="project"/> menu</ref>.
+   The <dq>[<dict tag="navigator.base"/>]</dq> folder indicates the main
+   project directory.
+   </p>
+   </node>
+
+   <node tag="editorpanel" type="section" title="Editor Panel">
+   <p>
+   The editor panel displays each open file in a separate tab.  You can reorder
+   them by dragging and dropping the tabs. A file can be closed by clicking on
+   the close button on the tab or using the <menu primary="true" tag="file.close"/>
+   menu item. A tab can be selected by clicking on the tab or by clicking on
+   the associated file name in the <ref tag="navigation">navigation panel</ref>.
+   </p>
+   <p>
+   In <ref tag="fig:editorpane-requiredfile" />, a <term index="true" tag="requiredfile"/> is selected.
+   There is an area to edit the (currently empty) file. Above that area is a 
+   horizontal bar that contains information about the file.</p>
+   <p>The area on the left of the information bar identifies the type of file.
+   This includes whether the file is a <term tag="requiredfile"/>, 
+   <term tag="additionalfile"/>, <term tag="resourcefile"/> or 
+   <term tag="resultfile"/>. In the case of <plural tag="requiredfile"/>, 
+   <plural tag="additionalfile"/>, there is also a drop-down list that identifies
+   the file language (such as Java or C). This information is either obtained from
+   the file extension or from the assignment data. You need to check that this
+   information is correct as <acr tag="pass"/> uses this information to determine
+   the code listing syntax and also whether the file should be passed to the
+   compiler.
+   </p>
+
+   <p>The area on the right of the information bar shows the current cursor
+   location. You can choose a more compact form in the 
+   <ref tag="properties">Properties dialog</ref>.
+   </p>
+   <float tag="fig:editorpane-requiredfile" type="figure">
+    <p>
+    <image src="editorpane-requiredfile" alt="Image of editor panel showing a required file." />
+    </p>
+    <caption>Required File Editor</caption>
+   </float>
+   <p>
+   In <ref tag="fig:editorpane-resourcefile" />, a <term index="true" tag="resourcefile"/> is selected.
+   The area on the left of the file information bar now shows <dq><dict tag="filepane.resource"/></dq>. The file content can be viewed but can’t be edited.
+   </p>
+   <float tag="fig:editorpane-resourcefile" type="figure">
+    <p>
+    <image src="editorpane-requiredfile" alt="Image of editor panel showing a read-only resource file." />
+    </p>
+    <caption>Resource File Viewer</caption>
+   </float>
+   <p>If the 
+   <term tag="resourcefile"/> isn’t a text file then the content can’t be viewed
+   and there is just a button on the right (<ref tag="fig:editorpane-binaryresourcefile"/>) that can be used to launch the
+   appropriate application to view the file (if supported).
+   </p>
+   <float tag="fig:editorpane-binaryresourcefile" type="figure">
+    <p>
+    <image src="editorpane-requiredfile" alt="Image of editor panel showing a read-only binary resource file." />
+    </p>
+    <caption>Resource File Viewer (Binary File)</caption>
+   </float>
+   <p>
+   In <ref tag="fig:editorpane-resultfile"/>, a <term index="true" tag="resultfile"/>
+   is selected. This is a file that has been created by your project code in 
+   a local build within your project folder. The equivalent file created with the
+   full <acr tag="pass"/> function (<menu index="true" tag="file.runpass"/>) will
+   be added to the PDF file and should be the same as this local copy. However, it’s
+   important that you check the PDF file to ensure that it is correct.
+   </p>
+   <float tag="fig:editorpane-resultfile" type="figure">
+    <p>
+    <image src="editorpane-resultfile" alt="Image of editor panel showing a read-only result file." />
+    </p>
+    <caption>Result File Viewer</caption>
+   </float>
+   <p>In this case, the left hand area of the horizontal bar shows
+   <dq><dict tag="filepane.result"/></dq>. As with <plural tag="resourcefile"/>,
+   a <term tag="resultfile"/> may be a binary file, in which case the content will 
+   again not be shown and there will be a button to launch the appropriate application 
+   to view it (if supported).</p>
+   <float tag="fig:editorpane-binaryresultfile" type="figure">
+    <p>
+    <image src="editorpane-binaryresultfile" alt="Image of editor panel showing a binary read-only result file." />
+    </p>
+    <caption>Result File Viewer (Binary File)</caption>
+   </float>
+   <p>
+   If you use the <ref tag="find">text search function</ref> a search shortcut widget
+   is displayed in the middle of the file information bar (<ref tag="fig:search-widget"/>).
+   You can use the up and down arrow buttons to find the next or previous instance or 
+   the <dict tag="find.settings"/> button to reopen the 
+   <ref tag="find">find dialog</ref> (if it has been dismissed). There is also a
+   close button to hide the search widget.
+   </p>
+   <float tag="fig:search-widget" type="figure">
+    <p>
+    <image src="search-widget" alt="Image of application showing search widget." />
+    </p>
+    <caption>Search Widget</caption>
+   </float>
+   </node>
+
+   <node tag="toolbar" type="section" title="The Toolbar">
+   <p>
+   The toolbar is situated above the navigator and editor panes and below the 
+   menu bar. It contains buttons for quick access to some common menu items. 
+   If the toolbar is too wide for the window, widgets will appear to scroll 
+   along it. You can use the <ref tag="properties"/> dialog to hide unwanted 
+   buttons to reduce clutter or to choose smaller icons.
+   </p>
+   </node>
+
+   <node tag="statusbar" type="section" title="The Status Bar">
+   <p>
+   The status bar is situated at the bottom of the <app/> window.
+   On the left are buttons to clear the content of the currently selected message
+   tab or to copy all the text (or just the selected text, if any applicable) 
+   of the currently selected message tab to the clipboard.
+   </p>
+   <p>The right hand side of the status bar shows the course code and assignment
+   title.</p>
+   <p>When building code (either with <menu tag="file.build"/> or 
+   <menu tag="file.runpass"/>) a progress bar becomes visible in the middle of the
+   status bar, with an abort button and a timer. If a sub-process is running (such
+   as the compiler or the test run of the application), the abort button will 
+   stop the sub-process but the main process will continue (so the PDF may still 
+   be completed with a full <acr tag="pass"/> build). Clicking the abort button a
+   second time will stop the main process.
+   </p>
+   <p>The progress bar switches to indeterminate when performing the test 
+   as there is no way of determining how long an arbitrary application will run.</p>
+   </node>
+
+   <node tag="menubar" type="section" title="The Menu Bar">
+   <p>
+   The menu bar is situated at the top of the window, below the title bar.
+   </p>
+   </node>
+
+   <node tag="filemenu" type="subsection" title="The File Menu">
+   <p>
+   The <menu primary="true" tag="file"/> menu provides the following functions:
+   </p>
+   <dl>
+   <dt><menu primary="true" tag="file.save"/></dt>
+   <dd>Saves the file showing in the currently selected tab. (Does nothing for
+    read-only files.) Note that there is no <dq>Save as</dq> option as the
+    file names are determined when they are created.</dd>
+   <dt><menu primary="true" tag="file.save_all"/></dt>
+   <dd>Saves all modified open files. Both the <menu tag="file.build"/> and 
+   <menu tag="file.runpass"/> menu items automatically save all modified files.</dd>
+   <dt><menu primary="true" tag="file.build"/></dt>
+   <dd>Runs a test build according to the build information given in the
+   assignment data. By default, this will compile the code (if the language
+   is compilable) and then run it. This test build is a cut-down version of
+   the way <acr tag="pass"/> usually works. It’s designed for quick testing,
+   so it doesn’t fetch fresh copies of any <plural tag="resourcefile"/>
+   and uses the project folder as the current working directory. Any messages
+   from the build process can be found in the message tabs at the bottom of the
+   main <app/> window.</dd>
+   <dt><menu primary="true" tag="file.runpass"/></dt>
+   <dd>Sends the project information to the <acr tag="pass"/> backend, in the
+   same way as other <acr tag="pass"/> applications. This will copy your 
+   project files to <acr tag="pass" suffix="’s"/> temporary working directory
+   and fetch fresh copies of any <plural tag="resourcefile"/>. If successful,
+   a PDF is created, which you can save and view. <strong>Make sure you 
+   check the PDF before you submit it.</strong> If any problems show up in
+   the PDF, you will need to address them and rerun <acr tag="pass"/>.</dd>
+   <dt><menu primary="true" tag="file.openpdf"/></dt>
+   <dd>Once you have run <acr tag="pass"/> (using the previous menu item) and
+   a PDF file has been successfully created, you can view it with this menu item.</dd>
+   <dt><menu primary="true" tag="file.close"/></dt>
+   <dd>Close the currently selected file tab.</dd>
+   <dt><menu primary="true" tag="file.quit"/></dt>
+   <dd>Quit <app/>.</dd>
+   </dl>
+   </node>
+
+   <node tag="editmenu" type="subsection" title="The Edit Menu">
+   <p>
+   The <menu primary="true" tag="edit"/> menu provides the following functions:
+   </p>
+   <dl>
+   <dt><menu primary="true" tag="edit.undo"/></dt>
+   <dd>Undoes the last edit in the currently selected editor tab.</dd>
+   <dt><menu primary="true" tag="edit.redo"/></dt>
+   <dd>Redoes the last edit in the currently selected editor tab.</dd>
+   <dt><menu primary="true" tag="edit.gotoline"/></dt>
+   <dd>Moves the cursor to the start of the given line number in the currently
+   selected editor tab. (The cursor isn’t visible in read-only tabs, but the
+   editor will scroll to its location if necessary.)</dd>
+   <dt><menu primary="true" tag="edit.find"/></dt>
+   <dd>Opens the <ref tag="find">text search dialog</ref>.</dd>
+   <dt><menu primary="true" tag="edit.findagain"/></dt>
+   <dd>Finds the next instance of the current search term.</dd>
+   <dt><menu primary="true" tag="edit.findprev"/></dt>
+   <dd>Finds the previous instance of the current search term.</dd>
+   <dt><menu primary="true" tag="edit.replace"/></dt>
+   <dd>Opens the <ref tag="find">text search dialog</ref> with the replace widgets
+   available.</dd>
+   <dt><menu primary="true" tag="edit.copy"/></dt>
+   <dd>Copies the selected text in the currently selected editor tab to the clipboard.
+   (To copy text in the message areas, use the small copy button below the message
+    tabs.)</dd>
+   <dt><menu primary="true" tag="edit.cut"/></dt>
+   <dd>Cuts the selected text in the currently selected editor tab to the clipboard.
+   </dd>
+   <dt><menu primary="true" tag="edit.paste"/></dt>
+   <dd>Pastes the clipboard text into the currently selected editor tab.
+   </dd>
+   <dt><menu primary="true" tag="edit.incfont"/></dt>
+   <dd>Increases the font size used in the editor tabs and the message areas.
+   (If you want to change the font size for the manual or general widgets, use
+   the <ref tag="properties"/> dialog.)</dd>
+   <dt><menu primary="true" tag="edit.decfont"/></dt>
+   <dd>Decreases the font size used in the editor tabs and the message areas.</dd>
+   <dt><menu primary="true" tag="edit.setproperties"/></dt>
+   <dd>Opens the <ref tag="properties"/> dialog.</dd>
+   </dl>
+   </node>
+
+   <node tag="projectmenu" type="subsection" title="The Project Menu">
+   <p>
+   The <menu primary="true" tag="project"/> menu provides the following functions:
+   </p>
+   <dl>
+   <dt><menu primary="true" tag="project.details"/></dt>
+   <dd>Opens the <ref tag="projectdetails"/> dialog.</dd>
+   <dt><menu primary="true" tag="project.newfolder"/></dt>
+   <dd>Creates a new sub-directory in the currently selected folder 
+   (in the navigation panel).</dd>
+   <dt><menu primary="true" tag="project.newfile"/></dt>
+   <dd>Creates a new file in the currently selected folder 
+   (in the navigation panel). You will be prompted for the file name.
+   <app/> will attempt to determine the file type but if it’s incorrect you 
+   can choose the correct type in the associated editor panel.</dd>
+   <dt><menu primary="true" tag="project.import"/></dt>
+   <dd>Opens a file selection dialog to identify an <term tag="additionalfile"/>
+   you want included in the project. (Binary files aren’t permitted.)
+   <app/> will attempt to determine the file type but if it’s incorrect you 
+   can choose the correct type in the associated editor panel.
+   Note that if the file isn’t inside the project directory structure then it
+   will be copied into the selected folder.</dd>
+   <dt><menu primary="true" tag="project.deletefile"/></dt>
+   <dd>Delete the currently selected file or folder (if deletion is permitted).</dd>
+   <dt><menu primary="true" tag="project.removefromproject"/></dt>
+   <dd>Remove the currently selected file from the project file list. This won’t
+   delete the file but it will no longer be shown in the navigator panel and
+   won’t be sent to the <acr tag="pass"/> backend.</dd>
+   <dt><menu primary="true" tag="project.movefile"/></dt>
+   <dd>Opens the <ref tag="moveto">file move to dialog</ref> (if this action is 
+   permitted).</dd>
+   <dt><menu primary="true" tag="project.renamefile"/></dt>
+   <dd>Renames the currently selected file (if permitted). You will be prompted
+   for the new file name.</dd>
+   <dt><menu primary="true" tag="project.reload"/></dt>
+   <dd>Reloads the file displayed in the currently selected editor tab.
+   In the case of a <term tag="requiredfile"/> that comes with a template
+   or a <term tag="resourcefile"/> you will be asked if you want to refetch the
+   original source or if you simply want to reload the local copy.
+   </dd>
+   </dl>
+   </node>
+
+   <node tag="projectfiles" type="chapter" title="Project Files">
+   <p>The project files must all be located within the project directory structure.
+   These consist of source code files that must be processed by <acr tag="pass"/>,
+   files that <acr tag="pass"/> needs to fetch, and files that are created by your
+   project code.
+   </p>
+   <p>
+   Each project has an associated file called
+   <file><meta>code</meta>-<meta>label</meta><ext primary="true" name="passed"/></file>,
+   where <file><meta>code</meta></file> is the course code and 
+   <file><meta>label</meta></file> is the assignment label. This file contains all 
+   the information that needs to be sent to the <acr tag="pass"/> backend 
+   (Blackboard ID, registration number,
+   project files, agreement checkbox has been selected, etc). This file is 
+   automatically saved whenever this information changes (for example, if a new
+   <term tag="additionalfile"/> is created or imported).
+   </p>
+   <p><plural case="ucfirst" primary="true" tag="requiredfile"/> may be edited
+   but can’t be renamed, moved or deleted. The assignment data can stipulate
+   a directory structure by giving relative path names to the 
+   <plural tag="requiredfile"/>. In <ref tag="fig:navigator-subdirs"/>, there
+   are three <plural tag="requiredfile"/> where two of them are in sub-directories.
+   </p>
+   <float tag="fig:navigator-subdirs" type="figure">
+    <p>
+    <image src="navigator-subdirs" alt="Image of PASS Editor showing navigator panel with sub-directories." />
+    </p>
+    <caption>Project with Sub-Directories</caption>
+   </float>
+   <p>
+   <plural case="ucfirst" primary="true" tag="resourcefile"/> are fetched from their
+   remote location when you first set up the project. They can’t be edited, renamed,
+   moved or deleted within <app/>. If you require a fresh copy,
+   you can use <menu primary="true" tag="project.reload"/>. When you use the
+   quick test build function (<menu index="true" tag="file.build"/>) the local
+   copy in your project folder will be used. When you use the full <acr tag="pass"/>
+   function (<menu index="true" tag="file.runpass"/>), a fresh copy will be fetched
+   from the remote location and put in <acr tag="pass" suffix="’s"/> working
+   directory.
+   </p>
+   <p>
+   <plural case="ucfirst" primary="true" tag="resultfile"/> should be created by
+   your project code. When you use the quick test build function
+   (<menu index="true" tag="file.build"/>) and the file or files are successfully
+   created and can be found in the project folder, then they will be added to
+   the navigation tree. They can’t be edited, renamed, moved or deleted within <app/>.
+   You can view them to ensure that they have been created correctly. However,
+   when you use the full <acr tag="pass"/> function 
+   (<menu index="true" tag="file.runpass"/>) fresh copies will be created in
+   <acr tag="pass" suffix="’s"/> working directory and it will be those copies
+   that are added to your PDF, not the local copies in your project folder.
+   </p>
+
+   <p>
+   <plural case="ucfirst" primary="true" tag="additionalfile"/> may be edited, 
+   renamed, moved or deleted. To create a new <term tag="additionalfile"/> select the
+   parent folder and select the <menu tag="project.newfile"/> menu item. You 
+   will then be prompted for the file name. If you want to rename, move or 
+   delete the file, use the <menu tag="project.renamefile"/>,
+   <menu tag="project.movefile"/> or
+   <menu tag="project.deletefile"/> menu item, respectively.
+   Note that you can’t move the file outside of the project tree. (More complex
+   file operations will have to be done using your device’s standard filing system 
+   tools.)
+   If you no longer want the file included in the project but don’t want to 
+   delete it, use the
+   <menu tag="project.removefromproject"/> menu item.
+   To include an existing file into your project file list, use the 
+   <menu tag="project.import"/> menu item.
+   </p>
+   <p>You can create sub-directories in which to put your <plural tag="additionalfile"/> 
+   using the <menu tag="project.newfolder"/> menu item. Sub-directories can only
+   be deleted if they are empty and can only be moved or renamed if they don’t
+   contain any <plural tag="requiredfile"/>.
+   </p>
+   <float tag="fig:navigator-subdirs-additional" type="figure">
+    <p>
+    <image src="navigator-subdirs-additional" alt="Image of PASS Editor showing navigator panel with sub-directories and an additional file." />
+    </p>
+    <caption>Project with Sub-Directories and Additional File</caption>
+   </float>
+   </node>
+
+   <node tag="projectdetails" type="section" title="Project Details">
+   <p>
+   The <dict tag="projectdetails.title"/> dialog box 
+   (<ref tag="fig:project-details"/>) can be opened with the
+   <menu tag="project.details"/> menu item. It will also be opened if you try to
+   run <acr tag="pass"/> when your student details are missing.
+   </p>
+   <float tag="fig:project-details" type="figure">
+    <p>
+    <image src="project-details" alt="Image of project details dialog." />
+    </p>
+    <caption>Project Details Dialog</caption>
+   </float>
+   <p>
+   This dialog lists the course code, assignment title and due date. These elements
+   can’t be changed. You can change your Blackboard ID and registration number if
+   you made a mistake when you entered them in the 
+   <ref tag="selectassignment">assignment selector</ref>.
+   </p>
+   <p>If you are working on a
+   group project, you can also add the other members of your project team.
+   To add a new row, use the <widget tag="projectdetails.insertrow"/> or
+   <widget tag="projectdetails.appendrow"/> buttons. You can delete the selected
+   row with the <widget tag="projectdetails.deleterow"/> provided there is more
+   than one row in the table.
+   </p>
+   </node>
+
+   <node tag="moveto" type="section" title="Moving a File">
+   <p>
+   The <dict tag="filedir.title.moveto"/> dialog is displayed when you use the
+   <menu tag="project.movefile"/> menu item. The dialog shows a trimmed down
+   version of the project directory structure in the navigator panel that only shows
+   folders. Select the destination folder.
+   </p>
+   <float tag="fig:moveto" type="figure">
+    <p>
+    <image src="moveto" alt="Image of file move to dialog." />
+    </p>
+    <caption>Move To Dialog</caption>
+   </float>
+   <p>If you use your operating system’s standard file moving tool, you
+   will have to remove the file from the project listing 
+   (<menu tag="project.removefromproject"/>). Note that project files can’t be
+   located outside of the project directory structure.</p>
+   </node>
+
+   <node tag="locate" type="section" title="Locating Text or a Line">
+   <p>
+   There are two main ways of finding a location within the currently selected 
+   <ref tag="editorpanel">editor panel</ref>: using the 
+   <ref tag="find">text search function</ref> or using 
+   the <ref tag="goto">line search function</ref>.
+   </p>
+   </node>
+
+   <node tag="find" type="subsection" title="Search (and Replace)">
+   <p>
+   The <dict tag="find.title"/> dialog (without replace) can be opened with
+   the <menu tag="edit.find"/> menu item or using the <widget tag="find.settings"/> 
+   button in the file information bar at the top of the currently selected 
+   <ref tag="editorpanel">file editor panel</ref>.
+   </p>
+   <float tag="fig:find" type="figure">
+    <p>
+    <image src="find" alt="Image of find (no replace) dialog." />
+    </p>
+    <caption>Find Dialog</caption>
+   </float>
+   <p>Use the <widget tag="find.find"/> button to find the first instance. Then
+   use the <widget tag="find.findnext"/> or <widget tag="find.findprev"/> to
+   find the next or previous instance.
+   </p>
+   <p>If you want to search with a regular expression, make sure that the
+   <widget tag="find.regexp"/> checkbox is selected.</p>
+   <p>If you want to replace text, use the <menu tag="edit.replace"/> menu item.
+   This will open the dialog with the replace widgets visible. If
+   the <widget tag="find.title"/> dialog is already visible, it will switch
+   to find and replace mode.</p>
+   <float tag="fig:replace" type="figure">
+    <p>
+    <image src="replace" alt="Image of find and replace dialog." />
+    </p>
+    <caption>Find and Replace Dialog</caption>
+   </float>
+   <p>If you have regular expressions enabled, you can use 
+   <code><dollar/><meta>n</meta></code>
+   to reference a group. For example, <ref tag="fig:replace-regex"/> shows the regular 
+   expression search term <code>Hello ([A-Za-z]+)</code> and the replacement text
+   uses <code><dollar/>1</code> to reference the group: <code>Goodbye <dollar/>1</code>.</p>
+   <float tag="fig:replace-regex" type="figure">
+    <p>
+    <image src="replace-regex" alt="Image of find and replace dialog showing regular expression back-reference." />
+    </p>
+    <caption>Regular Expression Group Reference</caption>
+   </float>
+   </node>
+
+   <node tag="goto" type="subsection" title="Go To Line">
+   <p>
+   The <widget tag="goto.title"/> dialog can be opened with the 
+   <menu tag="edit.gotoline"/>
+   menu item. Set the required line number and click on <widget tag="button.okay"/>.
+   This will place the cursor at the start of the given line number in the currently
+   selected <ref tag="editorpanel">editor panel</ref>. Note that the cursor isn’t
+   visible in read-only editor panels but the location will be scrolled to if 
+   necessary.
+   </p>
+   <float tag="fig:gotoline" type="figure">
+    <p>
+    <image src="gotoline" alt="Image of go to line dialog." />
+    </p>
+    <caption>Go To Line Dialog</caption>
+   </float>
+   <p>If you specify a line number that’s greater than the total number of lines
+   in the file, the last line will be the target location.</p>
+   <p>
+   If the compiler flags an error or warning formatted in the form 
+   <meta>filename</meta>:<meta>line</meta> or 
+   <meta>filename</meta>:<meta>line</meta>:<meta>column</meta> then this text
+   will be turned into a hyperlink which can also take you to the corresponding
+   location (<ref tag="fig:compiler-goto"/>).
+   </p>
+   <float tag="fig:compiler-goto" type="figure">
+    <p>
+    <image src="compiler-goto" alt="Image of hyperlink in compiler warning message." />
+    </p>
+    <caption>Compiler Warning with Location Hyperlink</caption>
+   </float>
+   </node>
+
+   <node tag="properties" type="chapter" title="Properties">
+   <p>
+   The <widget tag="properties.title"/> dialog can be opened with the
+   <menu tag="edit.setproperties"/> menu item. There are three tabbed panes:
+   </p>
+   <dl>
+   <dt><widget tag="properties.code_editor"/></dt>
+   <dd>This tab is split into two areas: the cursor location settings and
+   the font.
+   <p>The cursor location format (which is shown on the right of the information
+   bar at the top of each <ref tag="editorpanel">editor panel</ref>) can be
+   adjusted. You can choose whether this information should include the 
+   line number, the column number or the position from the start of the file.
+   You can also choose whether to have long textual labels  
+   (<dq>line</dq>, <dq>column</dq>, <dq>position</dq>) or abbreviations
+   (<dq>Ln</dq>, <dq>Cn</dq>, <dq>Pn</dq>) or 
+    no textual labels (just comma-separated numeric values).
+   </p>
+   <p>
+   The font selector allows you to specify the font used in the editor panels.
+   A monospaced font is best for source code, so the 
+   <widget tag="properties.monospaced"/> checkbox can be used to filter the
+   font list so that it only shows monospaced fonts. Unselect this checkbox
+   if you want a list of all available fonts. The font size is also used for
+   the message areas. The font family is used for verbatim content (such as
+   compiler messages).
+   </p>
+   <float tag="fig:properties-editor" type="figure">
+    <p>
+    <image src="properties-editor" alt="Image of editor tab in properties dialog." />
+    </p>
+    <caption>The <dict tag="properties.code_editor"/> Tab</caption>
+   </float>
+   </dd>
+   <dt><widget tag="properties.manual_font"/></dt>
+   <dd>This tab allows you to set the default font used in the online 
+   manual<htmlonly> (this document)</htmlonly>.
+   <float tag="fig:properties-manual" type="figure">
+    <p>
+    <image src="properties-manual" alt="Image of manual font tab in properties dialog." />
+    </p>
+    <caption>The <dict tag="properties.manual_font"/> Tab</caption>
+   </float>
+   </dd>
+   <dt><widget tag="properties.ui"/></dt>
+   <dd>
+   This tab allows you to change the look and feel, set the font size used in general
+   widgets, and customize the <ref tag="toolbar">toolbar</ref>.
+   <p>If you change the look and feel, some of the panels and dialog boxes
+   may become too small or too large. You may need to quit and restart if
+   this causes a problem.</p>
+   <p>If you change the widget font size (which governs the size of text in
+   menus, buttons etc) then you will need to quit and restart for the new setting
+   to be implemented. Similarly if you change the size of the toolbar button
+   icons.</p>
+   <p>You can hide unwanted toolbar buttons by deselecting the checkbox
+   next to the associated icon. This setting will take effect when you 
+   click on the <widget tag="button.okay"/> button. Likewise you can hide
+   any of the three separators.</p>
+   <float tag="fig:properties-ui" type="figure">
+    <p>
+    <image src="properties-ui" alt="Image of UI tab in properties dialog." />
+    </p>
+    <caption>The <dict tag="properties.ui"/> Tab</caption>
+   </float>
+   </dd>
+   </dl>
+   </node>
+
+   <node tag="accelerators" type="chapter" title="Keyboard Shortcuts">
+   <p>
+   Main window keyboard shortcuts are listed in <ref tag="tab:mainshortcuts"/>.
+   Dialog window shortcuts are listed in <ref tag="tab:dialogshortcuts"/>.
+   Shortcuts for <htmlonly>this manual</htmlonly><latexonly>the online manual</latexonly>
+   are listed in <ref tag="tab:jhaccess"/>.
+   </p>
+
+   <float type="table" tag="tab:mainshortcuts" spec="lp{75%}" tabcolsep="2pt">
+   <caption>Main Window Shortcut Keys</caption>
+   <tableheader>
+    <tr><td>Key</td><td>Function</td></tr>
+   </tableheader>
+   <tablefooter/>
+   <tr>
+     <td><kbd key="F10"/></td>
+     <td>Switch focus to the menu bar.</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="S"/></td>
+     <td>Save current file (<menu tag="file.save"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="S"/></td>
+     <td>Saves all modified files (<menu tag="file.save_all"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="B"/></td>
+     <td>Run test build (<menu tag="file.build"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="R"/></td>
+     <td>Run <acr tag="pass"/> (<menu tag="file.runpass"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="P"/></td>
+     <td>View PDF created by <acr tag="pass"/> (<menu tag="file.openpdf"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="V"/></td>
+     <td>Launch current binary file in its associated application (if applicable).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="W"/></td>
+     <td>Close current file (<menu tag="file.close"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="Q"/></td>
+     <td>Quit <app/> (<menu tag="file.quit"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="Z"/></td>
+     <td>Undo last edit (<menu tag="edit.undo"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="Y"/></td>
+     <td>Redo last edit (<menu tag="edit.redo"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="G"/></td>
+     <td>Go to line (<menu tag="edit.gotoline"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="F"/></td>
+     <td>Open find dialog (<menu tag="edit.find"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd key="F3"/></td>
+     <td>Find next (<menu tag="edit.findagain"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd shift="true" key="F3"/></td>
+     <td>Find previous (<menu tag="edit.findprev"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="H"/></td>
+     <td>Open find and replace dialog (<menu tag="edit.replace"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="C"/></td>
+     <td>Copy selected text to clipboard (<menu tag="edit.copy"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="X"/></td>
+     <td>Cut selected text to clipboard (<menu tag="edit.cut"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="V"/></td>
+     <td>Paste text from clipboard (<menu tag="edit.paste"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="&#x3E;"/></td>
+     <td>Increase editor font size (<menu tag="edit.incfont"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="&#x3C;"/></td>
+     <td>Decrease editor font size (<menu tag="edit.decfont"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="N"/></td>
+     <td>Create new folder (<menu tag="project.newfolder"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="N"/></td>
+     <td>Create new file (<menu tag="project.newfile"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="O"/></td>
+     <td>Import file (<menu tag="project.import"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd key="F2"/></td>
+     <td>Rename file (<menu tag="project.renamefile"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="R"/></td>
+     <td>Reload file (<menu tag="project.reload"/>).</td>
+   </tr>
+   <tr>
+     <td><kbd key="F1"/></td>
+     <td>Display <htmlonly>this</htmlonly><latexonly>the online</latexonly> 
+         manual (<menu tag="help.manual"/>).</td>
+   </tr>
+   </float>
+
+   <float type="table" tag="tab:dialogshortcuts" spec="llp{50%}" tabcolsep="2pt">
+   <caption>Dialog Shortcut Keys</caption>
+   <tableheader>
+    <tr><td>Dialog</td><td>Key</td><td>Function</td></tr>
+   </tableheader>
+   <tablefooter/>
+   <tr>
+     <td>Any</td>
+     <td><kbd key="Escape"/></td>
+     <td>Close or cancel.</td>
+   </tr>
+   <tr>
+     <td>Any</td>
+     <td><kbd key="return"/></td>
+     <td>Usually equivalent to the <dict tag="button.okay"/> button except when 
+     the focus is with a component that interprets <kbd key="return"/> for some 
+     other purpose (such as a<nbsp/>dropdown list), in which case you need to use
+     <kbd shift="true" key="return" post="none"/>.</td>
+   </tr>
+   <tr>
+     <td>Any with a help button</td>
+     <td><kbd key="F1"/></td>
+     <td>Display <htmlonly>this</htmlonly><latexonly>the online</latexonly> 
+         manual at the relevant page (using a secondary window).</td>
+   </tr>
+   <tr>
+     <td>Find/Replace</td>
+     <td><kbd key="F3"/></td>
+     <td>Find next (<menu tag="edit.findagain"/>).</td>
+   </tr>
+   <tr>
+     <td>Find/Replace</td>
+     <td><kbd shift="true" key="F3"/></td>
+     <td>Find previous (<menu tag="edit.findprev"/>).</td>
+   </tr>
+   <tr>
+     <td>Project details</td>
+     <td><kbd ctrl="true" key="insert"/></td>
+     <td>Insert a new row in the student table.</td>
+   </tr>
+   <tr>
+     <td>Project details</td>
+     <td><kbd ctrl="true" shift="true" key="insert"/></td>
+     <td>Append a new row in the student table.</td>
+   </tr>
+   <tr>
+     <td>Project details</td>
+     <td><kbd ctrl="true" key="delete"/></td>
+     <td>Delete selected row(s) in the student table.</td>
+   </tr>
+   </float>
+  
+   <float type="table" tag="tab:jhaccess" spec="lp{75%}" tabcolsep="2pt">
+   <caption>JavaHelp Viewer Shortcut Keys</caption>
+   <tableheader>
+    <tr><td>Key</td><td>Function</td></tr>
+   </tableheader>
+   <tablefooter/>
+   <tr>
+     <td><kbd ctrl="true" key="F1"/></td>
+     <td>Displays alternative text for the toolbar button
+      that currently has the focus.</td>
+   </tr>
+   <tr>
+     <td><kbd key="F6"/></td>
+     <td>Moves the focus between the navigation pane and content pane.</td>
+   </tr>
+   <tr>
+     <td><kbd key="tab"/></td>
+     <td>Traverses through the viewer.</td>
+   </tr>
+   <tr>
+     <td><kbd shift="true" key="tab"/></td>
+     <td>Traverses backwards through the viewer.</td>
+   </tr>
+   <tr>
+     <td><kbd key="space"/></td>
+     <td>Activates the toolbar button with the current focus.</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="space"/></td>
+     <td>Follows a link in the content pane.</td>
+   </tr>
+   <tr>
+     <td><kbd key="F8"/></td>
+     <td>Selects the splitter bar between the navigator pane
+         and the content pane.</td>
+   </tr>
+   <tr>
+     <td>Left/Right Arrow</td>
+     <td>If the splitter bar is selected:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Moves the splitter bar to the left/right.</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td>If in the navigator pane:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Moves to another navigator tab.</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td>If in the viewer's toolbar:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Moves the focus to the next toolbar button.</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td>If in the content pane:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Moves one character to the left/right.</td>
+   </tr>
+   <tr>
+     <td>Up/Down Arrow</td>
+     <td>If the splitter bar is selected:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Moves the splitter bar to the left/right.</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td>If in the navigator pane:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Selects the previous/next item in the list.</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td>If in the content pane:</td>
+   </tr>
+   <tr>
+     <td></td>
+     <td indent="2em">Moves the focus to the previous/next line.</td>
+   </tr>
+   <tr>
+     <td><kbd key="home"/></td>
+     <td>Selects the first item in the navigator list.</td>
+   </tr>
+   <tr>
+     <td><kbd key="end"/></td>
+     <td>Selects the last item in the navigator list.</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="home"/></td>
+     <td>Selects the first line in the content pane.</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="end"/></td>
+     <td>Selects the last line in the content pane.</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" key="T"/></td>
+     <td>Shifts focus to the next link in the content pane.</td>
+   </tr>
+   <tr>
+     <td><kbd ctrl="true" shift="true" key="T"/></td>
+     <td>Shifts the focus to the previous link in the content pane.</td>
+   </tr>
+   </float>
+
+   </node>
+
+   <backmatter/>
+   <printglossary />
+   <printindex />
+  </document>
+</manual>
+

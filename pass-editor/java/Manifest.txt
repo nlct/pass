@@ -1,0 +1,2 @@
+Main-Class: com/dickimawbooks/passeditor/PassEditor
+Class-Path: . passlib.jar passguilib.jar jlfgr-1_0.jar javahelp2.jar

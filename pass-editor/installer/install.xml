@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <!-- 
-    Installation file for PASS.
+    Installation file for PASS Editor.
 -->
 
 <izpack:installation version="5.0" xmlns:izpack="http://izpack.org/schema/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
 
   <properties>
-    <property name="info.appName" value="PASS (Preparing Programming Assignments for Submission System)"/>
+    <property name="info.appName" value="PASS Editor"/>
     <property name="info.url" value="https://www.dickimaw-books.com/software/pass/"/>
     <property name="project.version" value="1.27" />
   </properties>
@@ -63,16 +63,14 @@
         <pack name="Base" required="yes">
             <description>The base files</description>
             <file src="README" targetdir="$INSTALL_PATH"/>
-            <file src="POST-INSTALL.md" targetdir="$INSTALL_PATH"/>
             <file src="LICENSE-2.0.txt" targetdir="$INSTALL_PATH"/>
             <file src="lib/resources.xml" targetdir="$INSTALL_PATH/lib" override="askfalse"/>
-            <file src="lib/manual.html" targetdir="$INSTALL_PATH/lib"/>
+            <fileset dir="lib/dictionary/" targetdir="$INSTALL_PATH/lib/dictionary"/>
+            <fileset dir="lib/manual/" targetdir="$INSTALL_PATH/lib/manual"/>
             <fileset dir="lib" includes="**/*.jar"
-              targetdir="$INSTALL_PATH/lib" followSymLinks="true" />
-            <fileset dir="lib/dictionary" includes="**/*.xml"
-              targetdir="$INSTALL_PATH/lib/dictionary" followSymLinks="true" />
+              targetdir="$INSTALL_PATH/lib"/>
             <file src="lib/icons" targetdir="$INSTALL_PATH/lib"/>
-            <executable targetfile="$INSTALL_PATH/bin/progassignsys"
+            <executable targetfile="$INSTALL_PATH/bin/pass-editor"
             stage="never"/>
         </pack>
     </packs>
