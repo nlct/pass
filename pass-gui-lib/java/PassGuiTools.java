@@ -105,9 +105,9 @@ public class PassGuiTools
    /**
     * Opens a file. The Desktop.open(File) method isn't
     * reliable, so provide alternatives. If the given application
-    * name is provided in resources.xml that takes precedence. The
-    * environment variable is used as a fallback if Desktop isn't
-    * supported.
+    * name is provided in resources.xml that takes precedence, then the
+    * environment variable, otherwise the Desktop method will be
+    * used if the Desktop is supported.
     * @param file the file to open
     * @param name the application name used in resources.xml (may be
     * null or empty)
@@ -138,6 +138,16 @@ public class PassGuiTools
          {
             gui.debug(e.getMessage());
          }
+
+         if (viewer == null && envname != null && !envname.isEmpty())
+         {
+            viewer = System.getenv(envname);
+
+            if ("".equals(viewer))
+            {
+               viewer = null;
+            }
+         }
       }
 
       if (viewer != null)
@@ -154,24 +164,8 @@ public class PassGuiTools
       }
       else 
       {
-         String path = null;
-
-         if (envname != null && !envname.isEmpty())
-         {
-            path = System.getenv(envname);
-         }
-
-         if (path != null && !path.isEmpty())
-         {
-            ProcessBuilder pb = new ProcessBuilder(path, file.toString());
-            pb.inheritIO();
-            Process p = pb.start();
-         }
-         else
-         {
-            throw new IOException(gui.getMessage("error.cant_view_file", 
-             file.toString()));
-         }
+         throw new IOException(gui.getMessage("error.cant_view_file", 
+          file.toString()));
       }
 
    }
