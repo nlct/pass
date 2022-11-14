@@ -22,8 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.JLabel;
+
+import com.dickimawbooks.passlib.AllowedBinaryFilter;
 
 /**
  * File panel selector for allowed binary files.
@@ -58,9 +59,25 @@ public class BinaryFilePanel extends FilePanel
 
       addLeftComponent(main.createJButton("table/RowDelete", "remove", this));
 
+      typeLabel = new JLabel();
+
+      addRightComponent(typeLabel);
+
       if (file != null)
       {
-         setFilename(file);
+         AllowedBinaryFilter binaryFilter = null;
+
+         for (FileFilter filter : filters)
+         {
+            if (filter instanceof AllowedBinaryFilter
+                && filter.accept(file))
+            {
+               binaryFilter = (AllowedBinaryFilter)filter;
+               break;
+            }
+         }
+
+         setFile(file, binaryFilter);
       }
    }
 
@@ -79,4 +96,22 @@ public class BinaryFilePanel extends FilePanel
       return null;
    }
 
+   @Override
+   public void setFile(File file, FileFilter filter)
+   {
+      setFilename(file.getAbsolutePath());
+
+      if (filter instanceof AllowedBinaryFilter)
+      {
+         AllowedBinaryFilter binaryFilter = (AllowedBinaryFilter)filter;
+
+         typeLabel.setText(binaryFilter.getMimeType());
+      }
+      else
+      {
+         typeLabel.setText("");
+      }
+   }
+
+   private JLabel typeLabel;
 }

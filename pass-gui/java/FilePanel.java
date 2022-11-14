@@ -38,7 +38,7 @@ import com.dickimawbooks.passlib.AssignmentData;
  * in the PDF. (Pretty-printing for known languages, verbatim for
  * unknown plain text, or an attachment for a document.)
  */
-public class FilePanel extends JPanel implements PassFile
+public class FilePanel extends JPanel implements PassFile,FileTextField
 {
    /**
     * Creates a new component.
@@ -128,7 +128,7 @@ public class FilePanel extends JPanel implements PassFile
       add(rightComponent, "East");
 
       fileFieldButton = new FileFieldButton(main.getPassTools(),
-         textField, chooser, imageURL, filters);
+         this, chooser, imageURL, filters);
 
       rightComponent.add(fileFieldButton);
 
@@ -216,6 +216,7 @@ public class FilePanel extends JPanel implements PassFile
     * Gets the value in the filename text field.
     * @return the specified filename
     */ 
+   @Override
    public String getFilename()
    {
       return textField.getText();
@@ -226,6 +227,7 @@ public class FilePanel extends JPanel implements PassFile
     * @return the specified file if the field isn't empty otherwise
     * null
     */ 
+   @Override
    public File getFile()
    {
       String name = getFilename();
@@ -273,6 +275,18 @@ public class FilePanel extends JPanel implements PassFile
     * @param file the file
     */ 
    public void setFilename(File file)
+   {
+      setFile(file, null);
+   }
+
+   /**
+    * Sets the selected file and identifies the selected file filter
+    * if it was selected using the file chooser.
+    * @param file the file
+    * @param filter the file filter (may be null)
+    */ 
+   @Override
+   public void setFile(File file, FileFilter filter)
    {
       setFilename(file.getAbsolutePath());
    }

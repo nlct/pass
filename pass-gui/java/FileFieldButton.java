@@ -29,7 +29,7 @@ import com.dickimawbooks.passlib.PassTools;
 
 /**
  * A button used to show a file chooser and update the corresponding
- * text field with the selected file name. There may be one or more filters,
+ * file panel with the selected file name. There may be one or more filters,
  * which will be set when the file chooser opens. This allows the
  * same file chooser to be shared across all the file fields and the
  * filter will be set as appropriate when the file chooser needs to
@@ -42,23 +42,24 @@ public class FileFieldButton extends JButton
    /**
     * Creates a new instance.
     * @param passTools the PassTools to access localisation messages
-    * @param field the text field that should show the file name
+    * @param fileTextField the file panel that should show the file name
     * @param chooser the file chooser
     */
-   public FileFieldButton(PassTools passTools, JTextField field, JFileChooser chooser)
+   public FileFieldButton(PassTools passTools, FileTextField fileTextField,
+      JFileChooser chooser)
    {
-      this(passTools, field, chooser, null);
+      this(passTools, fileTextField, chooser, null);
    }
 
    /**
     * Creates a new instance.
     * @param passTools the PassTools to access localisation messages
-    * @param field the text field that should show the file name
+    * @param fileTextField the file panel that should show the file name
     * @param chooser the file chooser
     * @param imageURL the image to use in the button (may be null)
     * @param filters the file filters (may be empty)
     */
-   public FileFieldButton(PassTools passTools, JTextField field, 
+   public FileFieldButton(PassTools passTools, FileTextField fileTextField, 
      JFileChooser chooser, URL imageURL, FileFilter... filters)
    {
       super();
@@ -71,7 +72,7 @@ public class FileFieldButton extends JButton
       }
 
       fileChooser = chooser;
-      textField = field;
+      this.fileTextField = fileTextField;
       setFileFilters(filters);
 
       selectText = passTools.getMessage("filefield.select");
@@ -92,7 +93,7 @@ public class FileFieldButton extends JButton
    @Override
    public void actionPerformed(ActionEvent evt)
    {
-      String text = textField.getText();
+      String text = fileTextField.getFilename();
       File file = null;
 
       if (!text.isEmpty())
@@ -128,7 +129,8 @@ public class FileFieldButton extends JButton
       if (fileChooser.showDialog(getParent(), selectText)
        == JFileChooser.APPROVE_OPTION)
       {
-         textField.setText(fileChooser.getSelectedFile().toString());
+         fileTextField.setFile(fileChooser.getSelectedFile(), 
+           fileChooser.getFileFilter());
       }
 
       if (filters != null)
@@ -173,7 +175,7 @@ public class FileFieldButton extends JButton
    }
 
    private JFileChooser fileChooser;
-   private JTextField textField;
+   private FileTextField fileTextField;
    private FileFilter[] filters;
    private String selectText="Select";
 }

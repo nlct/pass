@@ -4233,7 +4233,7 @@ public class PrepareAssignmentUpload extends JFrame
 
    private static final int START_COPYRIGHT_YEAR=2016;
    public static final String VERSION="1.27";
-   public static final String VERSION_DATE="2022-11-12";
+   public static final String VERSION_DATE="2022-11-14";
 
    private JComponent licenceComp;
 

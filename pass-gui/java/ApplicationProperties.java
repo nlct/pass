@@ -15,6 +15,7 @@
  */
 package com.dickimawbooks.passgui;
 
+import java.io.File;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
@@ -253,7 +254,7 @@ public class ApplicationProperties extends JDialog
         startupDirType == StartupDirType.CUSTOM);
       panel.add(customDirButton);
 
-      customField = new JTextField(main.getStartupDirectoryProperty(), 20);
+      customField = new DirTextField(main.getStartupDirectoryProperty(), 20);
       customField.setEnabled(customDirButton.isSelected());
       panel.add(customField);
 
@@ -356,11 +357,42 @@ public class ApplicationProperties extends JDialog
       return panel;
    }
 
+   class DirTextField extends JTextField implements FileTextField
+   {
+      public DirTextField(String path, int columns)
+      {
+         super(path, columns);
+      }
+
+      public DirTextField(String path)
+      {
+         super(path);
+      }
+
+      @Override
+      public void setFile(File file, javax.swing.filechooser.FileFilter filter)
+      {
+         setText(file.toString());
+      }
+
+      @Override
+      public String getFilename()
+      {
+         return getText();
+      }
+
+      @Override
+      public File getFile()
+      {
+         return new File(getText());
+      }
+   }
+
    private PrepareAssignmentUpload main;
    private FileFieldButton customFieldButton;
 
    private JRadioButton homeDirButton, lastDirButton, customDirButton;
-   private JTextField customField;
+   private DirTextField customField;
 
    private JSpinner timeoutSpinner, maxFileSearchSpinner;
    private SpinnerNumberModel timeoutModel, maxFileSearchModel;
