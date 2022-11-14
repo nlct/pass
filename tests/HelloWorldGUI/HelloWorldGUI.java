@@ -29,7 +29,7 @@ public class HelloWorldGUI extends JFrame
       Dimension dim = tk.getScreenSize();
       setSize(dim.width*3/4, dim.height*3/4);
 
-      setExtendedState(MAXIMIZED_BOTH);
+      //setExtendedState(MAXIMIZED_BOTH);
    }
 
    public ImageIcon getIcon(String name, String description)

@@ -1140,6 +1140,8 @@ public class AssignmentData
       "XSLT"
    };
 
+   public static final String BINARY = "BINARY";
+
    public static final String MIME_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
    public static final String MIME_DOC = "application/msword";
    public static final String MIME_PDF = "application/pdf";

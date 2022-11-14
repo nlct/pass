@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.beans.PropertyChangeListener;
 
+import java.awt.Cursor;
 import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
@@ -38,6 +39,16 @@ public interface PassGui extends Pass,PropertyChangeListener
     * @param state true if the progress bar's status should be indeterminate
     */ 
    public void setIndeterminateProgress(boolean state);
+
+   /**
+    * Gets the current cursor;
+    */ 
+   public Cursor getCursor();
+
+   /**
+    * Sets the current cursor; 
+    */ 
+   public void setCursor(Cursor cursor);
 
    /**
     * Indicates that a worker thread has finished. If the temporary
@@ -101,4 +112,51 @@ public interface PassGui extends Pass,PropertyChangeListener
     * @return the PassGuiTools
     */ 
    public PassGuiTools getPassGuiTools();
+
+   /**
+    * File searcher message.
+    * @param msg the message
+    */ 
+   public void fileSearchMessage(String msg);
+
+   /**
+    * File searcher error message.
+    * @param exc the error
+    */ 
+   public void fileSearchMessage(Exception exc);
+
+   /**
+    * Gets the maximum number of files to search.
+    * @return the maximum number of files to search
+    */ 
+   public int getFileSearchMax();
+
+   /**
+    * Called when file search has completed.
+    */ 
+   public void fileSearchCompleted() throws IOException;
+
+   /**
+    * Sets the required file in the appropriate component.
+    * @param file the required file
+    * @return the text field component or null if none available
+    */ 
+   public FileTextField setRequiredFileComponent(File file)
+    throws IOException;
+
+   /**
+    * Adds an additional file in the appropriate component.
+    * @param file the additional file
+    * @return the new text field component or null if none available
+    */ 
+   public FileTextField addAdditionalFileComponent(File file)
+    throws IOException;
+
+   /**
+    * Adds an allowed binary file in the appropriate component.
+    * @param file the allowed binary file
+    * @return the new text field component or null if none available
+    */ 
+   public FileTextField addBinaryFileComponent(File file)
+    throws IOException;
 }

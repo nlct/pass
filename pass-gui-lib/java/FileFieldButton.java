@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package com.dickimawbooks.passgui;
+package com.dickimawbooks.passguilib;
 
 import java.io.File;
 import java.net.URL;

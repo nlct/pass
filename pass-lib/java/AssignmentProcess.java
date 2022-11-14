@@ -722,7 +722,9 @@ public class AssignmentProcess
          {
             String language = field.getLanguage();
 
-            if (language == null || language.equals(AssignmentData.UNKNOWN_LANGUAGE))
+            if (language == null
+             || language.equals(AssignmentData.BINARY)
+             || language.equals(AssignmentData.UNKNOWN_LANGUAGE))
             {
                if (field instanceof AllowedBinaryFile)
                {
@@ -869,59 +871,11 @@ public class AssignmentProcess
          out.println("\\clearpage");
       }
 
-      Path destPath;
       Path srcPath = src.toPath();
-      File dest;
-      String subPath = "";
+      StringBuilder subPath = new StringBuilder();
 
-      if (basePath == null)
-      {
-         dest = new File(dir, filename);
-         destPath = dest.toPath();
-      }
-      else
-      {
-         Path relPath = null;
-
-         try
-         {
-            relPath = basePath.relativize(srcPath);
-         }
-         catch (IllegalArgumentException e)
-         {
-            throw new IOException(passTools.getMessageWithDefault(
-              "error.cant_relativize",
-              "Can''t relativize source path ''{0}'' against base path ''{1}''.",
-              srcPath, basePath), e);
-         }
-
-         destPath = dir.toPath().resolve(relPath);
-         dest = destPath.toFile();
-
-         if (!filename.equals(originalName))
-         {
-            dest = new File(dest.getParentFile(), filename);
-         }
-
-         Files.createDirectories(dest.getParentFile().toPath());
-
-         for (int i = 0, n = relPath.getNameCount()-1; i < n; i++)
-         {
-            String name = relPath.getName(i).toString();
-
-            Matcher m = FORBIDDEN_PATTERN.matcher(name);
-
-            if (m.find())
-            {
-               throw new IOException(passTools.getMessageWithDefault(
-               "error.illegal_char_in_dirname",
-               "Illegal character ''{0}'' found in directory name ''{1}''.",
-                m.group(), name));
-            }
-
-            subPath += name+"/";
-         }
-      }
+      Path destPath = getDestination(srcPath, filename, dir, subPath);
+      File dest = destPath.toFile();
 
       // Start a new section for each file
 
@@ -1245,6 +1199,77 @@ public class AssignmentProcess
           "document.filename_conflict",
           "File name conflict."));
       }
+   }
+
+   /**
+    * Gets the destination path and creates sub-directories in
+    * preparation to copying a file. Doesn't actually copy the file.
+    * @param srcPath the source path
+    * @param filename the destination filename
+    * @param dir the directory file will be copied to
+    * @param subPath the sub path name using / divider (required by
+    * LaTeX) may be null if not required
+    * @return the destination path
+    * @throws IOException if I/O error occurs
+    */ 
+   protected Path getDestination(Path srcPath, 
+     String filename, File dir, StringBuilder subPath)
+   throws IOException
+   {
+      PassTools passTools = main.getPassTools();
+
+      Path destPath;
+      File dest;
+
+      if (basePath == null)
+      {
+         dest = new File(dir, filename);
+         destPath = dest.toPath();
+      }
+      else
+      {
+         Path relPath = null;
+
+         try
+         {
+            relPath = basePath.relativize(srcPath);
+         }
+         catch (IllegalArgumentException e)
+         {
+            throw new IOException(passTools.getMessageWithDefault(
+              "error.cant_relativize",
+              "Can''t relativize source path ''{0}'' against base path ''{1}''.",
+              srcPath, basePath), e);
+         }
+
+         destPath = dir.toPath().resolve(relPath);
+         dest = new File(destPath.toFile().getParentFile(), filename);
+
+         Files.createDirectories(dest.getParentFile().toPath());
+
+         if (subPath != null)
+         {
+            for (int i = 0, n = relPath.getNameCount()-1; i < n; i++)
+            {
+               String name = relPath.getName(i).toString();
+
+               Matcher m = FORBIDDEN_PATTERN.matcher(name);
+
+               if (m.find())
+               {
+                  throw new IOException(passTools.getMessageWithDefault(
+                  "error.illegal_char_in_dirname",
+                  "Illegal character ''{0}'' found in directory name ''{1}''.",
+                   m.group(), name));
+               }
+
+               subPath.append(name);
+               subPath.append('/');
+            }
+         }
+      }
+
+      return destPath;
    }
 
    /**
@@ -2278,9 +2303,30 @@ public class AssignmentProcess
 
       for (PassFile panel : fileFields)
       {
-         if ("Java".equals(panel.getLanguage()))
+         String lang = panel.getLanguage();
+
+         if ("Java".equals(lang))
          {
             addFileArg(args, panel.getFile());
+         }
+         else
+         {
+            // Copy any plain text files or allowed binary files in to
+            // classes directory.
+
+            if (AssignmentData.PLAIN_TEXT.equals(lang)
+              || AssignmentData.BINARY.equals(lang))
+            {
+               File srcFile = panel.getFile();
+               Path srcPath = srcFile.toPath();
+
+               Path destPath = getDestination(srcPath,
+                srcFile.getName(), classes, null);
+
+               main.debug("Copying "+srcPath+" -> "+destPath);
+
+               Files.copy(srcPath, destPath);
+            }
          }
       }
 

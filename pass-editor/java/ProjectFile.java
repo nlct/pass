@@ -38,7 +38,7 @@ public class ProjectFile implements PassFile
    {
       setFile(file);
       this.filter = filter;
-      this.language = BINARY;
+      this.language = AssignmentData.BINARY;
    }
 
    protected ProjectFile(File file, String language, AllowedBinaryFilter filter)
@@ -47,7 +47,7 @@ public class ProjectFile implements PassFile
 
       if (filter != null)
       {
-         this.language = BINARY;
+         this.language = AssignmentData.BINARY;
       }
       else
       {
@@ -127,7 +127,7 @@ public class ProjectFile implements PassFile
    {
       Path path = getRelativePath(basePath);
 
-      if (language == null || language.equals(BINARY))
+      if (language == null || language.equals(AssignmentData.BINARY))
       {
          return String.format("%s\t%s", path, getMimeType());
       }
@@ -182,7 +182,7 @@ public class ProjectFile implements PassFile
             language = split[1];
          }
          else if (filter == null || !filter.getMimeType().equals(split[1])
-                 && !split[1].equals(BINARY))
+                 && !split[1].equals(AssignmentData.BINARY))
          {
             filter = assignData.getAllowedBinaryFilter(null, split[1]);
 
@@ -213,7 +213,7 @@ public class ProjectFile implements PassFile
       if (filter == null)
       {
          return !(language == null
-           || language.equals(BINARY)
+           || language.equals(AssignmentData.BINARY)
            || language.equals("PDF")
            || language.equals("DOC"));
       }
@@ -239,6 +239,4 @@ public class ProjectFile implements PassFile
    private File file;
    private String language;
    private AllowedBinaryFilter filter;
-
-   public static final String BINARY = "BINARY";
 }

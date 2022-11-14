@@ -500,8 +500,6 @@ class PassEditor extends JFrame
       JMenu helpM = createJMenu("help.title");
       mbar.add(helpM);
 
-      helpM.add(createJMenuItem("help", "about"));
-
       JMenuItem manualItem = createJMenuItem("help", "manual", toolBar, "general/Help",
         KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), csh);
 
@@ -519,6 +517,8 @@ class PassEditor extends JFrame
       licenceComp.setName(passTools.getMessage("message.licence.title"));
 
       helpM.add(createJMenuItem("help", "licence"));
+
+      helpM.add(createJMenuItem("help", "about"));
 
       fileTabPane = new JTabbedPane();
       fileTabPane.setName(FILE_TABS_NAME);
@@ -1534,6 +1534,60 @@ class PassEditor extends JFrame
          addFileTab(editorNode);
       }
 
+      fileSearcher = new FileSearcher(this, baseDir);
+      fileSearcher.execute();
+   }
+
+   /**
+    * Does nothing as required files have already been found if they
+    * exist.
+    */ 
+   @Override
+   public FileTextField setRequiredFileComponent(File file)
+   throws IOException
+   {
+      return null;
+   }
+
+   @Override
+   public FileTextField addAdditionalFileComponent(File file)
+   throws IOException
+   {
+      addFile(new ProjectFile(file), false);
+      
+      return null;
+   }
+
+   @Override
+   public FileTextField addBinaryFileComponent(File file)
+   throws IOException
+   {
+      AssignmentData assignment = project.getAssignment();
+
+      addFile(
+        new ProjectFile(file, assignment.getAllowedBinaryFilter(file)), false);
+
+      return null;
+   }
+
+   @Override
+   public void fileSearchCompleted() throws IOException
+   {
+      findSupplementaryFiles();
+
+      project.save();
+
+      fileSearcher = null;
+   }
+
+   protected void findSupplementaryFiles() throws IOException
+   {
+      PathNode rootNode = (PathNode)navigatorTree.getModel().getRoot();
+
+      AssignmentData assignment = project.getAssignment();
+
+      File baseDir = getBasePath().toFile();
+
       for (int i = 0, n = assignment.resourceFileCount(); i < n; i++)
       {
          ResourceFile rf = assignment.getResourceFile(i);
@@ -1580,8 +1634,18 @@ class PassEditor extends JFrame
             addFile(file, false);
          }
       }
+   }
 
-      project.save();
+   @Override
+   public void fileSearchMessage(String msg)
+   {
+      messageLn(msg);
+   }
+
+   @Override
+   public void fileSearchMessage(Exception exc)
+   {
+      error(exc);
    }
 
    public void addResultFiles(Vector<ResultFile> resultFiles)
@@ -1965,6 +2029,38 @@ class PassEditor extends JFrame
       {
          properties.setProperty("startup.last", file.getAbsolutePath());
       }
+   }
+
+   @Override
+   public int getFileSearchMax()
+   {
+      String val = properties.getProperty("searchmax");
+   
+      if (val == null)
+      {  
+         return FILE_SEARCH_MAX;
+      }
+      
+      try
+      {
+         return Integer.parseInt(val);
+      }
+      catch (NumberFormatException e)
+      {
+         debug("Invalid searchmax property '"+val+"'");
+         setFileSearchMax(FILE_SEARCH_MAX);
+
+         return FILE_SEARCH_MAX;
+      }
+   }
+
+   /**
+    * Sets the maximum number of files to search.
+    * @param value the maximum
+    */ 
+   public void setFileSearchMax(int val)
+   {  
+      properties.setProperty("searchmax", ""+val);
    }
 
    protected Font createEditorFont()
@@ -5502,6 +5598,10 @@ class PassEditor extends JFrame
 
    private boolean completed = false, modified = false;
 
+   private FileSearcher fileSearcher = null;
+
+   public static final int FILE_SEARCH_MAX=100;
+
    private StringBuilder warningBuffer = null;
 
    public static final int MESSAGE_SILENT=0, MESSAGE_VERBOSE=1, MESSAGE_DEBUG=2;
@@ -5510,7 +5610,7 @@ class PassEditor extends JFrame
 
    public static final String APP_NAME = "PASS Editor";
    public static final String APP_VERSION = "0.4";
-   public static final String APP_DATE = "2022-11-13";
+   public static final String APP_DATE = "2022-11-14";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";

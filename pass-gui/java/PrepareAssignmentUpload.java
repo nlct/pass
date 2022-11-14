@@ -755,6 +755,7 @@ public class PrepareAssignmentUpload extends JFrame
     * Gets the maximum number of files to search.
     * @return maximum
     */ 
+   @Override
    public int getFileSearchMax()
    {
       String val = properties.getProperty("searchmax");
@@ -772,6 +773,7 @@ public class PrepareAssignmentUpload extends JFrame
       {
          debug("Invalid searchmax property '"+val+"'");
          setFileSearchMax(FILE_SEARCH_MAX);
+
          return FILE_SEARCH_MAX;
       }
    }
@@ -1279,19 +1281,26 @@ public class PrepareAssignmentUpload extends JFrame
          JScrollBar bar = fileListSp.getVerticalScrollBar();
          bar.setValue(bar.getMaximum());
 
-         comp.getTextField().requestFocusInWindow();
+         comp.getTextComponent().requestFocusInWindow();
       }
       else if ("addbinaryfile".equals(action))
       {
          if (allowedBinaryFilters != null)
          {
-            BinaryFilePanel comp = addBinaryFilePanel();
-            revalidate();
+            try
+            {
+               FileTextField comp = addBinaryFileComponent();
+               revalidate();
 
-            JScrollBar bar = fileListSp.getVerticalScrollBar();
-            bar.setValue(bar.getMaximum());
+               JScrollBar bar = fileListSp.getVerticalScrollBar();
+               bar.setValue(bar.getMaximum());
 
-            comp.getTextField().requestFocusInWindow();
+               comp.getTextComponent().requestFocusInWindow();
+            }
+            catch (IOException e)
+            {// shouldn't happen
+               error(e);
+            }
          }
       }
       else if ("quit".equals(action))
@@ -2807,11 +2816,13 @@ public class PrepareAssignmentUpload extends JFrame
       fileSearchAbortButton.setVisible(false);
    }
 
+   @Override
    public void fileSearchMessage(String msg)
    {
       fileSearcherInfo.setText(msg);
    }
 
+   @Override
    public void fileSearchMessage(Exception exc)
    {
       fileSearchMessage(exc.getMessage());
@@ -2822,7 +2833,8 @@ public class PrepareAssignmentUpload extends JFrame
       }
    }
 
-   public void fileSearchCompleted()
+   @Override
+   public void fileSearchCompleted() throws IOException
    {
       if (additionalFileComp.getComponentCount() == 0)
       {
@@ -2835,7 +2847,7 @@ public class PrepareAssignmentUpload extends JFrame
       {
          if (binaryFileComp.getComponentCount() == 0)
          {
-            addBinaryFilePanel();
+            addBinaryFileComponent();
          }
 
          binaryFileComp.setMaximumSize(binaryFileComp.getPreferredSize());
@@ -2884,16 +2896,21 @@ public class PrepareAssignmentUpload extends JFrame
       }
    }
 
-   public void setRequiredFileComponent(File file)
+   @Override
+   public FileTextField setRequiredFileComponent(File file)
+   throws IOException
    {
       for (int i = 0; i < fileFields.length; i++)
       {
          if (file.getName().equals(fileFields[i].getDefaultName()))
          {
             fileFields[i].setFilename(file);
-            break;
+
+            return fileFields[i];
          }
       }
+
+      return null;
    }
 
    /**
@@ -3051,10 +3068,16 @@ public class PrepareAssignmentUpload extends JFrame
       resourceFileComp.setMaximumSize(resourceFileComp.getPreferredSize());
    }
 
-   public void addAdditionalFileComponent(File file)
+   @Override
+   public FileTextField addAdditionalFileComponent(File file)
+   throws IOException
    {
-      additionalFileComp.add(new AdditionalFilePanel(
-        file, this, fileSelector));
+      AdditionalFilePanel panel = new AdditionalFilePanel(
+        file, this, fileSelector);
+
+      additionalFileComp.add(panel);
+
+      return panel;
    }
 
    /**
@@ -3078,16 +3101,19 @@ public class PrepareAssignmentUpload extends JFrame
    /**
     * Adds an empty binary file panel.
     */ 
-   public BinaryFilePanel addBinaryFilePanel()
+   public BinaryFilePanel addBinaryFileComponent()
+   throws IOException
    {
-      return addBinaryFilePanel(null);
+      return addBinaryFileComponent(null);
    }
 
    /**
     * Adds a binary file panel.
     * @param file the file to add to the panel
     */ 
-   public BinaryFilePanel addBinaryFilePanel(File file)
+   @Override
+   public BinaryFilePanel addBinaryFileComponent(File file)
+   throws IOException
    {
       BinaryFilePanel comp = new BinaryFilePanel(this, file, fileSelector,
          allowedBinaryFilters);

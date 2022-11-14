@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package com.dickimawbooks.passgui;
+package com.dickimawbooks.passguilib;
 
 import java.util.Vector;
 import java.io.File;
@@ -43,7 +43,7 @@ implements FileVisitor<Path>
     * @param main the GUI
     * @param dir the base directory
     */ 
-   public FileSearcher(PrepareAssignmentUpload main, File dir)
+   public FileSearcher(PassGui main, File dir)
    {
       this.main = main;
       this.dir = dir;
@@ -90,12 +90,19 @@ implements FileVisitor<Path>
       }
       catch (Exception e)
       {
-         main.error(e);
+         main.fileSearchMessage(e);
       }
 
       main.setCursor(orgCursor);
 
-      main.fileSearchCompleted();
+      try
+      {
+         main.fileSearchCompleted();
+      }
+      catch (Exception e)
+      {
+         main.fileSearchMessage(e);
+      }
    }
 
    @Override
@@ -178,7 +185,7 @@ implements FileVisitor<Path>
       {
           if (filter.accept(file))
           {  
-             main.addBinaryFilePanel(file);
+             main.addBinaryFileComponent(file);
 
              foundCount++;
 
@@ -232,9 +239,9 @@ implements FileVisitor<Path>
 
    private int fileCount = 0;
    private int maxFileCount;
-   private int foundCount = 0;
+   protected int foundCount = 0;
    private boolean success;
    private Cursor orgCursor;
    private File dir;
-   private PrepareAssignmentUpload main;
+   private PassGui main;
 }

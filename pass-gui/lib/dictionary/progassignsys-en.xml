@@ -121,8 +121,6 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.optional_files">Additional Files (Optional):</entry>
 <entry key="message.binary_files">Binary Files:</entry>
 <entry key="message.select_assignment_for_course">Select the required assignment for course {0}.</entry>
-<entry key="message.file_search">File search</entry>
-<entry key="message.file_search.found.choice">0#No match found|1#Found 1 file|1&lt;Found {0,number} files</entry>
 <entry key="message.abort_search">Abort file search?</entry>
 <entry key="message.abort_search.title">Confirm Abort</entry>
 <entry key="message.cancelling">Cancelling</entry>
@@ -181,14 +179,6 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="properties.lookandfeel">Look and feel: </entry>
 <entry key="properties.lookandfeel.mnemonic">F</entry>
 
-<!-- File Field -->
-
-<entry key="filefield.select">Select</entry>
-<entry key="filefield.select.mnemonic">S</entry>
-
-<entry key="filefilter.pdf">PDF files (*.pdf)</entry>
-<entry key="filefilter.tex">TeX files (*.tex)</entry>
-
 <!-- Manual -->
 
 <entry key="manual.title">Manual</entry>
@@ -221,6 +211,5 @@ should be in the sub-directory tree ''{1}''.</entry>
 <entry key="error.relpath_required">This assignment requires a relative path structure.
 (Setting located on previous panel.) Path structure may be lost.</entry>
 <entry key="error.not_allowed_binary">File ''{0}'' is not an allowed binary file.</entry>
-<entry key="error.file_search.maxed">File search terminated. Exceeded maximum {0,number} files.</entry>
 
 </properties>

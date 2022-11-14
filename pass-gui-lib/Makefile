@@ -6,6 +6,9 @@ lib/passguilib.jar	: classes/com/dickimawbooks/passguilib/PassGui.class
 classes/com/dickimawbooks/passguilib/PassGui.class	: classes/com/dickimawbooks/passguilib \
 	java/AssignmentProcessWorker.java \
 	java/ConfirmCheckBox.java \
+	java/FileFieldButton.java \
+	java/FileSearcher.java \
+	java/FileTextField.java \
 	java/PassGui.java \
 	java/PassGuiTools.java \
 	java/ProgressPanel.java

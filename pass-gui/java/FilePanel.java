@@ -23,10 +23,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.text.JTextComponent;
 import javax.swing.filechooser.FileFilter;
 
 import com.dickimawbooks.passlib.PassFile;
 import com.dickimawbooks.passlib.AssignmentData;
+
+import com.dickimawbooks.passguilib.FileTextField;
+import com.dickimawbooks.passguilib.FileFieldButton;
 
 /**
  * A component identifying a file that forms part of the student's
@@ -236,10 +240,11 @@ public class FilePanel extends JPanel implements PassFile,FileTextField
    }
 
    /**
-    * Gets the filename text field.
-    * @return the text field
+    * Gets the filename text component.
+    * @return the text component
     */ 
-   public JTextField getTextField()
+   @Override
+   public JTextComponent getTextComponent()
    {
       return textField;
    }

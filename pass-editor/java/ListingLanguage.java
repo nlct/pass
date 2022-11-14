@@ -23,7 +23,7 @@ public class ListingLanguage
    {
       if (language == null || language.equals(AssignmentData.UNKNOWN_LANGUAGE))
       {
-         this.language = ProjectFile.BINARY;
+         this.language = AssignmentData.BINARY;
       }
       else
       {

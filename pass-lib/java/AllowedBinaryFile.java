@@ -55,7 +55,7 @@ public class AllowedBinaryFile implements PassFile
    @Override
    public String getLanguage()
    {
-      return null;
+      return AssignmentData.BINARY;
    }
 
    /**

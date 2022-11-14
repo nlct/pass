@@ -20,6 +20,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+
+import com.dickimawbooks.passguilib.FileTextField;
+import com.dickimawbooks.passguilib.FileFieldButton;
 
 /**
  * Application settings dialog. Allows the user to set up 
@@ -385,6 +389,12 @@ public class ApplicationProperties extends JDialog
       public File getFile()
       {
          return new File(getText());
+      }
+
+      @Override
+      public JTextComponent getTextComponent()
+      {
+         return this;
       }
    }
 

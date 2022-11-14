@@ -16,9 +16,7 @@ classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class	: classes/com/di
 	java/AdditionalFilePanel.java \
 	java/ApplicationProperties.java \
 	java/BinaryFilePanel.java \
-	java/FileFieldButton.java \
 	java/FilePanel.java \
-	java/FileSearcher.java \
 	java/HelpFrame.java \
 	java/Manifest.txt \
 	java/PrepareAssignmentUpload.java \

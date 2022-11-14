@@ -8,6 +8,20 @@
 
 <entry key="message.i_we_confirm.mnemonic">I</entry>
 
+<!-- File Field -->
+
+<entry key="filefield.select">Select</entry>
+<entry key="filefield.select.mnemonic">S</entry>
+
+<entry key="filefilter.pdf">PDF files (*.pdf)</entry>
+<entry key="filefilter.tex">TeX files (*.tex)</entry>
+
+<!-- File Searcher -->
+
+<entry key="message.file_search">File search</entry>
+<entry key="message.file_search.found.choice">0#No match found|1#Found 1 project file|1&lt;Found {0,number} project files</entry>
+
+
 <entry key="process.abort">Abort</entry>
 <entry key="process.abort.tooltip">Abort current process</entry>
 
@@ -15,5 +29,6 @@
 
 <entry key="error.file_not_found">File not found.</entry>
 <entry key="error.cant_view_file">Can''t view file {0}.</entry>
+<entry key="error.file_search.maxed">File search terminated. Exceeded maximum {0,number} files.</entry>
 
 </properties>
