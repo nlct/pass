@@ -1521,8 +1521,8 @@ public class PassCli implements Pass
    private int verboseLevel=MESSAGES_ERRORS_AND_WARNINGS_AND_INFO;
 
    public static final String APP_NAME="pass-cli";
-   public static final String APP_VERSION="1.09";
-   public static final String APP_DATE="2022-11-13";
+   public static final String APP_VERSION="1.27";
+   public static final String APP_DATE="2022-11-14";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

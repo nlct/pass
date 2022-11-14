@@ -142,6 +142,15 @@ public class AllowedBinaryFilter
       return false;
    }
 
+   @Override
+   public String toString()
+   {
+      return String.format(
+       "%s[type=%s,listing=%s,case=%s,description=%s,extensions=%s]",
+       getClass().getSimpleName(),
+       mimetype, listing, caseSensitive, description, extensions);
+   }
+
    private String mimetype;
    private boolean listing, caseSensitive;
    private String description;

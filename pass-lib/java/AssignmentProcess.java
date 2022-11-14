@@ -866,7 +866,8 @@ public class AssignmentProcess
 
       String language = field.getLanguage();
 
-      if (!(language == null || language.equals("PDF") || language.equals("DOC")))
+      if (!(language == null || language.equals("PDF") || language.equals("DOC")
+            || language.equals(AssignmentData.BINARY)))
       {
          out.println("\\clearpage");
       }
@@ -943,7 +944,7 @@ public class AssignmentProcess
                  passTools.getMessage("error.file_not_found.copy_failed",
                     filename));
             }
-            else if (language == null)
+            else if (language == null || AssignmentData.BINARY.equals(language))
             {
                out.println(passTools.getMessage("document.binary", src.length()));
                out.println();

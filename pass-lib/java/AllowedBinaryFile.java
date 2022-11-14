@@ -84,6 +84,13 @@ public class AllowedBinaryFile implements PassFile
       return filter;
    }
 
+   @Override
+   public String toString()
+   {
+      return String.format("%s[file=%s,filter=%s]", 
+       getClass().getSimpleName(), file, filter);
+   }
+
    private File file;
    private AllowedBinaryFilter filter;
 }
