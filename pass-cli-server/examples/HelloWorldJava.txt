@@ -1,0 +1,7 @@
+Student: abc01xyz	123456789
+Course: CMP-123XY
+Assignment: helloworldjava
+File: ../tests/HelloWorldJava/HelloWorld.java
+Agree: true
+Pdf-result: ../tests/results/helloworldjava-abc01xyz.pdf
+Submission-timestamp: 2022-11-14T133800000+0000

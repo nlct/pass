@@ -8,6 +8,17 @@
 ../dist	:
 	mkdir -p ../dist
 
+tests	: test-hello test-subdirs test-hellogui
+
+test-hello	: lib/pass-cli-server.jar
+		bin/pass-cli-server --debug -F examples/HelloWorldJava.txt
+
+test-subdirs	: lib/pass-cli-server.jar
+		bin/pass-cli-server --debug -F examples/subdirs.txt
+
+test-hellogui	: lib/pass-cli-server.jar
+		bin/pass-cli-server --debug -F examples/HelloWorldGUI.txt
+
 lib/pass-cli-server.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt classes/com/dickimawbooks/passcli/server/PassCliServer.class
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli-server.jar \
@@ -17,8 +28,7 @@ lib/resources.xml	:
 	cd lib; ln -s ../../pass-cli/lib/resources.xml
 
 classes/com/dickimawbooks/passcli/server/PassCliServer.class	: classes/com/dickimawbooks/passcli/server java/PassCliServer.java
-	make -C ../pass-lib lib/passlib.jar
-	make -C ../pass-cli-lib lib/pass-cli-lib.jar
+	make -C ../pass-cli lib/pass-cli-lib.jar
 	cd java; \
 	javac -cp ../lib/passlib.jar:../lib/pass-cli-lib.jar \
 	-d ../classes -Xlint:unchecked -Xlint:deprecation *.java

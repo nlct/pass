@@ -1,0 +1,11 @@
+Student: abc01xyz	123456789
+Course: CMP-123XY
+Assignment: subdirs
+Base-path: ../tests/JavaSubDirs/
+File: FooBar.java
+File: subdir1/Foo.java
+File: subdir2/Bar.java
+File: subdir2/Foo.java
+Agree: true
+Pdf-result: ../tests/results/subdirs-abc01xyz.pdf
+Submission-timestamp: 2022-11-14T133800000+0000

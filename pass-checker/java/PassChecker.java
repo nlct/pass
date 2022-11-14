@@ -958,7 +958,7 @@ public class PassChecker extends Vector<AssignmentMetaData>
    public static final String NAME="PASS Checker";
    public static final String INVOKER_NAME="pass-checker";
    public static final String VERSION="1.3";
-   public static final String VERSION_DATE="2022-11-13";
+   public static final String VERSION_DATE="2022-11-14";
    public static final int COPYRIGHT_START_YEAR=2018;
 
    public static final SimpleDateFormat DATE_FORMAT

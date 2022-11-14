@@ -12,6 +12,7 @@ classes/com/dickimawbooks/passguilib/PassGui.class	: classes/com/dickimawbooks/p
 	java/PassGui.java \
 	java/PassGuiTools.java \
 	java/ProgressPanel.java
+	make -C ../pass-lib lib/passlib.jar
 	cd java; javac -d ../classes \
 	-cp ../lib/passlib.jar \
 	-Xlint:unchecked -Xlint:deprecation \

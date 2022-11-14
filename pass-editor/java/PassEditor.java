@@ -5609,7 +5609,7 @@ class PassEditor extends JFrame
    private int messageType = MESSAGE_SILENT;
 
    public static final String APP_NAME = "PASS Editor";
-   public static final String APP_VERSION = "1.27";
+   public static final String APP_VERSION = "1.3";
    public static final String APP_DATE = "2022-11-14";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

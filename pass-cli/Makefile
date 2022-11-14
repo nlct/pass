@@ -1,4 +1,11 @@
-tests	: test-hello test-subdirs test-hellogui
+../dist/pass-cli.zip	: ../dist lib/pass-cli.jar doc/pass-cli.1 doc/README
+	make -C doc
+	cd .. ; zip dist/pass-cli.zip pass-cli/bin/pass-cli pass-cli/lib/*.jar pass-cli/lib/resources.xml pass-cli/lib/dictionary/*.xml pass-cli/doc/*.{1,pdf} pass-cli/doc/README
+
+../dist	:
+	mkdir -p ../dist
+
+tests	: test-hello test-subdirs test-hellogui test-readfileinfo
 
 test-hello	: lib/pass-cli.jar
 		bin/pass-cli --debug -F examples/HelloWorldJava.txt
@@ -9,15 +16,10 @@ test-subdirs	: lib/pass-cli.jar
 test-hellogui	: lib/pass-cli.jar
 		bin/pass-cli --debug -F examples/HelloWorldGUI.txt
 
-../dist/pass-cli.zip	: ../dist lib/pass-cli.jar doc/pass-cli.1 doc/README
-	make -C doc
-	cd .. ; zip dist/pass-cli.zip pass-cli/bin/pass-cli pass-cli/lib/*.jar pass-cli/lib/resources.xml pass-cli/lib/dictionary/*.xml pass-cli/doc/*.{1,pdf} pass-cli/doc/README
-
-../dist	:
-	mkdir -p ../dist
+test-readfileinfo	: lib/pass-cli.jar
+		bin/pass-cli --debug -F examples/TestReadFileInfo.txt
 
 lib/pass-cli.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt classes/com/dickimawbooks/passcli/PassCliMain.class
-	make -C ../pass-lib lib/passlib.jar
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli.jar \
 	com/dickimawbooks/passcli/*.class
@@ -42,6 +44,7 @@ classes/com/dickimawbooks/passcli/lib/PassCli.class	: classes/com/dickimawbooks/
 	java/lib/RequiredPassCliFile.java \
 	java/lib/UnknownIdentifierException.java \
 	java/lib/UnsupportedSettingException.java
+	make -C ../pass-lib lib/passlib.jar
 	cd java/lib; \
 	javac -cp ../../lib/passlib.jar -d ../../classes \
 	-Xlint:unchecked -Xlint:deprecation *.java

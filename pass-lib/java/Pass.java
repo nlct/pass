@@ -223,7 +223,7 @@ public interface Pass
    /**
     * Version information for passlib.jar.
     */ 
-   public static final String PASSLIB_VERSION = "1.27";
+   public static final String PASSLIB_VERSION = "1.3";
    public static final String PASSLIB_VERSION_DATE = "2022-11-14";
 
    /**

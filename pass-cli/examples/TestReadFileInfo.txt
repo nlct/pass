@@ -1,0 +1,7 @@
+Student: abc01xyz	123456789
+Course: CMP-123XY
+Assignment: testreadfileinfo
+Base-path: ../tests/TestReadFileInfo
+File: TestReadFileInfo.java
+Agree: true
+Pdf-result: ../tests/results/testreadfileinfo-abc01xyz.pdf
