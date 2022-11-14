@@ -124,13 +124,18 @@ public class PassGuiTools
 
       // check if resources.xml has set a path for given name
 
-      File viewer = null;
+      String viewer = null;
 
       if (name != null && !name.isEmpty())
       {
          try
          {
-            viewer = gui.getPassTools().findResourceApplication(name);
+            File viewerFile = gui.getPassTools().findResourceApplication(name);
+
+            if (viewerFile != null)
+            {
+               viewer = viewerFile.toString();
+            }
 
             gui.debug("Found "+name+" setting: "+viewer);
          }
@@ -152,8 +157,7 @@ public class PassGuiTools
 
       if (viewer != null)
       {
-         ProcessBuilder pb = new ProcessBuilder(viewer.toString(), 
-           file.toString());
+         ProcessBuilder pb = new ProcessBuilder(viewer, file.toString());
          pb.inheritIO();
          Process p = pb.start();
       }      
