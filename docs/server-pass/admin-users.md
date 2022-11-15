@@ -23,7 +23,7 @@ The list of results is tabulated.
 ## Edit Account
 
 You can change the user name or registration number for a particular
-user. Click "Update" to set the changes. Alternatively, click
+user. Click "Update" to save the changes. Alternatively, click
 "Cancel" to return to the list of users.
 
 There are no email addresses stored in the database. All email
