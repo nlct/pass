@@ -1,4 +1,4 @@
-# Admin - Uploads
+# Uploads
 
 When a student uploads project files, a unique random **token** is
 created.
