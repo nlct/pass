@@ -1,7 +1,7 @@
 # Admin - Configuration
 
 The Configuration page is available to admin users via the 
-**Admin** ⏵ **Configuration link**. The following settings are available:
+**Admin** ⏵ **Configuration** link. The following settings are available:
 
 ## Debug
 
