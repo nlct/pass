@@ -1,7 +1,7 @@
 # Admin - Users
 
 The Users page is available to admin users via the 
-**Admin** ⏵ **User** link. This page will list all users.
+**Admin** ⏵ **Users** link. This page will list all users.
 You can search for a specific user or a sub-set of users in the
 search form using regular expressions on their username or
 registration number, or you can search for a
