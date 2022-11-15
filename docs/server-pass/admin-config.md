@@ -1,7 +1,7 @@
 # Admin - Configuration
 
 The Configuration page is available to admin users via the 
-Admin > Configuration link. The following settings are available:
+**Admin** ▶ **Configuration link**. The following settings are available:
 
 ## Debug
 
@@ -11,8 +11,7 @@ have been identified with the `debug="true"` attribute.
 
 | Setting | Description |
 | --- | --- |
-| -1  | No debugging messages, but makes debug courses available for
-staff and admin users. |
+| -1  | No debugging messages, but makes debug courses available for staff and admin users. |
 | 0 | Off |
 | 1 | Enable debug courses and display debugging messages. |
 | 2 | Display extra debugging information for admin users. |
