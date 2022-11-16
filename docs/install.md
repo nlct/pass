@@ -18,7 +18,7 @@ be copied to the appropriate device:
     script that invokes the `pass-cli.jar` file in the `lib`
     directory. If bash isn't available on the device, replace this
     with another appropriate script. The device will need
-    Java and TeX installed, see <README.md>.
+    Java and TeX installed, see [`README.md`](README.md).
 
   - `pass-cli-server.tgz`: this should be unpacked on the server
     that will be used for Server Pass. It then needs to be
@@ -47,4 +47,4 @@ make -C pass-editor ../dist/pass-editor-installer.jar
 These jar files are the installers for Pass GUI and Pass Editor.
 Copy them to the lab computers that have the software development
 tools, and run the appropriate installer. These computers will
-also need TeX installed, see <README.md>.
+also need TeX installed, see [`README.md`](README.md).
