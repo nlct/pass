@@ -1552,11 +1552,10 @@ public class PrepareAssignmentUpload extends JFrame
     * Gets the default basename for the PDF and zip files.
     * @return the default basename
     */
-   @Override
    public String getDefaultBaseName()
    {
-      return String.format("%s-%s",
-         getAssignment().getLabel(), getStudentNumber());
+      return passTools.getConfig().getDefaultBaseName(getAssignment(),
+        getStudent());
    }
 
    @Override
@@ -4143,8 +4142,8 @@ public class PrepareAssignmentUpload extends JFrame
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";
 
    private static final int START_COPYRIGHT_YEAR=2016;
-   public static final String VERSION="1.3";
-   public static final String VERSION_DATE="2022-11-14";
+   public static final String VERSION="1.3.1";
+   public static final String VERSION_DATE="2022-11-16";
 
    private JComponent licenceComp;
 

@@ -393,6 +393,20 @@ public class AssignmentProcessConfig
    }
 
    /**
+    * Gets the default basename for the PDF and zip files.
+    * For example, this may be formed from the student's user name
+    * and the assignment's label.
+    * @param assignment the assignment data
+    * @param student the student data
+    * @return the default basename
+    */ 
+   public String getDefaultBaseName(AssignmentData assignment, Student student)
+   {
+      return String.format("%s-%s",
+         assignment.getLabel(), student.getBlackboardId());
+   }
+
+   /**
     * Gets the LaTeX code for the student's name. As used in
     * <code>\author</code> and in the page header.
     * @param student the student details

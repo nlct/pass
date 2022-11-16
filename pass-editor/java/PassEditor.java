@@ -4686,11 +4686,9 @@ class PassEditor extends JFrame
       return project;
    }
 
-   @Override
    public String getDefaultBaseName()
    {
-      return String.format("%s-%s",
-         getAssignment().getLabel(), getStudent().getRegNumber());
+      return passTools.getConfig().getDefaultBaseName(getAssignment(), getStudent());
    }
 
    @Override
@@ -5597,8 +5595,8 @@ class PassEditor extends JFrame
    private int messageType = MESSAGE_SILENT;
 
    public static final String APP_NAME = "PASS Editor";
-   public static final String APP_VERSION = "1.3";
-   public static final String APP_DATE = "2022-11-14";
+   public static final String APP_VERSION = "1.3.1";
+   public static final String APP_DATE = "2022-11-16";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";

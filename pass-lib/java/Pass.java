@@ -113,14 +113,6 @@ public interface Pass
    public Student getStudent();
 
    /**
-    * Gets the default basename for the PDF and zip files.
-    * For example, this may be formed from the student's user name
-    * and the assignment's label.
-    * @return the default basename
-    */ 
-   public String getDefaultBaseName();
-
-   /**
     * Gets the name of the PASS application that's using this
     * library.
     * @return the PASS application's name
@@ -207,8 +199,8 @@ public interface Pass
    /**
     * Version information for passlib.jar.
     */ 
-   public static final String PASSLIB_VERSION = "1.3";
-   public static final String PASSLIB_VERSION_DATE = "2022-11-14";
+   public static final String PASSLIB_VERSION = "1.3.1";
+   public static final String PASSLIB_VERSION_DATE = "2022-11-16";
 
    /**
     * This library only supports three encodings: UTF-8, ASCII and

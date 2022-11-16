@@ -268,12 +268,6 @@ public class PassChecker extends Vector<AssignmentMetaData>
    public String getEncoding() { return null; }
 
    @Override
-   public boolean usePdfPages() { return false; }
-
-   @Override
-   public String getPdfPagesOptions() { return null; }
-
-   @Override
    public boolean isGroupProject() { return false; }
 
    @Override
@@ -281,9 +275,6 @@ public class PassChecker extends Vector<AssignmentMetaData>
 
    @Override
    public Student getStudent() { return null; }
-
-   @Override
-   public String getDefaultBaseName() { return null; }
 
    @Override
    public boolean isConfirmed() { return true; }

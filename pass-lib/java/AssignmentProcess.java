@@ -351,6 +351,8 @@ public class AssignmentProcess
       String student="??";
       String studentHeader="??";
 
+      Student author = null;
+
       if (main.isGroupProject())
       {
          Vector<Student> students = main.getProjectTeam();
@@ -371,6 +373,8 @@ public class AssignmentProcess
                     "{0} \\emph{et al}",
                      builder);
                builder.append("\\\\");
+
+               author = s;
             }
          }
 
@@ -378,12 +382,14 @@ public class AssignmentProcess
       }
       else
       {
-         Student s = main.getStudent();
+         author = main.getStudent();
 
-         blackboardId = s.getBlackboardId();
-         student = config.getAuthor(s);
+         blackboardId = author.getBlackboardId();
+         student = config.getAuthor(author);
          studentHeader = student;
       }
+
+      defaultBaseName = config.getDefaultBaseName(data, author);
 
       boolean usePdfPages = config.usePdfPages();
 
@@ -417,7 +423,7 @@ public class AssignmentProcess
 
          if (!fileFields.isEmpty())
          {
-            zipFile = new File(dir, main.getDefaultBaseName()+".zip");
+            zipFile = new File(dir, defaultBaseName+".zip");
 
             createZipFile(label, zipFile, fileFields);
          }
@@ -1325,7 +1331,7 @@ public class AssignmentProcess
             }
          }
 
-         String base = main.getDefaultBaseName()+"-file";
+         String base = defaultBaseName+"-file";
 
          File file = new File(dir, base+ext);
          idx = 0;
@@ -1748,6 +1754,8 @@ public class AssignmentProcess
       String mainFile = data.getMainFile();
       RequiredPassFile mainFilePanel = null;
       alwaysFetchResources = false;
+
+      defaultBaseName = config.getDefaultBaseName(data, main.getStudent());
 
       basePath = main.getBasePath();
       timeout = main.getTimeOut();
@@ -3772,6 +3780,11 @@ public class AssignmentProcess
     * The Pass application.
     */ 
    private Pass main;
+
+   /**
+    * The default basename.
+    */ 
+   private String defaultBaseName;
 
    /**
     * The base path for the project files.
