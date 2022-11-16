@@ -24,6 +24,7 @@ my $targetdir = '../lib/manual';
 my $dictdir = '../lib/dictionary';
 my $mainclass = "../java/PassEditor.java";
 my $base = "passeditor";
+my $max_image_width = 416;
 
 my $fontenc = 'T1';
 
@@ -483,8 +484,8 @@ sub start_manual{
    }
 
    print $texfd "% arara: pdflatex\n";
-  # print $texfd "% arara: bib2gls: { group: on, trimfields: on }\n";
-  # print $texfd "% arara: pdflatex\n";
+   print $texfd "% arara: bib2gls: { group: on, trimfields: on }\n";
+   print $texfd "% arara: pdflatex\n";
    print $texfd "% arara: pdflatex\n";
    print $texfd "\\documentclass{passeditor}\n";
    print $texfd "\\usepackage{tracklang}\n";
@@ -2315,6 +2316,11 @@ sub do_image{
       {
          &handle_html("width=\"$1\" ") unless $attrs{width};
          &handle_html("height=\"$2\" ") unless $attrs{height};
+
+         if ($1 > $max_image_width and not $attrs{width})
+         {
+            push @opts, "width=\\linewidth";
+         }
       }
       else
       {
