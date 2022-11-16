@@ -349,7 +349,7 @@ public class Project
          for (Student student : students)
          {
             printSetting(writer, "student", 
-              String.format("%s\t%s", student.getBlackboardId(), student.getRegNumber()));
+              String.format("%s\t%s", student.getUserName(), student.getRegNumber()));
          }
       }
       finally

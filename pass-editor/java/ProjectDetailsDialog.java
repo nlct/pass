@@ -179,7 +179,7 @@ public class ProjectDetailsDialog extends JDialog
               i, COLUMN_LABEL);
          }
 
-         tableModel.setValueAt(student.getBlackboardId(), i, COLUMN_BLACKBOARDID);
+         tableModel.setValueAt(student.getUserName(), i, COLUMN_USERNAME);
          tableModel.setValueAt(student.getRegNumber(), i, COLUMN_REGNUM);
       }
 
@@ -205,7 +205,7 @@ public class ProjectDetailsDialog extends JDialog
 
          for (int i = 0; i < tableModel.getRowCount(); i++)
          {
-            String id = (String)tableModel.getValueAt(i, COLUMN_BLACKBOARDID);
+            String id = (String)tableModel.getValueAt(i, COLUMN_USERNAME);
             String regNum = (String)tableModel.getValueAt(i, COLUMN_REGNUM);
 
             if ((id == null || id.isEmpty())
@@ -352,6 +352,6 @@ public class ProjectDetailsDialog extends JDialog
    private DefaultTableModel tableModel;
 
    public static final int COLUMN_LABEL = 0;
-   public static final int COLUMN_BLACKBOARDID = 1;
+   public static final int COLUMN_USERNAME = 1;
    public static final int COLUMN_REGNUM = 2;
 }

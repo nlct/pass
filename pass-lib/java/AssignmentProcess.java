@@ -347,7 +347,7 @@ public class AssignmentProcess
 
       pdfFile = null;
 
-      blackboardId="??";
+      username="??";
       String student="??";
       String studentHeader="??";
 
@@ -367,7 +367,7 @@ public class AssignmentProcess
 
             if (i == 0)
             {
-               blackboardId = s.getBlackboardId();
+               username = s.getUserName();
                studentHeader = passTools.getMessageWithDefault(
                     "document.author_etal",
                     "{0} \\emph{et al}",
@@ -384,7 +384,7 @@ public class AssignmentProcess
       {
          author = main.getStudent();
 
-         blackboardId = author.getBlackboardId();
+         username = author.getUserName();
          student = config.getAuthor(author);
          studentHeader = student;
       }
@@ -502,7 +502,7 @@ public class AssignmentProcess
 
          out.println("\\hypersetup{hidelinks,%");
          out.println(String.format("pdftitle={%s},%%", data.getTitle()));
-         out.println(String.format("pdfauthor={%s},%%", blackboardId));
+         out.println(String.format("pdfauthor={%s},%%", username));
          out.format(String.format("pdfsubject={%s}}%n",
           passTools.getMessageWithDefault(
             "document.subject", "{0} Assignment Submission", 
@@ -566,7 +566,7 @@ public class AssignmentProcess
             out.println(")");
 
             out.print("/DataCheckE (");
-            writeBytes(out, config.encrypt(blackboardId.getBytes(), keyValue)); 
+            writeBytes(out, config.encrypt(username.getBytes(), keyValue)); 
             out.println(")");
 
             out.print("/DataCheckF (");
@@ -705,7 +705,7 @@ public class AssignmentProcess
                 "document.source_code", 
                 "Source code {0}.", 
                 zipFile.getName())));
-            out.println(String.format("author={%s},", blackboardId));
+            out.println(String.format("author={%s},", username));
             out.println(String.format("size={%d}", zipFile.length()));
             out.println(String.format("]{%s}", zipFile.getName()));
          }
@@ -1021,7 +1021,7 @@ public class AssignmentProcess
                out.println(String.format("description={%s},",
                   passTools.getMessageWithDefault(
                    "document.pdf", "PDF document {0}.", filename)));
-               out.println(String.format("author={%s},", blackboardId));
+               out.println(String.format("author={%s},", username));
                out.println(String.format("size={%d}", dest.length()));
                out.println(String.format("]{%s%s}", subPath, filename));
 
@@ -1115,7 +1115,7 @@ public class AssignmentProcess
                     "document.word", 
                     "Word document {0}.", 
                     filename)));
-               out.println(String.format("author={%s},", blackboardId));
+               out.println(String.format("author={%s},", username));
                out.println(String.format("size={%d}", dest.length()));
                out.println(String.format("]{%s%s}", subPath, filename));
 
@@ -3448,7 +3448,7 @@ public class AssignmentProcess
             writer.println(String.format("description={%s},",
               getPassTools().getMessageWithDefault(
                 "document.result_file", "Result file {0}", filename)));
-            writer.println(String.format("author={%s},", blackboardId));
+            writer.println(String.format("author={%s},", username));
             writer.println(String.format("size={%d}", file.length()));
             writer.println(String.format("]{%s/%s}", resultsDirName, filename));
 
@@ -3809,7 +3809,7 @@ public class AssignmentProcess
    /**
     * The student's user name.
     */ 
-   private String blackboardId;
+   private String username;
 
    /**
     * The LaTeX invocation name. Defaults to "pdflatex" but will be

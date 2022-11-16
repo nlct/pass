@@ -33,15 +33,15 @@ package com.dickimawbooks.passlib;
 
 public class Student
 {
-   public Student(String blackboardId, String regNumber)
+   public Student(String username, String regNumber)
    {
-      this.blackboardId = blackboardId;
+      this.username = username;
       this.regNumber = regNumber;
    }
 
-   public String getBlackboardId()
+   public String getUserName()
    {
-      return blackboardId;
+      return username;
    }
 
    public String getRegNumber()
@@ -49,5 +49,5 @@ public class Student
       return regNumber;
    }
 
-   private String blackboardId, regNumber;
+   private String username, regNumber;
 }
