@@ -47,7 +47,7 @@
 ## Documentation
 
  - [Compiling the Source Code](compile.md)
- - Installing
+ - [Installing](install.md)
  - User Guides
    + Pass GUI
    + Pass Editor

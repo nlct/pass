@@ -136,10 +136,17 @@ The Pass GUI application requires both `passlib.jar` and
 [Java Look and Feel Graphics Repository](https://www.oracle.com/java/technologies/java-look-and-feel-graphics-repository.html). This needs to
 be [downloaded from Oracle](https://www.oracle.com/java/technologies/java-archive-downloads-java-client-downloads.html#7520-jlf-1.0-oth-JPR). The file
 `jlfgr-1_0.jar` needs to be copied to the [`pass-gui/lib`](https://github.com/nlct/pass/tree/main/pass-gui/lib) directory (or use a symlink).
+For example, if the `jlfgr-1_0.jar` file has been installed in
+`/usr/share/java/`:
+```bash
+cd pass-gui/lib
+ln -s /usr/share/java/jlfgr-1_0.jar
+cd ..
+```
 
-Once this is done, Alice needs to change to the `pass-gui` directory
-and run `make`. This will compile the source code and, if
-successful, will also run Pass GUI in debug mode for testing.
+Once this is done, Alice can run `make` in the `pass-gui` directory.
+This will compile the source code and, if successful, will also run
+Pass GUI in debug mode for testing.
 
 If Alice set up multiple courses in her remote `resources.xml` file,
 then she will be presented with a dialogue box from which she can
@@ -436,3 +443,6 @@ using `make` or compiled and tested using `make tests`, which runs
 `pass-cli-server` on each of the test files in the `examples`
 subdirectory. As with the Pass CLI examples, these all use
 assignments from the dummy course.
+
+The website and backend are more complicated. See the documentation in
+the [`server-pass`](https://github.com/nlct/pass/tree/main/docs/server-pass) directory.
