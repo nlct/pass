@@ -22,7 +22,7 @@ classes/com/dickimawbooks/passchecker/PassChecker.class	: classes/com/dickimawbo
 	java/MessageSystem.java \
 	java/PassChecker.java
 	cd java; \
-	javac -cp .:../lib/passlib.jar:../lib/pdfbox-2.0.13.jar:../lib/commons-logging.jar \
+	javac -cp .:../lib/passlib.jar:../lib/pdfbox.jar:../lib/commons-logging.jar \
 	-d ../classes -Xlint:unchecked -Xlint:deprecation *.java
 
 classes/com/dickimawbooks/passchecker	:
