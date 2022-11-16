@@ -43,8 +43,8 @@
  - [Compiling the Source Code](compile.md)
  - Installing
  - User Guides
-  + Pass GUI
-  + Pass Editor
-  + Pass CLI
+   + Pass GUI
+   + Pass Editor
+   + Pass CLI
  - [Server Pass](server-pass/README.md)
 

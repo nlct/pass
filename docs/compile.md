@@ -5,6 +5,16 @@
 These instructions assume a Unix-like system. I'm sorry, I can't
 help with Windows.
 
+## Summary
+
+ 1. Clone the repository.
+ 2. Copy template files and edit as appropriate.
+ 3. Download and install any required third-party libraries listed
+    in each "pass" subdirectory README file, if applicable.
+ 4. Run `make` in each of the "pass" subdirectories.
+ 5. If Server PASS is required, read the documentation in
+    the [`server-pass`](https://github.com/nlct/pass/tree/main/docs/server-pass) directory.
+
 ## Setting Up
 
 Alice clones the pass repository by following the 
@@ -93,7 +103,7 @@ for Pass applications run in debug mode.
 
 The Pass CLI command line application should now be quite
 straight-forward to build. (This only needs `passlib.jar` not
-`passguilib.jar`.)
+`passguilib.jar` and doesn't require any third party libraries.)
 ```bash
 cd pass-cli
 make
@@ -129,7 +139,7 @@ be [downloaded from Oracle](https://www.oracle.com/java/technologies/java-archiv
 
 Once this is done, Alice needs to change to the `pass-gui` directory
 and run `make`. This will compile the source code and, if
-successful, will also run Pass GUI in debug mode.
+successful, will also run Pass GUI in debug mode for testing.
 
 If Alice set up multiple courses in her remote `resources.xml` file,
 then she will be presented with a dialogue box from which she can
@@ -138,8 +148,8 @@ available, it will be selected automatically.
 
 The interface consists of a top panel that initially just shows the
 course code (CMP-123XY) and a bottom panel with the buttons to move
-on to the next or previous panel. The middle panel contains the
-important stuff that changes from one "page" to the next.
+on to the next or previous panel (or "page"). The middle panel contains the
+important stuff that changes from one page to the next.
 
 The first page to be displayed is the boring one, that contains the
 following text:
@@ -160,7 +170,11 @@ This checkbox must be selected in order to enable the "Next" button.
 ![Page 1 Pass GUI Agreement Panel](images/pass-gui-agreement-panel.png)
 
 Alice selects the agreement checkbox and clicks on the now-enabled
-"Next" button.
+"Next" button to move onto the second page.
+
+The top panel now reads:
+
+> Select the required assignment for course CMP-123XY.
 
 The second page has the assignment selector. The default assignment
 will be the one closest to its due date, that hasn't yet passed its
@@ -168,19 +182,11 @@ due date, or the assignment with the latest due date if they have
 all passed their due dates.
 
 Alice decides to try out a C assignment and selects "Hello World C".
-She enters her username "ans" and makes up a registration number as
-she doesn't have one.
+The due date (Fri, 2 Oct 2020 16:30) shows in the area next to the
+assignment selector. She enters her username `ans` and makes up
+a registration number as she doesn't have one.
 
-There's a message about being allowed to submit accompanying
-documents:
-
-> You may include PDF, DOC or DOCX files with your submission. These will be added as attachments. In the case of PDF files, if you additionally want them included directly in the document with \includepdf, provided by the pdfpages package (http://ctan.org/pkg/pdfpages), then make sure the check box below is selected. (Not available for PDF files that contain spaces in the filename.)
-
-There's a checkbox that indicates whether or not to use pdfpages and
-the options to use with that package. (I'm considering removing this
-from Pass GUI and just having it in the XML file.)
-
-Below this is the encoding selector. There's a choice of US-ASCII,
+Below this is the [encoding](https://dickimaw-books.com/blog/binary-files-text-files-and-file-encodings/) selector. There's a choice of US-ASCII,
 ISO 8859-1 (Latin 1) and UTF-8. This will need to match the editor
 used to create the source files. Alice selects UTF-8 and notices
 that the text next to the selector states that LuaLaTeX will be
@@ -232,15 +238,17 @@ selected. It's important that they match.
 This is followed by the additional files section where the student
 can specify any additional files that form part of their project.
 Normally, the only binary files that they can include are PDF or
-Word documents.
+Word documents. The file search not only looks for required files
+but also looks for any file with an appropriate extension.
 
 ![Page 4 Pass GUI File Selector Panel](images/pass-gui-select-files-panel.png)
 
-Alice clicks on "Next". The top panel shows a progress bar and
-a transcript window opens up with various messages. A save dialog
-pops up with the suggested filename `helloworld-12345678.pdf`.
-This is formed from the assignment label followed by the student
-registration number. Alice saves this file in the
+Alice clicks on "Next". A progress bar appears and
+a transcript window opens up with various messages. 
+When the process is finished, a save dialog
+pops up with the suggested filename `helloworld-ans.pdf`.
+This is formed from the assignment label followed by the
+username. Alice saves this file in the
 [`tests/results`](https://github.com/nlct/pass/tree/main/tests/results) directory
 but notices a temporary directory that starts with `prepasg` that's
 mentioned in the transcript and also notices in the transcript that
@@ -248,20 +256,133 @@ LuaLaTeX has been run on a file in this directory.
 
 Alice opens this temporary `.tex` file and finds the command
 ```latex
-\pdfinfo{/CreationDate (D:20221115223510Z)
+\pdfinfo{/CreationDate (D:20221116170955Z)
 ...
 }
 ```
 She remembers that the assignment's due date is Fri, 2 Oct 2020 16:30, so
-she decides to change the creation date to (D:20201002150010+0100).
+she decides to change the creation date to (D:2020100215005501'00').
 Then she finds the line:
 ```latex
-\date{Tue, 15 Nov 2022 22:35}
+\date{Wed, 16 Nov 2022 17:09}
 ```
 and changes it to:
 ```latex
 \date{Fri, 2 Oct 2020 15:00}
 ```
-She saves the file and runs LuaLaTeX on it then copies the resulting PDF to
-`tests/results/helloworld-12345678.pdf`, which overwrites the PDF
-that Pass GUI saved.
+She saves the file and runs LuaLaTeX on it and checks the PDF
+metadata using `pdfinfo`. This produces the following output:
+```
+Title:           Hello World C
+Subject:         CMP-123XY Assignment Submission
+Keywords:        
+Author:          ans
+Creator:         LaTeX with hyperref
+Producer:        LuaTeX-1.15.0
+CreationDate:    Fri Oct  2 15:00:55 2020 BST
+ModDate:         Wed Nov 16 17:14:15 2022 GMT
+Custom Metadata: yes
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           3
+Encrypted:       no
+Page size:       595.276 x 841.89 pts (A4)
+Page rot:        0
+File size:       44552 bytes
+Optimized:       no
+PDF version:     1.5
+```
+Alice notices that the modification date doesn't match the creation
+date, so she edits the LaTeX source again so that it also has the
+modification date set:
+```latex
+\pdfinfo{/CreationDate (D:2020100215005501'00')
+/ModDate (D:2020100215005501'00')
+...
+}
+```
+She then reruns LuaLaTeX and checks the metadata again with `pdfinfo`.
+The modification date is now the same as the creation date.
+
+Alice then copies the PDF to
+`tests/results/helloworld-ans.pdf`, which overwrites the PDF
+that Pass GUI saved, and exits Pass GUI, which deletes the temporary
+directory.
+
+## PASS Checker
+
+The Pass Checker application requires [PDF Box](https://pdfbox.apache.org/),
+which in turn requires the [Apache Commons Logging](https://pdfbox.apache.org/) library.
+PDF Box can be downloaded from Apache or it can be installed using
+a software manager. For example, with Fedora:
+```bash
+sudo dnf install pdfbox
+```
+Alice does this and then double-checks that Apache Commons Logging
+has also been installed:
+```bash
+sudo dnf info apache-commons-logging
+```
+She notices that Log4J is mentioned in the description and
+[very sensibly checks the version of log4j](https://www.ncsc.gov.uk/information/log4j-vulnerability-what-everyone-needs-to-know) that's installed on her device:
+```bash
+sudo dnf info log4j
+```
+
+Once Alice is satisfied that these libraries are installed and
+up-to-date, she then finds the files `commons-logging.jar` and `pdfbox.jar`
+in the directory `/usr/share/java/` and creates symlinks to them in
+the [`pass-checker/lib`](https://github.com/nlct/pass/tree/main/pass-checker/lib)
+directory and runs `make test` to compile the Pass Checker code and
+run a test.
+```bash
+cd pass-checker/lib
+ln -s /usr/share/java/commons-logging.jar
+ln -s /usr/share/java/pdfbox.jar
+cd ..
+make test
+```
+This runs Pass Checker on all the PDF files in the `tests/results`
+directory. The output is TAB separated with the following fields:
+
+ - PDF Filename
+ - Author (the student's username)
+ - Author Check (this should be identical to the Author field)
+ - Date Check (the date PASS created the PDF)
+ - Creation Date (the PDF creation date)
+ - Mod Date (the PDF modification date)
+ - PASS Version (the version of PASS that created the PDF)
+ - Application (the PASS application that created the PDF)
+ - Submission Date (Server PASS Only)
+ - Notes
+
+Alice notices that the `helloworld-ans.pdf` she tampered with when
+testing Pass GUI has the timestamp in the Date Check field shown
+as "2022-11-16 17:09:55", which was the date Pass GUI created the
+source code for the PDF file. The Creation Date and Mod Date fields
+show her altered value of "2020-10-02 15:00:55". The Notes field
+has the following information:
+
+> Mismatched creation date.
+> Modification date <= creation date.
+> Late submission.
+
+Even though Alice modified all the dates she could find in the LaTeX
+source code and added a modification date to a time before the due
+date, Pass Checker has flagged this PDF as a late submission
+with a dubious creation date and modification date.
+
+The modification date is always expected to be some time after the
+creation date. The creation date corresponds to the time that PASS
+started to create the LaTeX code. The modification time is the time
+at which LaTeX starts compiling the document source code. In between
+those two times, PASS has to copy all the project files, create the
+zip attachment and (if applicable) compile and run the student's
+application, as well as finish writing the LaTeX source code.
+
+Pass Checker knows the real creation date because its
+encrypted value is stored in one of the custom metadata fields.
