@@ -254,16 +254,6 @@ public class PassCli implements Pass
       return assignmentData;
    }
 
-   public boolean usePdfPages()
-   {
-      return pdfPages != null;
-   }
-
-   public String getPdfPagesOptions()
-   {
-      return pdfPages;
-   }
-
    public String getApplicationName()
    {
       return APP_NAME;
@@ -719,13 +709,6 @@ public class PassCli implements Pass
         "--no-agree", "-N");
 
       System.out.println();
-      printlnMessage("syntax.latex_settings");
-      System.out.println();
-
-      printWrapMessage("syntax.pdfpages", "--pdfpages", "-p", pdfPages);
-      printWrapMessage("syntax.nopdfpages", "--nopdfpages");
-
-      System.out.println();
       printlnMessage("syntax.file_settings");
       System.out.println();
 
@@ -924,10 +907,6 @@ public class PassCli implements Pass
                       filename, lineNum, argName, argValue));
                }
             }
-            else if (argName.equals("Pdfpages"))
-            {
-               pdfPages = argValue;
-            }
             else if (argName.equals("Project-encoding"))
             {
                setFileEncoding(argValue);
@@ -1107,10 +1086,6 @@ public class PassCli implements Pass
              || args[i].equals("--debug"))
          {// already processed
          }
-         else if (args[i].equals("--nopdfpages"))
-         {
-            pdfPages = null;
-         }
          else if (args[i].equals("--agree") || args[i].equals("-Y"))
          {
             agree = true;
@@ -1238,10 +1213,6 @@ public class PassCli implements Pass
                }
 
                students.add(new Student(argValue, args[i]));
-            }
-            else if (argName.equals("--pdfpages") || argName.equals("-p"))
-            {
-               pdfPages = argValue;
             }
             else if (argName.equals("--project-encoding") || argName.equals("-e"))
             {
@@ -1474,7 +1445,6 @@ public class PassCli implements Pass
    private String assignmentLabel = null;
    private String[] blackboardId = null;
    private String[] studentNumber = null;
-   private String pdfPages = "pagecommand={\\thispagestyle{pass}}";
    private String fileEncodingName=ENCODING_UTF8;
    private Date submittedDate;
 

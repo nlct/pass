@@ -24,9 +24,6 @@
 <entry key="syntax.agree.default">{0} (or {1})			Tick ''I agree'' checkbox (default).</entry>
 <entry key="syntax.no_agree">{0} (or {1})		Don''t tick ''I agree'' checkbox.</entry>
 <entry key="syntax.no_agree.default">{0} (or {1})		Don''t tick ''I agree'' checkbox (default).</entry>
-<entry key="syntax.latex_settings">LaTeX Settings</entry>
-<entry key="syntax.pdfpages">{0} &lt;options&gt; (or {1} &lt;options&gt;)	Set the pdfpages options. Default: {2}</entry>
-<entry key="syntax.nopdfpages">{0}				Don''t use pdfpages.</entry>
 <entry key="syntax.file_settings">File Settings</entry>
 <entry key="syntax.encoding">{0} &lt;name&gt;	The encoding for the transcript and {1} files. If not supplied the default for the JVM is used.</entry>
 <entry key="syntax.pdf_result">{0} &lt;filename&gt; ({1} &lt;filename&gt;)	Save the resulting PDF as &lt;filename&gt;.</entry>

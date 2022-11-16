@@ -623,45 +623,6 @@ public class PrepareAssignmentUpload extends JFrame
    }
 
    /**
-    * Sets the whether or not to use pdfpages. This will be saved in the user
-    * settings on exit.
-    * @param value true if pdfpages should be used
-    */ 
-   public void setUsePdfPagesProperty(boolean value)
-   {
-      properties.setProperty("pdfpages", ""+value);
-   }
-
-   /**
-    * Gets the user's pdfpages preference.
-    * @return true if pdfpages should be used by default
-    */ 
-   public boolean getUsePdfPagesProperty()
-   {
-      return Boolean.parseBoolean(properties.getProperty("pdfpages", "true"));
-   }
-
-   /**
-    * Sets the pdfpages options. This will be saved in the user
-    * settings on exit.
-    * @param value the pdfpages options
-    */ 
-   public void setPdfPagesOptionsProperty(String value)
-   {
-      properties.setProperty("pdfpages.options", value);
-   }
-
-   /**
-    * Gets the user's pdfpages options preference.
-    * @return the preferred options or the default
-    */ 
-   public String getPdfPagesOptionsProperty()
-   {
-      return properties.getProperty("pdfpages.options", 
-        "pagecommand={\\thispagestyle{pass}}");
-   }
-
-   /**
     * Sets the user's preferred encoding default.
     * @param value the encoding
     */ 
@@ -838,8 +799,6 @@ public class PrepareAssignmentUpload extends JFrame
          setStudentNumberProperty(studentNumber);
       }
 
-      setUsePdfPagesProperty(pdfPagesCheckBox.isSelected());
-      setPdfPagesOptionsProperty(pdfPagesOptionsField.getText());
       setEncodingProperty(encodingBox.getSelectedItem().toString());
 
       File file = getPropertyFile();
@@ -1307,13 +1266,6 @@ public class PrepareAssignmentUpload extends JFrame
       {
          quit();
       }
-      else if ("pdfpages".equals(action))
-      {
-         boolean enable = pdfPagesCheckBox.isSelected();
-         pdfPagesOptionsLabel.setEnabled(enable);
-         pdfPagesOptionsField.setEnabled(enable);
-         revalidate();
-      }
       else if ("encoding".equals(action))
       {
          encodingInfo.setText(encodingInfoList[encodingBox.getSelectedIndex()]);
@@ -1578,26 +1530,6 @@ public class PrepareAssignmentUpload extends JFrame
       return null;
    }
 
-   /** 
-    * Indicates whether or not to use the pdfpages package. 
-    * @return true if pdfpages package should be used
-    */
-   @Override
-   public boolean usePdfPages()
-   {
-      return pdfPagesCheckBox.isSelected();
-   }
-
-   /**
-    * Gets the pdfpages options.
-    * @return the options to pass to <code>\includepdf</code>
-    */
-   @Override
-   public String getPdfPagesOptions()
-   {
-     return pdfPagesOptionsField.getText().trim();
-   }
-
    /**
     * Gets the default filename for the PDF file.
     * @return the default PDF filename
@@ -1859,44 +1791,7 @@ public class PrepareAssignmentUpload extends JFrame
 
       box.add(idPanel, gbc);
 
-      JTextArea textArea = createTextArea(
-          passTools.getMessage("message.pdfpages_note"));
-
-      textArea.setAlignmentX(0);
-
-      gbc.gridy++;
-      gbc.gridx=0;
       gbc.gridwidth=3;
-      gbc.fill=GridBagConstraints.BOTH;
-      box.add(textArea, gbc);
-
-      panel = Box.createHorizontalBox();
-      panel.setAlignmentX(0);
-      gbc.gridy++;
-      box.add(panel, gbc);
-
-      pdfPagesCheckBox = createJCheckBox("message.use_pdfpages");
-      pdfPagesCheckBox.setAlignmentX(0);
-      pdfPagesCheckBox.setSelected(getUsePdfPagesProperty());
-      pdfPagesCheckBox.setActionCommand("pdfpages");
-      panel.add(pdfPagesCheckBox);
-
-      pdfPagesOptionsLabel = createJLabel("message.with_options");
-      pdfPagesOptionsLabel.setAlignmentX(0);
-      panel.add(pdfPagesOptionsLabel);
-
-      pdfPagesOptionsField = new JTextField(20);
-      pdfPagesOptionsField.setText(getPdfPagesOptionsProperty());
-      pdfPagesOptionsField.setAlignmentX(0);
-      pdfPagesOptionsLabel.setLabelFor(pdfPagesOptionsField);
-      panel.add(pdfPagesOptionsField);
-
-      boolean enable = pdfPagesCheckBox.isSelected();
-      pdfPagesOptionsLabel.setEnabled(enable);
-      pdfPagesOptionsField.setEnabled(enable);
-
-      pdfPagesCheckBox.addActionListener(this);
-
       gbc.gridy++;
       gbc.gridx=0;
 
@@ -1937,13 +1832,6 @@ public class PrepareAssignmentUpload extends JFrame
       gbc.gridy++;
       gbc.weighty=1;
       box.add(Box.createVerticalGlue(), gbc);
-
-      Dimension dim = box.getPreferredSize();
-
-      int colWidth = textArea.getFontMetrics(textArea.getFont()).charWidth('m');
-      textArea.setColumns(dim.width/colWidth);
-
-      textArea.setRows(textArea.getText().length()/textArea.getColumns()-1);
 
       return box;
    }
@@ -4206,9 +4094,6 @@ public class PrepareAssignmentUpload extends JFrame
 
    private JTextField studentIdField;
    private JTextField studentNumberField;
-   private JCheckBox pdfPagesCheckBox;
-   private JLabel pdfPagesOptionsLabel;
-   private JTextField pdfPagesOptionsField;
    private JCheckBox groupProjectButton;
 
    private JComponent idPanel;

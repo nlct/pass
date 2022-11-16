@@ -1,6 +1,6 @@
 ../dist/pass-checker.zip	: ../dist lib/pass-checker.jar lib/dictionary/*.xml doc/pass-checker.1 README
 	make -C doc
-	cd .. ; zip dist/pass-checker.zip pass-checker/bin/pass-checker pass-checker/lib/*.jar pass-checker/lib/dictionary/*.xml pass-checker/doc/*.{1,pdf} pass-checker/doc/README
+	cd .. ; zip dist/pass-checker.zip pass-checker/bin/pass-checker pass-checker/lib/*.jar pass-checker/lib/dictionary/*.xml pass-checker/doc/*.{1,pdf} pass-checker/README
 
 ../dist	:
 	mkdir -p ../dist

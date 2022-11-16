@@ -102,11 +102,6 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.assignment_due">Due: </entry>
 <entry key="message.group_project">Group Project</entry>
 <entry key="message.group_project.mnemonic">G</entry>
-<entry key="message.pdfpages_note">You may include PDF, DOC or DOCX files with your submission. These will be added as attachments. In the case of PDF files, if you additionally want them included directly in the document with \includepdf, provided by the pdfpages package (http://ctan.org/pkg/pdfpages), then make sure the check box below is selected. (Not available for PDF files that contain spaces in the filename.)</entry>
-<entry key="message.use_pdfpages">use pdfpages</entry>
-<entry key="message.use_pdfpages.mnemonic">P</entry>
-<entry key="message.with_options"> with options: </entry>
-<entry key="message.with_options.mnemonic">W</entry>
 <entry key="message.file_encoding">File encoding: </entry>
 <entry key="message.file_encoding.mnemonic">F</entry>
 <entry key="message.username">{0}: </entry>

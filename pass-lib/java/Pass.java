@@ -95,22 +95,6 @@ public interface Pass
    public PassTools getPassTools();
 
    /**
-    * Indicates whether or not to use the pdfpages package. 
-    * This allows PDF reports to be displayed in the document in
-    * addition to attaching them, but <code>\includepdf</code> has
-    * limitations so may not work if the file name contains awkward
-    * characters, such as spaces.
-    * @return true if pdfpages package should be used
-    */ 
-   public boolean usePdfPages();
-
-   /**
-    * Gets the pdfpages options.
-    * @return the options to pass to <code>\includepdf</code>
-    */ 
-   public String getPdfPagesOptions();
-
-   /**
     * Indicates whether or not this is a group project.
     * @return true if the assignment is a group project
     */ 

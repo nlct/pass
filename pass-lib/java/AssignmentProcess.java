@@ -385,7 +385,7 @@ public class AssignmentProcess
          studentHeader = student;
       }
 
-      boolean usePdfPages = main.usePdfPages();
+      boolean usePdfPages = config.usePdfPages();
 
       maxProgress = 2*fileFields.size()+4;
       currentProgress = 0;
@@ -1036,7 +1036,7 @@ public class AssignmentProcess
                   main.error(e);
                }
 
-               boolean incPdf = (main.usePdfPages() && !filename.contains(" "));
+               boolean incPdf = (config.usePdfPages() && !filename.contains(" "));
 
                if (contentType == null)
                {
@@ -1067,7 +1067,7 @@ public class AssignmentProcess
 
                if (incPdf)
                {
-                  String pdfPagesOptions = main.getPdfPagesOptions();
+                  String pdfPagesOptions = config.getPdfPagesOptions();
 
                   out.println(passTools.getMessageWithDefault(
                     "document.pdf_starts_nextpage",
@@ -1299,7 +1299,7 @@ public class AssignmentProcess
     */ 
    private String getScrubbedFileName(File dir, String name, boolean extended)
    {
-      if (main.usePdfPages() && name.endsWith(".pdf"))
+      if (config.usePdfPages() && name.endsWith(".pdf"))
       {
          name = name.replaceAll(" ", "-");
       }

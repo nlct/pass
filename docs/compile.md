@@ -234,7 +234,7 @@ can specify any additional files that form part of their project.
 Normally, the only binary files that they can include are PDF or
 Word documents.
 
-![Page 4 Pass GUI File Selector Panel](images/pass-gui-select-file-panel.png)
+![Page 4 Pass GUI File Selector Panel](images/pass-gui-select-files-panel.png)
 
 Alice clicks on "Next". The top panel shows a progress bar and
 a transcript window opens up with various messages. A save dialog

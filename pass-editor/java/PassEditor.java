@@ -4609,18 +4609,6 @@ class PassEditor extends JFrame
       return passTools.getMessageWithDefault(label, null, params);
    }
 
-   @Override
-   public boolean usePdfPages()
-   {
-      return true;
-   }
-
-   @Override
-   public String getPdfPagesOptions()
-   {
-      return "pagecommand={\\thispagestyle{pass}}";
-   }
-
    public String getConfirmText(boolean markup)
    {
       if (markup)
