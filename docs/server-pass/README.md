@@ -1,12 +1,33 @@
 # Server PASS Documentation
 
-This is the documentation for Server PASS.
+🚧 This is the documentation for Server PASS.
 
-## General Web Pages
+In addition to the [general assumptions](../README.md), also assume:
+
+  - a server called `cmp-server-01` has been setup specifically for
+    Server Pass;
+  - the server has had appropriate firewalls set up so that the
+    server can only connect to URLs that are sub-paths of
+    `http://cmp.example.com/pass/` (where the Pass XML files are);
+  - the server has an http server software installed with PHP;
+  - the server has MySQL installed;
+  - the server has Docker installed;
+  - the server has RabbitMQ installed;
+  - Alice has an account on the server with her username `ans` and
+    home directory `/home/ans`.
+
+## Installation
+
+First [compile](../compile.md) the Server Pass command line
+application (`pass-cli-server`).
+
+## Website Documentation
+
+### General Web Pages
 
  - [List Uploads](list-uploads.md)
 
-## Admin Pages
+### Admin Pages
 
 Users with "admin" status can access the Admin pages.
 
