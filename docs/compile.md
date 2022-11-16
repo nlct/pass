@@ -386,3 +386,53 @@ application, as well as finish writing the LaTeX source code.
 
 Pass Checker knows the real creation date because its
 encrypted value is stored in one of the custom metadata fields.
+
+## PASS Editor
+
+The Pass Editor application requires both `passlib.jar` and
+`passguilib.jar`, but additionally requires the
+[Java Look and Feel Graphics Repository](https://www.oracle.com/java/technologies/java-look-and-feel-graphics-repository.html) (as for Pass GUI) and also
+the [JavaHelp](https://github.com/javaee/javahelp/) library.
+The JavaHelp repository has been archived, which suggests it may
+now be obsolete, so this library may have to be replaced with an alternative.
+For now, you may be able to install it via your software manager.
+For example:
+```bash
+sudo dnf install javahelp2
+```
+
+Alice has already installed `jlfgr-1_0.jar` earlier, when she tested
+Pass GUI, so she just needs to install JavaHelp now and then create
+symlinks:
+```bash
+cd pass-editor/lib
+ln -s /usr/share/java/javahelp2.jar
+ln -s /usr/share/java/jlfgr-1_0.jar
+cd ..
+make
+```
+As with Pass GUI, `make` without a target will compile the source
+code and the documentation, and then run the application so that 
+it can be tested.
+
+The source code for the documentation is in an XML file
+[`pass-editor/doc/passeditor-en.xml`](https://github.com/nlct/pass/blob/main/pass-editor/doc/passeditor-en.xml).
+The [`createpasseditordocs`](https://github.com/nlct/pass/blob/main/pass-editor/doc/createpasseditordocs) Perl script in the same directory creates both
+the LaTeX source code and the JavaHelp code from the XML file.
+
+## Server PASS
+
+The Server Pass application is a minor modification to Pass CLI that
+allows a submission time to be provided. This is intended for use on
+a server where the project files are uploaded via a website and the
+website creates the file that contains the project data and the
+submission time. The job is queued and a backend script picks up the
+job information and runs the `pass-cli-server` application in a
+Docker container.
+
+The source code for the `pass-cli-server` Java application is in
+the `pass-cli-server/java` directory. The code can be compiled
+using `make` or compiled and tested using `make tests`, which runs
+`pass-cli-server` on each of the test files in the `examples`
+subdirectory. As with the Pass CLI examples, these all use
+assignments from the dummy course.

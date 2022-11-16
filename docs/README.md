@@ -33,10 +33,16 @@
    software development tools but don't have a desktop environment.
 
    These devices will need Java and a TeX installation as well.
-   If the Java compiler isn't needed, then just the Java runtime
-   environment. A minimal TeX installation can be used, as long as
-   it has the following packages:  listings, attachfile, verbatim,
-   upquote, graphicx, hyperref, fontenc, inputenc, lmodern, marvosym, geometry.
+   If the Java compiler isn't needed, then just install the Java runtime
+   environment.
+
+   For TeX Live, follow the [TUG instructions](https://www.tug.org/texlive/acquire-netinstall.html). If storage space is an issue and you don't
+   need TeX for anything else on the device, you can select the
+   "basic" scheme when installing TeX Live and opt out of installing
+   the documentation and source. The following packages are required
+   by PASS: listings, attachfile, verbatim, upquote, graphicx, hyperref,
+   fontenc, inputenc, lmodern, marvosym, geometry. PASS should also
+   work with MikTeX, but I haven't tested it.
 
 ## Documentation
 
