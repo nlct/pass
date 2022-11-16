@@ -1830,7 +1830,7 @@ public class PrepareAssignmentUpload extends JFrame
 
       gbc.gridy++;
       gbc.weighty=1;
-      box.add(Box.createVerticalGlue(), gbc);
+      box.add(Box.createVerticalStrut(20), gbc);
 
       return box;
    }
