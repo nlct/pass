@@ -1,5 +1,6 @@
 ../dist/pass-cli-server.tgz	: lib/pass-cli-server.jar ../dist
 			cd ..; tar zcvf dist/pass-cli-server.tgz --dereference \
+			pass-cli-server/Dockerfile \
 			pass-cli-server/bin/pass-cli-server \
 			pass-cli-server/lib/dictionary/*.xml \
 			pass-cli-server/lib/*.jar \
