@@ -1019,6 +1019,27 @@ public class AssignmentData
       templates.put(fileName, template);
    }
 
+   /**
+    * Sets if the relative paths setting should be on by default.
+    * This is initialised to true but can be changed by the
+    * "relpath" attribute. The user may override this if the setting
+    * is off by default.
+    * @param defValue true if the setting should be on by default
+    */ 
+   public void setRelativePathsDefault(boolean defValue)
+   {
+      relPathsDefault = defValue;
+   }
+
+   /**
+    * Gets the default relative paths setting.
+    * @return true if the setting should be on by default
+    */ 
+   public boolean isRelativePathsDefaultOn()
+   {
+      return relPathsDefault;
+   }
+
    private Course course;
    private String title;
    private String variant, language;
@@ -1034,6 +1055,7 @@ public class AssignmentData
    private URL buildScript = null;
    private URL noPdfBuildScript = null;
    private HashMap<String,URL> templates = null;
+   private boolean relPathsDefault = false;
 
    private Vector<String> reports;
 

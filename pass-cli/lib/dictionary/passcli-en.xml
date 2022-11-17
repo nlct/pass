@@ -46,6 +46,7 @@ Supported encodings for project files (case-insensitive): </entry>
 <entry key="syntax.message">{0} &lt;id&gt; (or {1} &lt;id&gt;)	Type of messages to print to STDERR and STDOUT. The value &lt;id&gt; may either be an integer or label:</entry>
 <entry key="syntax.silent">{0} (or {1})	Equivalent to {2} {3} (no messages).</entry>
 <entry key="syntax.debug">{0}			Equivalent to {1} {2}</entry>
+<entry key="syntax.allow_debug_courses">{0}			Allows debug courses without changing verbosity (default: true).</entry>
 <entry key="syntax.transcript">{0} &lt;file&gt; (or {1} &lt;file&gt;)	Write messages to &lt;file&gt;. Note that messages will be written to the transcript file even if the silent setting is on. If an error on startup occurs before the transcript file has been opened the error will be written to STDERR. Use {2} before {0} if that encoding is required for the transcript file as well.</entry>
 <entry key="syntax.timeout">{0} &lt;seconds&gt;	Timeout for long-running processes. Default: {1}</entry>
 <entry key="syntax.help">{0} (or {1})		Print this help message and exit.</entry>

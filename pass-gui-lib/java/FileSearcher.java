@@ -130,9 +130,7 @@ implements FileVisitor<Path>
 
       main.fileSearchMessage(file.toString());
 
-      String filename = file.getName();
-
-      if (data.hasFile(filename))
+      if (main.getPassTools().isRequiredFile(path, data, main.getBasePath()))
       {
          main.setRequiredFileComponent(file);
 
@@ -141,6 +139,8 @@ implements FileVisitor<Path>
          return FileVisitResult.CONTINUE;
       }
                    
+      String filename = file.getName();
+
       int idx = filename.lastIndexOf(".");
 
       String ext = null;

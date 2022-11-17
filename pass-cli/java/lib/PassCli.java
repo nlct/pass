@@ -428,9 +428,15 @@ public class PassCli implements Pass
       }
    }
 
+   public void setAllowDebugCourses(boolean allow)
+   {
+      allowDebugCourse = allow;
+   }
+
+   @Override
    public boolean isDebugMode()
    {
-      return verboseLevel >= MESSAGES_DEBUG; 
+      return allowDebugCourse || verboseLevel >= MESSAGES_DEBUG; 
    }
 
    public void debug(String msg)
@@ -761,6 +767,8 @@ public class PassCli implements Pass
       printWrapMessage("syntax.debug", "--debug", "--message", MESSAGES_DEBUG);
       System.out.println();
 
+      printWrapMessage("syntax.allow_debug_courses", "--[no]allow-debug-courses");
+      System.out.println();
       printWrapMessage("syntax.transcript", "--transcript", "-l", "--file-encoding");
 
       System.out.println();
@@ -986,6 +994,14 @@ public class PassCli implements Pass
          else if (args[i].equals("--debug"))
          {
             verboseLevel = MESSAGES_DEBUG;
+         }
+         else if (args[i].equals("--allow-debug-courses"))
+         {
+            allowDebugCourse = true;
+         }
+         else if (args[i].equals("--noallow-debug-courses"))
+         {
+            allowDebugCourse = false;
          }
          else if (args[i].startsWith("-"))
          {
@@ -1484,9 +1500,11 @@ public class PassCli implements Pass
 
    private int verboseLevel=MESSAGES_ERRORS_AND_WARNINGS_AND_INFO;
 
+   protected boolean allowDebugCourse = true;
+
    public static final String APP_NAME="pass-cli";
    public static final String APP_VERSION="1.3.1";
-   public static final String APP_DATE="2022-11-16";
+   public static final String APP_DATE="2022-11-17";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

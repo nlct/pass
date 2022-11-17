@@ -133,7 +133,8 @@
   <file>Bar.java</file>
  </assignment>
 
- <assignment name="subdirs" >
+ <assignment name="subdirs" relpath="true" >
+  <!-- This assignment will need to have the "relative paths" setting on. -->
   <title>Java With Sub-Directories</title>
   <due>2021-03-30 16:30</due>
   <mainfile>Main.java</mainfile>
@@ -166,7 +167,9 @@
   <title>Hello World GUI</title>
   <due>2022-12-02 16:30</due>
   <mainfile>HelloWorldGUI.java</mainfile>
-<!-- The student is permitted to attach the following binaries -->
+<!-- The student is permitted to attach the following binaries, 
+  which will be attached in the PDF and (with listing="true") will be
+  included in the document. -->
   <allowedbinary ext="png" type="image/png" listing="true" />
   <allowedbinary ext="jpeg,jpg" type="image/jpeg" listing="true" />
  </assignment>

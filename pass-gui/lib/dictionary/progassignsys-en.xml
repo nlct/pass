@@ -205,6 +205,8 @@ should be in the sub-directory tree ''{1}''.</entry>
 <entry key="error.no_lang_set">Language not set for {0} (assuming ''{1}'').</entry>
 <entry key="error.relpath_required">This assignment requires a relative path structure.
 (Setting located on previous panel.) Path structure may be lost.</entry>
+<entry key="error.relpath_base_not_set">This assignment requires a relative path structure. Please supply a base directory.</entry>
+<entry key="error.relpath_not_set">This assignment requires a relative path structure. Please select the ''{0}'' checkbox.</entry>
 <entry key="error.not_allowed_binary">File ''{0}'' is not an allowed binary file.</entry>
 
 </properties>

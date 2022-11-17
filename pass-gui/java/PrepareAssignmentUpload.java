@@ -1076,10 +1076,30 @@ public class PrepareAssignmentUpload extends JFrame
                transcriptMessage(passTools.getMessage("message.assignment",
                  assignmentBox.getSelectedItem(), dueField.getText()));
 
+               if (getAssignment().isRelativePathsDefaultOn())
+               {
+                  relativizeBox.setSelected(true);
+               }
+
                createRequiredComponents();
             }
             else if (currentPanel == DIR_PANEL)
             {
+               if (getAssignment().isRelativePathsDefaultOn())
+               {
+                  if (!relativizeBox.isSelected())
+                  {
+                     error(getMessage("error.relpath_not_set",
+                       getMessage("message.use_rel_paths")));
+                     return;
+                  }
+                  else if (getBasePath() == null)
+                  {
+                     error(getMessage("error.relpath_base_not_set"));
+                     return;
+                  }
+               }
+
                transcriptMessage(passTools.getMessage(
                  "message.base_directory",
                  dirField.getText(), useRelativePaths()));
@@ -4143,7 +4163,7 @@ public class PrepareAssignmentUpload extends JFrame
 
    private static final int START_COPYRIGHT_YEAR=2016;
    public static final String VERSION="1.3.1";
-   public static final String VERSION_DATE="2022-11-16";
+   public static final String VERSION_DATE="2022-11-17";
 
    private JComponent licenceComp;
 

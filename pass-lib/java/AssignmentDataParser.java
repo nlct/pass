@@ -276,6 +276,9 @@ public class AssignmentDataParser extends XMLReaderAdapter
          {
             current.setCompileTest(false);
          }
+
+         current.setRelativePathsDefault(
+           passTools.isBoolAttributeOn("relpath", atts, qName, false));
       }
       else if ("verbatim".equals(qName))
       {

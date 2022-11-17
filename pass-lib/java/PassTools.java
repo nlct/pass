@@ -1452,6 +1452,29 @@ public class PassTools
        || ext.equals("cab") || ext.equals("class") || ext.equals("o");
    }
 
+   /**
+    * Checks if the given file is a required file.
+    * @param path the file to test
+    * @param assignment the assignment data
+    * @param basePath the base path (null if no relative path)
+    */ 
+   public boolean isRequiredFile(Path path, AssignmentData assignment, Path basePath)
+   {
+      String filename;
+
+      if (basePath == null)
+      {
+         filename = path.toFile().getName();
+      }
+      else
+      {
+         Path relPath = basePath.relativize(path);
+         filename = relPath.toString();
+      }
+
+      return assignment.hasFile(filename);
+   }
+
    private HashMap<String,File> applications = null;
    private Pass pass;
    private boolean isWindows=false;

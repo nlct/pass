@@ -8,8 +8,9 @@ In addition to the [general assumptions](../README.md), also assume:
     Server Pass;
   - the server has had appropriate firewalls set up so that the
     server can only connect to URLs that are sub-paths of
-    `http://cmp.example.com/pass/` (where the Pass XML files are);
-  - the server has an http server software installed with PHP;
+    `http://cmp.example.com/pass/` (where the Pass XML files and
+    associated assignment files are);
+  - the server has http server software installed with PHP;
   - the server has MySQL installed;
   - the server has Docker installed;
   - the server has RabbitMQ installed;
