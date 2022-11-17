@@ -1,4 +1,4 @@
-../dist/pass-cli-server.tgz	: lib/pass-cli-server.jar ../dist
+../dist/pass-cli-server.tgz	: lib/pass-cli-server.jar Dockerfile ../dist
 			cd ..; tar zcvf dist/pass-cli-server.tgz --dereference \
 			pass-cli-server/Dockerfile \
 			pass-cli-server/bin/pass-cli-server \
@@ -24,9 +24,6 @@ lib/pass-cli-server.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.t
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli-server.jar \
 	com/dickimawbooks/passcli/server/PassCliServer.class
-
-lib/resources.xml	:
-	cd lib; ln -s ../../pass-cli/lib/resources.xml
 
 classes/com/dickimawbooks/passcli/server/PassCliServer.class	: classes/com/dickimawbooks/passcli/server java/PassCliServer.java
 	make -C ../pass-cli lib/pass-cli-lib.jar

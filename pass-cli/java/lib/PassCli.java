@@ -412,18 +412,33 @@ public class PassCli implements Pass
       }
    }
 
+   protected String formatMsg(int messageType, String message)
+   {
+      return message;
+   }
+
+   protected String getTaskIdentifier()
+   {
+      return String.format("%s/%s/%s", 
+       courseCode == null ? "??" : courseCode,
+       assignmentLabel == null ? "??" : assignmentLabel,
+       students == null ? "??" : getStudent().getUserName());
+   }
+
    public void messageLn(int messageType, String message)
    {
+      String msg = formatMsg(messageType, message);
+
       if (messageType <= verboseLevel)
       {
          if (messageType == MESSAGE_TYPE_ERROR
           || messageType == MESSAGE_TYPE_WARNING)
          {
-            System.err.println(message);
+            System.err.println(msg);
          }
          else
          {
-            System.out.println(message);
+            System.out.println(msg);
          }
       }
    }
@@ -533,8 +548,9 @@ public class PassCli implements Pass
    {
       if (transcriptWriter == null)
       {
-         System.err.format("%s: %s%n",
-           throwable.getClass().getSimpleName(), throwable.getMessage());
+         System.err.println(formatMsg(MESSAGE_TYPE_ERROR,
+           String.format("%s: %s",
+           throwable.getClass().getSimpleName(), throwable.getMessage())));
 
          throwable.printStackTrace();
       }
@@ -1498,13 +1514,13 @@ public class PassCli implements Pass
     = new String[] {"silent", "errors", "errors and warnings", 
         "errors warnings and info", "verbose", "debug"};
 
-   private int verboseLevel=MESSAGES_ERRORS_AND_WARNINGS_AND_INFO;
+   protected int verboseLevel=MESSAGES_ERRORS_AND_WARNINGS_AND_INFO;
 
    protected boolean allowDebugCourse = true;
 
    public static final String APP_NAME="pass-cli";
    public static final String APP_VERSION="1.3.1";
-   public static final String APP_DATE="2022-11-17";
+   public static final String APP_DATE="2022-11-18";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

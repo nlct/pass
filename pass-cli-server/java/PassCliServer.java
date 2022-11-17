@@ -17,6 +17,9 @@ package com.dickimawbooks.passcli.server;
 
 import java.io.IOException;
 
+import java.util.Date; 
+import java.text.SimpleDateFormat; 
+
 import com.dickimawbooks.passlib.*;
 import com.dickimawbooks.passcli.lib.*;
 
@@ -31,6 +34,25 @@ public class PassCliServer extends PassCli
    public boolean isSubmittedDateEnabled()
    {
       return true;
+   }
+
+   @Override
+   protected String formatMsg(int messageType, String message)
+   {
+      if (messageType == MESSAGE_TYPE_WARNING)
+      {
+         message = getMessageWithDefault("message.warning",
+         "WARNING: {0}", message);
+      }
+      else if (messageType == MESSAGE_TYPE_ERROR)
+      {
+         message = getMessageWithDefault("message.error",
+         "ERROR: {0}", message);
+      }
+
+      return String.format("%s %s: %s",
+         MESSAGE_DATE_FORMAT.format(new Date()),
+         getTaskIdentifier(), message);
    }
 
    @Override
@@ -53,4 +75,8 @@ public class PassCliServer extends PassCli
          System.exit(EXIT_IO);
       }
    }
+
+   public static final SimpleDateFormat MESSAGE_DATE_FORMAT
+     = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 }
