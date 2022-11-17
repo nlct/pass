@@ -12,7 +12,7 @@ RUN mkdir -p /usr/src/app/bin \
     && mkdir -p /usr/src/app/lib/dictionary \
     && apt-get update && apt-get install -y \
         debconf \
-        default-jdk \
+        openjdk-17-jdk \
         g++ \
         gcc \
         locales \
