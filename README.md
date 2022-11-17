@@ -460,6 +460,8 @@ The Pass source code is written in Java. Server Pass has
 accompanying PHP files and a Docker file. Server Pass will require
 an IT expert to setup and protect the server.
 
+See the files in the [`docs`](https://github.com/nlct/pass/tree/main/docs) directory for further details.
+
 ### Pass Lib
 
 The Pass backend library jar file is called `passlib.jar`. The source code is in
@@ -500,12 +502,12 @@ is in the `pass-cli` subdirectory.
 This consists of a command line Pass application based on Pass CLI
 that is intended for use in a Docker image. It has accompanying PHP
 files for the web interface. The server will need to have Docker,
-MySql, and RabbitMQ installed. (TODO: add extra instructions.)
+MySql, and RabbitMQ installed.
 
 The source code is in the `pass-cli-server` subdirectory and the
 Docker files are in the `docker` subdirectory.
 
-🚧 Pending PHP files.
+See the files in the [`docs/server-pass`](https://github.com/nlct/pass/tree/main/docs/server-pass) for further details.
 
 The student has to create an account for the website. (This should
 not use Single Sign On as the server should be isolated from the
@@ -575,7 +577,7 @@ The idea for this system was devised by Dr Gavin Cawley.
 Russell Smith installed the software, setup a server for Server
 Pass, and provided technical advice. The [Island of TeX](https://gitlab.com/islandoftex) community
 provided advice on using TeX Live with Docker. Thank you to 
-Dr Gavin Cawley and Dr Jason Lines, and the students in CMP who
+Dr Gavin Cawley, Dr Jason Lines, Prof Tony Bagnall, and the students in CMP who
 tested the system and provided feedback.
 
 ## LICENSE
