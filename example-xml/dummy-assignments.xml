@@ -3,7 +3,6 @@
 
 <!-- Extra options for listings.sty -->
  <listings>basicstyle=\ttfamily\normalsize</listings>
- <listings>stringstyle=\color{lightgray}</listings>
 
 <!-- Extra options for geometry.sty -->
  <geometry>margin=0.6in</geometry>
