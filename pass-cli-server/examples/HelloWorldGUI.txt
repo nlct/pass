@@ -3,8 +3,8 @@ Course: CMP-123XY
 Assignment: helloworldgui
 Base-path: ../tests/HelloWorldGUI/
 File: HelloWorldGUI.java
-File: icons/logo.png	image/png
-File: icons/sample.png	image/png
+File: icons/logo.png	BINARY
+File: icons/sample.png
 Agree: true
 Pdf-result: ../tests/results/helloworldgui-abc01xyz.pdf
 Submission-timestamp: 2022-11-14T133800000+0000
