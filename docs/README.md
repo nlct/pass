@@ -48,6 +48,9 @@
 
  - [Compiling the Source Code](compile.md)
  - [Installing](install.md)
+ - XML File Specifications
+   + [Resource Files (Courses)](resourcexml.md)
+   + [Assignment Files](assignmentxml.md)
  - User Guides
    + Pass GUI
    + Pass Editor
