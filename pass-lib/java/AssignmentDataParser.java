@@ -295,7 +295,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
             throw new SAXException(
               passTools.getMessageWithDefault("error.tag_mustnt_be_inside_tag",
               "<{0}> tag mustn''t be inside <{1}> tag.",
-              qName, "assignments"));
+              qName, "assignment"));
          }
 
          if (builder != null)
