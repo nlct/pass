@@ -625,7 +625,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
          }
       }
       else if ("fontspec".equals(qName))
-      {
+      {// no need to trim
          if (fontSpecSettings == null)
          {
             fontSpecSettings = new StringBuilder();
@@ -637,7 +637,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
          }
       }
       else if ("fontenc".equals(qName))
-      {
+      {// no need to trim
          if (fontEncSettings == null)
          {
             fontEncSettings = new StringBuilder();
@@ -690,7 +690,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
       }
       else if ("input".equals(qName))
       {
-         current.addInput(builder.toString());
+         current.addInput(builder.toString());// don't trim
       }
       else if ("report".equals(qName))
       {
@@ -717,7 +717,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
       }
       else if ("arg".equals(qName))
       {
-         current.addArg(builder.toString());
+         current.addArg(builder.toString());// don't trim
       }
       else if ("compiler-arg".equals(qName))
       {
@@ -735,7 +735,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
       }
       else if ("invoker-arg".equals(qName))
       {
-         String str = builder.toString();
+         String str = builder.toString();// don't trim
 
          if (str.isEmpty())
          {
