@@ -5,8 +5,8 @@ Each PASS application (except Pass Checker) has its own
 file that contains the settings for that particular installation.
 The local resource file may reference a _remote_ resource file
 that can be shared by multiple PASS applications. Typically, courses
-are defined in a remote resource file and any required paths are
-defined in the local resource files.
+are defined in a remote resource file and any required paths and
+other local settings are defined in the local resource files.
 
 The local and remote resource XML files have the same syntax. Note
 that any URLs must be the _exact_ address. Redirects aren’t permitted
@@ -27,7 +27,7 @@ elements must be inside the body of that element:
 Boolean attributes may have the values `true` or `on` (for TRUE) and
 `false` or `off` (for FALSE). If an end tag is required and the body
 of the element is textual, then leading and trailing white space
-will be trimmed.
+will be trimmed, unless indicated otherwise.
 
 ## Identifying the remote resource file (`courses`)
 
@@ -189,7 +189,9 @@ only go in the _local_ resource file.
 
 The `env` element may be used to set any environment variables that
 should be used when PASS runs any processes. The end tag must be
-supplied. The body is the value of the environment variable.
+supplied. The body is the value of the environment variable. No
+trimming is performed in this case, so be careful of any unwanted
+leading or trailing space.
 
 | Attribute | Description | Default |
 | --- | --- | --- |
