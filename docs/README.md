@@ -40,8 +40,11 @@
    need TeX for anything else on the device, you can select the
    "basic" scheme when installing TeX Live and opt out of installing
    the documentation and source. The following packages are required
-   by PASS: listings, attachfile, verbatim, upquote, graphicx, hyperref,
-   fontenc, inputenc, lmodern, marvosym, geometry. PASS should also
+   by PASS: `listings`, `attachfile`, `verbatim`, `upquote`, `graphicx`, `hyperref`,
+   `fontenc`, `inputenc`, `lmodern`, `marvosym`, `geometry`. Most, but not all, of these
+   should be installed with the basic scheme. The remainder can be
+   installed with the TeX package manager (for example,
+   `sudo tlmgr install attachfile upquote marvosym`). PASS should also
    work with MikTeX, but I haven't tested it.
 
 ## Documentation
@@ -49,7 +52,7 @@
  - [Compiling the Source Code](compile.md)
  - [Installing](install.md)
  - XML File Specifications
-   + [Resource Files (Courses)](resourcexml.md)
+   + [Resource Files (Courses and Settings)](resourcexml.md)
    + [Assignment Files](assignmentxml.md)
  - User Guides
    + Pass GUI

@@ -25,7 +25,9 @@ elements must be inside the body of that element:
 ```
 
 Boolean attributes may have the values `true` or `on` (for TRUE) and
-`false` or `off` (for FALSE).
+`false` or `off` (for FALSE). If an end tag is required and the body
+of the element is textual, then leading and trailing white space
+will be trimmed.
 
 ## Identifying the remote resource file (`courses`)
 
@@ -41,7 +43,7 @@ migrated to the remote file.)
 
 For example:
 ```xml
-<courses href="http://www.example.com/pass/resources.xml" />
+<courses href="http://cmp.example.com/pass/resources.xml" />
 ```
 
 ## Identifying the remote resource file (`resource`)
@@ -59,17 +61,17 @@ title.
 For example:
 ```xml
  <resource name="CMP-101" 
-  href="http://www.example.com/pass/CMP-101.xml">
+  href="http://cmp.example.com/pass/CMP-101.xml">
   Introduction to Java
  </resource>
 
  <resource name="CMP-102" 
-  href="http://www.example.com/pass/CMP-102.xml">
+  href="http://cmp.example.com/pass/CMP-102.xml">
   Introduction to C and C++
  </resource>
 
  <resource name="CMP-123XY" debug="true"
-  href="http://www.example.com/pass/CMP-123XY.xml">
+  href="http://cmp.example.com/pass/CMP-123XY.xml">
  Dummy Course for Testing
  </resource>
 ```
@@ -156,3 +158,53 @@ For example:
    uri="file:///usr/bin/eog"
  />
 ```
+
+## Processes (`processes`)
+
+The `processes` element may be used to change the default process
+timeout setting. The end tag may be omitted. This element should
+only go in the _local_ resource file.
+
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `timeout` | The timeout in seconds. | _varies_ |
+
+ - Pass GUI will allow the user to set the timeout if it hasn't been
+   set in the resource file, otherwise the default is 120 seconds.
+
+ - The Pass Editor default is 120 seconds.
+
+ - Pass CLI has a default of 60 seconds which can be overridden by
+   the `--timeout` option, but the timeout in the resources file
+   will take precedence, if supplied.
+
+ - Server Pass is a variation of Pass CLI but the `--timeout` switch
+   is set according to the `timeout` setting in the configuration table
+   used by the frontend, so don't include the `processes` element in
+   the resource file used by Server Pass otherwise you'll have to
+   rebuild the Docker image every time you need to change the
+   timeout value.
+
+## Environment Variables (`env`)
+
+The `env` element may be used to set any environment variables that
+should be used when PASS runs any processes. The end tag must be
+supplied. The body is the value of the environment variable.
+
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `name` | The environment variable name. | _none_ (required) |
+
+## Agreement (`agree`)
+
+A boolean attribute that indicates if the user is required to
+explicitly agree to check the PDF before submitting it.
+
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `required` | Boolean indicating whether or not agreement is required. | `true` |
+
+This requirement had to be added because some students were
+submitting their PDF without checking it and then later complained
+that PASS had got it wrong and the PDF didn't actually represent
+their work.
