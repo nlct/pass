@@ -942,7 +942,7 @@ public class AssignmentProcess
                main.error(e);
             }
 
-            boolean addBraces = (isLua && !filename.contains("."));
+            boolean addBraces = passTools.areBracesRequired(isLua, filename);
 
             if (!dest.exists())
             {

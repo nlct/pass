@@ -1520,7 +1520,7 @@ public class PassCli implements Pass
 
    public static final String APP_NAME="pass-cli";
    public static final String APP_VERSION="1.3.1";
-   public static final String APP_DATE="2022-11-18";
+   public static final String APP_DATE="2022-11-19";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

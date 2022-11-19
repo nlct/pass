@@ -438,6 +438,28 @@ public class CourseParser extends XMLReaderAdapter
          passTools.setAgreeRequired(
             passTools.isRequiredBoolAttributeOn("required", atts, qName));
       }
+      else if ("lualatex".equals(qName))
+      {
+         if (courses == null)
+         {
+            throw new SAXException(
+              passTools.getMessageWithDefault(
+               "error.tag_must_be_inside_tag",
+               "<{0}> tag must be inside <{1}> tag.",
+               qName, "resources"));
+         }
+
+         if (inProcessesTag)
+         {
+            throw new SAXException(passTools.getMessageWithDefault(
+              "error.tag_mustnt_be_inside_tag",
+              "<{0}> tag must not be inside <{1}> tag.",
+              qName, "processes"));
+         }
+
+         passTools.setLuaLaTeXBraces(
+            passTools.isBoolAttributeOn("braces", atts, qName, false));
+      }
       else
       {
          throw new SAXException(passTools.getMessageWithDefault(

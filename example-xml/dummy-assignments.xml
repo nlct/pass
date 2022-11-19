@@ -173,4 +173,10 @@
   <allowedbinary ext="jpeg,jpg" type="image/jpeg" />
  </assignment>
 
+ <assignment name="helloworldbash" language="bash">
+   <title>Hello World (Bash)</title>
+   <due>2023-04-10 15:00</due>
+   <mainfile>helloworld</mainfile>
+ </assignment>
+
 </assignments>

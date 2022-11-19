@@ -57,7 +57,9 @@ classes/com/dickimawbooks/passeditor/PassEditor.class	: \
 	java/SelectProjectDialog.java \
 	java/SlidingToolBar.java \
 	java/SlidingToolControl.java \
-	java/UnsupportedFileException.java
+	java/UnsupportedFileException.java \
+	../pass-lib/java/*.java \
+	../pass-lib/java/*.java
 	make -C ../pass-gui-lib lib/passguilib.jar
 	cd java; javac -d ../classes \
 	  -Xlint:unchecked -Xlint:deprecation \

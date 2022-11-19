@@ -41,20 +41,13 @@ assignment-specific elements.
 | `nopdfrun` | (Pass Editor only) Boolean that indicates whether or not PASS should try running the student's application for the quick "no PDF" build | value of `run` |
 | `relpath` | Boolean that indicates the student needs to identify a base path. | `false` |
 
-### Assignment Label (`name`)
-
-The assignment label (provided by the `name` attribute) may only
-contain the characters: `a`–`z`, `A`–`Z`, `0`–`9`, `.`, `+` and `-`.
-It's used to form the default basename (along with the student's
-username) for certain files.
-
-### Assignment Language Label (`language`)
-
-The assignment language label identifies the language for source
-code files. There are four special labels for non-code files:
+Each file supplied by the student needs to have its listing language
+identified.  There are four special labels for non-code files:
 `PDF` (`.pdf` files), `Word` (`.doc` or `.docx` files),
 `Plain Text` (any plain text files without a supported language
-label), and `BINARY` (an allowed binary file). The other labels
+label), and `BINARY` (an allowed binary file). These shouldn't be
+used in the `language` attribute, but may be used to identify files
+provided by the student. The other labels
 correspond to labels recognised by `listings.sty`. See the
 [`AssignmentData.LISTING_LANGUAGES`](../pass-lib/java/AssignmentData.java)
 static variable for the full list.
@@ -92,6 +85,31 @@ Pass CLI can have the language label specified along with the
 filename. If omitted, the label will be determined by the file
 extension, if available, otherwise the value of the `language`
 attribute will be used.
+
+### Assignment Label (`name`)
+
+The assignment label (provided by the `name` attribute) may only
+contain the characters: `a`–`z`, `A`–`Z`, `0`–`9`, `.`, `+` and `-`.
+It's used to form the default basename for certain files.
+
+### Assignment Language Label (`language`)
+
+The assignment language label identifies the programming language for source
+code files. This can be deduced from the file extension of the
+`mainfile` element, but if there are no required files or if the 
+main file doesn't have an extension, then you will need to set
+the `language` attribute to the language label that will be supplied
+to `listings.sty` otherwise the files without extensions will be
+shown using `\verbatiminput`.
+
+For example:
+```xml
+ <assignment name="helloworldbash" language="bash">
+   <title>Hello World (Bash)</title>
+   <due>2023-04-10 15:00</due>
+   <mainfile>helloworld</mainfile>
+ </assignment>
+```
 
 ### Compiling and Running the Application (`compile`, `run` and `build`)
 

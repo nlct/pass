@@ -5596,7 +5596,7 @@ class PassEditor extends JFrame
 
    public static final String APP_NAME = "PASS Editor";
    public static final String APP_VERSION = "1.3.1";
-   public static final String APP_DATE = "2022-11-16";
+   public static final String APP_DATE = "2022-11-19";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";

@@ -11,7 +11,8 @@ classes/com/dickimawbooks/passguilib/PassGui.class	: classes/com/dickimawbooks/p
 	java/FileTextField.java \
 	java/PassGui.java \
 	java/PassGuiTools.java \
-	java/ProgressPanel.java
+	java/ProgressPanel.java \
+	../pass-lib/java/*.java 
 	make -C ../pass-lib lib/passlib.jar
 	cd java; javac -d ../classes \
 	-cp ../lib/passlib.jar \

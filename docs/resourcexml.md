@@ -161,6 +161,22 @@ For example:
  />
 ```
 
+## LuaLaTeX Settings (`lualatex`)
+
+The `lualatex` element may be used to change LuaLaTeX specific
+settings. With old versions of LuaLaTeX, filenames without an
+extension had to be enclosed in an extra set of braces for both
+`\lstinputlisting` and `\verbatiminput` but with new versions this
+extra set of braces will prevent the file from being found.
+
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `braces` | Boolean that indicates braces should be added for extensionless filenames. | `false` |
+
+If you have an old TeX distribution and your students may submit
+files that don't have extensions (for example, bash scripts), then
+you will need to set the `braces` attribute to `true`.
+
 ## Processes (`processes`)
 
 The `processes` element may be used to change the default process

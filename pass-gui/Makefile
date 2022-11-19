@@ -23,7 +23,9 @@ classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class	: classes/com/di
 	java/RequiredFilePanel.java \
 	java/ResourceFilePanel.java \
 	java/StartupDirType.java \
-	java/TranscriptFrame.java
+	java/TranscriptFrame.java \
+	../pass-lib/java/*.java \
+	../pass-lib/java/*.java
 	make -C ../pass-gui-lib lib/passguilib.jar
 	cd java; javac -d ../classes \
 	  -Xlint:unchecked -Xlint:deprecation \

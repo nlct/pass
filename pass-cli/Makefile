@@ -27,7 +27,9 @@ lib/pass-cli.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt clas
 lib/resources.xml	:
 	cd lib; ln -s ../../pass-lib/lib/resources.xml
 
-classes/com/dickimawbooks/passcli/PassCliMain.class	: classes/com/dickimawbooks/passcli java/PassCliMain.java
+classes/com/dickimawbooks/passcli/PassCliMain.class	: classes/com/dickimawbooks/passcli \
+	java/PassCliMain.java \
+	lib/pass-cli-lib.jar 
 	cd java; \
 	javac -cp ../lib/passlib.jar:../lib/pass-cli-lib.jar \
 	-d ../classes -Xlint:unchecked -Xlint:deprecation *.java
@@ -43,7 +45,8 @@ classes/com/dickimawbooks/passcli/lib/PassCli.class	: classes/com/dickimawbooks/
 	java/lib/PassCli.java \
 	java/lib/RequiredPassCliFile.java \
 	java/lib/UnknownIdentifierException.java \
-	java/lib/UnsupportedSettingException.java
+	java/lib/UnsupportedSettingException.java \
+	../pass-lib/java/*.java 
 	make -C ../pass-lib lib/passlib.jar
 	cd java/lib; \
 	javac -cp ../../lib/passlib.jar -d ../../classes \

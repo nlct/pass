@@ -1258,6 +1258,28 @@ public class PassTools
    }
 
    /**
+    * Sets the braces setting for LuaLaTeX.
+    * @param value true if braces need to be added for filenames
+    * that don't have an extension
+    */
+   public void setLuaLaTeXBraces(boolean value) 
+   {
+      luaLaTeXBraces = value;
+   }
+
+   /**
+    * Indicates whether or not a filename needs to be enclosed with
+    * an extra set of braces for code listings. This is needed for
+    * old LuaLaTeX if the filename doesn't have an extension but
+    * breaks with new versions.
+    * @return true if braces need to be added
+    */ 
+   public boolean areBracesRequired(boolean isLua, String filename)
+   {
+      return luaLaTeXBraces && isLua && !filename.contains(".");
+   }
+
+   /**
     * Puts an environment variable and its value to the process 
     * environment map. This will replace any previous value of that
     * variable, if it already exists in the map
@@ -1486,6 +1508,7 @@ public class PassTools
    private String fontSpecOptions, fontEncOptions;
    private long maxOutputSetting = 10240L;
    private int verbMaxCharsPerLine = 80, verbTabCharCount=8;
+   private boolean luaLaTeXBraces=false;
 
    private HashMap<String,String> processEnvMap;
 
