@@ -46,7 +46,7 @@ For example:
 <courses href="http://cmp.example.com/pass/resources.xml" />
 ```
 
-## Identifying the remote resource file (`resource`)
+## Identifying a Course (`resource`)
 
 The `resource` element identifies a course and its associated
 assignment file. The end tag is required. The body is the course
