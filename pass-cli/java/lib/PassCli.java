@@ -1466,7 +1466,7 @@ public class PassCli implements Pass
       closeDown();
    }
 
-   private long timeout = 60L;
+   private long timeout = 120L;
    private String courseCode = null;
    private String assignmentLabel = null;
    private String[] blackboardId = null;

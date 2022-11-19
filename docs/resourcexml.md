@@ -29,7 +29,7 @@ Boolean attributes may have the values `true` or `on` (for TRUE) and
 of the element is textual, then leading and trailing white space
 will be trimmed, unless indicated otherwise.
 
-## Identifying the remote resource file (`courses`)
+## Identifying the Remote Resource File (`courses`)
 
 The remote resource file is identified with the `courses` element.
 The end tag may be omitted, but if included the body will be used as
@@ -71,7 +71,7 @@ For example:
  </resource>
 
  <resource name="CMP-123XY" debug="true"
-  href="http://cmp.example.com/pass/CMP-123XY.xml">
+  href="http://cmp.example.com/pass/dummy-assignments.xml">
  Dummy Course for Testing
  </resource>
 ```
@@ -174,7 +174,7 @@ only go in the _local_ resource file.
 
  - The Pass Editor default is 120 seconds.
 
- - Pass CLI has a default of 60 seconds which can be overridden by
+ - Pass CLI has a default of 120 seconds which can be overridden by
    the `--timeout` option, but the timeout in the resources file
    will take precedence, if supplied.
 
@@ -191,7 +191,8 @@ The `env` element may be used to set any environment variables that
 should be used when PASS runs any processes. The end tag must be
 supplied. The body is the value of the environment variable. No
 trimming is performed in this case, so be careful of any unwanted
-leading or trailing space.
+leading or trailing space. Note that these environment variables
+are only for the sub-processes, not for the PASS application itself.
 
 | Attribute | Description | Default |
 | --- | --- | --- |
