@@ -4137,7 +4137,7 @@ public class PrepareAssignmentUpload extends JFrame
 
    private ApplicationProperties propertiesDialog;
 
-   private long timeout = 60L;
+   private long timeout = 120L;
    private boolean disableTimeOutProp = false;
 
    private HelpFrame helpFrame;

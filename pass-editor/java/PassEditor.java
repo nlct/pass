@@ -5519,7 +5519,7 @@ class PassEditor extends JFrame
 
    private ListingLanguage[] listingLanguages;
 
-   private long timeout=60L;
+   private long timeout=120L;
 
    private AssignmentProcess currentProcess=null;
    private AssignmentProcessWorker currentWorker = null;
