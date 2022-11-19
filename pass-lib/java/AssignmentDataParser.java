@@ -690,7 +690,7 @@ public class AssignmentDataParser extends XMLReaderAdapter
       }
       else if ("input".equals(qName))
       {
-         current.addInput(builder.toString().trim());
+         current.addInput(builder.toString());
       }
       else if ("report".equals(qName))
       {
