@@ -598,11 +598,11 @@ public class AssignmentProcess
 
          if (geometry == null || geometry.length() == 0)
          {
-            out.println("\\geometry{a4paper,margin=1in}");
+            out.format("\\geometry{%s,margin=1in}%n", config.getGeometryPaperSize());
          }
          else
          {
-            out.format("\\geometry{a4paper,%s}%n", geometry);
+            out.format("\\geometry{%s,%s}%n", config.getGeometryPaperSize(), geometry);
          }
 
          out.println("\\makeatletter");

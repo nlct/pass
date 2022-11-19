@@ -362,6 +362,15 @@ public class AssignmentProcessConfig
    }
 
    /**
+    * Gets the default paper size for geometry.sty.
+    * @return the paper size identifier 
+    */ 
+   public String getGeometryPaperSize()
+   {
+      return "a4paper";
+   }
+
+   /**
     * Indicates whether or not to use the pdfpages package. 
     * This allows PDF reports to be displayed in the document in
     * addition to attaching them, but <code>\includepdf</code> has
