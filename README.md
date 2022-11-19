@@ -575,7 +575,8 @@ of Pass in an IDE or with a simple text editor and command prompt.
 
 The idea for this system was devised by Dr Gavin Cawley.
 Russell Smith installed the software, setup a server for Server
-Pass, and provided technical advice. The [Island of TeX](https://gitlab.com/islandoftex) community
+Pass, and provided technical advice.
+Norbert Preining and the [Island of TeX](https://gitlab.com/islandoftex) community
 provided advice on using TeX Live with Docker. Thank you to 
 Dr Gavin Cawley, Dr Jason Lines, Prof Tony Bagnall, and the students in CMP who
 tested the system and provided feedback.
