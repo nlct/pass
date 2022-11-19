@@ -167,10 +167,10 @@
   <due>2022-12-02 16:30</due>
   <mainfile>HelloWorldGUI.java</mainfile>
 <!-- The student is permitted to attach the following binaries, 
-  which will be attached in the PDF and (with listing="true") will be
+  which will be attached in the PDF and (with the default listing="true") will be
   included in the document. -->
-  <allowedbinary ext="png" type="image/png" listing="true" />
-  <allowedbinary ext="jpeg,jpg" type="image/jpeg" listing="true" />
+  <allowedbinary ext="png" type="image/png" />
+  <allowedbinary ext="jpeg,jpg" type="image/jpeg" />
  </assignment>
 
 </assignments>

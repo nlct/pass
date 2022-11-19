@@ -60,3 +60,5 @@
    + Pass CLI
  - [Server Pass](server-pass/README.md)
 
+See also <https://www.dickimaw-books.com/software/pass/faq.php> for
+the student FAQ.

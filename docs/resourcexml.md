@@ -119,10 +119,12 @@ in their order of precedence.
 | `javac` | `javac` |
 | `lua` | `lua`, `texlua` |
 | `lualatex` | `lualatex` |
+| `make` | `make` |
 | `pdflatex` | `pdflatex` |
 | `perl` | `perl` |
+| `php` | `php` |
 | `python` | `python` |
-| `make` | `make` |
+| `sh` | `sh` |
 
 
 The GUI PASS applications (Pass GUI and Pass Editor) may also run
