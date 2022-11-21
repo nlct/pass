@@ -72,8 +72,15 @@
             <fileset dir="lib/dictionary" includes="**/*.xml"
               targetdir="$INSTALL_PATH/lib/dictionary" followSymLinks="true" />
             <file src="lib/icons" targetdir="$INSTALL_PATH/lib"/>
+            <fileset dir="bin" targetdir="$INSTALL_PATH/bin">
+               <os family="unix"/>
+               <os family="mac"/>
+            </fileset>
             <executable targetfile="$INSTALL_PATH/bin/progassignsys"
-            stage="never"/>
+            stage="never">
+               <os family="unix"/>
+               <os family="mac"/>
+            </executable>
         </pack>
     </packs>
 
