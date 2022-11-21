@@ -155,6 +155,13 @@ Once this is done, Alice can run `make` in the `pass-gui` directory.
 This will compile the source code and, if successful, will also run
 Pass GUI in debug mode for testing.
 
+(The JAR file in this case is `progassignsys.jar` which doesn't
+follow the naming scheme of all the other PASS JAR files. This is
+because `progassignsys.jar` was the original and only application
+and `progassignsys` was short for "programming assignment system".
+Later, it was decided that "PASS" was shorter and snappier, but the
+filename remained unchanged.)
+
 If Alice set up multiple courses in her remote `resources.xml` file,
 then she will be presented with a dialogue box from which she can
 select her preferred course. If only the dummy course is currently
