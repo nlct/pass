@@ -23,7 +23,8 @@ automatically, otherwise the user will be presented with a dialog
 box and a dropdown menu to select the required course with the text:
 
 > Please select your course.  
-> (Cancel will exit this application.)
+> (Cancel will exit this application.)  
+> CMP-101 (Introduction to Java)
 
 The "Cancel" button will quit Pass GUI, otherwise select the desired
 course and click on "OK".
@@ -35,8 +36,8 @@ If you get the following error message:
 > Fatal Error: Unable to access _URL_. HTTP response code: 301.
 
 then the URL specified in the XML file wasn't the actual address but
-a URL that redirects another file. (This includes a redirect from
-`http:` to https:`.) If the response code is 404 then the URL
+a URL that redirects to another file. (This includes a redirect from
+`http:` to `https:`.) If the response code is 404 then the URL
 is incorrect. In both cases, the `href` value must be corrected.
 
 If the assignment XML file is successfully fetched, the Pass GUI
