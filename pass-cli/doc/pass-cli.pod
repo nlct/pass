@@ -292,6 +292,13 @@ before the project can be processed. The server backend should use
 this option to instruct PASS to show the provided timestamp on the
 title page instead of the current time.
 
+=item B<--job-id> I<n>
+
+This option is only available for B<pass-cli-server> and identifies
+the job number, which is used at the start of messages to help
+distinguish which message relates to which job (since they are all
+written to the same log file).
+
 =back
 
 =head1 EXIT CODES

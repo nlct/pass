@@ -41,6 +41,7 @@ Supported encodings for project files (case-insensitive): </entry>
 
 <entry key="syntax.general">General</entry>
 <entry key="syntax.submission_timestamp">{0} &lt;time&gt;	Set the submission timestamp. The &lt;time&gt; should be in ISO date and time.</entry>
+<entry key="syntax.job_id">{0} &lt;n&gt;	Set the job id. (Used at the start of messages.)</entry>
 <entry key="syntax.from_file">{0} &lt;file&gt; (or {1} &lt;file&gt;)	Read settings from &lt;file&gt;.</entry>
 <entry key="syntax.directory">{0} &lt;dir&gt; (or {1} &lt;dir&gt;)		Files identified by {2} are relative to &lt;dir&gt;.</entry>
 <entry key="syntax.message">{0} &lt;id&gt; (or {1} &lt;id&gt;)	Type of messages to print to STDERR and STDOUT. The value &lt;id&gt; may either be an integer or label:</entry>
@@ -53,7 +54,9 @@ Supported encodings for project files (case-insensitive): </entry>
 <entry key="syntax.version">{0} (or {1})	Print version information and exit.</entry>
 
 <entry key="error.submission_date_not_supported">Submission date setting not supported for {0}.</entry>
+<entry key="error.job_id_not_supported">Job ID setting not supported for {0}.</entry>
 <entry key="error.invalid_datestamp">Invalid date-time stamp {0}. Required format: {1}.</entry>
+<entry key="error.invalid_job_id">Invalid job ID {0}. Integer required.</entry>
 <entry key="error.unknown_file_language">Unknown language for file ''{0}''.</entry>
 <entry key="error.cant_find_assignment">Can''t find assignment ''{0}''.</entry>
 <entry key="error.unknown_encoding">Unknown encoding name ''{0}''.</entry>

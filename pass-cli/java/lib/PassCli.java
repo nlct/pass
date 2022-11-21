@@ -79,6 +79,30 @@ public class PassCli implements Pass
       return isSubmittedDateEnabled() ? submittedDate : null;
    }
 
+   public void setJobId(String argValue)
+     throws InvalidSyntaxException,UnsupportedSettingException
+   {
+      if (!isSubmittedDateEnabled())
+      {
+         throw new UnsupportedSettingException(
+           getMessageWithDefault("error.job_id_not_supported",
+            "Job ID setting not supported for {0}.",
+            getApplicationName()));
+      }
+
+      try
+      {
+         jobId = Integer.parseInt(argValue);
+      }
+      catch (NumberFormatException e)
+      {
+         throw new InvalidSyntaxException(
+          getMessageWithDefault("error.invalid_jobid", 
+            "Invalid job ID {0}. Integer required.",
+            argValue), e);
+      }
+   }
+
    public void addFile(PassCliFile passFile)
    {
       files.add(passFile);
@@ -419,10 +443,21 @@ public class PassCli implements Pass
 
    protected String getTaskIdentifier()
    {
-      return String.format("%s/%s/%s", 
-       courseCode == null ? "??" : courseCode,
-       assignmentLabel == null ? "??" : assignmentLabel,
-       students == null ? "??" : getStudent().getUserName());
+      if (jobId > 0)
+      {
+         return String.format("#%d %s/%s/%s", 
+          jobId,
+          courseCode == null ? "??" : courseCode,
+          assignmentLabel == null ? "??" : assignmentLabel,
+          students == null ? "??" : getStudent().getUserName());
+      }
+      else
+      {
+         return String.format("%s/%s/%s", 
+          courseCode == null ? "??" : courseCode,
+          assignmentLabel == null ? "??" : assignmentLabel,
+          students == null ? "??" : getStudent().getUserName());
+      }
    }
 
    public void messageLn(int messageType, String message)
@@ -762,6 +797,7 @@ public class PassCli implements Pass
       if (isSubmittedDateEnabled())
       {
          printWrapMessage("syntax.submission_timestamp", "--submission-timestamp");
+         printWrapMessage("syntax.job_id", "--job-id");
       }
 
       printWrapMessage("syntax.from_file", "--from-file", "-F");
@@ -1180,6 +1216,10 @@ public class PassCli implements Pass
             {
                setSubmittedDate(argValue);
             }
+            else if (argName.equals("--job-id"))
+            {
+               setJobId(argValue);
+            }
             else if (argName.equals("--course") || argName.equals("-c"))
             {
                courseCode = argValue;
@@ -1472,7 +1512,10 @@ public class PassCli implements Pass
    private String[] blackboardId = null;
    private String[] studentNumber = null;
    private String fileEncodingName=ENCODING_UTF8;
+
+   // Server PASS only:
    private Date submittedDate;
+   private int jobId=-1;
 
    private boolean agree=false;
 

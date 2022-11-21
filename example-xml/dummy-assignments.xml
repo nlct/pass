@@ -89,6 +89,7 @@
  </assignment>
 
  <assignment name="freeform" language="Java">
+<!-- The language attribute specifies the default language for the file selector -->
   <title>Free-Form</title>
   <due>2017-04-30 15:00</due>
 <!--
@@ -127,18 +128,21 @@
  <assignment name="foobar" >
   <title>Java Classes</title>
   <due>2021-02-28 16:30</due>
-  <mainfile>FooBar.java</mainfile>
+<!-- This assignment requires three files listed in this order: -->
   <file>Foo.java</file>
   <file>Bar.java</file>
+  <mainfile>FooBar.java</mainfile>
  </assignment>
 
  <assignment name="subdirs" relpath="true" >
   <!-- This assignment will need to have the "relative paths" setting on. -->
   <title>Java With Sub-Directories</title>
   <due>2021-03-30 16:30</due>
-  <mainfile>Main.java</mainfile>
+  <mainfile>FooBar.java</mainfile>
+<!-- This assignment requires four files listed in this order: -->
   <file>subdir1/Foo.java</file>
   <file>subdir2/Bar.java</file>
+  <file>subdir2/Foo.java</file>
  </assignment>
 
 <!-- This assignment is intended for use with PASS Editor -->
@@ -160,9 +164,10 @@
 
 <!-- 
   This assignment has a graphical interface so it shouldn't be run
-  but it will still be compiled.
+  but it will still be compiled. The Pass Editor "no PDF" quick build
+  should run the application.
  -->
- <assignment name="helloworldgui" run="false" >
+ <assignment name="helloworldgui" run="false" nopdfrun="true" >
   <title>Hello World GUI</title>
   <due>2022-12-02 16:30</due>
   <mainfile>HelloWorldGUI.java</mainfile>
@@ -176,6 +181,7 @@
  <assignment name="helloworldbash" language="bash">
    <title>Hello World (Bash)</title>
    <due>2023-04-10 15:00</due>
+<!-- This bash script that the student is required to write doesn't have a file extension. -->
    <mainfile>helloworld</mainfile>
  </assignment>
 
