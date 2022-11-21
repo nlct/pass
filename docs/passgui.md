@@ -124,7 +124,7 @@ into the same (temporary) directory.
 
 > Assignment: Hello World Java (Due: Tue, 28 Feb 2017 16:30)  
 > ---  
-> Code Directory: /home/vqs23ygl/Projects/HelloWorldJava 📂 Select  
+> Code Directory: `/home/vqs23ygl/Projects/HelloWorldJava` 📂 Select  
 > ☐ Use relative paths  
 >  
 > You can optionally set the directory that contains all your assignment files in the above field. If the assignment has required files, PASS GUI will search the directory for them, otherwise you will need to select each file manually using the buttons in the next panel.  
@@ -132,6 +132,7 @@ into the same (temporary) directory.
 > If a relative directory structure must be maintained, click on the 'Use relative paths' checkbox and ensure that the above field is set to the base directory.
 
 
+🚧
 
 
 ---
