@@ -18,6 +18,7 @@ package com.dickimawbooks.passguilib;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.net.URI;
 
 import java.awt.Component;
 import java.awt.Desktop;
@@ -135,9 +136,9 @@ public class PassGuiTools
             if (viewerFile != null)
             {
                viewer = viewerFile.toString();
-            }
 
-            gui.debug("Found "+name+" setting: "+viewer);
+               gui.debug("Found "+name+" setting: "+viewer);
+            }
          }
          catch (FileNotFoundException e)
          {
@@ -170,6 +171,55 @@ public class PassGuiTools
       {
          throw new IOException(gui.getMessage("error.cant_view_file", 
           file.toString()));
+      }
+
+   }
+
+   /**
+    * Opens an address in a web browser.
+    * @param uri the URI
+    */ 
+   public void browse(URI uri) throws IOException
+   {
+      // check if resources.xml has set a path for 'browser'
+
+      String name = "browser";
+
+      String viewer = null;
+
+      try
+      {
+         File viewerFile = gui.getPassTools().findResourceApplication(name);
+
+         if (viewerFile != null)
+         {
+            viewer = viewerFile.toString();
+
+            gui.debug("Found "+name+" setting: "+viewer);
+         }
+      }
+      catch (FileNotFoundException e)
+      {
+         // don't throw, allow fallback to be used instead
+
+         gui.debug(e.getMessage());
+      }
+
+      if (viewer != null)
+      {
+         ProcessBuilder pb = new ProcessBuilder(viewer, uri.toString());
+         pb.inheritIO();
+         Process p = pb.start();
+      }      
+      else if (Desktop.isDesktopSupported())
+      {
+         gui.debug("Desktop supported");
+         Desktop.getDesktop().browse(uri);
+      }
+      else 
+      {
+         throw new IOException(gui.getMessage("error.cant_view_file", 
+          uri.toString()));
       }
 
    }
