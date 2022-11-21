@@ -76,6 +76,15 @@ For example:
  </resource>
 ```
 
+The `debug` attribute is mainly to prevent the GUI applications from
+presenting the dummy course as an option to students. Since
+Pass CLI doesn't have a graphical interface, it automatically allows
+debugging courses by default. The `--debug` switch for the CLI
+applications only affects the verbosity. Since `pass-cli` is run
+from the command line, students can just as easily invoke `pass-cli`
+with `--debug` and it makes it easier to test Server Pass if the
+debugging course is allowed.
+
 ## Specifying Application Paths (`application`)
 
 When the PASS backend processes a project, it needs to run external
@@ -87,7 +96,8 @@ which may also correspond to the application's filename, and a list
 of possible alternative names. PASS will search the `PATH`
 environment variable for each possibility. If the application can't
 be found (for example, the application isn't on the path or it has
-a different filename) then you will need to specify the path to the
+a different filename) or if you want to use am alternative
+application instead then you will need to specify the path to the
 application using the `application` element. This should typically go in the _local_
 resource file as it will likely be specific to the device the PASS
 application has been installed on.
@@ -127,14 +137,15 @@ in their order of precedence.
 | `sh` | `sh` |
 
 
-The GUI PASS applications (Pass GUI and Pass Editor) may also run
-a PDF viewer, text editor or (Pass Editor only) an image viewer.
-These can be opened with `Desktop.open(File)`, but this doesn't
-always work. Sometimes the desktop isn't supported, but sometimes
-the desktop is supported but the file won't open until after PASS
-has exited. Unlike the above, these applications don't have a common
-filename, so PASS doesn't try searching for them on the PATH.
-Instead, it adopts the following algorithm:
+The GUI PASS applications (Pass GUI and Pass Editor) may also run a
+PDF viewer, HTML browser, text editor or (Pass Editor only) an image
+viewer.  These can be opened with `Desktop.open(File)` or
+`Desktop.browse(URI)`, but this doesn't always work. Sometimes the
+desktop isn't supported, or sometimes the desktop is supported but
+the file won't open until after PASS has exited. Unlike the above,
+these applications don't have a common filename, so PASS doesn't try
+searching for them on the PATH.  Instead, it adopts the following
+algorithm for files:
 
  1. If the corresponding label (`pdfviewer`, `editor` or
     `imageviewer`) has been identified in the resource file
@@ -142,6 +153,12 @@ Instead, it adopts the following algorithm:
  2. If the environment variable `PDFVIEWER` or `EDITOR` has
     been defined use that for PDF or text files, respectively.
  3. Attempt to use `Desktop.open(File)` if the desktop is supported.
+
+For URLs:
+
+ 1. If the label `browser` has been identified in the resource file
+    with the `application` element, use that.
+ 2. Attempt to use `Desktop.browse(URI)` if the desktop is supported.
 
 For example:
 ```xml
@@ -158,6 +175,11 @@ For example:
  <application
    name="imageviewer"
    uri="file:///usr/bin/eog"
+ />
+
+ <application
+   name="browser"
+   uri="file:///usr/bin/firefox"
  />
 ```
 
