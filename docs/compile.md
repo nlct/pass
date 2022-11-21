@@ -8,7 +8,7 @@ help with Windows.
 ## Summary
 
  1. Clone the repository.
- 2. Copy template files and edit as appropriate.
+ 2. Copy template files to a filename without the `-template` suffix and edit as appropriate.
  3. Download and install any required third-party libraries listed
     in each "pass" subdirectory README file, if applicable.
  4. Run `make` in each of the "pass" subdirectories.
@@ -77,14 +77,17 @@ In order to use the PASS applications, Alice needs to create some
 XML files, but it's useful to have a dummy course for testing all
 available features before installing the applications.
 
-Alice copies the file [`example-xml/dummy-assignments.xml`](https://github.com/nlct/pass/blob/main/example-xml/dummy-assignments.xml) to
-`http://cmp.example.com/pass/dummy-assignments.xml`.
-She notices that there are some URLs in this file, so she changes
-them as appropriate so as not to overload the `dickimaw-books.com`
-site. (She can copy all those dummy files over to her
-`http://cmp.example.com/pass/` location if she likes or she can
-make up her own files.) Solutions to all these dummy assignments 
-can be found in the [`pass/tests`](https://github.com/nlct/pass/tree/main/tests) directory.
+Alice copies the file
+[`example-xml/dummy-assignments.xml`](https://github.com/nlct/pass/blob/main/example-xml/dummy-assignments.xml)
+to `http://cmp.example.com/pass/dummy-assignments.xml`.  She notices
+that there are some URLs in this file, so she changes them as
+appropriate so as not to overload the `dickimaw-books.com` site.
+(She can copy all those dummy files over to her
+`http://cmp.example.com/pass/` location or a sub-path of that
+location if she likes or she can make up her own files.) Example solutions
+to all these dummy assignments can be found in the
+[`pass/tests`](https://github.com/nlct/pass/tree/main/tests)
+directory (although they may generate errors or warnings).
 
 Next Alice needs to create the remote resources file at
 `http://cmp.example.com/pass/resources.xml`. This is the URL that
@@ -98,6 +101,10 @@ makes the appropriate changes to the `href` attributes in this file.
 Alice notices that the dummy course (CMP-123XY) has the attribute
 `debug="true"`. This means that this course will only be available
 for Pass applications run in debug mode.
+
+Later on, Alice will read [`resourcexml.md`](resourcexml.md)
+and [`assignmentxml.md`](assignmentxml.md) to learn more about the
+syntax of these XML files.
 
 ## PASS CLI
 
@@ -194,10 +201,10 @@ assignment selector. She enters her username `ans` and makes up
 a registration number as she doesn't have one.
 
 Below this is the [encoding](https://dickimaw-books.com/blog/binary-files-text-files-and-file-encodings/) selector. There's a choice of US-ASCII,
-ISO 8859-1 (Latin 1) and UTF-8. This will need to match the editor
+ISO 8859-1 (Latin 1) and UTF-8. This will need to match the editor/IDE
 used to create the source files. Alice selects UTF-8 and notices
 that the text next to the selector states that LuaLaTeX will be
-used.
+used for UTF-8 files.
 
 ![Page 2 Pass GUI Assignment Selector Panel](images/pass-gui-select-assignment-panel.png)
 
@@ -250,8 +257,10 @@ but also looks for any file with an appropriate extension.
 
 ![Page 4 Pass GUI File Selector Panel](images/pass-gui-select-files-panel.png)
 
-Alice clicks on "Next". A progress bar appears and
-a transcript window opens up with various messages. 
+Alice clicks on "Next" (and happens to glance at her watch and
+notices that it's currently 17:09:55 GMT on the 16th Nov 2022).
+
+A progress bar appears and a transcript window opens up with various messages. 
 When the process is finished, a save dialog
 pops up with the suggested filename `helloworld-ans.pdf`.
 This is formed from the assignment label followed by the
@@ -367,25 +376,25 @@ directory. The output is TAB separated with the following fields:
  - Submission Date (Server PASS Only)
  - Notes
 
-Alice notices that the `helloworld-ans.pdf` she tampered with when
+Alice notices that the `helloworld-ans.pdf` file she tampered with when
 testing Pass GUI has the timestamp in the Date Check field shown
 as "2022-11-16 17:09:55", which was the date Pass GUI created the
 source code for the PDF file. The Creation Date and Mod Date fields
 show her altered value of "2020-10-02 15:00:55". The Notes field
 has the following information:
 
-> Mismatched creation date.
-> Modification date <= creation date.
+> Mismatched creation date.  
+> Modification date <= creation date.  
 > Late submission.
 
-Even though Alice modified all the dates she could find in the LaTeX
+Even though Alice modified all the dates that she could find in the LaTeX
 source code and added a modification date to a time before the due
 date, Pass Checker has flagged this PDF as a late submission
 with a dubious creation date and modification date.
 
 The modification date is always expected to be some time after the
 creation date. The creation date corresponds to the time that PASS
-started to create the LaTeX code. The modification time is the time
+started to create the LaTeX document source code. The modification time is the time
 at which LaTeX starts compiling the document source code. In between
 those two times, PASS has to copy all the project files, create the
 zip attachment and (if applicable) compile and run the student's
@@ -393,6 +402,7 @@ application, as well as finish writing the LaTeX source code.
 
 Pass Checker knows the real creation date because its
 encrypted value is stored in one of the custom metadata fields.
+This can't be altered without knowing the encryption key.
 
 ## PASS Editor
 
@@ -402,6 +412,7 @@ The Pass Editor application requires both `passlib.jar` and
 the [JavaHelp](https://github.com/javaee/javahelp/) library.
 The JavaHelp repository has been archived, which suggests it may
 now be obsolete, so this library may have to be replaced with an alternative.
+(This is something I will investigate.)
 For now, you may be able to install it via your software manager.
 For example:
 ```bash
@@ -430,7 +441,7 @@ the LaTeX source code and the JavaHelp code from the XML file.
 ## Server PASS
 
 The Server Pass application is a minor modification to Pass CLI that
-allows a submission time to be provided. This is intended for use on
+allows a submission time and job ID to be provided. This is intended for use on
 a server where the project files are uploaded via a website and the
 website creates the file that contains the project data and the
 submission time. The job is queued and a backend script picks up the
@@ -446,3 +457,8 @@ assignments from the dummy course.
 
 The website and backend are more complicated. See the documentation in
 the [`server-pass`](https://github.com/nlct/pass/tree/main/docs/server-pass) directory.
+
+---
+
+ - Prev: [README](readme.md)
+ - Next: [Installing](install.md)

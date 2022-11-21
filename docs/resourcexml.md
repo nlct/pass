@@ -229,3 +229,8 @@ This requirement had to be added because some students were
 submitting their PDF without checking it and then later complained
 that PASS had got it wrong and the PDF didn't actually represent
 their work.
+
+---
+
+ - Prev: [Installing](install.md)
+ - Next: XML File Specifications ⏵ [Assignment Files](assignmentxml.md)

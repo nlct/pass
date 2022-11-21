@@ -48,3 +48,8 @@ These jar files are the installers for Pass GUI and Pass Editor.
 Copy them to the lab computers that have the software development
 tools, and run the appropriate installer. These computers will
 also need TeX installed, see [`README.md`](README.md).
+
+---
+
+ - Prev: [Compiling the Source Code](compile.md)
+ - Next: XML File Specifications ⏵ [Resource Files (Courses and Settings)](resourcexml.md)

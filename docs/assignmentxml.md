@@ -727,3 +727,8 @@ For example:
 ```xml
  <verbatim maxchars="85" tabcount="4" />
 ```
+
+---
+
+ - Prev: XML File Specifications ⏵ [Resource Files (Courses and Settings)](resourcexml.md)
+ - Next: User Guides ⏵ [Pass GUI](passgui.md)

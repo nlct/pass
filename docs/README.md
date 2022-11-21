@@ -55,9 +55,9 @@
    + [Resource Files (Courses and Settings)](resourcexml.md)
    + [Assignment Files](assignmentxml.md)
  - User Guides
-   + Pass GUI
-   + Pass Editor
-   + Pass CLI
+   + [Pass GUI](passgui.md)
+   + [Pass Editor](passeditor.md)
+   + [Pass CLI](passcli.md)
  - [Server Pass](server-pass/README.md)
 
 See also <https://www.dickimaw-books.com/software/pass/faq.php> for
