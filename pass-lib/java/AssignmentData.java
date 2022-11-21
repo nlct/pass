@@ -265,6 +265,46 @@ public class AssignmentData
    {
       if (mainFile == null)
       {
+         if (language != null)
+         {
+            if ("C++".equals(language))
+            {
+               return "cpp";
+            }
+            else if ("Perl".equals(language))
+            {
+               return "pl";
+            }
+            else if ("bash".equals(language))
+            {
+               return "sh";
+            }
+            else if ("command.com".equals(language))
+            {
+               return "bat";
+            }
+            else if ("Python".equals(language))
+            {
+               return "py";
+            }
+            else if ("Matlab".equals(language))
+            {
+               return "m";
+            }
+            else if ("make".equals(language))
+            {
+               return "mk";
+            }
+            else if ("Assembler".equals(language))
+            {
+               return "s";
+            }
+            else
+            {
+               return language.toLowerCase();
+            }
+         }
+
          return null;
       }
 
@@ -272,7 +312,7 @@ public class AssignmentData
 
       if (idx > 0)
       {
-         return mainFile.substring(idx);
+         return mainFile.substring(idx+1);
       }
 
       return mainFile;

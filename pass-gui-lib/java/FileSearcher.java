@@ -53,6 +53,9 @@ implements FileVisitor<Path>
    public Void doInBackground()
      throws IOException,InterruptedException
    {
+      orgCursor = main.getCursor();
+      main.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+
       maxFileCount = main.getFileSearchMax();
 
       fileCount = 0;
@@ -60,13 +63,28 @@ implements FileVisitor<Path>
       success = true;
 
       data = main.getAssignment();
-      defExt = data.getDefaultExtension();
+      mainLanguage = data.getMainLanguage();
 
-      reports = data.getReports();
+      // Get a copy of reports so that found reports can be removed
+      // locally
+
+      Vector<String> orgReports = data.getReports();
+
+      if (orgReports.isEmpty())
+      {
+         reports = orgReports;
+      }
+      else
+      {
+         reports = new Vector<String>(orgReports.size());
+
+         for (String report : orgReports)
+         {
+            reports.add(report);
+         }
+      }
+
       binaryFilters = data.getAllowedBinaryFilters();
-
-      orgCursor = main.getCursor();
-      main.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
       Files.walkFileTree(dir.toPath(), this);
 
@@ -144,13 +162,16 @@ implements FileVisitor<Path>
       int idx = filename.lastIndexOf(".");
 
       String ext = null;
+      String basename = filename;
 
       if (idx > -1)
       {
-         ext = filename.substring(idx);
+         ext = filename.substring(idx+1);
+         basename = filename.substring(0, idx);
       }
 
-      if (defExt != null && defExt.equals(ext))
+      if (ext != null && mainLanguage != null
+           && mainLanguage.equals(data.getListingLanguage(ext)))
       {
          main.addAdditionalFileComponent(file);
 
@@ -161,12 +182,34 @@ implements FileVisitor<Path>
 
       if (ext != null && ext.matches("pdf|docx?"))
       {
-         for (String report : reports)
+         File parentFile = file.getParentFile();
+
+         for (int i = 0; i < reports.size(); i++)
          {
+            String report = reports.get(i);
             String name = report;
       
             if (report.lastIndexOf(".") == -1)
             {
+               // Give precedence to PDF files as they can be
+               // included.
+
+               if (ext.startsWith("doc") && basename.equals(report))
+               {
+                  File pdfFile = new File(parentFile, report+".pdf");
+
+                  if (pdfFile.exists())
+                  {
+                     main.addAdditionalFileComponent(pdfFile);
+
+                     foundCount++;
+
+                     reports.remove(i);
+
+                     return FileVisitResult.CONTINUE;
+                  }
+               }
+
                name = report+"."+ext;
             }
 
@@ -175,6 +218,8 @@ implements FileVisitor<Path>
                main.addAdditionalFileComponent(file);
 
                foundCount++;
+
+               reports.remove(i);
 
                return FileVisitResult.CONTINUE;
             }
@@ -233,7 +278,7 @@ implements FileVisitor<Path>
    }
 
    private AssignmentData data;
-   private String defExt;
+   private String mainLanguage;
    private Vector<String> reports;
    private Vector<AllowedBinaryFilter> binaryFilters;
 
