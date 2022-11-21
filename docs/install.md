@@ -47,7 +47,7 @@ make -C pass-editor ../dist/pass-editor-installer.jar
 These jar files are the installers for Pass GUI and Pass Editor.
 Copy them to the lab computers that have the software development
 tools, and run the appropriate installer. These computers will
-also need TeX installed, see [`README.md`](README.md).
+need both Java and TeX installed, see [`README.md`](README.md).
 
 ---
 

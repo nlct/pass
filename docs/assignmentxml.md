@@ -33,12 +33,12 @@ assignment-specific elements.
 | --- | --- | --- |
 | `name` | The assignment label. | _none_ (required) |
 | `language` | The language label. | deduced from the extension of the main file, if provided |
-| `variant` | The language variant (according to `listings.sty`) | _none_ |
+| `variant` | The language variant (according to `listings.sty`). | _none_ |
 | `run` | Boolean that indicates whether or not PASS should try running the student's application, if applicable. | `true` (unless `build` is set) |
 | `compile` | Boolean that indicates whether or not PASS should try compiling the student's code, if applicable. | `true` (unless `build` is set) |
 | `build` | The URL of a script to use to compile and test the project instead of PASS's default algorithm. | _none_ |
-| `nopdfbuild` | (Pass Editor only) The URL of the build script for the quick "no PDF" build | value of `build` |
-| `nopdfrun` | (Pass Editor only) Boolean that indicates whether or not PASS should try running the student's application for the quick "no PDF" build | value of `run` |
+| `nopdfbuild` | (Pass Editor only) The URL of the build script for the quick "no PDF" build. | value of `build` |
+| `nopdfrun` | (Pass Editor only) Boolean that indicates whether or not PASS should try running the student's application for the quick "no PDF" build. | value of `run` |
 | `relpath` | Boolean that indicates the student needs to identify a base path. | `false` |
 
 Each file supplied by the student needs to have its listing language
@@ -46,23 +46,27 @@ identified.  There are four special labels for non-code files:
 `PDF` (`.pdf` files), `Word` (`.doc` or `.docx` files),
 `Plain Text` (any plain text files without a supported language
 label), and `BINARY` (an allowed binary file). These shouldn't be
-used in the `language` attribute, but may be used to identify files
-provided by the student. The other labels
+used in the `language` attribute, but the students can use them to identify files
+in their project (via a dropdown box where a graphical interface is
+available). The other labels
 correspond to labels recognised by `listings.sty`. See the
 [`AssignmentData.LISTING_LANGUAGES`](../pass-lib/java/AssignmentData.java)
 static variable for the full list.
 
 Listings:
 
- 1. PDF files will be attached and included with `\includepdf`
+ 1. PDF files will be attached with `\attachfile` and included with `\includepdf`
     (provided there are no spaces in the filename).
- 2. Word files will be attached and not displayed.
- 3. Binary files will be attached. If the associated `allowedbinary` element
-    has MIME type starting with `image/` and the `showlisting`
+ 2. Word files will be attached with `\attachfile` and not displayed.
+ 3. Binary files will be included in the project zip file, if they are an
+    allowed binary. If the associated `allowedbinary` element
+    has a MIME type starting with `image/` and the `showlisting`
     attribute set to true, then the image file will also be included
-    with `\includegraphics`.
+    with `\includegraphics`. Binary files that are identified as a
+    result file will be attached with `\attachfile` and similarly
+    included in the document with `\includegraphics`, if applicable.
  4. Files with a language label that corresponds to a known
-    `listings.sty` language, then the file will be included with
+    `listings.sty` language, will be included with
     `\lstinputlisting`. If the `variant` attribute is used, it
     will be included in the language identifier. (See the
     `listings` element for settings.)
@@ -70,7 +74,7 @@ Listings:
     (see the `verbatim` element for settings).
 
 When PASS tries to add the LaTeX code to display the file contents
-in the PDF, it uses the language label associated with the file
+in the PDF document, it uses the language label associated with the file
 to determine the appropriate LaTeX command. Each PASS application
 has a different method of supplying the language label for each
 project file.
@@ -90,7 +94,7 @@ attribute will be used.
 
 The assignment label (provided by the `name` attribute) may only
 contain the characters: `a`–`z`, `A`–`Z`, `0`–`9`, `.`, `+` and `-`.
-It's used to form the default basename for certain files.
+It's used to form the basename for certain files.
 
 ### Assignment Language Label (`language`)
 
@@ -197,6 +201,11 @@ should be omitted. The build script will be invoked as follows:
  - Otherwise, PASS will attempt to set the build script's executable
    bit and, if allowed, will invoke the build script by its filename.
 
+If no build script is provided and `compile=false` and `run=false`
+then the PDF produced by PASS will simply provide code listings
+with an attached zip file containing the source code and (if
+applicable) an attached report.
+
 ## Assignment Settings
 
 These settings apply to a specific assignment. The elements must be
@@ -235,14 +244,13 @@ For example:
 <due>2021-03-30 16:30</due>
 ```
 
-The due date is used by GUI applications (and the Server Pass
-website) to select the assignment closest to its due date by
-default. The due date is also added to the encrypted metadata
-for Pass Checker so that it doesn't have to fetch the information
-from the XML file, but also so that there is a record of the due date
-presented to the student when they used PASS, in the event there may
-be some possibility that that XML file may have changed since the
-student prepared their PDF.
+The due date is used by GUI applications to select the assignment
+closest to its due date as the default. The due date is also added
+to the encrypted metadata for Pass Checker so that it doesn't have
+to fetch the information from the XML file, but also so that there
+is a record of the due date presented to the student when they used
+PASS, in the event there may be some possibility that that XML file
+may have changed since the student prepared their PDF.
 
 ### Required Files (`file` and `mainfile`)
 
@@ -278,7 +286,7 @@ This will list the files in the PDF in the order: `Product.java`,
 `Shop.java`, `Main.java` and `UnknownProductException.java`.
 If the default `compile="true"` and `run="true"` settings are on,
 PASS will compile these files with the Java compiler and then run
-the application in Java with the designated Main class.
+the application in the Java runtime environment with the designated `Main` class.
 
 The `file` and `main` file elements have the same syntax. The end
 tag is required and the content is the filename. This should not be
@@ -314,7 +322,7 @@ then you can supply arguments for the compiler with the
 `compiler-arg` element. The end tag is required. The content is the
 argument to add. Any leading or trailing space will be trimmed, but interior space
 will be considered part of the argument. All characters will be
-treated literally (so you can reference environment variables) but
+treated literally (so, for example, you can't reference environment variables) but
 use XML entities for awkward characters.
 
 For example, for a C project that must conform to ANSI standards:
@@ -346,6 +354,8 @@ The following arguments will always be applied after the
     directory created by PASS to store the class files and
     _javafiles_ is the list of Java files supplied by the student).
 
+ - C and C++ Compilers: the list of C/C++ files.
+
 This element is ignored for scripts or if an accompanying Makefile
 (C/C++ only) is supplied or if the `build` attribute is set.
 
@@ -356,21 +366,21 @@ supply arguments for the invoker with the `invoker-arg` element. The
 end tag is required. The content is the argument to add.
 
 **No spaces are trimmed**. All space will be considered part of the
-argument. All characters will be treated literally (so you can
+argument. All characters will be treated literally (so, for example, you can't
 reference environment variables) but use XML entities for awkward
 characters.
 
 For example, to set the newline separator to CR+LF for a Java
-project:
+project (regardless of the platform PASS is running on):
 ```xml
 <invoker-arg>-Dline.separator=&#x0D;&#x0A;</invoker-arg>
 ```
 
-Note that arguments that should be passed to the student's
+Note that arguments that need to be passed to the student's
 application should be identified with the `arg` element instead.
 
  - Java applications are invoked with the application identified
-   by the label `javac` followed by any supplied `invoker-arg`
+   by the label `java` followed by any supplied `invoker-arg`
    and then by the main class name and then any arguments identified
    with any supplied `arg`.
 
@@ -399,12 +409,12 @@ to the student's application should be specified with the `arg`
 element. The end tag is required. The content is the argument to add.
 
 **No space is trimmed**. All space will be considered part of the
-argument. All characters will be treated literally (so you can
+argument. All characters will be treated literally (so, for example, you can't
 reference environment variables) but use XML entities for awkward
 characters.
 
 For example, the following requires a Lua script called `hello.lua`
-that requires one argument:
+that will be passed one argument:
 ```xml
 <assignment name="helloarg">
   <title>Hello Arg Lua</title>
@@ -413,7 +423,7 @@ that requires one argument:
   <arg>Sample Name</arg>
 </assignment>
 ```
-This will essentially be invoked like:
+This will essentially be invoked as:
 ```bash
 lua hello.lua "Sample Name"
 ```
@@ -489,7 +499,7 @@ the entry with the key `file.`_mimetype_ is defined.
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `ext` | Comma-separated list of allowed extensions without a leading dot. | _none_ (required) |
-| `type` | The MIME type. | _none_ |
+| `type` | The MIME type. | _none_ (required) |
 | `listing` | Show in the PDF, if supported. | `true` |
 | `case` | Boolean that indicates the file extension is case-sensitive. | `true` | 
 
@@ -526,16 +536,16 @@ fetch the file from a remote location so that it uses a fresh copy
 rather than the student's local copy. This is done with the
 `resourcefile` element. The end tag may be omitted.
 
-**Note** this relies on the student's application not using any path
-when referencing the file. That is, the file is expected to be in
-the same directory as the invoked application and should not have an
-absolute path.
+**Note** this relies on the student's application not using any
+directory path when referencing the file. That is, the file is expected to be in
+the same directory as the invoked application's current working
+directory and should not have an absolute path.
 
-If the student uses an absolute path in their source code then the
-student's application run by PASS will read their local copy rather
-than the fresh copy fetched by PASS. This will fail completely with
-Server PASS as the absolute path won't be accessible from within the
-Docker image.
+If the student uses an absolute path in their source code to
+reference this file then the student's application run by PASS will
+read their local copy rather than the fresh copy fetched by PASS.
+This will fail completely with Server PASS as the absolute path
+won't be accessible from within the Docker image.
 
 If the student uses a relative path where the file's parent isn't
 the application's directory, then their application will fail to
@@ -549,28 +559,51 @@ place.
 | `src` | The URL of the file's location. | _none_ (required) |
 | `type` | The file's MIME type. | `text/plain` |
 
-For example, the following requires the students to write a Java
-application that reads information from the files `dummy.txt`
-and `dummy.png` that need to be in the same directory that `java` is
-invoked from:
+For example, Alice instructs the students to create a Java
+application that reads a file called `films.csv` that contains a
+list of film titles, sorts them in alphabetical order, and then
+writes the list to STDOUT. She provides them with a `films.csv`
+file that they can use to test their application:
+```
+Title,Release Date
+"The Good, the Bad and the Ugly",1966-12-23
+A Fistful of Dollars,1964-09-12
+```
+
+However, she instructs PASS to fetch a different `films.csv` file
+from `http://cmp.example.com/pass/CMP-123XY/films.csv`, which has
+different content:
+```
+Title,Release Date
+"The Chronicles of Narnia: Prince Caspian",2008-05-07
+"The Chronicles of Narnia: The Lion, the Witch, and the Wardrobe",2005-12-07
+```
+This provides a way of testing if the student's application has
+hard-coded a solution for the test file or if it can work for a more
+general case.
+
+This assignment can be specified in the XML file as:
 ```xml
- <assignment name="testreadfileinfo">
-  <title>Test Read File Info Java</title>
-  <due>2021-02-01 16:30</due>
-  <mainfile>TestReadFileInfo.java</mainfile>
-  <resourcefile src="http://cmp.example.com/pass/dummy.txt"/>
-  <resourcefile src="http://cmp.example.com/pass/dummy.png" type="image/png"/>
+ <assignment name="filmlist">
+  <title>Film List</title>
+  <due>2024-02-01 16:30</due>
+  <mainfile>FilmList.java</mainfile>
+  <file>Film.java</file>
+  <resourcefile src="http://cmp.example.com/pass/CMP-123XY/films.csv"/>
  </assignment>
 ```
 
-PASS won't allow students to include these files with their source
+PASS won't allow students to include any identified `resourcefile` with their source
 code.
+
+Note that the MIME type is optional in this case and is only
+applicable with Pass Editor. The file isn't included in the PDF.
 
 ### Project Output Files (`resultfile`)
 
 If the assignment application must create one or more specific
 files, you can identify them with the `resultfile` element.
-The end tag is optional. These files are expected to be in the same
+The end tag is optional. These files are expected to be written in the same
 directory as the application is invoked from.
 
 If found, PASS will include the files in the PDF as attachments.
@@ -621,7 +654,7 @@ will be ignored if PDFLaTeX is used.
 | --- | --- | --- |
 | `options` | Package options. | _none_ |
 
-The content of the `fontspec` should be LaTeX code to insert after
+The content of the `fontspec` element should be LaTeX code to insert after
 `\usepackage{fontspec}`. Any options that should be passed to the
 `fontspec` package should be supplied with the `options` attribute.
 
@@ -648,7 +681,7 @@ will be ignored if LuaLaTeX is used.
 | --- | --- | --- |
 | `options` | Package options. | `T1` |
 
-The content of the `fontenc` should be LaTeX code to insert after
+The content of the `fontenc` element should be LaTeX code to insert after
 `\usepackage{fontenc}`. Any options that should be passed to the
 `fontenc` package should be supplied with the `options` attribute.
 
@@ -665,8 +698,8 @@ For example:
 ### Options for `listings.sty` (`listings`)
 
 The `listings` element can be used to add additional options for the
-`listings` package. The end tag is required. This element
-must not be inside any `assignment` elements.
+[`listings` package](https://ctan.org/pkg/listings). The end tag is
+required. This element must not be inside any `assignment` elements.
 
 The content is _added_ to
 the current set of options. This element has a cumulative effect.
@@ -692,11 +725,13 @@ breaklines
 ```
 Any instance of the `listings` element will append options to this list.
 
+See the [`listings` documentation](http://mirrors.ctan.org/macros/latex/contrib/listings/listings.pdf) for available options.
+
 ## Options for `geometry.sty` (`geometry`)
 
 The `geometry` element can be used to add additional options for the
-`geometry` package. The end tag is required. This element
-must not be inside any `assignment` elements.
+[`geometry` package](https://ctan.org/pkg/geometry). The end tag is
+required. This element must not be inside any `assignment` elements.
 
 If no `geometry` elements are provided, the page geometry will be
 set to the paper size obtained from
@@ -727,6 +762,9 @@ For example:
 ```xml
  <verbatim maxchars="85" tabcount="4" />
 ```
+
+The verbatim content is pre-processed by PASS to implement line
+wrap, TAB substitution, and invalid or control character substitution.
 
 ---
 
