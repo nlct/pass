@@ -1,2 +1,4 @@
-resources.xml
+resources.xml-test
+resources.xml-cmp
 passlib.jar
+resource.xml

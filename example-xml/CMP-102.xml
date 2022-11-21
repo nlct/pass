@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<assignments>
+
+<!-- 
+  Example file for hypothetical course CMP-102
+-->
+
+<!--
+  Each assignment must have a unique name that identifies it.
+  This identifier is used as part of a filename, so ensure 
+  that it doesn't contain awkward characters.
+-->
+ <assignment name="helloworld">
+  <title>Hello World C</title>
+  <due>2022-10-02 16:30</due>
+  <mainfile>helloworld.c</mainfile>
+ </assignment>
+
+ <assignment name="helloworldcpp">
+  <title>Hello World C++</title>
+  <due>2023-02-20 16:30</due>
+  <mainfile>Planet.h</mainfile>
+  <mainfile>Planet.cpp</mainfile>
+  <mainfile>helloworld.cpp</mainfile>
+ </assignment>
+
+</assignments>

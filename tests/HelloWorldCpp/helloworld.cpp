@@ -3,9 +3,11 @@
  *****************************************************************************/
 #include <iostream>
 using namespace std;
+#include "Planet.h"
 
 int main()
 {
-   cout << "Hello World!\n";
+   Planet planet("Earth");
+   cout << "Hello " << planet.getName() << "!\n";
    return 0;
 }
