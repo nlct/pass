@@ -1,4 +1,4 @@
-../dist/pass-cli-server.tgz	: lib/pass-cli-server.jar Dockerfile ../dist
+../dist/pass-cli-server.tgz	: lib/pass-cli-server.jar lib/resources.xml Dockerfile ../dist
 			cd ..; tar zcvf dist/pass-cli-server.tgz --dereference \
 			pass-cli-server/Dockerfile \
 			pass-cli-server/bin/pass-cli-server \
@@ -20,7 +20,7 @@ test-subdirs	: lib/pass-cli-server.jar
 test-hellogui	: lib/pass-cli-server.jar
 		bin/pass-cli-server -F examples/HelloWorldGUI.txt
 
-lib/pass-cli-server.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt classes/com/dickimawbooks/passcli/server/PassCliServer.class
+lib/pass-cli-server.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dickimawbooks/passcli/server/PassCliServer.class
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli-server.jar \
 	com/dickimawbooks/passcli/server/PassCliServer.class

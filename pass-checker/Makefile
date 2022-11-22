@@ -14,9 +14,6 @@ lib/pass-checker.jar	: java/Manifest.txt classes/com/dickimawbooks/passchecker/P
 	jar cmf ../java/Manifest.txt ../lib/pass-checker.jar \
 	com/dickimawbooks/passchecker/*.class
 
-lib/resources.xml	:
-	cd lib; ln -s ../../pass-lib/lib/resources.xml
-
 classes/com/dickimawbooks/passchecker/PassChecker.class	: classes/com/dickimawbooks/passchecker \
 	java/AssignmentMetaData.java \
 	java/MessageSystem.java \

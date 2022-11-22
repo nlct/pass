@@ -6,16 +6,13 @@ test	: lib/pass-editor.jar
 lib/manual/en/passeditor.html	: doc/passeditor-en.xml doc/createpasseditordocs
 	make -C doc
 
-lib/pass-editor.jar	: java/Manifest.txt lib/resources.xml \
+lib/pass-editor.jar	: java/Manifest.txt \
 		lib/manual/en/passeditor.html \
 		classes/com/dickimawbooks/passeditor/PassEditor.class 
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-editor.jar \
 	  com/dickimawbooks/passeditor/icons/*.png \
 	  com/dickimawbooks/passeditor/*.class
-
-lib/resources.xml	:
-	cd lib; ln -s ../../pass-lib/lib/resources.xml
 
 classes/com/dickimawbooks/passeditor/PassEditor.class	: \
 	classes/com/dickimawbooks/passeditor \
@@ -72,7 +69,7 @@ classes/com/dickimawbooks/passeditor	:
 classes/com/dickimawbooks/passeditor/icons	: classes/com/dickimawbooks/passeditor
 	cd classes/com/dickimawbooks/passeditor; ln -f -s ../../../../java/icons
 
-../dist/pass-editor-installer.jar	: ../dist lib/pass-editor.jar installer/*.xml README lib/manual/en/passeditor.html
+../dist/pass-editor-installer.jar	: ../dist lib/resources.xml lib/pass-editor.jar installer/*.xml README lib/manual/en/passeditor.html
 	$(IZPACKDIR)/bin/compile installer/install.xml -b . \
 	-h $(IZPACKDIR) \
 	-o ../dist/pass-editor-installer.jar  -k standard

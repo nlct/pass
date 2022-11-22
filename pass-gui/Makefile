@@ -3,14 +3,11 @@ IZPACKDIR=/usr/local/IzPack
 test	: lib/progassignsys.jar
 	bin/progassignsys --debug
 
-lib/progassignsys.jar	: java/Manifest.txt lib/resources.xml \
+lib/progassignsys.jar	: java/Manifest.txt \
 		classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class 
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/progassignsys.jar \
 	  com/dickimawbooks/passgui/*.class
-
-lib/resources.xml	:
-	cd lib; ln -s ../../pass-lib/lib/resources.xml
 
 classes/com/dickimawbooks/passgui/PrepareAssignmentUpload.class	: classes/com/dickimawbooks/passgui \
 	java/AdditionalFilePanel.java \
@@ -36,7 +33,7 @@ classes/com/dickimawbooks/passgui	:
 	mkdir -p classes/com/dickimawbooks/passgui
 
 
-../dist/pass-installer.jar	: ../dist lib/progassignsys.jar installer/*.xml README POST-INSTALL.md lib/manual.html
+../dist/pass-installer.jar	: ../dist lib/resources.xml lib/progassignsys.jar installer/*.xml README POST-INSTALL.md lib/manual.html
 	$(IZPACKDIR)/bin/compile installer/install.xml -b . \
 	-h $(IZPACKDIR) \
 	-o ../dist/pass-installer.jar  -k standard

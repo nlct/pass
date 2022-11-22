@@ -1,4 +1,4 @@
-lib/passlib.jar	: classes/com/dickimawbooks/passlib/Pass.class lib/resources.xml
+lib/passlib.jar	: classes/com/dickimawbooks/passlib/Pass.class
 	cd classes; \
 	jar cvf ../lib/passlib.jar \
 	com/dickimawbooks/passlib/*.class

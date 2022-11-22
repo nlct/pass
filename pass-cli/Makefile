@@ -19,13 +19,10 @@ test-hellogui	: lib/pass-cli.jar
 test-readfileinfo	: lib/pass-cli.jar
 		bin/pass-cli --debug -F examples/TestReadFileInfo.txt
 
-lib/pass-cli.jar	: lib/pass-cli-lib.jar lib/resources.xml java/Manifest.txt classes/com/dickimawbooks/passcli/PassCliMain.class
+lib/pass-cli.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dickimawbooks/passcli/PassCliMain.class
 	cd classes; \
 	jar cmf ../java/Manifest.txt ../lib/pass-cli.jar \
 	com/dickimawbooks/passcli/*.class
-
-lib/resources.xml	:
-	cd lib; ln -s ../../pass-lib/lib/resources.xml
 
 classes/com/dickimawbooks/passcli/PassCliMain.class	: classes/com/dickimawbooks/passcli \
 	java/PassCliMain.java \
