@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+# See https://tex.stackexchange.com/a/174737
 
 use strict;
 use warnings;

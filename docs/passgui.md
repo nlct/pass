@@ -27,7 +27,7 @@ example below, the course "CMP-101" has been selected.
 
 > Please select your course.  
 > (Cancel will exit this application.)  
-> CMP-101 (Introduction to Java)
+> CMP-101 (Introduction to Java)⏷
 
 ![Course selection dialog box](images/pass-gui-course-selector.png)
 
@@ -47,11 +47,13 @@ response code is 404 then the URL is incorrect. The
 ## Agreement
 
 If the assignment XML file is successfully fetched, the Pass GUI
-window will be opened on the first page, that contains a reminder
+window will be opened on the first page. This contains a reminder
 that the PDF created by PASS has to be checked and submitted as well
-as a link to the FAQ and an agreement checkbox, which must be
-checked to enable the "Next" button. The top panel shows the course
-label, which in the image below is "CMP-101".
+as a link to the
+[FAQ](https://www.dickimaw-books.com/software/pass/faq.php) and an
+agreement checkbox, which must be checked to enable the "Next"
+button. The top panel shows the course label, which in this example
+is "CMP-101".
 
 > CMP-101  
 >  
@@ -85,7 +87,7 @@ The example below is for a solo assignment.
 >  
 > ---  
 >  
-> Assignment: Hello World Java Due: Tue, 28 Feb 2017 16:30  
+> Assignment: Hello World Java⏷  Due: Tue, 28 Feb 2017 16:30  
 > ☐ Group project  
 > Blackboard ID: `vqs23ygl` (Required)  
 > Student Number: 327509401 (Required)  
@@ -102,7 +104,7 @@ all the members of your group.
 >  
 > ---  
 >  
-> Assignment: Hello World Java Due: Tue, 28 Feb 2017 16:30  
+> Assignment: Hello World Java⏷ Due: Tue, 28 Feb 2017 16:30  
 > ☑ Group project  
 > | Blackboard ID | Student Number |
 > | --- | --- |
@@ -110,6 +112,10 @@ all the members of your group.
 > | `jwh22ird` | 423901355 |
 >   
 > File encoding: UTF-8 lualatex will be used for UTF-8 files.
+
+There are buttons next to the table to add a new row, remove the
+currently selected row, move the selected row up, and move the
+selected row down.
 
 ![Page 2 Pass GUI Assignment Selector Panel for Group Project](images/pass-gui-cmp101-group-assignment-panel.png)
 
@@ -123,7 +129,7 @@ Click "Next" to move onto page 3.
 
 Page 3 has the base directory selector. This will be required if the
 `relpath` attribute has been set for the assignment. If a relative
-path structure isn't required, you can omit it, but it's still
+path structure isn't required, you can omit the base directory, but it's still
 useful as it will allow Pass GUI to search for your project files.
 
 Use the "Select" button to open a directory browser and select the
@@ -135,8 +141,6 @@ The top panel now shows the assignment title and due date. In this
 example the base directory has been selected but no relative path
 structure is required. This means that all files will be copied over
 into the same (temporary) directory.
-
-![Page 3 Pass GUI Base Directory Selector Panel](images/pass-gui-cmp101-base-dir-panel.png)
 
 > Assignment: Hello World Java (Due: Tue, 28 Feb 2017 16:30)  
 >  
@@ -150,8 +154,279 @@ into the same (temporary) directory.
 > If a relative directory structure must be maintained, click on the 'Use relative paths' checkbox and ensure that the above field is set to the base directory.
 
 
-🚧
+![Page 3 Pass GUI Base Directory Selector Panel](images/pass-gui-cmp101-base-dir-panel.png)
 
+## File Selection
+
+Page 4 has the project file selection fields.
+If a base directory was selected on the previous page, then Pass GUI
+will search for required files and any files with an extension that
+matches the project language or, if applicable, one of the allowed binary
+extensions. The result of the search will be shown in the "File
+search" line. This line will be omitted if no base directory was
+selected.
+
+This example has one required file `HelloWorld.java` and it has been
+found in the selected directory. The path to this file has been
+filled in.
+
+> Assignment: Hello World Java (Due: Tue, 28 Feb 2017 16:30)  
+> 
+> ---  
+>  
+> Make sure that the drop-down menu has the correct file format set. (Use 'Plain Text' for unlisted languages.) The only permitted binary files are: .pdf, .doc, .docx  
+>   
+> File search Found 1 project file  
+>  
+> Required Files:  
+> `HelloWorld.java`: `/home/vqs23ygl/Projects/HelloWorldJava/HelloWorld.java` 📂 Java⏷  
+> Additional Files (Optional):  
+> [Remove Button] _empty_ 📂 Java⏷  
+> [Add Button]
+
+![Page 4 Pass GUI File Selector Panel](images/pass-gui-cmp101-file-panel.png)
+
+Any files that aren't found can be added by clicking on the file
+selector button 📂. Next to this is a dropdown menu that specifies
+the file's source code language. In this case, it's "Java". If this
+is incorrect, you will need to change it to the appropriate
+language. Use "PDF" for PDF documents and "DOC" for Word documents.
+Any unsupported formats should be identified as "Plain Text".
+
+Normally, the only binary files that are allowed are PDF or Word
+documents. A lecturer may allow additional files, such as image
+files, if the project requires them.
+
+Don't include any files that aren't part of your project source code or
+that aren't a report. Click the "Next" button once you have checked
+that all your files are listed and have had the language correctly
+identified. This will move onto page 5 and PASS will start
+processing your project.
+
+## Processing
+
+Page 5 shows the progress bar while PASS processes all the selected
+files. This will start out in an indeterminate state and will then
+switch to an incremental progress bar. On the left of this is an
+abort button, which you can click if you want to cancel the process.
+There's a maximum time limit for processes, so any that take too
+long will timeout.
+
+> Assignment: Hello World Java (Due: Tue, 28 Feb 2017 16:30)  
+> 
+> ---  
+>  
+> 🛑 [Progress Bar] 00:02
+
+![Page 5 Pass GUI Progress Panel](images/pass-gui-cmp101-process-panel.png)
+
+The transcript window will also open, with processing messages. If
+you close it you, can reopen it using the Options ⏵ Show Transcript
+menu item.
+
+If the process finishes successfully, a dialog box will open so that
+you can save the PDF. If you accidentally cancel it, there will be a
+save button available, which you can click on to reopen the save
+dialog. Once the PDF is saved, the button will change to an open
+button, which will allow you to view the PDF. Alternatively, you can
+open your preferred PDF viewer via the Start menu and view the PDF
+with that.
+
+### Successful
+
+In this example, the project was processed successfully.
+
+> Process finished.  
+> Use 'Save PDF As...' button to save the PDF file.  
+> Use 'Exit' button to quit without saving.  
+>  
+> ---  
+>  
+> ✔  
+>  
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.  
+>  
+> --- 
+>  
+> 💾 Save PDF As... Exit  
+
+![Page 5 Pass GUI Successful Panel](images/pass-gui-cmp101-process-success-panel.png)
+
+Once you have saved the PDF, you can exit Pass GUI either by
+clicking on the "Exit" button or use the window's close icon.
+
+### Warning (Compiler Error)
+
+In the example below, the source code had errors, which meant the
+compile step failed. PASS was therefore unable to run the project
+application. However, it did manage to create a PDF file, so a save
+dialog is still available to save the result.
+
+There is now not only a button to save or view the PDF but also a
+button to view the LaTeX log file. (If you want to save the
+transcript messages, do <kbd>Alt</kbd> + <kbd>A</kbd> to select all
+the text and <kbd>Alt</kbd> + <kbd>C</kbd> to copy the selected text
+to the clipboard. You can then paste it into a text editor.)
+
+> Process finished.  
+> Use 'Save PDF As...' button to save the PDF file.  
+> Use 'Exit' button to quit without saving.  
+> Something went wrong while testing the application. Please check the PDF file.  
+>  
+> ---  
+>  
+> !  
+>  
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.  
+>  
+> --- 
+>  
+> 📂 Open Log 💾 Save PDF As... Exit  
+
+![Page 5 Pass GUI Warning Panel](images/pass-gui-cmp101-process-warning-panel.png)
+
+The large exclamation mark in this case is yellow, which indicates a
+warning.
+
+The transcript window shows messages about each step, including the
+compiler error messages that it picked up from reading the process's
+STDERR.
+
+```
+Timeout: 180s.
+Temporary directory: /tmp/prepasg2707696061798360458.
+In file included from Planet.cpp:1:
+Planet.h:1:1: error: new types may not be defined in a return type
+    1 | class Planet
+      | ^~~~~
+Planet.h:1:1: note: (perhaps a semicolon is missing after the definition of ‘Planet’)
+Planet.h:1:1: error: return type specification for constructor invalid
+Planet.cpp: In constructor ‘Planet::Planet(const char*)’:
+Planet.cpp:5:3: error: ‘strncpy’ was not declared in this scope
+    5 |   strncpy(name, planetName, sizeof(name));
+      |   ^~~~~~~
+Planet.cpp:2:1: note: ‘strncpy’ is defined in header ‘<cstring>’; did you forget to ‘#include <cstring>’?
+    1 | #include "Planet.h"
+  +++ |+#include <cstring>
+    2 | 
+In file included from helloworld.cpp:6:
+Planet.h:8:2: error: expected ‘;’ after class definition
+    8 | }
+      |  ^
+      |  ;
+Something went wrong while testing the application. Please check the PDF file.
+This is LuaHBTeX, Version 1.15.0 (TeX Live 2022) 
+ restricted system commands enabled.
+(./prepasg2707696061798360458.tex
+LaTeX2e <2022-11-01>
+```
+
+![Page 5 Pass GUI Transcript Window](images/pass-gui-cmp101-process-warning-transcript.png)
+
+These errors should have been picked up when you were developing and
+testing your source code. If you are already aware of these problems
+but have run out of time to fix them, then check the PDF to make
+sure you haven't missed anything and submit it.
+
+If those errors didn't occur when you were developing and testing
+your source code, then it may be because there was some compiler
+setting that your lecturer has specified that you didn't use.
+
+For example, Dr Alice Smith has set a C programming assignment that requires a
+file called `helloworld.c` that prints "Hello World!" to STDOUT and
+the source code must contain a comment line and the source code must
+conform to ANSI (C90).
+
+Bob has written a file `helloworld.c` that successfully writes
+"Hello World!" to STDOUT when he tests it in his IDE. However, Bob
+has used a C++ style comment '//' which isn't permitted with ANSI.
+Bob hasn't used the `-ansi` compiler option in his IDE, so it
+compiles and runs fine there. Alice has instructed PASS to use
+`-ansi` when compiling the source code for this assignment, which
+results in an error that PASS picks up.
+
+The transcript window shows how PASS tried to run the compiler.
+```
+Running gcc -Wall -o helloworld -ansi -Wpedantic helloworld.c 
+in directory /tmp/prepasg1042479341129485275
+PASS log file: /tmp/prepasg1042479341129485275/PASS_compiler-messages-2390713693280042584.txt
+helloworld.c:1:1: error: C++ style comments are not allowed in ISO C90
+```
+
+Note that PASS isn't compiling Bob's original `helloworld.c` but has
+copied it to a temporary directory, which in this case is
+`/tmp/prepasg1042479341129485275`. When PASS runs the compiler, it
+redirects STDERR and STDOUT to a temporary file so that it can
+include the messages verbatim in the PDF file.
+
+You may find it easier to view the PDF, which should have an
+"Application" section with "Compiler Invocation" and "Compiler
+Messages" subsections. Make sure that your IDE is setup to use the
+same options, and make the appropriate corrects to your source code.
+You will then need to rerun Pass GUI.
+
+### Error (Invalid Binary Content)
+
+Suppose in the "Hello World Java" example, Bob tried to include an
+image file (called `sample.png`). The default file language selector
+stays on "Java" and Bob goes ahead an clicks on "Next".
+
+> Assignment: Hello World Java (Due: Tue, 28 Feb 2017 16:30)  
+> 
+> ---  
+>  
+> Make sure that the drop-down menu has the correct file format set. (Use 'Plain Text' for unlisted languages.) The only permitted binary files are: .pdf, .doc, .docx  
+>   
+> File search Found 1 project file  
+>  
+> Required Files:  
+> `HelloWorld.java`: `/home/vqs23ygl/Projects/HelloWorldJava/HelloWorld.java` 📂 Java⏷  
+> Additional Files (Optional):  
+> [Remove Button] `/home/vqs23ygl/Projects/HelloWorldJava/sample.png` 📂 Java⏷  
+> [Add Button]
+
+![Page 4 Pass GUI File Selector Panel With Invalid Binary File](images/pass-gui-cmp101-file-panel-invalid-binary.png)
+
+Now the process will fail with a `MalformedInputException` error and
+no PDF will be created.
+
+> Process Failed. Temporary files in '/tmp/prepasg6478359002371278718' will be deleted on exit.  
+> Something went wrong while testing the application. Please check the PDF file.  
+> Something went wrong while compiling the PDF.  
+> A binary file may have been added where a text file was expected (or wrong encoding used).  
+>  
+> ---  
+>  
+> !  
+>  
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.  
+>  
+> --- 
+>  
+> Exit
+
+Now the exclamation mark is red.
+
+![Page 5 Pass GUI Error Panel](images/pass-gui-cmp101-process-error-panel.png)
+
+Pass GUI has suggested two possible reasons for failure:
+
+ 1. a binary file was added where a text file was expected;
+ 2. a text file had an encoding that didn't match the one specified
+    in the assignment selection panel.
+
+In this case, the first reason applies. Bob will have to rerun Pass
+GUI without selecting the image file.
+
+If this error occurs with your project and you are sure that you
+have only selected text files, then it's probably an encoding
+mismatch. For example, a text file with Latin 1 encoding has been
+incorrectly identified as a UTF-8 file. You can use the
+[`findnonascii.pl`](https://github.com/nlct/pass/blob/main/pass-cli-server/server-files/backend/findnonascii.pl) Perl script to search all your source code files
+for non-ASCII content, if you are not sure which files have
+non-ASCII characters. Bear in mind that you also need to consider
+any characters written to STDOUT/STDERR by any processes run by
+PASS.
 
 ---
 
