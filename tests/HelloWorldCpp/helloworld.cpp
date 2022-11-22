@@ -1,5 +1,5 @@
 /******************************************************************************
- * Sample comment block
+ * Sample comment block for an example project with errors.
  *****************************************************************************/
 #include <iostream>
 using namespace std;

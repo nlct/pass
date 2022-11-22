@@ -26,7 +26,13 @@
   Compiler arguments can also be specified but this is optional.
   Each argument must be in a separate compiler-arg element.
 -->
-  <compiler-arg>-verbose</compiler-arg>
+  <compiler-arg>-release</compiler-arg>
+  <compiler-arg>8</compiler-arg>
+<!--
+  Invoker arguments can also be specified but this is optional.
+  Each argument must be in a separate invoker-arg element.
+-->
+  <invoker-arg>-Dline.separator=&#x0D;&#x0A;</invoker-arg>
 <!--
   If you want PASS to compile and run the application then
   you need to identify the main source code file. This is 

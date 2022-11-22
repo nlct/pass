@@ -215,7 +215,6 @@ inside the applicable `assignment` element. For example:
   <title>Hello World C</title>
   <due>2016-10-02 16:30</due>
   <compiler-arg>-ansi</compiler-arg>
-  <compiler-arg>-Wpedantic</compiler-arg>
   <file>other.c</file>
   <file>other.h</file>
   <mainfile>helloworld.c</mainfile>

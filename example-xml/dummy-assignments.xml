@@ -32,9 +32,6 @@
  <assignment name="helloworld">
   <title>Hello World C</title>
   <due>2016-10-02 16:30</due>
-<!-- This assignment requires the following compiler options -->
-  <compiler-arg>-ansi</compiler-arg>
-  <compiler-arg>-Wpedantic</compiler-arg>
   <mainfile>helloworld.c</mainfile>
  </assignment>
 
@@ -48,7 +45,8 @@
   <title>Hello World Java</title>
   <due>2017-02-30 16:30</due>
 <!-- This assignment requires the following javac option -->
-  <compiler-arg>-verbose</compiler-arg>
+  <compiler-arg>-release</compiler-arg>
+  <compiler-arg>8</compiler-arg> 
 <!-- This assignment requires the following java option -->
   <invoker-arg>-Dline.separator=&#x0D;&#x0A;</invoker-arg>
   <mainfile>HelloWorld.java</mainfile>

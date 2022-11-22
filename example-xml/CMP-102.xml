@@ -13,6 +13,8 @@
  <assignment name="helloworld">
   <title>Hello World C</title>
   <due>2022-10-02 16:30</due>
+<!-- This assignment requires the following compiler option -->
+  <compiler-arg>-ansi</compiler-arg>
   <mainfile>helloworld.c</mainfile>
  </assignment>
 
