@@ -2168,18 +2168,8 @@ public class PrepareAssignmentUpload extends JFrame
       return box;
    }
 
-   /**
-    * Creates the component containing the file list.
-    * @return the new component
-    */ 
-   private JComponent createFileListComp()
+   private void updateFileFormatNote()
    {
-      Box box = Box.createVerticalBox();
-      box.setAlignmentX(0);
-
-      fileListSp = new JScrollPane(box);
-      fileListSp.setName(passTools.getMessage("message.project_files"));
-
       StringBuilder binaryExts = new StringBuilder(".pdf, .doc, .docx");
 
       if (allowedBinaryFilters != null)
@@ -2197,12 +2187,29 @@ public class PrepareAssignmentUpload extends JFrame
          }
       }
 
-      JTextArea tabMessage = createTextArea(passTools.getMessage(
+      fileFormatNoteComp.setText(passTools.getMessage(
         "message.file_format.note", AssignmentData.PLAIN_TEXT,
          binaryExts.toString()));
+   }
 
-      tabMessage.setAlignmentX(0);
-      box.add(tabMessage);
+   /**
+    * Creates the component containing the file list.
+    * @return the new component
+    */ 
+   private JComponent createFileListComp()
+   {
+      Box box = Box.createVerticalBox();
+      box.setAlignmentX(0);
+
+      fileListSp = new JScrollPane(box);
+      fileListSp.setName(passTools.getMessage("message.project_files"));
+
+      fileFormatNoteComp = createTextArea(passTools.getMessage(
+        "message.file_format.note", AssignmentData.PLAIN_TEXT,
+         ".pdf, .doc, .docx"));
+
+      fileFormatNoteComp.setAlignmentX(0);
+      box.add(fileFormatNoteComp);
 
       fileSearchPanel = new JPanel(new BorderLayout());
       fileSearchPanel.setAlignmentX(0);
@@ -3077,6 +3084,8 @@ public class PrepareAssignmentUpload extends JFrame
       {
          allowedBinaryFilters = null;
       }
+
+      updateFileFormatNote();
 
       binaryFileComp.setVisible(visible);
       binaryLabel.setVisible(visible);
@@ -4138,6 +4147,7 @@ public class PrepareAssignmentUpload extends JFrame
    private JComponent resourceFileComp;
    private JComponent additionalFileComp;
 
+   private JTextArea fileFormatNoteComp;
    private JLabel binaryLabel;
    private JButton binaryAddButton;
    private JComponent binaryFileComp;
