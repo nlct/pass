@@ -437,6 +437,11 @@ public class PrepareAssignmentUpload extends JFrame
 
       URL resourceURL = getClass().getResource("/resources.xml");
 
+      if (resourceURL == null)
+      {
+         fatalError("Unable to open lib/resources.xml");
+      }
+
       Vector<Course> data = passTools.loadCourseData(resourceURL);
 
       if (!passTools.isAgreeRequired())
@@ -3449,6 +3454,16 @@ public class PrepareAssignmentUpload extends JFrame
    }
 
    /**
+    * Issues a fatal error. This will show the error message and quit with
+    * exit code 1.
+    * @param msg the error message
+    */ 
+   public void fatalError(String msg)
+   {
+      fatalError(msg, null);
+   }
+
+   /**
     * Issues a fatal error. This will show the error and quit with
     * exit code 1. If debugging is enabled this will print the stack
     * trace.
@@ -3459,14 +3474,24 @@ public class PrepareAssignmentUpload extends JFrame
    {
       String errMess;
 
+      if (e == null)
+      {
+         errMess = msg;
+         msg = null;
+      }
+      else
+      {
+         errMess = e.getMessage();
+      }
+
       if (passTools == null)
       {
-         errMess = String.format("Fatal Error: %s", e.getMessage());
+         errMess = String.format("Fatal Error: %s", errMess);
       }
       else
       {
          errMess = passTools.getMessageWithDefault("error.fatal", "Fatal Error: {0}", 
-          e.getMessage());
+          errMess);
       }
 
       if (msg != null)
@@ -3476,7 +3501,7 @@ public class PrepareAssignmentUpload extends JFrame
 
       error(errMess);
 
-      if (debugLevel > 0)
+      if (e != null && debugLevel > 0)
       {
          e.printStackTrace();
       }
@@ -4161,7 +4186,7 @@ public class PrepareAssignmentUpload extends JFrame
 
    private static final int START_COPYRIGHT_YEAR=2016;
    public static final String VERSION="1.3.2";
-   public static final String VERSION_DATE="2022-11-21";
+   public static final String VERSION_DATE="2022-11-22";
 
    private JComponent licenceComp;
 

@@ -648,6 +648,11 @@ public class PassTools
     */ 
    public Vector<Course> loadCourseData(URL resourceURL) throws IOException,SAXException
    {
+      if (resourceURL == null)
+      {
+         throw new NullPointerException();
+      }
+
       CourseParser parser = new CourseParser(this);
 
       BufferedReader in = null;

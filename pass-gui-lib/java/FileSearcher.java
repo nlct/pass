@@ -65,8 +65,8 @@ implements FileVisitor<Path>
       data = main.getAssignment();
       mainLanguage = data.getMainLanguage();
 
-      // Get a copy of reports so that found reports can be removed
-      // locally
+      // Make a copy of reports so that found reports can be removed
+      // locally.
 
       Vector<String> orgReports = data.getReports();
 
@@ -171,7 +171,8 @@ implements FileVisitor<Path>
       }
 
       if (ext != null && mainLanguage != null
-           && mainLanguage.equals(data.getListingLanguage(ext)))
+           && mainLanguage.equals(data.getListingLanguage(ext, null))
+         )
       {
          main.addAdditionalFileComponent(file);
 

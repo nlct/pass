@@ -655,6 +655,18 @@ public class AssignmentData
     */ 
    public String getListingLanguage(String ext)
    {
+      return getListingLanguage(ext, language);
+   }
+
+   /**
+    * Gets the language identifier for the given file
+    * extension or default value if no match.
+    * @param ext the file extension
+    * @param defValue
+    * @return the language identifier or the default value if no mapping available
+    */ 
+   public String getListingLanguage(String ext, String defValue)
+   {
       if ("java".equals(ext))
       {
          return "Java";
@@ -736,7 +748,7 @@ public class AssignmentData
          }
       }
 
-      return language;
+      return defValue;
    }
 
    /**
