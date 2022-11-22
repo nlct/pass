@@ -188,11 +188,11 @@ created automatically by Pass Editor. The files will either be empty
 or obtained from a template. The navigation panel shows the file
 listings in a tree structure.
 
-  -⏷ 📂 [base]
-     - 🗋 `FooBar.java`
-     - ⏷📂 `subdir1` 
+  - ⏷ 📂 [base]
+     + 🗋 `FooBar.java`
+     + ⏷📂 `subdir1` 
         - 🗋 `Foo.java`
-     - ⏷📂 `subdir2` 
+     + ⏷📂 `subdir2` 
         - 🗋 `Bar.java`
         - 🗋 `Foo.java`
 
