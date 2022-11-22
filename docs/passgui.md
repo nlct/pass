@@ -18,27 +18,33 @@ Alternative, for Linux or Mac you can use the bash script in the
 ```
 Add the `--debug` switch to make the test course available.
 
+## Course Selection
+
 If only one course is available, that course will be selected
 automatically, otherwise the user will be presented with a dialog
-box and a dropdown menu to select the required course with the text:
+box and a dropdown menu to select the required course. In the
+example below, the course "CMP-101" has been selected.
 
 > Please select your course.  
 > (Cancel will exit this application.)  
 > CMP-101 (Introduction to Java)
 
+![Course selection dialog box](images/pass-gui-course-selector.png)
+
 The "Cancel" button will quit Pass GUI, otherwise select the desired
 course and click on "OK".
-
-![Course selection dialog box](images/pass-gui-course-selector.png)
 
 If you get the following error message:
 
 > Fatal Error: Unable to access _URL_. HTTP response code: 301.
 
-then the URL specified in the XML file wasn't the actual address but
-a URL that redirects to another file. (This includes a redirect from
-`http:` to `https:`.) If the response code is 404 then the URL
-is incorrect. In both cases, the `href` value must be corrected.
+(or a similar 3xx response code) then the URL specified in the XML
+file wasn't the actual address but a URL that redirects to another
+file. (This includes a redirect from `http:` to `https:`.) If the
+response code is 404 then the URL is incorrect. The
+`href` value must be corrected to ensure a 200 response code.
+
+## Agreement
 
 If the assignment XML file is successfully fetched, the Pass GUI
 window will be opened on the first page, that contains a reminder
@@ -48,7 +54,9 @@ checked to enable the "Next" button. The top panel shows the course
 label, which in the image below is "CMP-101".
 
 > CMP-101  
+>  
 > ---  
+>  
 > PASS GUI is designed to help you **prepare** programming assignments for submission. It's your responsibility to ensure that the generated PDF correctly represents your work, and it's your responsibility to ensure that you submit the PDF in a timely manner. **If you encounter any problems with PASS GUI please inform your lecturer before you submit your work.**  
 >  
 > PASS FAQ: <https://www.dickimaw-books.com/software/pass/faq.php>  
@@ -59,6 +67,8 @@ label, which in the image below is "CMP-101".
 
 Once you have selected the checkbox, click on the "Next" button to
 move on to page 2.
+
+## Assignment Selection
 
 Page 2 has the assignment selector. Select your project assignment
 title from the dropdown box. Next to this box is the date that the
@@ -71,10 +81,10 @@ automatically filled in the next time you use Pass GUI.
 
 The example below is for a solo assignment.
 
-![Page 2 Pass GUI Assignment Selector Panel for Solo Project](images/pass-gui-cmp101-solo-assignment-panel.png)
-
 > Select the required assignment for course CMP-101.  
+>  
 > ---  
+>  
 > Assignment: Hello World Java Due: Tue, 28 Feb 2017 16:30  
 > ☐ Group project  
 > Blackboard ID: `vqs23ygl` (Required)  
@@ -82,14 +92,16 @@ The example below is for a solo assignment.
 >   
 > File encoding: UTF-8 lualatex will be used for UTF-8 files.
 
+![Page 2 Pass GUI Assignment Selector Panel for Solo Project](images/pass-gui-cmp101-solo-assignment-panel.png)
+
 If your assignment is a group project, check the "Group project"
 checkbox, which will switch to a table layout where you can identify
 all the members of your group.
 
-![Page 2 Pass GUI Assignment Selector Panel for Group Project](images/pass-gui-cmp101-group-assignment-panel.png)
-
 > Select the required assignment for course CMP-101.  
+>  
 > ---  
+>  
 > Assignment: Hello World Java Due: Tue, 28 Feb 2017 16:30  
 > ☑ Group project  
 > | Blackboard ID | Student Number |
@@ -99,11 +111,15 @@ all the members of your group.
 >   
 > File encoding: UTF-8 lualatex will be used for UTF-8 files.
 
+![Page 2 Pass GUI Assignment Selector Panel for Group Project](images/pass-gui-cmp101-group-assignment-panel.png)
+
 The file encoding selector provides a choice of: UTF-8, Latin 1 or
 ASCII. Make sure that it matches the [encoding](https://dickimaw-books.com/blog/binary-files-text-files-and-file-encodings/) of your source code
 files. In general, UTF-8 is the best option.
 
 Click "Next" to move onto page 3.
+
+## Base Directory Selection
 
 Page 3 has the base directory selector. This will be required if the
 `relpath` attribute has been set for the assignment. If a relative
@@ -123,7 +139,9 @@ into the same (temporary) directory.
 ![Page 3 Pass GUI Base Directory Selector Panel](images/pass-gui-cmp101-base-dir-panel.png)
 
 > Assignment: Hello World Java (Due: Tue, 28 Feb 2017 16:30)  
+>  
 > ---  
+>  
 > Code Directory: `/home/vqs23ygl/Projects/HelloWorldJava` 📂 Select  
 > ☐ Use relative paths  
 >  
