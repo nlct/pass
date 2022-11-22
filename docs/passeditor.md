@@ -23,11 +23,15 @@ On startup, a dialog will be shown where you need to indicate if you
 want to start a new project, open an existing project or import
 source code that you have already started into a new project.
 
+> Select Project  
+>     
+> ---  
+>  
 > If you have already edited your code in PASS Editor, select 'Open existing project' to continue editing it. If you have already written some source code in another editor, select 'Import assignment data' to import the PASS assignment data. Otherwise select 'New project'.  
 >  
 > &#x1F518; New Project  
 > &#x1F518;&#xFE0E; Open existing project  
-> &#xD83D;&#xFE0E; Import assignment data  
+> &#x1F518;&#xFE0E; Import assignment data  
 > <kbd>Okay</kbd> <kbd>Exit</kbd> <kbd>Help</kbd>
 
 ![Select Project Dialog Box](images/pass-editor-select-project.png)
@@ -40,7 +44,10 @@ a directory to work in. This needs to be an empty directory.
 Depending on the Java Look and Feel, you may be able to create a new
 directory from this window.
 
-> Choose an empty directory for the project   
+> Choose an Empty Directory for the Project   
+>  
+> ---  
+>  
 > 📂 `HelloWorld`  
 > <kbd>Select</kbd> <kbd>Cancel</kbd>
 
@@ -50,6 +57,10 @@ Once you have selected an empty directory, the course selector
 dialog box will be displayed. If no courses are available an error
 will occur.
 
+> Select Course  
+>  
+> ---  
+>  
 > Please select your course  
 > <kbd>CMP-101 (Introduction to Java)⏷</kbd>  
 > <kbd>Cancel</kbd> <kbd>OK</kbd>
@@ -149,6 +160,117 @@ as for "New Project".
 
 Note that if you import assignment data and you have already created
 a template file, the template won't be fetched.
+
+## Main Window
+
+The main Pass Editor window consists of three areas:
+
+ 1. The file navigation panel on the left.
+ 2. The tabbed editor panes to the right.
+ 3. The message area at the bottom.
+
+### File Navigation Panel
+
+The file navigation panel is on the left of the main window and has a tree structure
+that only shows project files. The root is labelled "[base]",
+which represents the base directory that the project resides in.
+
+The following example is for a project that has the following
+required files:
+
+  - `FooBar.java`
+  - `subdir1/Foo.java`
+  - `subdir2/Bar.java`
+  - `subdir2/Foo.java`
+
+These files and the sub-directories `subdir1` and `subdir2` are
+created automatically by Pass Editor. The files will either be empty
+or obtained from a template. The navigation panel shows the file
+listings in a tree structure.
+
+  -⏷ 📂 [base]
+    - 📄 `FooBar.java`
+    - ⏷📂 `subdir1` 
+      - 📄 `Foo.java`
+    - ⏷📂 `subdir2` 
+      - 📄 `Bar.java`
+      - 📄 `Foo.java`
+
+![Main Window with Sub Directories](images/pass-editor-main-window-subdirs.png)
+
+To add a new file, select the parent directory (or "[base]" for the
+project directory) and open the context popup menu or use the
+"Project" menu on the menu bar. Select "New File..." to create a new
+file in that directory or "New Folder..." to create a new folder in
+that directory.
+
+In the example below, the "[base]" directory was selected and then
+the menu item Project ⏵ New File... This opens a dialog box for the
+filename.
+
+> New File Name  
+>  
+> ---  
+>  
+> Add a new file to base directory.  
+> File name:  
+> `Test.java`  
+> <kbd>Cancel</kbd> <kbd>OK</kbd>
+
+![New File Dialog Box](images/pass-editor-new-file.png)
+
+Enter the filename and click on "OK" to create the file and open it
+in the editor pane.
+
+You can use the navigation tree to move, rename or delete additional
+files but not required files. If a file has been edited outside of
+Pass Editor, you can reload it by selecting the file and then use
+the menu item Project ⏵ Reload.
+
+If you reload a file that was fetched from a template, you will be
+asked to confirm if you want to re-download the template (which will
+revert the file back to the start) or if you simply want to reload
+your local copy of the file.
+
+  - Select "No" to simply reload a local copy of the file.
+  - Select "Yes" to download the template and overwrite your
+    local copy (your existing local file will be copied to
+    a backup).
+  - Select "Cancel" to cancel reload.
+
+### Editor Tabbed Pane
+
+The tabbed editor pane is on the right of the main window. By
+default, when you start a project, all required files will be
+created and opened.
+
+The following types of file tabs are available:
+
+  - Required files (can be edited, can't be deleted, renamed or moved);
+  - Additional files (can be edited, deleted, renamed or moved);
+  - Resource files (can't be edited, deleted, renamed or moved);
+  - Allowed binary files (can't be edited as they're not text
+    files).
+
+
+### The Message Area
+
+The message area is at the bottom of the main window. This has four
+tabs: general messages, compiler messages, messages to STDERR, and
+messages to STDOUT. Below the message area is the status bar that contains two buttons
+on the left and the course code and assignment title on the right.
+
+The buttons are:
+
+ - Clear all messages;
+ - Copy messages in the currently selected message tab to the
+   clipboard.
+
+In the middle of the status bar, a progress bar will show when a process
+starts running with an abort button. This is the same process panel
+used in Pass GUI.
+
+### Messages Area
 
 🚧
 
