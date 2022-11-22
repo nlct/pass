@@ -115,7 +115,7 @@ This will open a file selector which you can use to select the
 `.passed` file.
 
 > Open   
-> 📄 `CMP-101-helloworldjava.passed`  
+> 🗋 `CMP-101-helloworldjava.passed`  
 > <kbd>Open</kbd> <kbd>Cancel</kbd>
 
 ![Open File Dialog Box](images/pass-editor-select-passed-file.png)
@@ -189,12 +189,12 @@ or obtained from a template. The navigation panel shows the file
 listings in a tree structure.
 
   -⏷ 📂 [base]
-    - 📄 `FooBar.java`
-    - ⏷📂 `subdir1` 
-      - 📄 `Foo.java`
-    - ⏷📂 `subdir2` 
-      - 📄 `Bar.java`
-      - 📄 `Foo.java`
+     - 🗋 `FooBar.java`
+     - ⏷📂 `subdir1` 
+        - 🗋 `Foo.java`
+     - ⏷📂 `subdir2` 
+        - 🗋 `Bar.java`
+        - 🗋 `Foo.java`
 
 ![Main Window with Sub Directories](images/pass-editor-main-window-subdirs.png)
 
