@@ -242,8 +242,8 @@ section with the dropdown menu set to PDF or DOC, as appropriate.)
 > <kbd>_Add Button_</kbd>
 >  
 > Binary Files:  
-> <kbd>_Remove Button_</kbd> '/home/vqs23ygl/Projects/HelloWorldGUI/icons/sample.png' <kbd>📂</kbd> image/png   
-> <kbd>_Remove Button_</kbd> '/home/vqs23ygl/Projects/HelloWorldGUI/icons/logo.png' <kbd>📂</kbd> image/png   
+> <kbd>_Remove Button_</kbd> `/home/vqs23ygl/Projects/HelloWorldGUI/icons/sample.png` <kbd>📂</kbd> image/png   
+> <kbd>_Remove Button_</kbd> `/home/vqs23ygl/Projects/HelloWorldGUI/icons/logo.png` <kbd>📂</kbd> image/png   
 > <kbd>_Add Button_</kbd>
 >  
 > ---  
