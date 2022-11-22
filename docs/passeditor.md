@@ -188,21 +188,16 @@ created automatically by Pass Editor. The files will either be empty
 or obtained from a template. The navigation panel shows the file
 listings in a tree structure.
 
-<style>
-ul.tree { list-style : none; }
-ul.tree ul { list-style : none; }
-</style>
-
-<ul class="tree">
+<ul style="list-style: none; ">
  <li>⏷ 📂 [base]
- <ul>
+ <ul style="list-style: none; ">
      <li>🗋 `FooBar.java`
      <li>⏷📂 `subdir1` 
-     <ul>
+     <ul style="list-style: none; ">
         <li>🗋 `Foo.java`
      </ul>
      <li>⏷📂 `subdir2` 
-     <ul>
+     <ul style="list-style: none; ">
         <li>🗋 `Bar.java`
         <li>🗋 `Foo.java`
      </ul>
