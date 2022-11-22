@@ -188,7 +188,11 @@ created automatically by Pass Editor. The files will either be empty
 or obtained from a template. The navigation panel shows the file
 listings in a tree structure.
 
-<ul style="list-style: none;">
+<style>
+ul.tree { list-style : none; }
+ul.tree ul { list-style : none; }
+</style>
+<ul class="tree">
  <li>⏷ 📂 [base]
  <ul>
      <li>🗋 `FooBar.java`
