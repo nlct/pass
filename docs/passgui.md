@@ -220,6 +220,41 @@ Normally, the only binary files that are allowed are PDF or Word
 documents. A lecturer may allow additional files, such as image
 files, if the project requires them.
 
+Suppose Dr Alice Smith has set an assignment to create a GUI
+application that requires the students to create image files for the
+application icons. Alice instructs PASS to allow PNG and JPEG files.
+The file selector panel now has a section for allowed binary files.
+(Any PDF or Word reports should be added in the additional files
+section with the dropdown menu set to PDF or DOC, as appropriate.)
+
+> Assignment: Hello World GUI (Due: Fri, 2 Dec 2022 16:30)  
+> 
+> ---  
+>  
+> Make sure that the drop-down menu has the correct file format set. (Use 'Plain Text' for unlisted languages.) The only permitted binary files are: .pdf, .doc, .docx, .png, .jpeg, .jpg  
+>   
+> File search Found Found 3 project files  
+>  
+> Required Files:  
+> `HelloWorldGUI.java`: `/home/vqs23ygl/Projects/HelloWorldGUI/HelloWorldGUI.java` <kbd>📂</kbd> <kbd>Java⏷</kbd>  
+> Additional Files (Optional):  
+> <kbd>_Remove Button_</kbd> _empty_ <kbd>📂</kbd> <kbd>Java⏷</kbd>  
+> <kbd>_Add Button_</kbd>
+>  
+> Binary Files:  
+> <kbd>_Remove Button_</kbd> '/home/vqs23ygl/Projects/HelloWorldGUI/icons/sample.png' <kbd>📂</kbd> image/png   
+> <kbd>_Remove Button_</kbd> '/home/vqs23ygl/Projects/HelloWorldGUI/icons/logo.png' <kbd>📂</kbd> image/png   
+> <kbd>_Add Button_</kbd>
+>  
+> ---  
+>  
+> <kbd>❬ Previous</kbd>  <kbd>❭ Next</kbd>
+
+(Note that this example will need the "Use relative paths" setting
+selected on the previous page as the images are in a sub-directory.)
+
+![Page 4 Pass GUI File Selector With Binary Files Panel](images/pass-gui-cmp101-file-with-binaries-panel.png)
+
 Don't include any files that aren't part of your project source code or
 that aren't a report. Click the "Next" button once you have checked
 that all your files are listed and have had the language correctly
