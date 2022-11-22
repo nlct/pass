@@ -756,7 +756,7 @@ class PassEditor extends JFrame
       if (list.length > 0)
       {
          int result = JOptionPane.showConfirmDialog(null,
-           passTools.getChoiceMessage("message.passed_file", list.length),
+           passTools.getChoiceMessage("message.passed_file", list.length, list.length),
            getMessage("confirm.title"),
            JOptionPane.YES_NO_CANCEL_OPTION, 
            JOptionPane.QUESTION_MESSAGE);
@@ -5595,8 +5595,8 @@ class PassEditor extends JFrame
    private int messageType = MESSAGE_SILENT;
 
    public static final String APP_NAME = "PASS Editor";
-   public static final String APP_VERSION = "1.3.1";
-   public static final String APP_DATE = "2022-11-19";
+   public static final String APP_VERSION = "1.3.2";
+   public static final String APP_DATE = "2022-11-22";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";
