@@ -27,7 +27,7 @@ example below, the course "CMP-101" has been selected.
 
 > Please select your course.  
 > (Cancel will exit this application.)  
-> CMP-101 (Introduction to Java)⏷  
+> <kbd>CMP-101 (Introduction to Java)⏷</kbd>  
 >  
 > <kbd>Cancel</kbd> <kbd>OK</kbd>
 
@@ -241,7 +241,7 @@ long will timeout.
 >  
 > <kbd>🛑</kbd> [Progress Bar] 00:02
 >  
-> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturer's instructions.
 
 ![Page 5 Pass GUI Progress Panel](images/pass-gui-cmp101-process-panel.png)
 
@@ -268,7 +268,7 @@ In this example, the project was processed successfully.
 >  
 > **✔**  
 >  
-> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.  
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturer's instructions.  
 >  
 > --- 
 >  
@@ -303,7 +303,7 @@ to the clipboard. You can then paste it into a text editor.)
 >  
 > **!**  
 >  
-> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.  
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturer's instructions.  
 >  
 > --- 
 >  
@@ -389,7 +389,7 @@ You may find it easier to view the PDF to find this information.
 The PDF should have an "Application" section with "Compiler
 Invocation" and "Compiler Messages" subsections. Make sure that your
 IDE is setup to use the same options, and make the appropriate
-corrects to your source code.  You will then need to rerun Pass GUI.
+corrections to your source code.  You will then need to rerun Pass GUI.
 
 ### Error (Invalid Binary Content)
 
@@ -420,7 +420,7 @@ stays on "Java" and Bob goes ahead and clicks on "Next".
 Now the process will fail with a `MalformedInputException` error and
 no PDF will be created.
 
-> Process Failed. Temporary files in '/tmp/prepasg6478359002371278718' will be deleted on exit.  
+> Process Failed. Temporary files in '/tmp/prepasg1221888218071866729' will be deleted on exit.  
 > Something went wrong while testing the application. Please check the PDF file.  
 > Something went wrong while compiling the PDF.  
 > A binary file may have been added where a text file was expected (or wrong encoding used).  
@@ -429,7 +429,7 @@ no PDF will be created.
 >  
 > **!**  
 >  
-> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturers instructions.  
+> If you make any subsequent modifications to your assignment, you will need to rerun PASS GUI. Once you have checked the PDF, please submit it according to your lecturer's instructions.  
 >  
 > --- 
 >  

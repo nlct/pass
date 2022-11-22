@@ -20,6 +20,11 @@ be copied to the appropriate device:
     with another appropriate script. The device will need
     Java and TeX installed, see [`README.md`](README.md).
 
+  Pass CLI can also be installed alongside Pass GUI as an
+  alternative to the graphical interface in the event that there
+  are any students who find a command line interface more
+  accessible.
+
   - `pass-cli-server.tgz`: this should be unpacked on the server
     that will be used for Server Pass. It then needs to be
     incorporated into a Docker image. See the [Server Pass](server-pass)

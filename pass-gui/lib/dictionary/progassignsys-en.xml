@@ -119,7 +119,7 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.abort_search">Abort file search?</entry>
 <entry key="message.abort_search.title">Confirm Abort</entry>
 <entry key="message.cancelling">Cancelling</entry>
-<entry key="message.finished_instructions">If you make any subsequent modifications to your assignment, you will need to rerun {0}. Once you have checked the PDF, please submit it according to your lecturer's instructions.</entry>
+<entry key="message.finished_instructions">If you make any subsequent modifications to your assignment, you will need to rerun {0}. Once you have checked the PDF, please submit it according to your lecturer''s instructions.</entry>
 
 <!-- Encoding info -->
 

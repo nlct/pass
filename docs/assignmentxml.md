@@ -332,7 +332,7 @@ For example, for a C project that must conform to ANSI standards:
 Use one `compiler-arg` element per argument. For example, for a Java
 project that needs to be compatible with Java 8:
 ```xml
-<compiler-arg>-release</compiler-arg>
+<compiler-arg>--release</compiler-arg>
 <compiler-arg>8</compiler-arg>
 ```
 
