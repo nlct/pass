@@ -25,12 +25,14 @@
 <!--
   Compiler arguments can also be specified but this is optional.
   Each argument must be in a separate compiler-arg element.
+  Remove these lines if not applicable.
 -->
   <compiler-arg>--release</compiler-arg>
   <compiler-arg>8</compiler-arg>
 <!--
   Invoker arguments can also be specified but this is optional.
   Each argument must be in a separate invoker-arg element.
+  Remove this if not applicable.
 -->
   <invoker-arg>-Dline.separator=&#x0D;&#x0A;</invoker-arg>
 <!--
@@ -38,8 +40,14 @@
   you need to identify the main source code file. This is 
   the file containing the "main" method for Java, C and C++
   assignments or the runnable file for scripting languages.
+
+  The following file has a template that the student needs to modify.
+  The "template" attribute will be ignored by all except Pass Editor.
+  Remove the "template" attribute if not applicable or change the URL.
 -->
-  <mainfile>HelloWorld.java</mainfile>
+  <mainfile
+   template="http://www.dickimaw-books.com/software/pass/dummy-HelloWorld.java"
+  >HelloWorld.java</mainfile>
  </assignment>
 
  <assignment name="testreadfileinfo">
