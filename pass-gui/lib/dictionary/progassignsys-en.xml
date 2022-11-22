@@ -108,7 +108,7 @@ Use ''{1}'' button to quit without saving.</entry>
 <entry key="message.required">(Required)</entry>
 <entry key="message.reg_num">{0}: </entry>
 
-<entry key="message.file_format.note">Make sure that the drop-down menu has the correct file format set. (Use ''{0}'' for unlisted languages.)</entry>
+<entry key="message.file_format.note">Make sure that the drop-down menu has the correct file format set. (Use ''{0}'' for unlisted languages.) The only permitted binary files are: {1}</entry>
 <entry key="message.project_files">Project Files</entry>
 <entry key="message.no_required_files">No required files.</entry>
 <entry key="message.required_files">Required Files:</entry>

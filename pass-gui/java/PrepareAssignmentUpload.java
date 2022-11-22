@@ -2180,8 +2180,27 @@ public class PrepareAssignmentUpload extends JFrame
       fileListSp = new JScrollPane(box);
       fileListSp.setName(passTools.getMessage("message.project_files"));
 
+      StringBuilder binaryExts = new StringBuilder(".pdf, .doc, .docx");
+
+      if (allowedBinaryFilters != null)
+      {
+         for (int i = 0; i < allowedBinaryFilters.length; i++)
+         {
+            AllowedBinaryFilter filter = (AllowedBinaryFilter)allowedBinaryFilters[i];
+
+            String[] exts = filter.getExtensions();
+
+            for (String ext : exts)
+            {
+               binaryExts.append(", ."+ext);
+            }
+         }
+      }
+
       JTextArea tabMessage = createTextArea(passTools.getMessage(
-        "message.file_format.note", AssignmentData.PLAIN_TEXT));
+        "message.file_format.note", AssignmentData.PLAIN_TEXT,
+         binaryExts.toString()));
+
       tabMessage.setAlignmentX(0);
       box.add(tabMessage);
 
@@ -2255,6 +2274,8 @@ public class PrepareAssignmentUpload extends JFrame
 
       binaryAddButton = createJButton("table/RowInsertAfter", "addbinaryfile");
       panel.add(binaryAddButton);
+
+      box.add(Box.createVerticalGlue());
 
       return fileListSp;
    }
