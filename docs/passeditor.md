@@ -188,13 +188,21 @@ created automatically by Pass Editor. The files will either be empty
 or obtained from a template. The navigation panel shows the file
 listings in a tree structure.
 
-  - ⏷ 📂 [base]
-     + 🗋 `FooBar.java`
-     + ⏷📂 `subdir1` 
-        - 🗋 `Foo.java`
-     + ⏷📂 `subdir2` 
-        - 🗋 `Bar.java`
-        - 🗋 `Foo.java`
+<ul style="list-style-type: none;">
+ <li>⏷ 📂 [base]
+ <ul>
+     <li>🗋 `FooBar.java`
+     <li>⏷📂 `subdir1` 
+     <ul>
+        <li>🗋 `Foo.java`
+     </ul>
+     <li>⏷📂 `subdir2` 
+     <ul>
+        <li>🗋 `Bar.java`
+        <li>🗋 `Foo.java`
+     </ul>
+ </ul>
+</ul>
 
 ![Main Window with Sub Directories](images/pass-editor-main-window-subdirs.png)
 
