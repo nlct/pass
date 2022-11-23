@@ -115,6 +115,9 @@ This will open a file selector which you can use to select the
 `.passed` file.
 
 > Open   
+>  
+> ---  
+>  
 > 🗋 `CMP-101-helloworldjava.passed`  
 > <kbd>Open</kbd> <kbd>Cancel</kbd>
 
@@ -132,6 +135,9 @@ This will open a directory selector dialog to select the directory
 the files are in.
 
 > Select Directory Containing Project Files     
+>  
+> ---  
+>  
 > 📂 `HelloWorldJava`  
 > <kbd>Select</kbd> <kbd>Cancel</kbd>
 
@@ -143,6 +149,9 @@ if you accidentally selected "Import assignment data" instead of
 "Open existing project".
 
 > Confirm  
+>  
+> ---  
+>  
 > I have found 1 (.passed) file in that directory. Do you want to
 > select it?  
 > <kbd>Cancel</kbd> <kbd>No</kbd> <kbd>Yes</kbd>
@@ -154,12 +163,12 @@ If you click "Yes", it will behave as for "Open existing project".
 If you click "No", it will go ahead with the normal import action.
 
 Next the assignment selection dialog box will open, as for "New
-Project". Select the assignment, make sure that you username and
+Project". Select the assignment, make sure that your username and
 registration number are correct, and select the agreement checkbox,
 as for "New Project".
 
 Note that if you import assignment data and you have already created
-a template file, the template won't be fetched.
+a template file, the template won't be fetched (unless you reload it).
 
 ## Main Window
 
@@ -230,6 +239,41 @@ filename.
 Enter the filename and click on "OK" to create the file and open it
 in the editor pane.
 
+A new directory can be created in a similar manner. Select the
+parent directory, then either use the context popup menu or the
+Project menu and select "New Folder". You will be prompted for the
+new directory's name.
+
+> New Folder Name  
+>  
+> ---  
+>  
+> Add a new sub-directory to base directory.  
+> Folder name:  
+> `icons`  
+> <kbd>Cancel</kbd> <kbd>OK</kbd>
+
+![New Folder Dialog Box](images/pass-editor-new-folder.png)
+
+If you want to copy existing files into the project, select the
+directory to copy them into and either use the context popup menu
+or the Project menu and select "Import files". This will open a file
+dialog in which you can select the files to import.
+
+In the example below, the assignment specification allows PNG and
+JPEG files. This means that the file import dialog has PNG and JPEG
+file filters. You can select multiple files at a time.
+
+![Import Files Dialog Box](images/pass-editor-import-binaries.png)
+
+If the selected files are outside of the selected directory, there
+will be a dialog box requesting confirmation to copy the selected
+files into that directory. Click "Yes" to copy the files or "No" to
+cancel. The binary files can be shown in the navigation tree but
+they can't be edited in Pass Editor.
+
+![Imported Files Showing in Navigation Tree Box](images/pass-editor-navigation-imported-files.png)
+
 You can use the navigation tree to move, rename or delete additional
 files but not required files. If a file has been edited outside of
 Pass Editor, you can reload it by selecting the file and then use
@@ -254,7 +298,7 @@ created and opened.
 
 The following types of file tabs are available:
 
-  - Required files (can be edited, can't be deleted, renamed or moved);
+  - Required files (can be edited, but can't be deleted, renamed or moved);
   - Additional files (can be edited, deleted, renamed or moved);
   - Resource files (can't be edited, deleted, renamed or moved);
   - Allowed binary files (can't be edited as they're not text
@@ -265,7 +309,9 @@ The following types of file tabs are available:
 
 The message area is at the bottom of the main window. This has four
 tabs: general messages, compiler messages, messages to STDERR, and
-messages to STDOUT. Below the message area is the status bar that contains two buttons
+messages to STDOUT.
+
+Below the message area is the status bar that contains two buttons
 on the left and the course code and assignment title on the right.
 
 The buttons are:
@@ -276,7 +322,20 @@ The buttons are:
 
 In the middle of the status bar, a progress bar will show when a process
 starts running with an abort button. This is the same process panel
-used in Pass GUI.
+used in Pass GUI. The image below shows the indeterminate state.
+
+![Pass Editor Progress Bar](images/pass-editor-progressbar.png)
+
+All messages are shown the in general messages tab. If Pass Editor
+detects a reference to a filename and line number (for example,
+`HelloWorld.java:14`) it will create a hyperlink, as shown below.
+
+![Pass Editor Messages Tab](images/pass-editor-messages.png)
+
+The Compiler tab simply shows the compiler messages verbatim
+with no hyperlinks.
+
+![Pass Editor Compiler Messages Tab](images/pass-editor-compiler-messages.png)
 
 ### Messages Area
 
