@@ -306,7 +306,11 @@ The following types of file tabs are available:
   - Additional files (can be edited, deleted, renamed or moved);
   - Resource files (can't be edited, deleted, renamed or moved);
   - Allowed binary files (can't be edited as they're not text
-    files).
+    files);
+  - Result files (which should be created by the student's
+    application).
+
+#### Required Files
 
 The following example has a required file open in an editor tab. The
 tab label shows the filename (`HelloWorldGUI.java` in this case)
@@ -331,6 +335,8 @@ file type on the left. On the right is the location of the cursor
 Note that there's no syntax highlighting. The purpose is to provide
 a minimalist code editor. If an IDE is required then use an IDE and
 supply the project files to Pass GUI.
+
+#### Additional Files
 
 In the following a new file has been added called `Sample.java` and
 a start has been made on editing this file. The asterisk next to the
@@ -380,6 +386,8 @@ an application element in the [local `lib/resources.xml` file](resourcexml.md) w
 the label `imageviewer` (for images) or will require support for
 `java.awt.Desktop`.
 
+#### Project Resource Files (Read-Only)
+
 The example below is for a project where two files are supplied by
 the lecturer that need to be read by the student's application. The
 student should not edit these files. (Although, obviously, it is
@@ -414,6 +422,47 @@ The supplied binary file (`dummy.png`) doesn't show the content.
 >  
 
 ![Resource Binary File Tab](images/pass-editor-binary-resource.png)
+
+#### Result Files (Read-Only)
+
+If a project has to create specific files, the Pass Editor will
+search for them and add them to the navigation tree to allow you to
+view them after you have tested your application. The file tab panes
+are similar to the read-only resource file tabs.
+
+The example below is for a project that has to create a text file
+called `output.txt` and an image file called `image.png`. The
+contents of the text file can be viewed.
+
+> `output.txt` 🗙  
+>  
+> ---  
+>  
+> Result File (read only) Ln: 1 Cn: 0
+>  
+> ---  
+>  
+>     Test output.  
+
+![Result Read-Only Text File Tab](images/pass-editor-text-result.png)
+
+The binary file has a button to open the image (if supported).
+
+> `image.png` 🗙  
+>  
+> ---  
+>  
+> Result File (read only) Binary image/png <kbd>🔍</kbd>  
+>  
+> ---  
+>  
+
+![Result Binary File Tab](images/pass-editor-binary-result.png)
+
+As with the read only resource files, it's possible for students to
+open the files in another application and edit them, but PASS won't
+use those files when it creates the PDF. Copies are provided to
+assist with debugging.
 
 ### The Message Area
 
