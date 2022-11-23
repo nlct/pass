@@ -274,6 +274,10 @@ they can't be edited in Pass Editor.
 
 ![Imported Files Showing in Navigation Tree Box](images/pass-editor-navigation-imported-files.png)
 
+All source files that form the project must be listed in the
+navigation tree to ensure that they are included in the PDF created
+by PASS.
+
 You can use the navigation tree to move, rename or delete additional
 files but not required files. If a file has been edited outside of
 Pass Editor, you can reload it by selecting the file and then use
@@ -304,6 +308,72 @@ The following types of file tabs are available:
   - Allowed binary files (can't be edited as they're not text
     files).
 
+The following example has a required file open in an editor tab. The
+tab label shows the filename (`HelloWorldGUI.java` in this case)
+with a close button. (If you close the file, you can reopen it by
+double-clicking on the filename in the navigation pane.)
+
+At the top of the editor pane is a grey panel that indications the
+file type on the left. On the right is the location of the cursor
+(text files only).
+
+> `HelloWorldGUI.java` 🗙  
+>  
+> ---  
+>  
+> Required File <kbd>Java⏷</kbd> Ln: 62 Cn: 0  
+>  
+> ---  
+>  
+
+![Required File Editor Tab](images/pass-editor-navigation-imported-files.png)
+
+Note that there's no syntax highlighting. The purpose is to provide
+a minimalist code editor. If an IDE is required then use an IDE and
+supply the project files to Pass GUI.
+
+In the following a new file has been added called `Sample.java` and
+a start has been made on editing this file. The asterisk next to the
+filename in the tab indicates that the file has been modified and
+not saved.
+
+> `Sample.java`* 🗙  
+>  
+> ---  
+>  
+> Additional File <kbd>Java⏷</kbd> Ln: 4 Cn: 4  
+>  
+> ---  
+>  
+>     public class Sample
+>     {
+>        public Sample
+>        {
+>        }
+>     }
+
+![Additional File Editor Tab](images/pass-editor-additional-file.png)
+
+The binary files that were added earlier can't be edited in Pass
+Editor. They will have to be edited in an image editor, but they
+need to be listed as an additional file to ensure that PASS includes
+them in the PDF.
+
+In this case, the area on the right of the grey panel no longer
+shows the location of the cursor (since there's nothing shown in the
+editor) but instead shows the expected MIME type and a button to
+open the file in an appropriate application.
+
+> `icons/logo.png` 🗙  
+>  
+> ---  
+>  
+> Additional File <kbd>BINARY⏷</kbd> Binary image/png <kbd>🔍</kbd>
+>  
+> ---  
+>  
+
+![Additional Binary File Editor Tab](images/pass-editor-additional-binary.png)
 
 ### The Message Area
 
