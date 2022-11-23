@@ -382,7 +382,7 @@ open the file in an appropriate application.
 ![Additional Binary File Editor Tab](images/pass-editor-additional-binary.png)
 
 Note that the file viewer button <kbd>🔍</kbd> will either require
-an application element in the [local `lib/resources.xml` file](resourcexml.md) with
+an `application` element in the [local `lib/resources.xml` file](resourcexml.md) with
 the label `imageviewer` (for images) or will require support for
 `java.awt.Desktop`.
 
@@ -425,7 +425,7 @@ The supplied binary file (`dummy.png`) doesn't show the content.
 
 #### Result Files (Read-Only)
 
-If a project has to create specific files, the Pass Editor will
+If a project has to create specific files, then Pass Editor will
 search for them and add them to the navigation tree to allow you to
 view them after you have tested your application. The file tab panes
 are similar to the read-only resource file tabs.
@@ -459,12 +459,12 @@ The binary file has a button to open the image (if supported).
 
 ![Result Binary File Tab](images/pass-editor-binary-result.png)
 
-As with the read only resource files, it's possible for students to
+As with the read-only resource files, it's possible for students to
 open the files in another application and edit them, but PASS won't
 use those files when it creates the PDF. Copies are provided to
 assist with debugging.
 
-### The Message Area
+### Messages Area
 
 The message area is at the bottom of the main window. This has four
 tabs: general messages, compiler messages, messages to STDERR, and
@@ -485,7 +485,7 @@ used in Pass GUI. The image below shows the indeterminate state.
 
 ![Pass Editor Progress Bar](images/pass-editor-progressbar.png)
 
-All messages are shown the in general messages tab. If Pass Editor
+All messages are shown in the general messages tab. If Pass Editor
 detects a reference to a filename and line number (for example,
 `HelloWorld.java:14`) it will create a hyperlink, as shown below.
 
@@ -496,7 +496,24 @@ with no hyperlinks.
 
 ![Pass Editor Compiler Messages Tab](images/pass-editor-compiler-messages.png)
 
-### Messages Area
+## Building the Project
+
+There are two build options:
+
+  - The normal method used by the other PASS applications that
+    creates a PDF for submission;
+  - A quick build method.
+
+The normal PASS method involves copying all project files to a
+temporary directory, fetching any project resource files from their
+remote location, compiling and running the application (according to
+the `compile`, `run` or `build` settings) and creating a PDF file.
+
+The quick build method simply compiles the source code in the
+project directory and runs it according to the `compile`, `nopdfrun`
+and `nopdfbuild` settings. This doesn't fetch the project resource
+files from their remote location if local copies already exist.
+
 
 🚧
 
