@@ -372,6 +372,7 @@ Choose ''No'' to simply reload local copy.</entry>
 
 <entry key="message.required_file">Required file {0}</entry>
 <entry key="message.fetching">Fetching {0}</entry>
+<entry key="message.querying">Querying {0}</entry>
 <entry key="message.creating">Creating {0}</entry>
 <entry key="message.detected_local">Detecting local copy of {0}</entry>
 <entry key="message.found_result_file">Found result file {0}</entry>

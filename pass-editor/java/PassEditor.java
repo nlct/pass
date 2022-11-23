@@ -1607,8 +1607,6 @@ class PassEditor extends JFrame
          }
          else
          {
-            messageLn(getMessage("message.fetching", uri));
-
             Path path = copyResource(uri.toURL(), baseDir);
 
             file = path.toFile();
@@ -1819,6 +1817,8 @@ class PassEditor extends JFrame
    {
       long result = 0L;
 
+      messageLn(getMessage("message.querying", source));
+
       int status = passTools.testHttpURLConnection(source);
 
       if (status > 299)
@@ -1851,6 +1851,8 @@ class PassEditor extends JFrame
    private Path copyResource(URL url, File dir, String name) throws IOException
    {
       Path result = null;
+
+      messageLn(getMessage("message.querying", url));
 
       int status = passTools.testHttpURLConnection(url);
 
