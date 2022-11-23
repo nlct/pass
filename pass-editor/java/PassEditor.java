@@ -1658,6 +1658,11 @@ class PassEditor extends JFrame
    public void addResultFiles(Vector<ResultFile> resultFiles, boolean reload)
       throws IOException
    {
+      if (resultFiles.isEmpty())
+      {
+         return;
+      }
+
       PathNode rootNode = (PathNode)navigatorTree.getModel().getRoot();
       File baseDir = getBasePath().toFile();
 
@@ -4082,6 +4087,15 @@ class PassEditor extends JFrame
    public void finishedBuild()
    {
       updateProcessMessageAreas();
+
+      try
+      {
+         addResultFiles(project.getAssignment().getResultFiles(), true);
+      }
+      catch (Exception e)
+      {
+         error(e);
+      }
 
       progressPanel.endProgress();
 
