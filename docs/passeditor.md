@@ -321,7 +321,7 @@ file type on the left. On the right is the location of the cursor
 >  
 > ---  
 >  
-> Required File <kbd>Java⏷</kbd> Ln: 62 Cn: 0  
+> Required File <kbd>Java⏷</kbd> Ln: 62 Cn: 54  
 >  
 > ---  
 >  
@@ -368,12 +368,52 @@ open the file in an appropriate application.
 >  
 > ---  
 >  
-> Additional File <kbd>BINARY⏷</kbd> Binary image/png <kbd>🔍</kbd>
+> Additional File <kbd>BINARY⏷</kbd> Binary image/png <kbd>🔍</kbd>  
 >  
 > ---  
 >  
 
 ![Additional Binary File Editor Tab](images/pass-editor-additional-binary.png)
+
+Note that the file viewer button <kbd>🔍</kbd> will either require
+an application element in the [local `lib/resources.xml` file](resourcexml.md) with
+the label `imageviewer` (for images) or will require support for
+`java.awt.Desktop`.
+
+The example below is for a project where two files are supplied by
+the lecturer that need to be read by the student's application. The
+student should not edit these files. (Although, obviously, it is
+possible for them to do so outside of Pass Editor, but PASS will
+fetch fresh copies when it creates the PDF.)
+
+The text file (`dummy.txt`) can be viewed, but can't be edited in
+Pass Editor.
+
+> `dummy.txt` 🗙  
+>  
+> ---  
+>  
+> Supplied Project File (read only) Ln: 1 Cn: 0
+>  
+> ---  
+>  
+>     Test file.  
+>     Dummy text.
+
+![Resource Read-Only Text File Tab](images/pass-editor-text-resource.png)
+
+The supplied binary file (`dummy.png`) doesn't show the content.
+
+> `dummy.png` 🗙  
+>  
+> ---  
+>  
+> Supplied Project File (read only) Binary image/png <kbd>🔍</kbd>  
+>  
+> ---  
+>  
+
+![Resource Binary File Tab](images/pass-editor-binary-resource.png)
 
 ### The Message Area
 
