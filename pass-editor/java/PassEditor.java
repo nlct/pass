@@ -550,12 +550,15 @@ class PassEditor extends JFrame
 
       compilerLogPane = new JTextArea();
       compilerLogPane.setEditable(false);
+      compilerLogPane.setFont(editorFont);
 
       stdErrPane = new JTextArea();
       stdErrPane.setEditable(false);
+      stdErrPane.setFont(editorFont);
 
       stdOutPane = new JTextArea();
       stdOutPane.setEditable(false);
+      stdOutPane.setFont(editorFont);
 
       logPane = new JTabbedPane();
 
@@ -2140,6 +2143,10 @@ class PassEditor extends JFrame
    public void setEditorFont(Font f)
    {
       editorFont = f;
+
+      compilerLogPane.setFont(editorFont);
+      stdErrPane.setFont(editorFont);
+      stdOutPane.setFont(editorFont);
 
 /*
       if (navigatorTree != null)
@@ -5596,7 +5603,7 @@ class PassEditor extends JFrame
 
    public static final String APP_NAME = "PASS Editor";
    public static final String APP_VERSION = "1.3.2";
-   public static final String APP_DATE = "2022-11-22";
+   public static final String APP_DATE = "2022-11-23";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";
