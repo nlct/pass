@@ -123,7 +123,7 @@ temporary directory created by the PASS Lib backend.
 
 Note the difference between this setting and `--dir`. For example,
 suppose the current directory is `/foo` and the project files are in
-`/bar` then:
+sub-directories of `/bar` then:
 
 ```bash
 pass-cli --dir /bar --file src/File1.java --file src/File2.java --file reports/report.pdf
@@ -138,12 +138,18 @@ pass-cli --file /bar/src/File1.java --file /bar/src/File2.java --file /bar/repor
 The files `/bar/src/File1.java`, `/bar/src/File2.java` and `/bar/reports/report.pdf`
 will all be copied over into the same temporary directory.
 
+```
+/tmp/prepasg<...>/File1.java
+/tmp/prepasg<...>/File2.java
+/tmp/prepasg<...>/report.pdf
+```
+
 Now suppose the `/bar` directory contains a sub-directory called `icons` that
 contains `logo.png` and `sample.png` that are part of the project
 source and need to have their relative directory structure retained.
 
 ```bash
-ls /bar /bar/icons
+$ ls /bar /bar/icons
 /bar/HelloWorldGUI.java
 /bar/icons/logo.png
 /bar/icons/sample.png
@@ -305,7 +311,9 @@ Command line:
 Timeout: &lt;seconds&gt;
 </pre>
 
-Timeout for processes run by the PASS backend.
+Timeout for processes run by the PASS backend (in seconds).
+This may be set in the `resources.xml` file, in which case it can't
+be altered.
 
 ### Messages
 
