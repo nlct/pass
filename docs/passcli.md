@@ -121,6 +121,55 @@ Base-path: &lt;path&gt;
 Use filenames relative to `<path>` when copying them to the
 temporary directory created by the PASS Lib backend.
 
+Note the difference between this setting and `--dir`. For example,
+suppose the current directory is `/foo` and the project files are in
+`/bar` then:
+
+```bash
+pass-cli --dir /bar --file src/File1.java --file src/File2.java --file reports/report.pdf
+```
+
+is equivalent to:
+
+```bash
+pass-cli --file /bar/src/File1.java --file /bar/src/File2.java --file /bar/reports/report.pdf
+```
+
+The files `/bar/src/File1.java`, `/bar/src/File2.java` and `/bar/reports/report.pdf`
+will all be copied over into the same temporary directory.
+
+Now suppose the `/bar` directory contains a sub-directory called `icons` that
+contains `logo.png` and `sample.png` that are part of the project
+source and need to have their relative directory structure retained.
+
+```bash
+ls /bar /bar/icons
+/bar/HelloWorldGUI.java
+/bar/icons/logo.png
+/bar/icons/sample.png
+```
+
+Then:
+
+```bash
+pass-cli --base-path /bar --file /bar/HelloWorldGUI.java --file /bar/icons/logo.png --file /bar/icons/sample.png
+```
+
+will copy the files over maintaining a relative structure:
+
+```
+/tmp/prepasg<...>/HelloWorldGUI.java
+/tmp/prepasg<...>/icons/logo.png
+/tmp/prepasg<...>/icons/sample.png
+```
+
+You can use both `--base-path` and `--dir`. For example:
+
+```bash
+pass-cli --dir /bar --base-path /bar --file HelloWorldGUI.java --file icons/logo.png --file icons/sample.png
+```
+
+
 ### Project File Encoding
 
 Command line: 
