@@ -23,7 +23,7 @@ where `/path/to/pass-cli` is the path to the Pass CLI directory.
 
 Below, `<...>` indicates content you need to supply, `[...]`
 indicates optional content, `+` indicates one or more of whatever
-precedes it, and <kbd>↹</kbd> indicates a Tab character.
+precedes it, and <kbd title="Tab">↹</kbd> indicates a Tab character.
 
 Long switches with values may be specified as _switch_=_value_ or
 _switch_ _value_ (for example, `--file=HelloWorld.java` or
@@ -59,13 +59,13 @@ Each setting should be on a separate line in the form:
 <Setting-name>: <value>
 ```
 
-where `Setting-name` is like the long switch but without the leading
+where `<Setting-name>` is like the long switch but without the leading
 `--` and with an initial capital. For example, if the file
 `example.txt` contains:
 
 <pre>
-Student: vqs23ygl<kbd>↹</kbd>327509401
-Student: jwh22ird<kbd>↹</kbd>423901355
+Student: vqs23ygl<kbd title="Tab">↹</kbd>327509401
+Student: jwh22ird<kbd title="Tab">↹</kbd>423901355
 Course: CMP-101
 Assignment: helloworldjava
 File: ../tests/HelloWorldJava/HelloWorld.java
@@ -99,7 +99,7 @@ Command line:
 "From File" syntax:
 
 <pre>
-File: &lt;path&gt;[<kbd>↹</kbd>&lt;language&gt;]
+File: &lt;path&gt;[<kbd title="Tab">↹</kbd>&lt;language&gt;]
 </pre>
 
 A project file and (optionally) its associated language label (if
@@ -229,7 +229,7 @@ Command line:
 "From File" syntax:
 
 <pre>
-Student: &lt;username&gt;<kbd>↹</kbd>&lt;regnum&gt;
+Student: &lt;username&gt;<kbd title="Tab">↹</kbd>&lt;regnum&gt;
 </pre>
 
 For group projects, use one `--student` switch or `Student:` line
