@@ -1,7 +1,7 @@
 # Pass Editor User Guide
 
 If Pass Editor was installed with the [`pass-editor-installer.jar` installer](install.md)
-then it can be run from the Start menu. Note that this will run
+then Pass Editor can be run from the Start menu. Note that this will run
 Pass Editor in non-debug mode. If the only course in the `resources.xml` file
 has `debug="true"` then no courses will be available.
 
@@ -200,15 +200,15 @@ listings in a tree structure.
 <ul style="list-style: none; ">
  <li>⏷ 📂 [base]
  <ul style="list-style: none; ">
-     <li>🗋 `FooBar.java`
-     <li>⏷📂 `subdir1` 
+     <li>🗋 <code>FooBar.java</code>
+     <li>⏷📂 <code>subdir1</code> 
      <ul style="list-style: none; ">
-        <li>🗋 `Foo.java`
+        <li>🗋 <code>Foo.java</code>
      </ul>
-     <li>⏷📂 `subdir2` 
+     <li>⏷📂 <code>subdir2</code> 
      <ul style="list-style: none; ">
-        <li>🗋 `Bar.java`
-        <li>🗋 `Foo.java`
+        <li>🗋 <code>Bar.java</code>
+        <li>🗋 <code>Foo.java</code>
      </ul>
  </ul>
 </ul>
@@ -496,26 +496,85 @@ with no hyperlinks.
 
 ![Pass Editor Compiler Messages Tab](images/pass-editor-compiler-messages.png)
 
+## Group Projects
+
+Group projects need to have a list of all the students in the group.
+Use the Project ⏵ Project Details... menu item to open the Project
+Details dialog. Use the "append new row" button to create a new row
+in the student table for each student in the group.
+
+> Project Details  
+>  
+> ---  
+>  
+> CMP-101: Introduction to Java  
+> Hello World Java  
+> Due: Tues, 28 Feb 2017 16:30  
+>  
+> For group projects, add a row for each member of the group.  
+>  
+> | | Blackboard ID | Student Number |  
+> | --- | --- | --- |  
+> | Student 1 | `vqs23ygl` | `327509401` |  
+> | Student 2 | `jwh22ird` | `423901355` |  
+>  
+>  ---  
+>  
+> <kbd>Okay</kbd> <kbd>Cancel</kbd> <kbd>Help</kbd>
+
+![Pass Editor Project Details Dialog](images/pass-editor-project-details.png)
+
 ## Building the Project
 
 There are two build options:
 
+  - A quick test build method for testing;
   - The normal method used by the other PASS applications that
-    creates a PDF for submission;
-  - A quick build method.
+    creates a PDF for submission.
+
+### Test Build (No PDF)
+
+File ⏵ Test Build
+
+The test build function simply compiles the source code in the
+project directory and runs it according to the `compile`, `nopdfrun`
+and `nopdfbuild` settings. This doesn't fetch the project resource
+files from their remote location if local copies already exist.
+This method is intended for testing the application while it's being
+developed.
+
+The `nopdfrun` or `nopdfbuild` settings may allow a GUI application
+to be run in the test build. If so, the message area won't be
+updated until the test application has exited.
+
+The example below shows the test build for the "Hello World GUI"
+assignment, which opens a window with the text "Hello World!" next to a
+sample image. The progress bar is an indeterminate state,
+and will remain that way until the Hello World GUI application is
+exited.
+
+![Pass Editor Test Build](images/pass-editor-test-build.png)
+
+### Run PASS
+
+File ⏵ Run PASS
 
 The normal PASS method involves copying all project files to a
 temporary directory, fetching any project resource files from their
 remote location, compiling and running the application (according to
 the `compile`, `run` or `build` settings) and creating a PDF file.
+This is the same action as performed by Pass GUI. If the PDF is
+successfully created, a save dialog box will open to allow you to
+save the PDF. Once the PDF is saved, Pass Editor will automatically
+open it, if supported.
 
-The quick build method simply compiles the source code in the
-project directory and runs it according to the `compile`, `nopdfrun`
-and `nopdfbuild` settings. This doesn't fetch the project resource
-files from their remote location if local copies already exist.
+The example below has the PASS backend running. The progress bar is
+in a determinate state. 
 
+![Pass Editor Run PASS](images/pass-editor-run-pass.png)
 
-🚧
+Remember to check the PDF and submit it according to your lecturer's
+instructions.
 
 ---
 
