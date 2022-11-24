@@ -1556,7 +1556,9 @@ class PassEditor extends JFrame
    public FileTextField addAdditionalFileComponent(File file)
    throws IOException
    {
-      addFile(new ProjectFile(file), false);
+      ProjectFile pf = new ProjectFile(file);
+
+      project.addFile(pf);
       
       return null;
    }
@@ -1567,8 +1569,9 @@ class PassEditor extends JFrame
    {
       AssignmentData assignment = project.getAssignment();
 
-      addFile(
-        new ProjectFile(file, assignment.getAllowedBinaryFilter(file)), false);
+      ProjectFile pf = new ProjectFile(file, assignment.getAllowedBinaryFilter(file));
+
+      project.addFile(pf);
 
       return null;
    }
@@ -4108,6 +4111,9 @@ class PassEditor extends JFrame
    {
       updateProcessMessageAreas();
 
+      progressPanel.endProgress();
+      currentWorker = null;
+
       enableTools(true);
 
       if (successful)
@@ -4183,9 +4189,6 @@ class PassEditor extends JFrame
             error(e);
          }
       }
-
-      progressPanel.endProgress();
-      currentWorker = null;
    }
 
    public void setModified(boolean modified)
@@ -5619,7 +5622,7 @@ class PassEditor extends JFrame
 
    public static final String APP_NAME = "PASS Editor";
    public static final String APP_VERSION = "1.3.2";
-   public static final String APP_DATE = "2022-11-23";
+   public static final String APP_DATE = "2022-11-24";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
    private static final String ABOUT_URL="https://www.dickimaw-books.com/software/pass/";

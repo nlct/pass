@@ -188,12 +188,16 @@ public class Project
       }
    }
 
-   public void addFile(ProjectFile projectFile)
+   public boolean addFile(ProjectFile projectFile)
    {
       if (!files.contains(projectFile))
       {
          files.add(projectFile);
+
+         return true;
       }
+
+      return false;
    }
 
    public void removeFile(ProjectFile projectFile)
