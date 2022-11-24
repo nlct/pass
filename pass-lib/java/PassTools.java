@@ -1322,7 +1322,7 @@ public class PassTools
     */
    public File createTempDirectory() throws IOException
    {
-      if (tmpDir == null)
+      if (tmpDir == null || !tmpDir.exists())
       {
          tmpDir = Files.createTempDirectory("prepasg").toFile();
       }
