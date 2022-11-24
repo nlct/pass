@@ -524,6 +524,8 @@ in the student table for each student in the group.
 
 ![Pass Editor Project Details Dialog](images/pass-editor-project-details.png)
 
+A single row indicates a solo project.
+
 ## Building the Project
 
 There are two build options:
@@ -551,7 +553,7 @@ The example below shows the test build for the "Hello World GUI"
 assignment, which opens a window with the text "Hello World!" next to a
 sample image. The progress bar is an indeterminate state,
 and will remain that way until the Hello World GUI application is
-exited.
+exited or the process times out.
 
 ![Pass Editor Test Build](images/pass-editor-test-build.png)
 
