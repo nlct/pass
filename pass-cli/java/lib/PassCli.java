@@ -804,7 +804,7 @@ public class PassCli implements Pass
       printWrapMessage("syntax.directory", "--directory", "-d", "--file");
 
       System.out.println();
-      printWrapMessage("syntax.message", "--message", "-m");
+      printWrapMessage("syntax.message", "--messages", "-m");
 
       for (int i = 0; i < MESSAGE_LEVEL_LABELS.length; i++)
       {
@@ -1562,8 +1562,8 @@ public class PassCli implements Pass
    protected boolean allowDebugCourse = true;
 
    public static final String APP_NAME="pass-cli";
-   public static final String APP_VERSION="1.3.1";
-   public static final String APP_DATE="2022-11-19";
+   public static final String APP_VERSION="1.3.2";
+   public static final String APP_DATE="2022-11-24";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";

@@ -94,7 +94,7 @@ the default for the Java installation will be used.
 If set, files identified with B<--file> (or B<File:>) 
 are relative to the directory I<dir>.
 
-=item B<--message> I<id> or B<-m> I<id>
+=item B<--messages> I<id> or B<-m> I<id>
 
 Identifies the types of messages that are printed to STDOUT or STDERR. The
 I<id> may be either a numeric value or a keyword:
