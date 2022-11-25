@@ -10,7 +10,7 @@ make ../dist/pass-cli-server.tgz
 ```
 
 FTP the archive to the server. (Change the port number, username and
-server as applicable).
+server as applicable). For Alice, this is:
 
 ```bash
 cd ../dist
@@ -34,16 +34,26 @@ ssh -P 22 ans@cmp-server-01.example.com
 tar zxvf pass-cli-server.tgz
 cd pass-cli-server
 cp lib/resources.xml /var/www/html
-docker build --network=host --tag pass:latest .
 ```
 
 This copies the local `resources.xml` to the web root to ensure that
-the frontend website references the same courses as the backend. The
-`docker` command builds the Docker image with the `pass-cli-server`
-application installed in it. This needs to be done whenever a new
-version of `pass-cli-server` is available (although you don't need
-to copy the `resources.xml` file to `/var/www/html` if it hasn't
-changed).
+the frontend website references the same courses as the backend.
+
+The Docker image is based on the Debian image with the JDK, C and
+C++ compilers installed and also `pass-cli-server`. If Alice isn't
+in the UK, she will have to edit the Docker image to change the
+locale as appropriate (replace all instances of `en_GB` with the
+required locale tag). The JDK version may need changing if a newer
+version is required.
+
+The Docker image can then be built with:
+```bash
+docker build --network=host --tag pass:latest .
+```
+
+This needs to be done whenever a new version of `pass-cli-server` is
+available (although you don't need to copy the `resources.xml` file
+to `/var/www/html` if it hasn't changed).
 
 ---
 

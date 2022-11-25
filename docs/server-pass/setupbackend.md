@@ -29,18 +29,27 @@ This should create the following:
     (permissions `-rw-r-----`, user `passdocker` and group
     `www-data`);
 
-Assuming that Alice has FTP'd the template file
-`passconsumer.php-template` to her home directory `/home/ans/`, she
-now needs to copy it over:
+Assuming that Alice has FTP'd and unpacked the `server-files.tgz`
+archiive to her home directory from the [frontend
+setup](setupfrontend.md), she now needs to copy it over the template
+file:
 
 ```bash
-cp /home/ans/passconsumer.php-template passconsumer.php
+cp /home/ans/server-files/backend/passconsumer.php-template passconsumer.php
 chmod 770 passconsumer.php
 ```
 
 Next Alice needs to edit this file and change the `connectConsumer`
 function so that it has the correct RabbitMQ username and password.
-(Also change the hostname and port, if applicable.)
+(Also change the hostname and port, if applicable.) This should
+match the RabbitMQ details in the [`inc/config.php` file](setupfrontend.md).
+
+Alice may also be interested in copying over the `findnonascii.pl`
+script to `/scratch/passdocker` as well, but this is optional. This
+script can be used to find source code files that have non-ASCII
+characters in the event that a student reports that PASS is giving
+encoding warnings and they can't work out what their non-ASCII
+content is.
 
 The backend can now be started:
 

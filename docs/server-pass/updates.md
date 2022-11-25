@@ -35,6 +35,9 @@ nohup ./passconsumer.php &
 exit
 ```
 
+(You may want to empty the log files first, but if you delete them,
+make sure you create them again with the correct permissions.)
+
 ---
 
  - Prev: Installation ⏵ [Setting Up the Backend](setupbackend.md)

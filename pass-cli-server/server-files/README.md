@@ -1,3 +1,5 @@
+# Server Pass Files
+
 Requirements:
 
   - Web server
@@ -17,4 +19,5 @@ This assumes that student email addresses can be formed by their University
 username (Blackboard ID) appended with the University's domain name.
 No alternative email addresses are permitted.
 
-🚧 Pending PHP files.
+See [documentation](https://github.com/nlct/pass/tree/main/docs/server-pass) for further
+details.

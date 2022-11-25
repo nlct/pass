@@ -11,47 +11,127 @@ In addition to the [general assumptions](../README.md), also assume:
     server can only connect to URLs that are sub-paths of
     `http://cmp.example.com/pass/` (where the Pass XML files and
     associated assignment files are) and other appropriate security
-    settings;
+    settings are in place, such as limiting access to the server;
 
-  - the server has http server software installed with support for PHP and
-    document root `/var/www/html` and supplementary directory
+  - the server has http server software installed with 
+    document root `/var/www/html` and a supplementary directory
     `/var/www/inc` (which both have RW access for group `web-admin` and
-    read access for the web user `www-data`);
+    read access for the web user `www-data`) and support for:
+    + PHP
+    + mysqli
+    + json
+    + SimpleXML
+    + sodium
 
   - the server has MySQL installed;
 
   - the server has Docker installed;
 
-  - the server has RabbitMQ Docker image running;
+  - the server has a RabbitMQ Docker image with a container running (that can be
+    restarted with `docker start rabbitmq`);
 
-  - the server has TeX Live installed in `/scratch/texlive` (for
-    example, TL2022 is in `/scratch/texlive/2022`);
-
-  - the scratch space is used for PASS:
-    + a user `passdocker` with home `/scratch/passdocker`
-      (permissions `drwxr-xr-x`, user `passdocker` and group `passdocker`);
+  - the scratch space is used for PASS with:
+    + a user `passdocker` (for the backend):
+      - belonging to groups `passdocker`, `www-data` and `docker`;
+      - with home directory `/scratch/passdocker`
+        (permissions `drwxr-xr-x`, user `passdocker` and group `passdocker`);
     + upload directory `/scratch/uploads` with RW access for
       the web server user `www-data` and read access for
       group `www-data`;
-    + PHP error log `/scratch/uploads/php_errors.log` with read
-      access for group `www-data` as well as RW access for the
-      web server user `www-data`;
+    + PHP error log `/scratch/uploads/php_errors.log` with RW access for the
+      web server user `www-data` and group `www-data`;
+    + TeX Live installed in `/scratch/texlive` (for
+      example, TL2022 is in `/scratch/texlive/2022`);
 
   - Alice has an account on the server with her username `ans` and
     home directory `/home/ans`, she belongs to the following groups:
-    + `docker` (which allows her to run `docker` without `sudo`)
-    + `www-data`
-    + `web-admin`
+    + `docker` (which allows her to run `docker` without `sudo`);
+    + `www-data` (which allows her to read files that the frontend website
+      can read);
+    + `web-admin` (which allows her to read and write the frontend website
+      pages).
 
   - Alice can switch to the `passdocker` user with `sudo su - passdocker`.
 
 ## Installation
 
- - [Setting Up the Frontend](setupfrontend.md)
- - [Building the PASS Docker Image](buildingimage.md)
- - [Setting Up the Backend](setupbackend.md)
- - [Updates](updates.md)
+Alice will have to ask her IT support to ensure all the above. She then
+may be able to do the rest of the installation by following the
+instructions below.
 
+ 1. [Setting Up the Frontend](setupfrontend.md)
+ 2. [Building the PASS Docker Image](buildingimage.md)
+ 3. [Setting Up the Backend](setupbackend.md)
+ 4. [Updates](updates.md)
+
+## How Server Pass Works
+
+The frontend is a website where students create an account, login
+and upload their project files. The upload page is a web equivalent
+to Pass GUI: select the course, select the assignment, identify
+members for group projects, select all project source files, and tick
+the agreement checkbox. However, instead of then running PASS
+directly, the site saves all the files in a sub-directory of
+`/scratch/uploads`, adds the job details to the message queue
+(RabbitMQ), and adds the job information to the website's database.
+
+The student is then redirected to the view uploads page. They can
+either hang around looking at this page while it periodically
+reloads itself until the job is marked as completed in the database
+or they can logout and do something else. If there's a long queue
+(which can happen if everyone uses the site at the last minute), the
+view uploads page will list their job's place in the queue.
+
+The backend consists of a script called `passconsumer.php` that runs
+in the background. It repeatedly queries the message queue for jobs
+and, if the queue is non-empty, pops off the first message.
+
+The upload directories all have the naming scheme
+_YYYY_`-`_MM_`-`_DD_`T`_hhmmssSSSTz_`_`_token_ where _YYYY_ is the
+four digit year, _MM_ is the two digit month, _DD_ is the two digit
+day of month, _hh_ is the two digit hour, _mm_ is the two digit
+minutes, _ss_ is the two digit seconds, _SSS_ is the three digit
+milliseconds and _Tz_ is the signed (`+` or `-`) four digit time zone
+(for example, `+0100` for BST). The token is a lowercase alphanumeric
+(`a`–`z`, `0`–`9`) sequence of 10 characters and is randomly generated by the frontend.
+
+Each message in the queue is JSON-encoded containing the numeric job ID,
+the upload timestamp, and the token.
+
+The frontend not only saves all project files in the upload
+directory, but also creates a `.txt` file in the format required by
+[Pass CLI's `--from-file` switch](../passcli.md). The backend reads
+this file and picks up the usernames and the result PDF filename.
+
+The backend then starts a Pass Docker container (based on Debian) with
+the server's `/scratch/texlive` mounted read-only onto the container's
+`/usr/local/texlive` path, the upload directory mounted read-only onto
+the container's `/usr/src/app/files` path, and runs `pass-cli-server`:
+<pre>
+pass-cli-server --job-id <em>JobID</em> --encoding UTF-8 --transcript pass.log --directory files --from-file files/<code>settings-file</code>
+</pre>
+where _JobID_ is the job ID obtained from the message queue, and
+_settings-file_ is the `.txt` file the frontend created.
+(UTF-8 is the encoding for the transcript file and settings file,
+and matches the default encoding set in the Docker image. It
+may not be the encoding of the student's uploaded source code, which
+hopefully they correctly identified, but it's best to encourage them
+to use UTF-8 where possible.)
+
+If the container process finishes successfully, a new directory is created
+inside `/scratch/passdocker/completed/` and the backend will copy
+the PDF and `pass.log` files from the container into that
+new directory. The backend updates the job's status to "completed" in
+the database and sends an email to each supplied username to inform
+them that the process has completed. If the PDF was successfully
+created, the student will then be able to download it from the view
+uploads page.
+
+The backend is started up using `nohup` so any error messages
+written by the backend to STDERR will be written to `nohup.out`.
+Other messages (information about each submission that's processed)
+is written to `passdocker.log`. The frontend admin area has a page
+that checks these files for errors and other messages.
 
 ## Website Documentation
 

@@ -1,0 +1,394 @@
+#!/usr/bin/env php
+<?php
+/*
+   Copyright 2022 Nicola L. C. Talbot
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ 
+*  Server Pass Backend.
+*/
+
+const WWW_DIR='/var/www';
+const WWW_GROUP='www-data';
+const TEXLIVE_DIR='/scratch/texlive';
+const LOG_DATE_FORMAT='Y-m-d H:i';
+
+require_once WWW_DIR . '/inc/Pass.php';
+require_once WWW_DIR . '/inc/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Exception\AMQPRuntimeException;
+
+const WAIT_BEFORE_RECONNECT_uS = 1000000;
+
+$pass = new Pass();
+
+$connection=null;
+$channel = null;
+
+$callback = function($msg)
+{
+   global $pass;
+
+   $pass->db_connect(); // does nothing if already connected (may have timed out)
+
+   $job = json_decode($msg->body, $assocForm=true);
+
+   logMessage("Starting submission ID " . $job['submission_id']);
+
+   $pass->setParam('submission_id', $job['submission_id']);
+
+   $pass->updateSubmissionStatus($job['submission_id'], 'processing');
+
+   $exitCode = runPass($job);
+
+   $pass->updateSubmissionStatus($job['submission_id'], 'processed', $exitCode);
+
+   // send message
+
+   $err_msgs = $pass->sendJobProcessedEmail($exitCode, $job);
+
+   foreach ($err_msgs as $errmsg)
+   {
+      errorMessage($errmsg);
+   }
+
+   logMessage("Finished submission ID " . $job['submission_id'] . ". Exit code: $exitCode");
+
+   $pass->unsetParam('submission_id');
+};
+
+// https://github.com/php-amqplib/php-amqplib/blob/master/demo/connection_recovery_consume.php
+function cleanup_connection($connection)
+{
+   // Connection might already be closed.
+   // Ignoring exceptions.
+   try
+   {
+      if($connection !== null)
+      {
+         $connection->close();
+      }
+   } catch (\ErrorException $e)
+   {
+   }
+}
+
+function shutdown($connection)
+{
+   if ($channel !== null)
+   {
+      $channel->close();
+   }
+
+   if ($connection !== null)
+   {
+      $connection->close();
+   }
+}
+
+while (true)
+{
+   try
+   {
+      checkRabbitMQRunning();
+
+      $connection = connectConsumer();
+      register_shutdown_function('shutdown', $connection);
+
+      $channel = $connection->channel();
+      $channel->queue_declare('pass', false, false, false, false);
+
+      $channel->basic_consume('pass', '', false, true, false, false, $callback);
+
+      while ($channel->is_consuming())
+      {
+         $channel->wait();
+      }
+   }
+   catch(AMQPRuntimeException $e)
+   {
+       errorMessage('AMQPRuntime exception '. $e->getMessage());
+       cleanup_connection($connection);
+       usleep(WAIT_BEFORE_RECONNECT_uS);
+   }
+   catch(\RuntimeException $e)
+   {
+       errorMessage('Runtime exception '. $e->getMessage());
+       cleanup_connection($connection);
+       usleep(WAIT_BEFORE_RECONNECT_uS);
+   }
+   catch(\ErrorException $e)
+   {
+       errorMessage('Error exception '. $e->getMessage());
+       cleanup_connection($connection);
+       usleep(WAIT_BEFORE_RECONNECT_uS);
+   }
+}
+
+function checkRabbitMQRunning()
+{
+   exec("docker ps --all --filter \"name=^rabbitmq\" --format \"{{.ID}}\t{{.State}}\t{{.Status}}\"", $output, $exitCode);
+
+   if ($exitCode !== 0)
+   {
+      errorMessage("Failed to get RabbitMQ container status. Exit code=$exitCode.",
+        $output);
+   }
+
+   if (!empty($output))
+   {
+      if (is_array($output))
+      {
+         if (count($output) > 1)
+         {
+            errorMessage("Multiple RabbitMQ containers found.", $output);
+         }
+
+         $output = $output[0];
+      }
+
+      $result = explode("\t", $output);
+
+      $id = $result[0];
+      $status = $result[1];
+      $status_details = $result[2];
+
+      if ($status === 'exited')
+      {
+         logMessage("RabbitMQ container (ID: $id) has exited.  Attempting to restart.");
+
+         exec("docker start rabbitmq", $output, $exitCode);
+
+         if ($exitCode !== 0)
+         {
+            errorMessage("Failed to restart RabbitMQ container. Exit code=$exitCode.",
+              $output);
+         }
+         else
+         {
+            logMessage("Started rabbitmg " . $output);
+         }
+      }
+      elseif ($status !== 'running')
+      {
+         errorMessage("RabbitMQ not running or exited. Status: $status_details");
+      }
+   } 
+   else
+   {
+      errorMessage("No RabbitMQ container detected.");
+   }
+}
+
+function runPass(&$job)
+{
+   global $pass;
+
+   $exitCode = -1;
+
+   $uploaddir = $pass->getUploadPath() . '/';
+   $logfile = 'pass.log';
+
+   if (!preg_match('/^\d{4}-\d{2}-\d{2}T\d{9}[+\-]\d{4}$/', $job['time']))
+   {
+      errorMessage('Invalid time \'' . $job['time'] . '\'');
+      return $exitCode;
+   }
+
+   if (!preg_match('/^[a-z0-9]+$/', $job['token']))
+   {
+      errorMessage('Invalid token \'' . $job['token'] . '\'');
+      return $exitCode;
+   }
+
+   $dirbasename = $job['time'].'_'.$job['token'];
+   $fulldir = $uploaddir . $dirbasename;
+   $settingsfile = "pass-settings-".$job['token'].'.txt';
+   $completedpath = $pass->getCompletedPath() . "/$dirbasename";
+
+   if (!mkdir($completedpath, 0750))
+   {
+      errorMessage("Failed to mkdir '$completedpath'");
+      return $exitCode;
+   }
+
+   chgrp($completedpath, WWW_GROUP);
+
+   $container = preg_replace('/[^a-zA-Z0-9\-]/', '_', $dirbasename);
+
+   if (is_readable("$fulldir/$settingsfile"))
+   {
+      $pdffile = null;
+
+      $fh = fopen("$fulldir/$settingsfile", "r");
+
+      if (!$fh)
+      {
+         errorMessage("Failed to open '$fulldir/$settingsfile'");
+         return $exitCode;
+      }
+
+      $job['user_ids'] = array();
+
+      while (!feof($fh))
+      {
+         $line = fgets($fh);
+
+         if (preg_match('/^Pdf-result: *(.+)$/', $line, $matches))
+         {
+            $pdffile = $matches[1];
+         }
+         elseif (preg_match('/^Student: *(.+)\t.*/', $line, $matches))
+         {
+            array_push($job['user_ids'], $matches[1]);
+         }
+         elseif (preg_match('/^User-id: *(.+)/', $line, $matches))
+         {
+            $job['user_ids'] = explode(',', $matches[1]);
+         }
+      }
+
+      fclose($fh);
+
+      if (!isset($pdffile))
+      {
+         errorMessage("Unable to find PDF file name in '$fulldir/$settingsfile'");
+         return $exitCode;
+      }
+
+      // Mount TEXLIVE_DIR so that it maps onto /usr/local/texlive
+      // inside the container.
+      // (/usr refers to path inside Docker container)
+
+      exec(sprintf("docker create --network=host --mount type=bind,source=%s,destination=/usr/local/texlive,readonly --mount type=bind,source=%s/%s,destination=/usr/src/app/files,readonly --name %s pass:latest pass-cli-server --job-id %d --encoding UTF-8 --transcript %s --directory files --from-file files/%s",
+        TEXLIVE_DIR, $uploaddir, $dirbasename, $container, $job['submission_id'], $logfile, $settingsfile),
+        $output, $exitCode);
+
+      if ($exitCode !== 0)
+      {
+         errorMessage("Failed to create container '$container'. Exit code=$exitCode", $output);
+         return $exitCode;
+      }
+
+      unset($output);
+      exec("docker start -a $container", $output, $exitCode);
+
+      $returnExitCode = $exitCode;
+
+      if ($exitCode !== 0)
+      {
+         errorMessage("Process failed in container $container. Exit code=$exitCode", $output);
+      }
+
+      unset($output);
+      exec("docker container cp $container:/usr/src/app/$logfile $completedpath/$logfile",
+            $output, $exitCode);
+
+      if ($exitCode !== 0)
+      {
+         errorMessage("Failed to cp $logfile from container $container. Exit code=$exitCode", $output);
+
+         if ($returnExitCode === 0)
+         {
+            $returnExitCode = -2;
+         }
+      }
+      else
+      {
+         chgrp("$completedpath/$logfile", WWW_GROUP);
+      }
+
+      unset($output);
+      exec("docker container cp $container:/usr/src/app/$pdffile $completedpath/$pdffile",
+            $output, $exitCode);
+
+      if ($exitCode !== 0)
+      {
+         errorMessage("Failed to cp $pdffile from container $container. Exit code=$exitCode", $output);
+
+         if ($returnExitCode === 0)
+         {
+            $returnExitCode = -3;
+         }
+      }
+      else
+      {
+         chgrp("$completedpath/$pdffile", WWW_GROUP);
+      }
+
+      unset($output);
+      exec("docker rm $container", $output, $exitCode);
+
+      if ($exitCode !== 0)
+      {
+         errorMessage("Failed to rm container $container. Exit code=$exitCode", $output);
+
+         if ($returnExitCode === 0)
+         {
+            $returnExitCode = -4;
+         }
+      }
+
+      $exitCode = $returnExitCode;
+   }
+   else
+   {
+      errorMessage("Settings file '$fulldir/$settingsfile' is not readable");
+   }
+
+   return $exitCode;
+}
+
+function logMessage($msg)
+{
+   global $pass;
+
+   error_log(date(LOG_DATE_FORMAT) . ' ' . "INFO: $msg" . PHP_EOL, 3,
+      $pass->getDockerPath() .  '/passdocker.log');
+}
+
+function errorMessage($msg, $output=null)
+{
+   global $pass;
+
+   if ($pass->isParamSet('submission_id'))
+   {
+      $msg = "[Submission " . $pass->getParam('submission_id') . "] $msg";
+   }
+
+   if (!empty($output))
+   {
+      if (is_array($output))
+      {
+         $msg .= PHP_EOL . implode(PHP_EOL, $output);
+      }
+      else
+      {
+         $msg .= PHP_EOL . $output;
+      }
+   }
+
+   error_log(date(LOG_DATE_FORMAT) . ' ' . $msg . PHP_EOL, 3, 
+     $pass->getDockerPath() . '/passdocker.log');
+}
+
+// TEMPLATE: change the connection details
+function connectConsumer()
+{
+   // parameters: host, port, RabbitMQ username, RabbitMQ password
+   return new AMQPStreamConnection('localhost', 5672,
+     '***INSERT RABBITMQ USER HERE***', '***INSERT PASSWORD HERE***');
+}
+
+?>
+
