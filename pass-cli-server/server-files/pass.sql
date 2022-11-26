@@ -18,7 +18,6 @@ CREATE TABLE users
    username VARCHAR(12) NOT NULL UNIQUE,
    regnum VARCHAR(12) DEFAULT NULL UNIQUE,
    password VARCHAR(255) NOT NULL,
-   code VARCHAR(255) DEFAULT NULL,
    role ENUM('student', 'staff', 'admin') DEFAULT 'student',
    status ENUM('active', 'pending', 'blocked') DEFAULT 'pending',
    account_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
