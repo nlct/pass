@@ -1,7 +1,10 @@
 # Admin - Configuration
 
 The Configuration page is available to admin users via the 
-**Admin** ⏵ **Configuration** link. The following settings are available:
+**Admin** ⏵ **Configuration** link. Once you have made all the
+necessary changes, make sure that you click on the "Update" button.
+
+The following settings are available:
 
 ## Debug
 
@@ -98,3 +101,9 @@ be sent to this user instead.
 
 In the event of an error, the user is told to get help from this
 person.
+
+---
+
+Previous : [README](README.md)
+Next : Admin ⏵  [Users](admin-users.md)
+ 

@@ -40,9 +40,8 @@ chmod 770 passconsumer.php
 ```
 
 Next Alice needs to edit this file and change the `connectConsumer`
-function so that it has the correct RabbitMQ username and password.
-(Also change the hostname and port, if applicable.) This should
-match the RabbitMQ details in the [`inc/config.php` file](setupfrontend.md).
+function so that it has the correct RabbitMQ _consumer_ username and password.
+(Also change the port, if applicable.)
 
 Alice may also be interested in copying over the `findnonascii.pl`
 script to `/scratch/passdocker` as well, but this is optional. This
