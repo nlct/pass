@@ -442,6 +442,8 @@ With Server Pass, the logging system can be used to determine when
 the student's code was queued for processing, and the PDF files are
 all stored read-only on the server.
 
+See the [documentation](docs/README.md) for further details.
+
 ## BUILD AND INSTALLATION
 
 To run the Pass applications, you will need to have the relevant
@@ -546,7 +548,7 @@ compares it with other information in the PDF file to determine the
 likelihood that the PDF file has been altered after Pass created it.
 It will flag any late submissions or possible discrepancies.
 
-See the [documentation](docs/complile.md) for further details.
+See the [documentation](docs/compile.md) for further details.
 
 ## DISCLAIMER
 
