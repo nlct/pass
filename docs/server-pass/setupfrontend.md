@@ -424,6 +424,6 @@ top of the page.
 
 ---
 
- - Previous: [README](README.md)
+ - Previous: [Server Pass Setup](setupinit.md)
  - Next: Installation ⏵ [Building the PASS Docker Image](buildingimage.md)
 
