@@ -15,26 +15,26 @@ students had to hand-in printouts of their source code. Later, this
 was changed to uploading their source code as a zip file. Both
 methods had drawbacks:
 
- - With the original hard-copy submission, students were asked to 
+ - With the original hard-copy submission, students were asked to
    order their files in a certain way that made the assignment
    easier to mark. Unfortunately, students would often send all
-   their files to the printer in one batch and hand in the printouts 
-   in the order they came out of the printer, which was usually 
-   alphabetical order. While it may only take half a minute to 
-   re-order one submission, this adds up to a lot of wasted minutes 
+   their files to the printer in one batch and hand in the printouts
+   in the order they came out of the printer, which was usually
+   alphabetical order. While it may only take half a minute to
+   re-order one submission, this adds up to a lot of wasted minutes
    for someone who has to mark 100+ submissions.
 
- - University regulations require the student to include their 
+ - University regulations require the student to include their
    registration number on their coursework. The marker requires
-   the student's username to log their mark. (Looking up the 
+   the student's username to log their mark. (Looking up the
    username from the registration number voids anonymity as the
-   student's name is revealed in the process.) 
+   student's name is revealed in the process.)
    Sometimes one or both pieces of information is missing from
    printouts.
 
  - With the zip upload, the archive often contained unnecessary
    clutter, such as class files, object files, and IDE project files.
-   In a few cases, the archive contained everything except the 
+   In a few cases, the archive contained everything except the
    actual source code. Sometimes the student prepared their
    assignment on their own laptop, which turned out to be infected
    with malware that then infected the zip file.
@@ -50,13 +50,13 @@ methods had drawbacks:
 Regardless of the submission method, there are other issues:
 
   - Students are provided with a file (such as a CSV file) that
-    their application needs to load. These files will typically have 
+    their application needs to load. These files will typically have
     an awkward case (such as a literal comma in a value) to test
     how well their solution works. Some students who can't work out
     a solution will edit the file to remove the awkward bit. Sometimes
     students hard-code a solution that's specific to the supplied
     test file that won't work for another file. Occasionally the
-    file is unknowingly altered, such as when a student's computer 
+    file is unknowingly altered, such as when a student's computer
     silently replaced line endings when they downloaded the file.
     The student's solution was then hard-coded for the new line
     endings and didn't work with the original file.
@@ -96,7 +96,7 @@ student's application should use relative paths.
 
 Each Pass application has a file called `resources.xml` in the `lib`
 directory. This may contain settings specific to the device that
-it's installed on. For example, if Pass doesn't pick up the 
+it's installed on. For example, if Pass doesn't pick up the
 compiler's location from the operating system's path, you can
 explicitly set the path in `lib/resources.xml`:
 ```xml
@@ -118,7 +118,7 @@ application to view PDF files. For example:
 ```
 If something goes wrong while creating the PDF, there may also be a
 button to open the log file. Again, if `Desktop.open(File)` doesn't
-work, you can explicitly set the text editor. For example: 
+work, you can explicitly set the text editor. For example:
 ```xml
  <application
    name="editor"
@@ -204,9 +204,10 @@ course:
   <resultfile type="text/plain" name="receipt.txt" />
  </assignment>
 
- <assignment name="imageconvert" language="Java" run="false">
+ <assignment name="imageconvert" run="false">
   <title>Graphical Image Converter</title>
   <due>2023-04-20 16:30</due>
+  <mainfile>Main.java</mainfile>
   <report>projectreport</report>
   <allowedbinary ext="png" type="image/png" listing="true" />
   <allowedbinary ext="jpeg,jpg" type="image/jpeg" listing="true" />
@@ -222,14 +223,14 @@ and has to be submitted by 2022-11-30 16:30.
 
 The second assignment requires that the student submit four files
 called: `Product.java`, `Shop.java`, `Main.java` (which has the
-`main` method) and `UnknownProductException.java`. The order in 
-the XML file indicates the order these files should be listed in 
-the PDF. A student may go beyond the assignment brief and include 
-additional files, which will be listed afterwards (but they must be 
+`main` method) and `UnknownProductException.java`. The order in
+the XML file indicates the order these files should be listed in
+the PDF. A student may go beyond the assignment brief and include
+additional files, which will be listed afterwards (but they must be
 source code not binary).
 
-This second assignment requires that the student's application has
-to read a file called `products.csv`. This assignment data instructs
+This second assignment stipulates that the student's application has
+to read a file called `products.csv`. The assignment data instructs
 Pass to fetch this file from `http://example.com/pass/products.csv`
 but this doesn't have to be identical to the `products.csv` file
 that the students are given to test their application. For example,
@@ -237,35 +238,36 @@ it may have rows switched round or may have slightly different
 products. (Note that it's important that the students use relative
 paths so that the fetched file can be used.)
 
-The shop assignment also requires that the student's application has
+The shop assignment also stipulates that the student's application has
 to create a plain text file called `receipt.txt`. This needs to be
 included in their submission. Pass will search for it after testing
-the application and include it in the PDF.
+the application and include it verbatim in the PDF.
 
 The third assignment is for a graphical application. Pass is only
 designed to run command line applications, so the `run` attribute is
 set to `false` to skip the testing step, but Pass will still compile
-the source code supplied by the student. In this case, the student
-must submit an accompanying report, which may be called
-`projectreport.pdf` or `projectreport.doc` or `projectreport.docx`.
-PDF should be encouraged, where possible, to allow the report to be
-included in the PDF created by Pass rather than simply have it as an
-attachment. This assignment allows the student to include binary
-files that form part of their project, but they are restricted to 
-PNG and JPEG files. (Note that because Pass doesn't test the
-application, you can't use the `resultfile` element.)
+the source code supplied by the student (unless the `mainfile`
+element is omitted). In this case, the student must submit an
+accompanying report, which may be called `projectreport.pdf` or
+`projectreport.doc` or `projectreport.docx`.  PDF should be
+encouraged, where possible, to allow the report to be included in
+the PDF created by Pass rather than simply have it as an attachment.
+This assignment allows the student to include binary files that form
+part of their project, but they are restricted to PNG and JPEG
+files. (Note that because Pass doesn't test the application, you
+can't use the `resultfile` element.)
 
 There are other elements that may be included with `<assignment>`.
 For example, if the student's application needs to read from STDIN,
 lines of input can be provided, or if the application must be
 supplied command line arguments, these may be provided.
-Additionally, you can supply arguments to pass to the compiler (for example, 
+Additionally, you can supply arguments to pass to the compiler (for example,
 `javac` or `gcc`) or to the invoker (for example, `java`) or you can
 supply your own build script.
 
 ### What PASS does
 
-The student runs Pass (or uses the web interface for Server PASS) 
+The student runs Pass (or uses the web interface for Server PASS)
 and selects the course and the assignment.
 They also have to indicate whether or not this is a solo or group
 project. They are expected to provide a username (an alphanumeric
@@ -295,7 +297,7 @@ PDF containing all the information. This is implemented as follows:
 
  2. The current time is saved.
 
- 3. A LaTeX file is created and the preamble is written according to 
+ 3. A LaTeX file is created and the preamble is written according to
     various settings. The preamble code includes encrypted data
     that's written to custom PDF metadata (within `\pdfinfo`).
 
@@ -305,8 +307,8 @@ PDF containing all the information. This is implemented as follows:
 
  5. For each selected file:
 
-    - the appropriate `\lstinputlisting` command will be written, 
-      if the file's identified language is known to be supported 
+    - the appropriate `\lstinputlisting` command will be written,
+      if the file's identified language is known to be supported
       by `listings.sty`;
 
     - otherwise a plain text file will be input verbatim;
@@ -319,21 +321,22 @@ PDF containing all the information. This is implemented as follows:
       report, this can also be included with `\includepdf`, if
       supported by `pdfpages.sty` (avoid spaces in the filename).
 
-    If the filename is forbidden, an error occurs. Forbidden files
+    If the filename is forbidden, an error occurs. Forbidden filenames
     include files identified with `resourcefile` or `resultfile`,
     `a.out`, or have certain binary extensions (such as `exe`, `o`
     or `class`). GUI versions of Pass should have already flagged
     this when the files were selected.
 
- 6. If the application is compilable (Java, C or C++ assignments),
-    the source code will then be compiled. All messages from the 
-    compiler to STDOUT and STDERR will be added verbatim to the 
+ 6. If the application is compilable (Java, C or C++ assignments)
+    and a main file has been identified with the `mainfile` element,
+    then the source code will be compiled. All messages from the
+    compiler to STDOUT and STDERR will be added verbatim to the
     LaTeX document. This step is skipped for scripting languages.
 
- 7. The student's application is then run. All messages to STDOUT and STDERR 
+ 7. The student's application is then run. All messages to STDOUT and STDERR
     will be added verbatim to the LaTeX document.
 
- 8. If the assignment data specifies that the application should 
+ 8. If the assignment data specifies that the application should
     create one or more files, Pass will search for
     these files in the temporary directory.
 
@@ -343,12 +346,12 @@ PDF containing all the information. This is implemented as follows:
      The student must then check the PDF before they submit it using
      the designated submission system.
 
-**It's important for students to understand that Pass doesn't submit 
+**It's important for students to understand that Pass doesn't submit
 their work.**
 
 Pass will search the LaTeX log file for signs that any binary files
-have been erroneously included as source code and will flag an
-error. Students also need to understand what 
+have been erroneously included as source code and will issue a warning if found.
+Students also need to understand what
 [file encoding](https://dickimaw-books.com/blog/binary-files-text-files-and-file-encodings/)
 is.
 
@@ -364,9 +367,9 @@ for any messages that indicate that this might have happened.
 
 The compile and run steps may be omitted through settings supplied in
 the assignment data or if the language build sequence isn't
-supported by Pass. You can provide your own build script for a
-specific assignment, which Pass will use instead of the compile and
-run steps.
+supported by Pass or if no main file is identified. You can provide
+your own build script for a specific assignment, which Pass will use
+instead of the compile and run steps.
 
 ### Encrypted Meta Data
 
@@ -404,12 +407,12 @@ creation date is expected, since the time to compile and run the
 application will cause these timestamps to be different. If the
 difference between the timestamps is outside of the expected
 variation then that's an indication that this may have occurred.
-If the creation date is before the encrypted timestamp 
+If the creation date is before the encrypted timestamp
 (allowing for rounding errors), then the file has been tampered with.
 
 If a student is clever enough to break the encryption then they're
 clever enough to do the assignment. If they're prepared to enlist
-someone else's help to cheat, then it's more likely that they'll 
+someone else's help to cheat, then it's more likely that they'll
 get the other person to help with writing the assignment code rather
 than remove error messages from the PDF file or altering the
 timestamp. An experienced marker should be able to tell from the
@@ -460,7 +463,7 @@ The Pass source code is written in Java. Server Pass has
 accompanying PHP files and a Docker file. Server Pass will require
 an IT expert to setup and protect the server.
 
-See the files in the [`docs`](https://github.com/nlct/pass/tree/main/docs) directory for further details.
+See the [documentation](docs/README.md) for further details.
 
 ### Pass Lib
 
@@ -483,19 +486,18 @@ is called `progassignsys.jar`. The source code is in the `pass-gui`
 subdirectory. This uses the `progassignsys-`*lang*`.xml` dictionary
 file for messages.
 
-This application uses icons from the [Java Look and Feel Graphics
-repository](http://www.oracle.com/technetwork/java/index-138612.html).
-The `jlfgr-1_0.jar` file will need to be downloaded and added to the
-`lib` directory.
+See the [documentation](docs/passgui.md) for further details.
 
 ### Pass CLI
 
-A command line Pass application intended for processing assignments 
+A command line Pass application intended for processing assignments
 for devices that don't have a graphical environment. This has a
 library `pass-cli-lib.jar`, which is shared with Server Pass. The
-application jar file is ` pass-cli.jar`. This uses the 
-`passcli-`*lang*`.xml` dictionary file for messages. The source code 
-is in the `pass-cli` subdirectory. 
+application jar file is ` pass-cli.jar`. This uses the
+`passcli-`*lang*`.xml` dictionary file for messages. The source code
+is in the `pass-cli` subdirectory.
+
+See the [documentation](docs/passcli.md) for further details.
 
 ### Server Pass
 
@@ -507,8 +509,6 @@ MySql, and RabbitMQ installed.
 The source code is in the `pass-cli-server` subdirectory and the
 Docker files are in the `docker` subdirectory.
 
-See the files in the [`docs/server-pass`](https://github.com/nlct/pass/tree/main/docs/server-pass) for further details.
-
 The student has to create an account for the website. (This should
 not use Single Sign On as the server should be isolated from the
 rest of the University's systems.) The student uploads their source
@@ -518,6 +518,8 @@ resulting PDF and transcript are copied out of the container on
 completion and an email is sent to the student to notify them that
 the process has finished. They can then log into the site and
 download the PDF.
+
+See the [Server Pass documentation](docs/server-pass/README.md) for further details.
 
 ### Pass Editor
 
@@ -535,17 +537,7 @@ as empty files or will fetch a template, if one is provided.
 The backend library can be used to build the student's application
 and prepare a PDF for submission.
 
-This application uses icons from the [Java Look and Feel Graphics
-repository](http://www.oracle.com/technetwork/java/index-138612.html).
-The `jlfgr-1_0.jar` file will need to be downloaded and added to the
-`lib` directory. It also uses [JavaHelp](https://github.com/javaee/javahelp/)
-which can be installed using your software package manager. For
-example, with Fedora:
-```bash
-sudo dnf install javahelp2
-```
-You will need to copy or create a symlink to `javahelp2.jar` in the
-`lib` directory.
+See the [documentation](docs/passeditor.md) for further details.
 
 ### Pass Checker
 
@@ -554,10 +546,7 @@ compares it with other information in the PDF file to determine the
 likelihood that the PDF file has been altered after Pass created it.
 It will flag any late submissions or possible discrepancies.
 
-The source code is in the `pass-checker` subdirectory.
-This application uses [PDFBox](https://pdfbox.apache.org/) which in
-turn requires [Apache Commons Logging](https://commons.apache.org/proper/commons-logging/). You will need to download `pdfbox-2.0.13.jar` and `commons-logging.jar`
-and add them to the `lib` directory.
+See the [documentation](docs/complile.md) for further details.
 
 ## DISCLAIMER
 
@@ -577,7 +566,7 @@ The idea for this system was devised by Dr Gavin Cawley.
 Russell Smith installed the software, setup a server for Server
 Pass, and provided technical advice.
 Norbert Preining and the [Island of TeX](https://gitlab.com/islandoftex) community
-provided advice on using TeX Live with Docker. Thank you to 
+provided advice on using TeX Live with Docker. Thank you to
 Dr Gavin Cawley, Dr Jason Lines, Prof Tony Bagnall, and the students in CMP who
 tested the system and provided feedback.
 
