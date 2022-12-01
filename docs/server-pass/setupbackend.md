@@ -41,7 +41,8 @@ chmod 770 passconsumer.php
 
 Next Alice needs to edit this file and change the `connectConsumer`
 function so that it has the correct RabbitMQ _consumer_ username and password.
-(Also change the port, if applicable.)
+(Also change the port, if applicable.) The consumer user is the
+RabbitMQ user that has permission to pop messages from the queue.
 
 Alice may also be interested in copying over the `findnonascii.pl`
 script to `/scratch/passdocker` as well, but this is optional. This

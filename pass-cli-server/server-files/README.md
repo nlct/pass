@@ -16,7 +16,7 @@ isolated from the rest of the University. Therefore there's no
 support for single sign in.
 
 This assumes that student email addresses can be formed by their University
-username (Blackboard ID) appended with the University's domain name.
+username appended with the University's domain name.
 No alternative email addresses are permitted.
 
 See [documentation](https://github.com/nlct/pass/tree/main/docs/server-pass) for further

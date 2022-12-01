@@ -1,0 +1,1377 @@
+<?php
+/*
+   Copyright 2022 Nicola L. C. Talbot
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+ */
+
+class PassConfig
+{
+
+   const RESOURCE_PATH = '/var/www/html/resources.xml';
+   const UPLOAD_PATH = '/scratch/uploads';
+   const DOCKER_PATH = '/scratch/passdocker';
+   const COMPLETED_PATH = '/scratch/passdocker/completed';
+
+   const UPLOAD_DIR_PERMISSIONS = 0750;
+   const UPLOAD_FILE_PERMISSIONS = 0640;
+
+   // TEMPLATE: change port, server, domain and protocol information
+   // as applicable
+
+   // The port and server are simply for the admin maintenance page
+   // to provide instructions on how to upgrade.
+   const PORT = 22;
+   const SERVER = 'cmp-server-01.example.com';
+
+   // Emails will be sent to the username with this domain:
+   const EMAIL_DOMAIN = 'example.com';
+
+   // Protocol for the website
+   const WEB_PROTOCOL = 'http';
+
+   // The website domain
+   const WEB_DOMAIN = 'serverpass.cmp.example.com';
+
+   const WEB_TITLE = 'Server Pass';
+
+   // The common or short form of the university name
+   const UNIVERSITY_NAME = 'Uni of Ex';
+
+   // The proper name of the university (which may be the same as
+   // the above)
+   const UNIVERSITY_LONG_NAME = 'University of Example';
+
+   // The short name of the school/department
+   const SCHOOL_SHORT = 'CMP';
+
+   // The long name of the school/department
+   const SCHOOL_NAME = 'School of Computing Sciences';
+
+   const SHORT_TITLE = 'PASS';
+   const LONG_TITLE = 'Preparing Programming Assignments for Submission System';
+
+   const PREV_LABEL = '&#x23F4; Previous';
+   const NEXT_LABEL = 'Next &#x23F5;';
+
+   const MAIL_SUBJECT_PREFIX = 'Server Pass: ';
+   const MAIL_MESSAGE_PREFIX = "Dear Server Pass User\r\n\r\n";
+   const MAIL_MESSAGE_SUFFIX = "\r\n\r\nServer Pass";
+
+   // TEMPLATE: change patterns and regular expressions as
+   // applicable (PATTERN => client-side HTML validation, PREG => server-side
+   // PHP regular expression)
+
+   const USER_NAME_PATTERN = '([a-z]+|[a-z]{3}[0-9]{2}[a-z]{3})';
+   const USER_NAME_PREG = '/^([a-z]+|[a-z]{3}[0-9]{2}[a-z]{3})$/';
+
+   const REG_NUM_PATTERN = '[A-Z]?[0-9]{7,9}';
+   const REG_NUM_PREG = '/^[A-Z]?[0-9]{7,9}$/';
+
+   // TEMPLATE: dummy registration number used for staff and admin
+   const DUMMY_REG_NUMBER = 'X123456789';
+
+   // TEMPLATE: placeholder example of a registration number
+   const REG_NUM_EXAMPLE = '123456789';
+
+   // TEMPLATE: URL where PASS files can be accessed
+   const PASS_RESOURCES_HREF = "http://cmp.example.com/pass/";
+
+   // TEMPLATE: the name and URL of the site used by students to
+   // upload their assignments.
+   const SUBMISSION_SITE = 'Blackboard';
+   const SUBMISSION_SITE_HREF = 'https://learn.example.com/';
+
+   // TEMPLATE: textual labels for HTML input forms for username and
+   // registration number
+   const USERNAME_LABEL = 'Blackboard ID';
+   const USERNAMES_LABEL = 'Blackboard IDs';
+   const USERNAME_OTHER_LABEL = self::UNIVERSITY_NAME . ' username';
+   const REGNUM_LABEL = 'registration number';
+
+   // TEMPLATE: the name of the university's email application
+   const WEBMAIL = 'Webmail';
+
+   // TEMPLATE: the URL of the university's legal page (terms and
+   // conditions etc)
+   const LEGAL_HREF = "https://example.com/legal-page";
+
+   // TEMPLATE: the URL where admin can download new versions of PASS
+   const PASS_DOWNLOAD_SITE="https://cmp.example.com/pass-updates";
+
+   // Frontend pages:
+
+   const MAINTENANCE_HREF = '/index_maintenance.php';
+   const RESET_PASSWORD_HREF = '/reset_password.php';
+   const DOWNLOAD_HREF = '/download.php';
+
+   const TERMS_HREF = '/termsofuse.php';
+   const ABOUT_HREF = '/about.php';
+   const LOGIN_HREF = '/login.php';
+   const CREATE_ACCOUNT_HREF = '/create_account.php';
+   const MY_ACCOUNT_HREF = '/account.php';
+   const SET_REG_NUM_HREF = '/set_regnum.php';
+   const CHANGE_PASSWORD_HREF = '/change_password.php';
+   const FORGOTTEN_PASSWORD_HREF = '/forgotten_password.php';
+   const VERIFY_ACCOUNT_HREF = '/verify_account.php';
+   const CHECK_MULTI_FACTOR_HREF = '/check_2fa.php';
+   const RESEND_VERIFY_HREF = '/resend_verify.php';
+   const LOGOUT_HREF = '/logout.php';
+   const UPLOAD_HREF = '/upload.php';
+   const UPLOAD_FALLBACK_HREF = '/upload_fallback.php';
+   const UPLOAD_LISTS_HREF = '/upload_lists.php';
+   const FINAL_UPLOAD_LISTS_HREF = '/final_uploads.php';
+   const FAQ_HREF = '/faq.php';
+
+   const ADMIN_HREF = '/pass_adm_area/';
+   const ADMIN_CONFIG_HREF = self::ADMIN_HREF . 'config.php';
+   const ADMIN_UPLOAD_DIRS_HREF = self::ADMIN_HREF . 'upload_dirs.php';
+   const ADMIN_MAINTENANCE_HREF = self::ADMIN_HREF . 'maintenance.php';
+   const ADMIN_USERS_HREF = self::ADMIN_HREF . 'users.php';
+   const ADMIN_PHP_INFO_HREF = self::ADMIN_HREF . 'info.php';
+   const ADMIN_VIEW_LOGS_HREF = self::ADMIN_HREF . 'view_logs.php';
+   const ADMIN_WHOS_ONLINE_HREF = self::ADMIN_HREF . 'whos_online.php';
+   const ADMIN_SESSIONS_HREF = self::ADMIN_HREF . 'sessions.php';
+   const ADMIN_VIEW_ACTION_RECORDER_HREF = self::ADMIN_HREF . 'view_action_recorder.php';
+
+   private $pass;
+
+   public function __construct(Pass $pass)
+   {
+      $this->pass = $pass;
+   }
+
+   /**
+    * Gets the HTML code to download the latest version of pass-cli-server.
+    * For admin information page only.
+    */
+   public function getPassServerCliDownloadLink()
+   {
+      return sprintf('<a href="%s/pass-cli-server.tgz">pass-cli-server.tgz</a>', PASS_DOWNLOAD_SITE);
+   }
+
+   /**
+    * Gets the HTML code with SSH instructions.
+    * For admin information page only.
+    */
+   public function getSshInstructions()
+   {
+      return sprintf("ssh -P %d <em>username</em>@%s\n<em>enter password</em>",
+        self::PORT, self::SERVER);
+   }
+
+   /**
+    * Gets the HTML code with SFTP instructions.
+    * For admin information page only.
+    */
+   public function getSftpInstructions()
+   {
+      return sprintf("sftp -P %d <em>username</em>@%s\n<em>enter password</em>",
+        self::PORT, self::SERVER);
+   }
+
+   /**
+    * Gets the URL for the location where PASS resource and
+    * assignment files are stored.
+    * For staff and admin FAQ only.
+    */
+   public function getExampleSrc()
+   {
+      return self::PASS_RESOURCES_HREF;
+   }
+
+   /**
+    * Gets the username of the test user. This is a dummy account
+    * with the role set to student to allow staff and admin to test
+    * how the site works for a student user. If no value is set in
+    * the configuration table, the fallback is 'abc01xyz'.
+    */
+   public function getExampleUserName()
+   {
+      $testuser = $this->pass->getConfigValue('test_user');
+
+      if (!empty($testuser))
+      {
+         return $testuser;
+      }
+
+      return 'abc01xyz';
+   }
+
+   /**
+     * Gets the email address for the given username.
+     */
+   public function getEmailAddress(string $username)
+   {
+      return $username . '@' . self::EMAIL_DOMAIN;
+   }
+
+   /**
+     * Gets the URL for the frontend site.
+     * @param $path the path (starting with '/') or null if just the
+     * home page is required
+     * @return the URL
+     */
+   public function getWebsiteUrl($path=null)
+   {
+      if (isset($path))
+      {
+         return sprintf('%s://%s%s', self::WEB_PROTOCOL, self::WEB_DOMAIN, $path);
+      }
+      else
+      {
+         return sprintf('%s://%s/', self::WEB_PROTOCOL, self::WEB_DOMAIN);
+      }
+   }
+
+   /*
+     Rather than just using the constants explicitly, the following functions
+     allow for multilingual support. They will need to be adapted to
+     query the language setting and supply the appropriate text or
+     URL. For a monolingual university, they can simply return
+     constants.
+
+     Ensure any HTML entities are escaped as these
+     functions are expected to return valid HTML code.
+    */
+
+   public function getUploadListTitle()
+   {
+      return 'My Uploads';
+   }
+
+   public function getShortTitle()
+   {
+      return self::SHORT_TITLE;
+   }
+
+   public function getLongTitle()
+   {
+      return self::LONG_TITLE;
+   }
+
+   /**
+    * Gets the HTML text or icon for the "Next" button.
+    * Ensure any entities are escaped.
+    */
+   public function getNextLabel()
+   {
+      return self::NEXT_LABEL;
+   }
+
+   /**
+    * Gets the HTML text or icon for the "Previous" button.
+    * Ensure any entities are escaped.
+    */
+   public function getPrevLabel()
+   {
+      return self::PREV_LABEL;
+   }
+
+   /**
+    * Gets the prefixed mail subject.
+    * @param $subject the subject
+    * return the prefixed subject
+    */
+   public function getMailSubject(string $subject)
+   {
+      return self::MAIL_SUBJECT_PREFIX . $subject;
+   }
+
+   /**
+    * Gets the word-wrapped message with mail prefix and suffix.
+    * @param $message the message body
+    * @return the plain text message to send via email
+    */
+   public function getMailMessage(string $message)
+   {
+      return self::MAIL_MESSAGE_PREFIX
+             . wordwrap($message, 70, "\r\n")
+             . self::MAIL_MESSAGE_SUFFIX;
+   }
+
+   public function getAboutRef()
+   {
+      return self::ABOUT_HREF;
+   }
+
+   public function getAboutTitle()
+   {
+      return 'About';
+   }
+
+   public function getTermsRef()
+   {
+      return self::TERMS_HREF;
+   }
+
+   public function getTermsTitle()
+   {
+      return 'Terms of Use';
+   }
+
+   public function getLegalRef()
+   {
+      return self::LEGAL_HREF;
+   }
+
+   public function getLegalTitle()
+   {
+      return self::UNIVERSITY_NAME . ' Legal Statements';
+   }
+
+   public function getLoginRef()
+   {
+      return self::LOGIN_HREF;
+   }
+
+   public function getLoginTitle()
+   {
+      return 'Login';
+   }
+
+   public function getCreateAccountRef()
+   {
+      return self::CREATE_ACCOUNT_HREF;
+   }
+
+   public function getCreateAccountTitle()
+   {
+      return 'Create Account';
+   }
+
+   public function getAccountRef()
+   {
+      return self::MY_ACCOUNT_HREF;
+   }
+
+   public function getMyAccountTitle()
+   {
+      return 'My Account';
+   }
+
+   public function getSetRegNumRef()
+   {
+      return self::SET_REG_NUM_HREF;
+   }
+
+   public function getSetRegNumTitle()
+   {
+      return 'Set Registration Number';
+   }
+
+   public function getChangePasswordRef()
+   {
+      return self::CHANGE_PASSWORD_HREF;
+   }
+
+   public function getChangePasswordTitle()
+   {
+      return 'Change Password';
+   }
+
+   public function getForgottenPasswordRef()
+   {
+      return self::FORGOTTEN_PASSWORD_HREF;
+   }
+
+   public function getForgottenPasswordTitle()
+   {
+      return 'Forgotten Password?';
+   }
+
+   public function getVerifyAccountRef()
+   {
+      return self::VERIFY_ACCOUNT_HREF;
+   }
+
+   public function getVerifyAccountTitle()
+   {
+      return 'Verify Account';
+   }
+
+   public function getCheckMultiFactorRef()
+   {
+      return self::CHECK_MULTI_FACTOR_HREF;
+   }
+
+   public function getResendVerifyRef()
+   {
+      return self::RESEND_VERIFY_HREF;
+   }
+
+   public function getResendVerifyTitle()
+   {
+      return 'Resend Verify';
+   }
+
+   public function getLogoutRef()
+   {
+      return self::LOGOUT_HREF;
+   }
+
+   public function getLogoutTitle()
+   {
+      return 'Logout';
+   }
+
+   public function getUploadRef()
+   {
+      return self::UPLOAD_HREF;
+   }
+
+   public function getUploadFallbackRef()
+   {
+      return self::UPLOAD_FALLBACK_HREF;
+   }
+
+   public function getUploadTitle()
+   {
+      return 'Upload Project';
+   }
+
+   public function getUploadListsRef()
+   {
+      return self::UPLOAD_LISTS_HREF;
+   }
+
+   public function getUploadListsTitle()
+   {
+      return 'Uploads';
+   }
+
+   public function getViewUploadsTitle()
+   {
+      return 'View Uploads';
+   }
+
+   public function getFinalUploadListsRef()
+   {
+      return self::FINAL_UPLOAD_LISTS_HREF;
+   }
+
+   public function getFinalUploadListsTitle()
+   {
+      return 'Final Uploads';
+   }
+
+   public function getFaqRef()
+   {
+      return self::FAQ_HREF;
+   }
+
+   public function getFaqTitle()
+   {
+      return 'FAQ';
+   }
+
+   public function getAdminRef()
+   {
+      return self::ADMIN_HREF;
+   }
+
+   public function getAdminTitle()
+   {
+      return 'Admin';
+   }
+
+   public function getAdminConfigRef()
+   {
+      return self::ADMIN_CONFIG_HREF;
+   }
+
+   public function getAdminConfigTitle()
+   {
+      return 'Configuration';
+   }
+
+   public function getAdminUploadDirsRef()
+   {
+      return self::ADMIN_UPLOAD_DIRS_HREF;
+   }
+
+   public function getAdminUploadDirsTitle()
+   {
+      return 'Upload Directories';
+   }
+
+   public function getAdminMaintenanceRef()
+   {
+      return self::ADMIN_MAINTENANCE_HREF;
+   }
+
+   public function getAdminMaintenanceTitle()
+   {
+      return 'Backend Maintenance';
+   }
+
+   public function getAdminUsersRef()
+   {
+      return self::ADMIN_USERS_HREF;
+   }
+
+   public function getAdminUsersTitle()
+   {
+      return 'Users';
+   }
+
+   public function getAdminPhpInfoRef()
+   {
+      return self::ADMIN_PHP_INFO_HREF;
+   }
+
+   public function getAdminPhpInfoTitle()
+   {
+      return 'PHP Info';
+   }
+
+   public function getAdminViewLogsRef()
+   {
+      return self::ADMIN_VIEW_LOGS_HREF;
+   }
+
+   public function getAdminViewLogsTitle()
+   {
+      return 'Process Logs';
+   }
+
+   public function getAdminWhosOnlineRef()
+   {
+      return self::ADMIN_WHOS_ONLINE_HREF;
+   }
+
+   public function getAdminWhosOnlineTitle()
+   {
+      return "Who's Online";
+   }
+
+   public function getAdminSessionsRef()
+   {
+      return self::ADMIN_SESSIONS_HREF;
+   }
+
+   public function getAdminSessionsTitle()
+   {
+      return "Session Data";
+   }
+
+   public function getAdminViewActionRecorderRef()
+   {
+      return self::ADMIN_VIEW_ACTION_RECORDER_HREF;
+   }
+
+   public function getAdminViewActionRecorderTitle()
+   {
+      return "View Action Recorder";
+   }
+
+   public function getGenericErrorMessage()
+   {
+      return sprintf("I'm sorry, something unexpected went wrong. Please try again later or contact %s.", $this->pass->getConfigValue('help_reference'));
+   }
+
+   /**
+    * Sends an email notifying a user that the process has finished.
+    * This function is used by the backend. If it's already running,
+    * any modifications to this function won't take effect until
+    * it has been taken offline and restarted.
+    * @param $exitCode the process exit code (0 = success, less than 0
+    * indicates the backend failed to create the container, greater
+    * than 0 means a PASS error)
+    * @param $job the job details
+    * @return an array of error messages or an empty array if no errors occurred
+    */
+   public function sendJobProcessedEmail(int $exitCode, array $job)
+   {
+      $err_msgs = array();
+
+      $msg = $this->getShortTitle() . ' has processed your project (upload ID '
+              . $job['submission_id'] . ').';
+
+      if ($exitCode > 0)
+      {
+         $msg .= "\r\n\r\n" . $this->getShortTitle()
+              . " returned a non-zero exit code ($exitCode) which means something went wrong while running " . $this->getShortTitle() . " in the container.";
+      }  
+      elseif ($exitCode < 0)
+      {  
+         $msg .= "\r\n\r\nSomething went wrong while trying to set up the container.";
+      }
+      else
+      {
+         $msg .= " Log in to your " . self::WEB_TITLE . " account and go to '". $this->getUploadListTitle(). "' to find the link to download your PDF and the log file created by " . $this->getShortTitle() . ". Please review the PDF and log file before submitting your work.";
+      }
+
+      foreach ($job['user_ids'] as $user)
+      {
+         $email_address = $this->getEmailAddress($user);
+
+         if (!$this->pass->send_email("project processed", $msg, $email_address))
+         {
+            array_push($err_msgs, "Failed to send email to: $email_address");
+         }
+      }
+
+      return $err_msgs;
+   }
+
+   /**
+    * Sends an email notifying a user that an admin user has changed
+    * their details.
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendAdminUpdatedDetails(string $username,
+     $newusername, $newrole, $newstatus, $newregnum)
+   {
+      $message = "Your user details have been updated by admin. ";
+
+      if (isset($newusername))
+      {
+         $message .= "Your user name has been changed to $newusername. ";
+      }
+
+      if (isset($newrole))
+      {
+         $message .= "Your user role has been changed to $newrole. ";
+      }
+
+      if (isset($newstatus))
+      {
+         $message .= "Your user status has been changed to $newstatus. ";
+      }
+
+      if (isset($newregnum))
+      {
+         $message .= "Your " . self::REGNUM_LABEL;
+
+         if ($newregnum === '')
+         {
+            $message .= " has been removed. ";
+         }
+         else
+         {
+            $message .= " has been changed to $newregnum. ";
+         }
+      }
+
+      return $this->pass->send_email('user details changed', 
+       $message . "If you are currently logged in you may need to log out and log back in again for the changes to take effect.",
+       $username);
+   }
+
+   /**
+    * Sends an email notifying a user than an admin user has removed
+    * their invalid registration number. For example, a student has
+    * set their registration number to "123456789" or "987654321"
+    * because they don't know what it is.
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendAdminClearedRegNum(string $username, $invalidregnum)
+   {
+      $message = "The " . self::REGNUM_LABEL . ' ';
+
+      if (isset($invalidregnum))
+      {
+         $message .= "($invalidregnum) ";
+      }
+
+      $message .= sprintf("that you supplied in your %s account is invalid and has been unset. You will need to supply the correct number before you upload a new project. If you have any queries, please contact %s.",
+         self::WEB_TITLE,
+         $this->pass->getConfigValue('help_reference'));
+
+      return $this->pass->send_email('invalid ' . self::REGNUM_LABEL, $message,
+       $username);
+   }
+
+   /**
+    * Sends an email notifying a user that an admin user has merged
+    * their duplicate accounts. This can happen if a student made up
+    * a username when they created an account, but
+    * they didn't receive an email with the verification link
+    * (because they hadn't supplied the correct username), so they
+    * then created another account. The redundant account can
+    * now simply be removed, but earlier versions didn't include the
+    * verification step so there were some users with multiple
+    * accounts each with different uploads that needed to be merged.
+    * Requiring account verification has solved that problem.
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendAdminMergedAccounts(string $username, string $username2)
+   {
+      return $this->pass->send_email('duplicate account merged',
+          sprintf(
+          "Your duplicate %s account has been merged for username %s.\r\n\r\nIf you experience any problems, please contact %s.",
+           self::WEB_TITLE,
+           $username2, $this->pass->getConfigValue("help_reference")),
+          $username 
+         );
+   }
+
+   /**
+    * Sends a password reset email.
+    * @param $url the password reset URL
+    * @param $token the password reset token
+    * @param $timeout the token timeout in minutes
+    * @param $username the user who requested the password reset
+    * @return HTML confirmation message or empty if email failed to send
+    */
+   public function sendPasswordResetEmail(string $url, string $token, int $timeout, string $username)
+   {
+      if ($this->pass->send_email("password reset",
+	      sprintf("A password reset was requested for your account. Use the following link to reset your password: \r\n\r\n%s?token=%s\r\n\r\nAlternatively, navigate your way to the password reset verifier page and enter the token:\r\n\r\n%s\r\n\r\nThis token will expire in %d minutes.\r\n\r\nIf you didn't request a password reset you can
+ignore this message.",
+	       $url,
+               $token, $token, $timeout
+	      ),
+             $username))
+      {
+         return sprintf("A reset link has been emailed to you. The link will be valid for %d minutes", $timeout);
+      }
+      else
+      {
+         return '';
+      }
+   }
+
+   /**
+    * Sends an email to a user confirming that they have created a
+    * new account and providing the verification token.
+    * @param $url the verification URL
+    * @param $token the verification token
+    * @param $timeout the token timeout in minutes
+    * @param $username the user who requested the new account
+    * @return HTML confirmation message or empty if email failed to send
+    */
+   public function sendAccountCreatedEmail(string $url, string $token, int $timeout, string $username)
+   {
+      if ($this->pass->send_email("new account",
+	    sprintf("You have created a new account associated with your username '%s'. You now need to verify your account using:\r\n\r\n%s?token=%s\r\n\r\nAlternatively, navigate your way to the verify account page from the login page and enter the token: \r\n%s\r\n\r\nThis token will expire in %d minutes.\r\n\r\nOnce you have verified your account you will be able to log in using your username '%s' and the password you specified when you created the account.", 
+          $username, $url,
+          $token, $token, $timeout, $username), $username))
+      {
+         return sprintf("Account successfully created. An email has been sent to %s with a verification link.",
+            $this->getEmailAddress($username));
+      }
+      else
+      {
+         return '';
+      }
+   }
+
+   /**
+    * Sends an email to a user notifying them that a request for an
+    * account verification link was made when
+    * their account has already been verified.
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendAlreadyVerifiedEmail(string $username)
+   {
+      return $this->pass->send_email('account verification request',
+           "You are receiving this email because a request for a new verification link was made. Your account has already been verified so you can log in. If you have forgotten your password you can use the reset link on the login page.",
+            $username);
+   }
+
+   /**
+    * Sends an email to a user with an account verification token.
+    * The confirmation message includes the email address. This is
+    * in case a student has made up a user name and keeps trying to
+    * resend a verification token because they never receive it.
+    * Showing the email address should alert them to the fact that
+    * they've used the wrong username.
+    * @param $url the verification URL
+    * @param $token the verification token
+    * @param $timeout the token timeout in minutes
+    * @param $username the user who requested the new account
+    * @return HTML confirmation message or empty if email failed to send
+    */
+   public function sendVerificationEmail(string $url, string $token, int $timeout, string $username)
+   {
+      if ($this->pass->send_email("account verification request",
+	    sprintf("A new verification link has been requested for your account associated with username '%s'. The verification link is:\r\n\r\n%s?token=%s\r\n\r\nAlternatively, navigate your way to the verify account page from the login page and enter the token: \r\n\r\n%s\r\n\r\nThis token will expire in %d minutes.\r\n\r\nOnce you have verified your account you will be able to log in using your username '%s' and the password you specified when you created the account.", 
+          $username, $url,
+          $token, $token, $timeout, $username), $username))
+      {
+         return sprintf("An email has been sent to %s with a verification link.",
+            $this->getEmailAddress($username));
+      }
+      else
+      {
+         return '';
+      }
+   }
+
+   /**
+    * Sends an email to a user confirming that their password has
+    * been updated.
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendPasswordUpdatedEmail(string $username)
+   {
+      return $this->pass->send_email("account update",
+        sprintf("You have updated the password for your account.  If this wasn't you, please contact %s.",
+          $this->pass->getConfigValue('help_reference')),
+          $username);
+   }
+
+   /**
+    * Sends an email to a user confirming that their 2FA setting has
+    * been switched off.
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function send2FADisabledEmail($username)
+   {
+      return $this->pass->send_email("account update",
+       sprintf("Two-Factor Authentication (2FA) has been disabled on your %s account associated with the username '%s'. You can enable it at any time by logging into your account and following the 'Account' link.",
+         self::WEB_TITLE,
+         $username
+       ));
+   }
+
+   /**
+    * Sends an email to a user confirming that their 2FA setting has
+    * been switched on.
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function send2FAEnabledEmail($username)
+   {
+      return $this->pass->send_email("account update",
+         sprintf("Two-Factor Authentication (2FA) has been enabled on your %s account associated with the username '%s'. You can disable it at any time by logging into your account and following the 'Account' link.",
+         self::WEB_TITLE,
+         $username));
+   }
+
+   /**
+    * Sends an email to a user to alert them that an attempt was made to enable
+    * 2FA on their unverified account. (This shouldn't occur as the
+    * user needs to be logged in to enable the setting.)
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function send2FAUnverifiedEmail($username)
+   {
+      return $this->send_email("account update",
+         sprintf("An attempt has been made to enable Two-Factor Authentication (2FA) on your %s account associated with your username '%s', but the verification process hasn't been completed. You can complete this process or disable 2FA by logging into your account and following the 'Account' link.",
+         self::WEB_TITLE,
+         $username));
+   }
+
+   /**
+    * Sends an email to a user to alert them that an attempt was
+    * made to log in to their account but the 2FA step failed.
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendTotpFailedEmail($username, $info)
+   {
+      return $this->pass->send_email('account access',
+       sprintf("An attempt was made to sign into your %s account associated with the username '%s' but the time-based one time password (TOTP) authentication failed (browser: %s, platform: %s, IP: %s). If this was you then you can safely delete this message. If it wasn't you, it's advisable to change your password either by logging into your account or using the password reset link.",
+        PassConfig::WEB_TITLE,
+        $username, $info['browser'], $info['os_platform'], isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown'));
+   }
+
+   /**
+    * Sends an email to a user to alert them that an attempt was
+    * made to log in to their account but the recovery code step failed.
+    * @param $username the username
+    * @return true if email sent successfully, false otherwise
+    */
+   public function sendRecoveryCodeFailedEmail($username, $info)
+   {
+      return $this->pass->send_email('account access',
+       sprintf("An attempt was made to sign into your %s account associated with the username '%s' using a recovery code but authentication failed (browser: %s, platform: %s, IP: %s). If this was you then you can safely delete this message. If it wasn't you, it's advisable to change your password either by logging into your account or using the password reset link.",
+        PassConfig::WEB_TITLE,
+        $username, $info['browser'], $info['os_platform'], isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown'));
+   }
+
+   // Error messages
+
+   /**
+    * Gets the header text for the error summary.
+    */
+   public function getErrorsHaveOccurredMessage()
+   {
+      return 'One or more errors has occurred:';
+   }
+
+   /*
+      The "Tag" functions are short tags that are shown next to the relevant
+      input field. The "Text" functions are longer and are shown in the
+      error summary list. Escape any HTML entities. The return
+      values are all expected to be valid HTML.
+    */
+
+   public function getMissingTag()
+   {
+      return 'Missing';
+   }
+
+   /**
+    * Gets the text when a missing field is required.
+    * @param $name the field name
+    */
+   public function getMissingText(string $name)
+   {
+      return "Missing $name value";
+   }
+
+   public function getInvalidTag()
+   {
+      return 'Invalid';
+   }
+
+   /**
+    * Gets the text when a field has been supplied an invalid value.
+    * @param $name the field name
+    */
+   public function getInvalidText(string $name)
+   {
+      return "Invalid $name value";
+   }
+
+   public function getInvalidCredentialsText()
+   {
+      return 'Invalid credentials';
+   }
+
+   public function getInvalidOrExpiredTag()
+   {
+      return 'Invalid or expired';
+   }
+
+   public function getInvalidOrExpiredText()
+   {
+      return 'Token invalid or expired.';
+   }
+
+   public function getPlaceholderNotValidText()
+   {
+      return 'Placeholder example not a valid ' . self::REGNUM_LABEL;
+   }
+
+   /**
+    * Gets the message when a user attempts to log in to an
+    * unverified account.
+    */
+   public function getAccountNotVerifiedText()
+   {
+      return sprintf('This account has not been verified. Please use the verification link provided when you created the account. If the token has expired, <a href="%s">request a new link</a>.',
+         $this->getResendVerifyRef());
+   }
+
+   /**
+    * Gets the message when a user attempts to log in to a
+    * blocked account.
+    */
+   public function getAccountBlockedText()
+   {
+      return sprintf(
+        "This account has been blocked. Please contact %s for assistance.",
+        $this->pass->getConfigValue('help_reference'));
+   }
+
+   /**
+    * Gets the message the trust cookie contains an invalid token.
+    */
+   public function getInvalidCookieMFARequiredText()
+   {
+      return 'Invalid cookie value. 2FA required to authenticate.';
+   }
+
+   public function getNoMFAOrAuthFailedText()
+   {
+      return 'No 2FA key found or initial authentication failed.';
+   }
+
+   public function getSecretKeyDecryptFailedText()
+   {
+      return 'Secret key decryption failed.';
+   }
+
+   public function getTOTPFailedText()
+   {
+      return 'TOTP verification failed.';
+   }
+
+   /**
+    * Gets error message if recovery code is provided when the user
+    * hasn't supplied a password. The likely cause is either a bug or an
+    * unexpected loss of session data between supplying password and
+    * recovery code.
+    */
+   public function getPasswordBeforeRecoveryText()
+   {
+      return 'Password authentication required before recovery code.';
+   }
+
+   public function getRecoveryCodeFailedText()
+   {
+      return 'Recovery code verification failed.';
+   }
+
+   public function getVerificationFailedText()
+   {
+      return 'Verification failed';
+   }
+
+   public function getNotAuthenticatedText()
+   {
+      return 'User not authenticated';
+   }
+
+   /**
+    * Gets the error message when someone attempts to create the
+    * test user account when the site isn't in maintenance mode.
+    */
+   public function getInvalidTestUserText()
+   {
+      return "Invalid username. (Test account requires maintenance mode.)";
+   }
+
+   public function getInsecureTag()
+   {
+      return 'Insecure';
+   }
+
+   public function getPasswordNotUsernameText()
+   {
+      return "Password can't be the same as the username";
+   }
+
+   public function getGuessablePasswordText()
+   {
+      return "Insecure easily-guessable password";
+   }
+
+   public function getPasswordHashTooLongText()
+   {
+      return "Password hash is too long. The database needs adjusting. Please contact "
+       . $this->pass->getConfigValue('help_reference');
+   }
+
+   public function getUserAlreadyExistsText(string $username)
+   {
+      return "There is already an account for user '$username'";
+   }
+
+   /**
+    * Gets error message text if request for account verification for an
+    * unknown username occurs.
+    */
+   public function getNoAccountText(string $username)
+   {
+      return "No account for username '$username'";
+   }
+
+   /**
+    * Gets error message text if a request for account verification
+    * is made for an account that has already been verified.
+    */
+   public function getAccountAlreadyVerifiedText()
+   {
+      return "This account has already been verified.";
+   }
+
+   public function getNotLoggedInText()
+   {
+      return 'Not logged in.';
+   }
+
+   /**
+    * Gets the error message text if a user tries to set their
+    * registration number to another user's registration number.
+    * This may be caused by a typo or because both users have set
+    * their registration number to the same common pattern because they
+    * don't know what it is.
+    */
+   public function getRegNumClashText(string $regnum)
+   {
+      return sprintf("%s '%s' already assigned to another user",
+        ucfirst(self::REGNUM_LABEL), $regnum);
+   }
+
+   public function getQueueOfflineText($submission_id)
+   {
+      return sprintf("Failed to publish message.  RabbitMQ (the queuing system) may have gone offline. Please notify an administrator and ask them to requeue message ID %d.",
+      $submission_id);
+   }
+
+   public function getTooShortTag()
+   {
+      return 'Too short';
+   }
+
+   public function getMinLengthText($name, $minLen)
+   {
+      return sprintf("%s must be at least %d characters",
+         ucfirst($name), $minLen);
+   }
+
+   // Page Templates
+
+   /**
+    * Gets the HTML fallback for a datetime picker for the datetime
+    * selector.
+    * @param $field the field id prefix
+    * @param $label a textual label for the day field, if null the label
+    * is 'Day'
+    */
+   public function fallbackDatePicker(string $field, $label)
+   {
+?>
+<label><?php if (isset($label)) { echo $label;} else { echo 'Day:';} ?>
+ <select id="<?php echo $field; ?>-day"></select>
+</label>
+<label>Month:
+<select id="<?php echo $field; ?>-month">
+ <option value="1">January</option>
+ <option value="2">February</option>
+ <option value="3">March</option>
+ <option value="4">April</option>
+ <option value="5">May</option>
+ <option value="6">June</option>
+ <option value="7">July</option>
+ <option value="8">August</option>
+ <option value="9">September</option>
+ <option value="10">October</option>
+ <option value="11">November</option>
+ <option value="12">December</option>
+</select>
+</label>
+<label>Year:
+<input type="number" size="4" placeholder="YYYY" id="<?php echo $field; ?>-year"/>
+</label>
+<?php
+   }
+
+   /**
+    * Prints the blurb for the home page and the start of the upload
+    * page.
+    */
+   public function printBlurb()
+   {
+?>
+	<p>This is a web-script alternative to the desktop <?php echo $this->getShortTitle(); ?> (<?php echo $this->getLongTitle(); ?>) GUI application. This tool helps to <em>prepare</em> computer programming assignments into a format suitable for submission. <strong><?php
+
+      echo $this->pass->get_faq_link($this->getShortTitle() . ' does not submit your work for you.', 'whynosubmit');
+
+?></strong> It's your responsibility to check that the PDF created by this tool accurately represents your assignment before you submit it via <?php echo self::SUBMISSION_SITE; ?>. Please read the 
+<?php echo $this->pass->get_terms_link('terms and conditions'); ?> before using this site.
+
+<p><strong>Note:</strong> the PDF created by <?php echo self::SHORT_TITLE; ?> doesn't display your name anywhere as assignment submissions are anonymous.
+However, your <?php echo self::USERNAME_LABEL; ?> (<?php echo self::USERNAME_OTHER_LABEL; ?>) 
+and <?php echo self::REGNUM_LABEL; ?> are required <strong>in order to log your marks</strong>.
+It's therefore essential that you ensure you have your <?php echo self::USERNAME_LABEL; ?> and
+<?php echo self::REGNUM_LABEL; ?> correctly entered in your <?php echo self::SHORT_TITLE; ?> account.
+<?php
+
+   }
+
+   /**
+    * Prints the HTML page header code and navigation.
+    * The navigation uses the template file in
+    * html/styles/header.html with the placeholder comments
+    * substituted.
+    */
+   public function page_header()
+   {
+      $is_maintenance = $this->pass->check_site_mode();
+
+?>
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <?php echo file_get_contents($_SERVER['DOCUMENT_ROOT'].'/styles/style.html'); ?>
+    <title><?php echo strip_tags($this->pass->getPageTitle()); ?></title>
+  </head>
+  <body>
+<?php 
+       if ($is_maintenance)
+       {
+?>
+<div class="maintenance">Site is in maintenance mode.</div>
+<?php
+       }
+
+       $header = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/styles/header.html'); 
+
+       $role = $this->pass->getUserRole();
+
+       $banner_message = $this->pass->getConfigValue('banner_message');
+
+       if (!empty($banner_message))
+       {
+          $banner_message = "<div id=\"$banner_message\"></div>";
+       }
+       else
+       {
+          $banner_message = '';
+       }
+
+       $nav_my_account = '';
+       $nav_upload = '';
+       $nav_upload_lists = '';
+       $nav_admin = '';
+       $nav_logout = '';
+       $nav_admin_menu='';
+       $nav_final_upload_lists = '';
+       $nav_faq = '<li id="nav_faq">' . $this->pass->get_faq_link() . '</li>';
+
+       if ($role)
+       {
+          $nav_my_account = '<li id="nav_my_account">' . $this->pass->get_my_account_link() . '</li>';
+	  $nav_logout = '<li id="nav_logout">' . $this->pass->get_logout_link() . '</li>';
+	  $nav_upload = '<li id="nav_upload">' . $this->pass->get_upload_link() . '</li>';
+
+	  if ($role === 'student')
+	  {
+	     $upload_lists_title = $this->pass->getUploadListTitle();
+	  }
+	  else
+	  {
+	     if ($role === 'admin')
+	     {
+                $nav_admin = '<li class="dropdown" id="nav_admin">'
+                  . $this->pass->get_admin_link($this->getAdminTitle(), ['class'=>'dropitem']);
+
+                $nav_admin_menu = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/styles/admin_menu.html'); 
+
+                $nav_admin_menu = str_replace(
+                array
+                (
+                   '<!-- NAV_ADMIN_CONFIG -->',
+                   '<!-- NAV_ADMIN_UPLOAD_DIRS -->',
+                   '<!-- NAV_ADMIN_USERS -->',
+                   '<!-- NAV_ADMIN_PHP_INFO -->',
+                   '<!-- NAV_ADMIN_LOGS -->',
+                   '<!-- NAV_ADMIN_WHOS_ONLINE -->',
+                   '<!-- NAV_ADMIN_MAINTENANCE -->',
+                   '<!-- NAV_ADMIN_SESSIONS -->',
+                   '<!-- NAV_ADMIN_VIEW_ACTION_RECORDER -->'
+                ),
+                array
+                (
+                   $this->pass->get_admin_config_link($this->getAdminConfigTitle(), ['id'=>'nav_config']),
+                   $this->pass->get_admin_upload_dirs_link($this->getAdminUploadDirsTitle(), ['id'=>'nav_upload_dirs']),
+                   $this->pass->get_admin_users_link($this->getAdminUsersTitle(), ['id'=>'nav_users']),
+                   $this->pass->get_admin_phpinfo_link($this->getAdminPhpInfoTitle(), ['id'=>'nav_phpinfo']),
+                   $this->pass->get_admin_viewlogs_link($this->getAdminViewLogsTitle(), ['id'=>'nav_logs']),
+                   $this->pass->get_admin_whosonline_link($this->getAdminWhosOnlineTitle(), ['id'=>'nav_whosonline']), 
+                   $this->pass->get_admin_maintenance_link($this->getAdminMaintenanceTitle(), ['id'=>'nav_maintenence']),
+                   $this->pass->get_admin_sessions_link($this->getAdminSessionsTitle(), ['id'=>'nav_sessions']),
+                   $this->pass->get_admin_view_action_recorder_link($this->getAdminViewActionRecorderTitle(), ['id'=>'nav_view_action_recorder']) 
+                ),
+                $nav_admin_menu);
+
+                $nav_admin .= "<div class=\"dropdown-content\">$nav_admin_menu</div></li>";
+	     }
+
+	     $upload_lists_title = $this->getViewUploadsTitle();
+
+	     $nav_final_upload_lists = '<li id="nav_final_upload_lists">' 
+		     . $this->pass->get_final_upload_lists_link() . '</li>';
+	  }
+
+	  $nav_upload_lists = '<li id="nav_upload_lists">' 
+		  . $this->pass->get_upload_lists_link($upload_lists_title) . '</li>';
+       }
+       else
+       {
+          $nav_my_account = '<li id="nav_login">' . $this->pass->get_login_link() . '</li>';
+       }
+
+       echo str_replace(array(
+	       '<!-- MESSAGE_BANNER -->',
+	       '<!-- NAV_MY_ACCOUNT -->',
+	       '<!-- NAV_ADMIN -->',
+	       '<!-- NAV_LOGOUT -->',
+	       '<!-- NAV_UPLOAD -->',
+	       '<!-- NAV_UPLOAD_LISTS -->',
+	       '<!-- NAV_FINAL_UPLOAD_LISTS -->',
+	       '<!-- NAV_FAQ -->'
+       ), 
+       array(
+	       $banner_message,
+	       $nav_my_account,
+	       $nav_admin,
+	       $nav_logout,
+	       $nav_upload,
+	       $nav_upload_lists,
+	       $nav_final_upload_lists,
+	       $nav_faq
+       ),
+       $header);
+?>
+  <h1><?php echo $this->pass->getPageTitle(); ?></h1>
+<?php
+       if (isset($_SESSION['confirmation_message']))
+       {
+          echo '<div class="confirmation">', $_SESSION['confirmation_message'], '</div>';
+	  unset($_SESSION['confirmation_message']);
+       }
+   }
+
+   /**
+    * Prints the HTML page footer. This uses the template file in
+    * html/styles/footer.shtml with the placeholder comments
+    * substituted and also substitutes the SSI last modified code.
+    */
+   public function page_footer()
+   {
+     if ($this->pass->isDateTimeFallbackRequired())
+     {
+?>
+<script src="/styles/datetimefallback.js"></script>
+<?php
+     }
+
+     $file = $_SERVER['DOCUMENT_ROOT'] . '/styles/footer.shtml';
+
+     if (file_exists($file))
+     {
+        $footer = file_get_contents($file);
+	$mod_time = filemtime(
+	        $_SERVER['DOCUMENT_ROOT'].$_SERVER['PHP_SELF']);
+
+	$mod_time_str = sprintf("<time datetime=\"%s\">%s</time>",
+           date(DATE_W3C, $mod_time), date(DATE_RSS, $mod_time));
+        $footer = str_replace("<!--#echo var=\"LAST_MODIFIED\" -->",
+          $mod_time_str, $footer);
+
+	$footer = str_replace(
+          array(
+           '<!-- TERMS_LINK -->',
+           '<!-- ABOUT_LINK -->',
+           '<!-- LEGAL_LINK -->'
+          ), 
+          array(
+             $this->pass->get_terms_link(),
+             $this->pass->get_about_link(),
+             $this->pass->get_legal_link()
+          ),
+          $footer);
+
+        echo $footer;
+     }
+?>
+ </body>
+</html>
+<?php
+   }
+}
+?>

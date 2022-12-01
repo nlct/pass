@@ -35,6 +35,11 @@ $pass = new Pass();
 $connection=null;
 $channel = null;
 
+/**
+ * Callback function that processes each message (job) from the
+ * queue.
+ * @param $msg the queue message
+ */
 $callback = function($msg)
 {
    global $pass;
@@ -49,11 +54,13 @@ $callback = function($msg)
 
    $pass->updateSubmissionStatus($job['submission_id'], 'processing');
 
+   // run pass in a container
+
    $exitCode = runPass($job);
 
    $pass->updateSubmissionStatus($job['submission_id'], 'processed', $exitCode);
 
-   // send message
+   // send job processed email
 
    $err_msgs = $pass->sendJobProcessedEmail($exitCode, $job);
 
@@ -65,9 +72,15 @@ $callback = function($msg)
    logMessage("Finished submission ID " . $job['submission_id'] . ". Exit code: $exitCode");
 
    $pass->unsetParam('submission_id');
+
+   // acknowledge message
+   $msg->ack();
 };
 
-// https://github.com/php-amqplib/php-amqplib/blob/master/demo/connection_recovery_consume.php
+/**
+ * Cleans up connection.
+ * See https://github.com/php-amqplib/php-amqplib/blob/master/demo/connection_recovery_consume.php
+*/
 function cleanup_connection($connection)
 {
    // Connection might already be closed.
@@ -83,6 +96,10 @@ function cleanup_connection($connection)
    }
 }
 
+/**
+ * Shuts down the connection.
+ * @param $connection the connection
+ */
 function shutdown($connection)
 {
    if ($channel !== null)
@@ -96,6 +113,7 @@ function shutdown($connection)
    }
 }
 
+// polling loop
 while (true)
 {
    try
@@ -135,6 +153,10 @@ while (true)
    }
 }
 
+/**
+ * Checks that RabbitMQ is still running.
+ * Attempts to restart if it has exited.
+ */
 function checkRabbitMQRunning()
 {
    exec("docker ps --all --filter \"name=^rabbitmq\" --format \"{{.ID}}\t{{.State}}\t{{.Status}}\"", $output, $exitCode);
@@ -190,6 +212,10 @@ function checkRabbitMQRunning()
    }
 }
 
+/**
+ * Runs PASS in container for the given job.
+ * @param $job the array of job data
+ */
 function runPass(&$job)
 {
    global $pass;
@@ -349,6 +375,10 @@ function runPass(&$job)
    return $exitCode;
 }
 
+/**
+ * Writes a message to the log file.
+ * @param $msg the message
+ */
 function logMessage($msg)
 {
    global $pass;
@@ -357,6 +387,11 @@ function logMessage($msg)
       $pass->getDockerPath() .  '/passdocker.log');
 }
 
+/**
+ * Writes an error message to the log file.
+ * @param $msg the message
+ * @param $output string or array of additional information
+ */
 function errorMessage($msg, $output=null)
 {
    global $pass;
@@ -382,7 +417,10 @@ function errorMessage($msg, $output=null)
      $pass->getDockerPath() . '/passdocker.log');
 }
 
-// TEMPLATE: change the connection details
+/**
+ * Creates a new RabbitMQ connection for the consumer user.
+ */
+// TEMPLATE: edit RabbitMQ connection (consumer username and password)
 function connectConsumer()
 {
    // parameters: host, port, RabbitMQ username, RabbitMQ password

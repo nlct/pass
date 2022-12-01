@@ -1,0 +1,497 @@
+ul.menu
+{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.menu > li#nav_logout 
+{
+  float: right;
+}
+
+ul.menu > li
+{
+   float: left;
+   display: block;
+   color: white;
+   text-align: center;
+   padding: 14px 10px;
+}
+
+ul.menu > li  a
+{
+   color: white;
+   text-decoration: none;
+   padding: 14px 16px;
+}
+
+ul.menu > li  a:hover
+{
+   background-color: silver;
+}
+
+ul.menu > li a.home
+{
+   padding: 0px 0px;
+   vertical-align: baseline;
+}
+
+ul.menu > li a.home img
+{
+   vertical-align: baseline;
+   margin-top: -4px;
+   margin-bottom: -4px;
+}
+
+header
+{
+  background-color: black;
+}
+
+header::after
+{
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.dropitem::after
+{
+   content: " \01F783";
+}
+
+.dropdown
+{
+   position: relative;
+   display: inline-block;
+}
+
+.dropdown-content
+{
+  text-align: left;
+  display: none;
+  position: absolute;
+  background-color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#skip a
+{
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+div#main
+{
+}
+
+footer
+{
+   margin-top: 10px;
+   border-top: solid silver 1px;
+   font-size: small;
+   text-align: center;
+}
+
+div#banner_message
+{
+   border: solid red 4px;
+   font-size: large;
+}
+
+ul.sitenav
+{
+  list-style-type: none;
+  text-align: center;
+}
+
+ul.sitenav > li
+{
+   display: inline;
+   padding-left: 5px;
+   padding-right: 5px;
+}
+
+.legalterm
+{
+   font-weight: bold;
+}
+
+.error
+{
+   color: red;
+}
+
+.important
+{
+   font-weight: bold;
+   color: red;
+}
+
+.file
+{
+   font-family: monospace;
+}
+
+.collapsible
+{
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 4px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 10px;
+}
+
+.prominant
+{
+  color: black;
+  font-weight: bold;
+  font-size: large;
+}
+
+.active, .collapsible:hover
+{
+  background-color: #ccc;
+}
+
+.content
+{
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.content a.linkanchor
+{
+  position: absolute;
+  left: 10px;
+  font-size: small;
+  text-decoration: none;
+}
+
+.collapsible:after
+{
+  content: '\02795';
+  font-size: 10px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after
+{
+  content: "\2796";
+}
+
+.sub_path input
+{
+   text-align: right;
+}
+
+table.create_account,table.login
+{
+   margin-left: auto;
+   margin-right: auto;
+}
+
+table.create_account,table.login tr
+{
+   vertical-align: top;
+}
+
+table.create_account,table.login tr th
+{
+   text-align: left;
+}
+
+table.create_account,table.login span.note
+{
+   font-weight: normal;
+   font-size: small;
+}
+
+
+table.account tr
+{
+   vertical-align: top;
+}
+
+table.account tr th
+{
+   text-align: right;
+}
+
+table.userlist tr
+{
+   vertical-align: top;
+}
+
+table.userlist tr th.action
+{
+   text-align: center;
+   margin-left: 10px;
+}
+
+table.userlist tr td.action
+{
+   padding-left: 10px;
+}
+
+table.userlist tr th
+{
+   text-align: left;
+}
+
+span.notset
+{
+   font-weight: normal;
+   font-style: italic;
+   color: silver;
+}
+
+span.spacer { padding-left: 1em; padding-right: 1em; }
+
+div.confirmation
+{
+   background: #ffffcc;
+}
+
+div.maintenance
+{
+   background: #ffcccc;
+}
+
+a .symbol
+{
+   text-decoration: none;
+   display: inline-block;
+   margin-left: 4px;
+}
+
+.btn
+{
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #20538D;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: #E0E3E5;
+  color: #FFF;
+  padding: 4px 6px;
+}
+
+table.upload_list tr
+{
+   vertical-align: top;
+}
+
+table.upload_list tr td.submission_id
+{
+   text-align: right;
+}
+
+table.upload_list tr td.upload_time
+{
+   text-align: left;
+}
+
+table.upload_list tr td.course
+{
+   text-align: center;
+}
+
+table.upload_list tr td.assignment
+{
+   text-align: left;
+}
+
+table.upload_list tr td.projectmembers
+{
+   text-align: left;
+}
+
+table.upload_list tr td.projectmembers.solo
+{
+   text-align: center;
+}
+
+table.upload_list tr td.status
+{
+   text-align: center;
+}
+
+table.upload_list tr td.downloads
+{
+   text-align: center;
+}
+
+table.upload_list tr td.username
+{
+   text-align: left;
+}
+
+table.upload_list tr td.num_uploads
+{
+   text-align: right;
+}
+
+table.config tr
+{
+   vertical-align: top;
+}
+
+table.config tr td.description
+{
+   width: 40%;
+}
+
+table.config tr td.description dl
+{
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+
+table.config tr td.description dl dt
+{
+   grid-column-start: 1;
+}
+
+table.config tr td.description dl dd
+{
+   grid-column-start: 2;
+}
+
+table.action_recorder tr
+{
+   vertical-align: top;
+}
+
+.visually-hidden 
+{
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+input.visually-hidden:focus + label
+{
+  outline: thin dotted;
+}
+
+input.visually-hidden:focus-within + label
+{
+  outline: thin dotted;
+}
+
+.box_dragndrop,
+.box_uploading,
+.box_success,
+.box_error
+{
+   display: none;
+}
+
+#uploader.is-error .box_error
+{
+   display: block;
+   color: red;
+}
+
+#uploader.has-advanced-upload .box_dragndrop
+{
+  background-color: white;
+  outline: 2px dashed silver;
+  padding: 10px;
+}
+
+
+#uploader.has-advanced-upload .box_dragndrop
+{
+   display: block;
+}
+
+.is-dragover
+{
+   background-color: grey;
+}
+
+.is-dragover > #dropbox
+{
+   outline: 4px inset black !important;
+   background-color: #FFFFCC !important;
+}
+
+#uploader.is-uploading #dropbox
+{
+   visibility: hidden;
+}
+
+#uploader.is-uploading .box_uploading
+{
+   display: block;
+}
+
+.faded
+{
+   color: silver !important;
+}
+
+div.tableheader
+{
+   font-weight: bold;
+   min-width: 10em;
+   display: inline-block;
+}
+
+div.tablecontent
+{
+   display: inline-block;
+   padding-right: 2em;
+}
+
+div.tableaction
+{
+   display: inline-block;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.alignleft { float: left; }
+.alignright { float: right; }
+
+.nobr { white-space: nowrap; }
+

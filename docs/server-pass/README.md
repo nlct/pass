@@ -1,6 +1,7 @@
 # Server PASS Documentation
 
 This is the documentation for Server PASS.
+See [documentation home](../README.md) for general PASS information.
 
 ## Installation
 
@@ -227,10 +228,10 @@ The following details are stored in the `users` database table:
   - the student registration number;
   - the password (salted hash);
   - the user role (student, staff or admin);
-  - the user's account status (pending, verified or blocked);
+  - the user's account status (pending, active or blocked);
   - the account creation data;
   - the TOTP secret key (encrypted);
-  - the verification state of the secret key (true if verified);
+  - whether or not the secret key has been verified;
   - whether or not the 2FA setting has been enabled.
 
 The only identifiable information is the username and registration

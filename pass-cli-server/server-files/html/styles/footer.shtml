@@ -1,0 +1,9 @@
+</div>
+<footer>
+  Last modified <!--#echo var="LAST_MODIFIED" -->.
+ <ul class="sitenav">
+   <li><!-- ABOUT_LINK --></li>
+   <li><!-- TERMS_LINK --></li>
+   <li><!-- LEGAL_LINK --></li>
+ </ul>
+</footer>

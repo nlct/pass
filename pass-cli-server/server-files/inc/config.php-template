@@ -1,0 +1,260 @@
+<?php
+/*
+   Copyright 2022 Nicola L. C. Talbot
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ 
+*  Server Pass configuration file.
+*/
+   
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+
+/**
+  * Creates a random ASCII-safe string for use as a token.
+  * This is just a shortcut that uses random_bytes and bin2hex
+  * so the returned string will always consist of hexits.
+  *
+  * @param $num_bytes the number of random bytes to create
+  * @return the token as an ASCII-safe string
+  */
+function create_token($num_bytes=5)
+{
+   return bin2hex(random_bytes($num_bytes));
+}
+
+/**
+  * Connects to the passdb database.
+  * @return mysqli object if successful or false on failure
+  */
+// TEMPLATE: edit MySQL 'passdb' database username and password
+function passdb_connect()
+{
+   $db = mysqli_connect('localhost', '***INSERT USER HERE***', '***INSERT PASSWORD HERE***', 'passdb');
+
+   if ($db)
+   {
+      mysqli_set_charset($db, 'utf8');
+   }
+   else
+   {
+      error_log('Unable to connect to database. Error: '
+           . mysqli_connect_errno() . ': ' . mysqli_connect_error());
+   }
+
+   return $db;
+}
+
+/**
+  * Creates a new RabbitMQ connection for the producer user.
+  * The corresponding connectConsumer function is in the backend
+  * script.
+  *
+  * @return new AMQPStreamConnection object
+  */
+// TEMPLATE: edit RabbitMQ connection (producer username and password)
+function connectProducer()
+{
+   // parameters: host, port, username, password
+   return new AMQPStreamConnection('localhost', 5672,
+   '***INSERT USER HERE***', '***INSERT PASSWORD HERE***');
+}
+
+/**
+  * Declare a queue. A queue has to be declared before it can be
+  * used. This will create the queue if it doesn't already exist.
+  * @param $channel the channel
+  */
+function declareQueue($channel)
+{
+   $channel->queue_declare('pass', false, false, false, false);
+}  
+   
+/**
+  * Publishes a message on the queue.
+  * @param $channel the message channel
+  * @param $text the message to publish
+  */
+function publishMessage($channel, $text)
+{  
+   $msg = new AMQPMessage($text);
+   $channel->basic_publish($msg, '', 'pass');
+}
+
+/**
+  * Creates a keyed hashed (HMAC-SHA256) from the verifier, user ID and
+  * expiry timestamp. This is used for tokens that expire: account
+  * verification, password reset and trust cookie tokens.
+  * See https://paragonie.com/blog/2017/02/split-tokens-token-based-authentication-protocols-without-side-channels
+  * @param $verifier the verifier
+  * @param $userID the numeric UID
+  * @param $expires the token's expiry time
+  * @return the hashed digest as lowercase hexits
+  */
+// TEMPLATE: replace key
+function getHashedVerifier(string $verifier, int $userID, DateTime $expires)
+{
+   return \hash_hmac(
+         'sha256',
+         \json_encode([
+             $verifier,
+             $userID,
+             $expires->format('Y-m-d H:i:s')
+         ]),
+         '***KEY HERE***'
+     );
+}
+
+/**
+ * Encrypts the given 2FA key.
+ * @param $datastring the 2FA key
+ * @return the encrypted value
+ */
+// TEMPLATE: replace encryption key
+function encrypt2FAkey($datastring)
+{
+   return safeEncrypt($datastring,
+      hex2bin('***INSERT KEY HERE***'));// 64-digit hex string
+}
+
+/**
+ * Decrypts an encrypted 2FA key.
+ * @param $datastring the encrypted value
+ * @return the 2FA key
+ */
+// TEMPLATE: replace encryption key (match the one in encrypt2FAkey)
+function decrypt2FAkey($datastring)
+{
+   return safeDecrypt($datastring,
+      hex2bin('***INSERT KEY HERE***'));
+}
+
+/**
+ * Encrypts the given device data.
+ * Used to store information about the device when creating a trust
+ * cookie.
+ * @param $datastring the device data
+ * @return the encrypted value
+ */
+// TEMPLATE: replace encryption key
+function encryptDeviceData($datastring)
+{
+   return safeEncrypt($datastring,
+      hex2bin('***INSERT KEY HERE***'));
+}
+
+/**
+ * Decrypts the given encrypted device data.
+ * @param $datastring the encrypted value
+ * @return the device data
+ */
+// TEMPLATE: replace encryption key (match the one in encryptDeviceData)
+function decryptDeviceData($datastring)
+{
+   return safeDecrypt($datastring,
+      hex2bin('***INSERT KEY HERE***'));
+}
+
+/**
+ * Encrypts the given recovery code verifier.
+ * @param $datastring the recovery code verifier
+ * @return the encrypted value
+ */
+// TEMPLATE: replace encryption key
+function encryptRecoveryCode($datastring)
+{
+   return safeEncrypt($datastring,
+      hex2bin('***INSERT KEY HERE***'));
+}
+
+/**
+ * Decrypts the encrypted recovery code verifier.
+ * @param $datastring the encrypted value
+ * @return the recovery code verifier
+ */
+// TEMPLATE: replace encryption key (match the one in encryptRecoveryCode)
+function decryptRecoveryCode($datastring)
+{
+   return safeDecrypt($datastring,
+      hex2bin('***INSERT KEY HERE***'));
+}
+
+/**
+* Encrypts a string using the sodium library.
+* See https://www.php.net/manual/en/intro.sodium.php
+*
+* @param string $message - message to encrypt
+* @param string $key - encryption key
+* @return string
+*/
+function safeEncrypt($message, $key)
+{
+    $nonce = random_bytes(
+        SODIUM_CRYPTO_SECRETBOX_NONCEBYTES
+    );
+
+    $cipher = base64_encode(
+        $nonce.
+        sodium_crypto_secretbox(
+            $message,
+            $nonce,
+            $key
+        )
+    );
+    sodium_memzero($message);
+    sodium_memzero($key);
+    return $cipher;
+}
+
+/**
+* Decrypts a message using sodium library.
+*
+* @param string $encrypted - message encrypted with safeEncrypt()
+* @param string $key - encryption key
+* @return decrypted string
+*/
+function safeDecrypt($encrypted, $key)
+{
+    $decoded = base64_decode($encrypted);
+
+    if ($decoded === false)
+    {
+       throw new Exception('Encoding failed');
+    }
+
+    if (mb_strlen($decoded, '8bit') < (SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES))
+    {
+       throw new Exception('Data truncated');
+    }
+
+    $nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
+    $ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+
+    $plain = sodium_crypto_secretbox_open(
+        $ciphertext,
+        $nonce,
+        $key
+    );
+
+    if ($plain === false)
+    {
+       throw new Exception('Data tampered with in transit');
+    }
+
+    sodium_memzero($ciphertext);
+    sodium_memzero($key);
+    return $plain;
+}
+
+?>
