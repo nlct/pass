@@ -313,7 +313,7 @@ public class PassChecker extends Vector<AssignmentMetaData>
       String decryptedCheckSum = data.getDecryptedCheckSum();
       String checkSum = data.getZipCheckSum();
 
-      if (!(decryptedCheckSum == null && checkSum == null))
+      if (flagIdenticalCheckSums && !(decryptedCheckSum == null && checkSum == null))
       {
          for (AssignmentMetaData d : this)
          {
@@ -805,6 +805,12 @@ public class PassChecker extends Vector<AssignmentMetaData>
       System.out.println(getMessage("syntax.max_time_diff", "--max-time-diff",
          getMaxTimeDiff()));
 
+      System.out.println();
+      System.out.println(getMessage("syntax.flag.identical.checksums",
+       "--flag-identical-checksums", "-c"));
+      System.out.println(getMessage("syntax.noflag.identical.checksums",
+       "--noflag-identical-checksums", "-k"));
+
       System.exit(0);
    }
 
@@ -830,6 +836,16 @@ public class PassChecker extends Vector<AssignmentMetaData>
          else if (args[i].equals("--debug"))
          {
             setDebugLevel(1);
+         }
+         else if (args[i].equals("--flag-identical-checksums")
+             || args[i].equals("-c"))
+         {
+            flagIdenticalCheckSums = true;
+         }
+         else if (args[i].equals("--noflag-identical-checksums")
+             || args[i].equals("-k"))
+         {
+            flagIdenticalCheckSums = false;
          }
          else if (args[i].equals("--max-time-diff") || args[i].equals("-m"))
          {
@@ -945,11 +961,12 @@ public class PassChecker extends Vector<AssignmentMetaData>
    private MessageSystem messageSystem;
    private int debugLevel = 0;
    private int maxTimeDiff = 10;
+   private boolean flagIdenticalCheckSums=true;
 
    public static final String NAME="PASS Checker";
    public static final String INVOKER_NAME="pass-checker";
-   public static final String VERSION="1.3";
-   public static final String VERSION_DATE="2022-11-14";
+   public static final String VERSION="1.4";
+   public static final String VERSION_DATE="2022-12-02";
    public static final int COPYRIGHT_START_YEAR=2018;
 
    public static final SimpleDateFormat DATE_FORMAT

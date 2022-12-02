@@ -353,7 +353,9 @@ public class AssignmentMetaData
       }
       else if (!decryptedCheckSum.equals(zipCheckSum))
       {
-         appendInfo(passChecker.getMessage("info.mismatched_checksum"));
+         String msg = passChecker.getMessage("info.mismatched_checksum");
+         passChecker.warning(String.format("%s: %s", pdfFile.getName(), msg));
+         appendInfo(msg);
       }
 
       if (decryptedVersion == null)

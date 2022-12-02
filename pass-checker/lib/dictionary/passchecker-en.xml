@@ -26,6 +26,8 @@
 			Save the results to given TAB separated variable file.</entry>
 <entry key="syntax.max_time_diff">{0} &lt;n&gt;	Set the maximum time difference to &lt;n&gt; (seconds).
 			(Default: {1,number} seconds.)</entry>
+<entry key="syntax.flag.identical.checksums">{0} (or {1})	Flag coincident zip checksums.</entry>
+<entry key="syntax.noflag.identical.checksums">{0} (or {1})	Don''t flag coincident zip checksums.</entry>
 
 <entry key="warning">Warning: {0}</entry>
 <entry key="warning.invalid_no_appname">No application name found. Old version of PASS possibly used.</entry>
