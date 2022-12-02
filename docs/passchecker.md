@@ -5,7 +5,7 @@ PDF files submitted by students to determine if they were created by
 PASS and if there are signs that they may have been modified after
 PASS created them. Usage:
 ```
-pdfinfo [options] <PDF-file>+
+pass-checker [options] <PDF-file>+
 ```
 
 The PASS assignment processor writes custom fields in the PDF
