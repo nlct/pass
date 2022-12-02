@@ -184,7 +184,7 @@ keyed-hash message authentication code (HMAC) using the SHA256
 algorithm is stored, where the input message data is the JSON
 encoded array consisting of the actual verifier, the user ID and
 expiry time. (See the `getHashedVerified(string,int,DateTime)`
-function in the `inc/config.php` file.) The selector is stored as a 16
+function in the [`inc/config.php`](https://github.com/nlct/pass/blob/main/pass-cli-server/server-files/inc/config.php-template) file.) The selector is stored as a 16
 byte binary object and the keyed-hash value is stored as a 32 byte
 binary object. This method of splitting the token
 [helps to mitigate against time-based attacks](https://paragonie.com/blog/2017/02/split-tokens-token-based-authentication-protocols-without-side-channels).
@@ -212,8 +212,9 @@ labels to replace "Blackboard ID" with something more applicable,
 but the assumption is that the student's username is their email
 username and either their username or their student registration
 number is needed to log their assignment mark. If the username
-shouldn't appear on the PDF, edit the `getAuthor(Student)` function
-in [`inc/AssignmentProcessConfig.php`](https://github.com/nlct/pass/blob/main/pass-lib/java/AssignmentProcessConfig.java-template) as applicable.
+shouldn't appear on the PDF, edit the `getAuthor(Student)` and
+`getMetaDataAuthor(Student)` methods
+in [`pass-lib/java/AssignmentProcessConfig.java`](https://github.com/nlct/pass/blob/main/pass-lib/java/AssignmentProcessConfig.java-template) as applicable.
 
 When a student creates an account on the frontend, the username they
 supply must match their email username. There is no provision for a
