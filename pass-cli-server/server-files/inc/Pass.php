@@ -6271,6 +6271,34 @@ class Pass
       return $this->assignmentdata[$courselabel][$assignmentname];
    }
 
+   public function getDefaultLanguage($assignmentdata)
+   {
+      if (isset($assignmentdata['mainfile']))
+      {
+         $idx = strrpos($assignmentdata['mainfile'], '.');
+
+         if ($idx !== false)
+         {
+            $ext = strtolower(substr($assignmentdata['mainfile'], $idx+1));
+
+            if ($ext === 'cpp')
+            {
+               return 'C++';
+            }
+
+            foreach (self::FILE_TYPES as $ftype)
+            {
+               if (strcasecmp($ext, $ftype) === 0)
+               {
+                  return $ftype;
+               }
+            }
+         }
+      }
+
+      return false;
+   }
+
    /**
      * Tests if the given password is considered insecure.
      * This checks for common passwords and easy to guess patterns.
