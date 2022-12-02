@@ -430,6 +430,17 @@ public class AssignmentProcessConfig
    }
 
    /**
+    * Gets the author name for PDF metadata. This is used in the
+    * Author field of the PDF metadata, the author details for
+    * attachments and the encrypted author. Ensure that there are no
+    * LaTeX special characters.
+    */ 
+   public String getMetaDataAuthor(Student student)
+   {
+      return student.getUserName();
+   }
+
+   /**
     * Writes any additional LaTeX code to the preamble.
     * @param out the output stream
     * @throws IOException if I/O error occurs
