@@ -54,7 +54,7 @@ title.
 
 | Attribute | Description | Default |
 | --- | --- | --- |
-| `name` | The course label. | _none_ (required) |
+| `name` | The course code/label. | _none_ (required) |
 | `href` | The URL of the assignment XML file. | _none_ (required) |
 | `debug` | Boolean value that, if true, indicates the course is only available in debug mode. | `false` |
 

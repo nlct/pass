@@ -961,7 +961,7 @@ public class PassChecker extends Vector<AssignmentMetaData>
    private MessageSystem messageSystem;
    private int debugLevel = 0;
    private int maxTimeDiff = 10;
-   private boolean flagIdenticalCheckSums=true;
+   private boolean flagIdenticalCheckSums=false;
 
    public static final String NAME="PASS Checker";
    public static final String INVOKER_NAME="pass-checker";

@@ -108,7 +108,7 @@ following.
  - If the modification date is more than the specified time
    difference tolerance after the creation date, a note is added.
 
- - If creation date (or Server Pass submission date, if set) is
+ - If the creation date (or Server Pass submission date, if set) is
    later than the due date, a note is added.
 
 Finally, if the `--flag-identical-checksums` setting is on and
@@ -157,12 +157,15 @@ The following command line options are available:
   - `--flag-identical-checksums` (or `-c`) : flag coincident zip
     checksums.
   - `--noflag-identical-checksums` (or `-k`) : don't flag coincident zip
-    checksums.
+    checksums (default).
 
 Note that you need to take into account how long it's likely to take
 PASS to write the LaTeX source code, fetch any resource files, and
 compile and run the application (where applicable) when determining
 the appropriate timestamp tolerance.
+
+The `--flag-identical-checksums` setting will cause a longer run
+time for Pass Checker.
 
 ---
 
