@@ -504,5 +504,6 @@ transcript messages to a text file and consult your lecturer.
 
 ---
 
- - Prev: XML File Specifications ⏵ [Assignment Files](assignmentxml.md)
- - Next: User Guides ⏵ [Pass Editor](passeditor.md)
+ - &#x23EE; XML File Specifications ⏵ [Assignment Files](assignmentxml.md)
+ - &#x23ED; User Guides ⏵ [Pass Editor](passeditor.md)
+ - &#x23F6; [Documentation Summary](README.md)

@@ -79,5 +79,6 @@ and click the "Merge" button.
 
 ---
 
-Previous : Admin ⏵  [Configuration](admin-config.md)
-Next : Admin ⏵  [Upload Directories](admin-uploaddir.md)
+ - &#x23EE; Admin ⏵  [Configuration](admin-config.md)
+ - &#x23ED; Admin ⏵  [Upload Directories](admin-uploaddir.md)
+ - &#x23F6; [Server Pass Summary](README.md)

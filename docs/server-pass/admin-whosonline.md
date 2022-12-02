@@ -39,7 +39,6 @@ the time that page loads.
 
 ---
 
-Previous : Admin ⏵  [Process Logs](admin-processlogs.md)
-Next : Admin ⏵  [Session Data](admin-sessiondata.md)
-
-
+ - &#x23EE; Admin ⏵  [Process Logs](admin-processlogs.md)
+ - &#x23ED; Admin ⏵  [Session Data](admin-sessiondata.md)
+ - &#x23F6; [Server Pass Summary](README.md)

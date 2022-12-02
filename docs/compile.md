@@ -467,5 +467,6 @@ the [`server-pass`](https://github.com/nlct/pass/tree/main/docs/server-pass) dir
 
 ---
 
- - Prev: [README](readme.md)
- - Next: [Installing](install.md)
+ - &#x23EE; [Documentation Summary](README.md)
+ - &#x23ED; [Installing](install.md)
+ - &#x23F6; [Documentation Summary](README.md)

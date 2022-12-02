@@ -254,5 +254,6 @@ their work.
 
 ---
 
- - Prev: [Installing](install.md)
- - Next: XML File Specifications ⏵ [Assignment Files](assignmentxml.md)
+ - &#x23EE; [Installing](install.md)
+ - &#x23ED; XML File Specifications ⏵ [Assignment Files](assignmentxml.md)
+ - &#x23F6; [Documentation Summary](README.md)

@@ -767,5 +767,6 @@ wrap, TAB substitution, and invalid or control character substitution.
 
 ---
 
- - Prev: XML File Specifications ⏵ [Resource Files (Courses and Settings)](resourcexml.md)
- - Next: User Guides ⏵ [Pass GUI](passgui.md)
+ - &#x23EE; XML File Specifications ⏵ [Resource Files (Courses and Settings)](resourcexml.md)
+ - &#x23ED; User Guides ⏵ [Pass GUI](passgui.md)
+ - &#x23F6; [Documentation Summary](README.md)

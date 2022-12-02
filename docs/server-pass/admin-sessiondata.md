@@ -51,5 +51,6 @@ they move to a new page or if the page they are currently on reloads.
 
 ---
 
-Previous : Admin ⏵  [Who's Online](admin-whosonline.md)
-Next : Admin ⏵  [Action Recorder](admin-recorder.md)
+ - &#x23EE; Admin ⏵  [Who's Online](admin-whosonline.md)
+ - &#x23ED; Admin ⏵  [Action Recorder](admin-recorder.md)
+ - &#x23F6; [Server Pass Summary](README.md)

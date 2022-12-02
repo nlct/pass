@@ -63,5 +63,6 @@ directories.
 
 ---
 
-Previous : Admin ⏵  [Users](admin-users.md)
-Next : Admin ⏵  [Process Logs](admin-processlogs.md)
+ - &#x23EE; Admin ⏵  [Users](admin-users.md)
+ - &#x23ED; Admin ⏵  [Process Logs](admin-processlogs.md)
+ - &#x23F6; [Server Pass Summary](README.md)

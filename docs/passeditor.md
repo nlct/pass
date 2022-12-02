@@ -580,5 +580,6 @@ instructions.
 
 ---
 
- - Prev: User Guides ⏵ [Pass GUI](passgui.md)
- - Next: User Guides ⏵ [Pass CLI](passcli.md)
+ - &#x23EE; User Guides ⏵ [Pass GUI](passgui.md)
+ - &#x23ED; User Guides ⏵ [Pass CLI](passcli.md)
+ - &#x23F6; [Documentation Summary](README.md)

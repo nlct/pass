@@ -81,6 +81,6 @@ there are no jobs it won't appear to be doing anything. Exit with
 
 ---
 
- - Prev: Installation ⏵ [Building the PASS Docker Image](buildingimage.md)
- - Next: Installation ⏵ [Updates](updates.md)
-
+ - &#x23EE; Installation ⏵ [Building the PASS Docker Image](buildingimage.md)
+ - &#x23ED; Installation ⏵ [Updates](updates.md)
+ - &#x23F6; [Server Pass Summary](README.md)

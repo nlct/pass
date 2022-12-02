@@ -348,5 +348,6 @@ upload page.
 
 ---
 
- - Prev: User Guides ⏵ [Pass Editor](passeditor.md)
- - Next: [Server PASS](server-pass/README.md)
+ - &#x23EE; User Guides ⏵ [Pass Editor](passeditor.md)
+ - &#x23ED; User Guides ⏵ [Pass Checker](passchecker.md)
+ - &#x23F6; [Documentation Summary](README.md)

@@ -67,3 +67,4 @@ The columns of the upload list are described below.
 ---
 
 
+ - &#x23F6; [Server Pass Summary](README.md)

@@ -16,5 +16,6 @@ This page provides information on:
 
 ---
 
-Previous : Admin ⏵  [Action Recorder](admin-recorder.md)
-Next : Admin ⏵  [PHP Info](admin-info.md)
+ - &#x23EE; Admin ⏵  [Action Recorder](admin-recorder.md)
+ - &#x23ED; Admin ⏵  [PHP Info](admin-info.md)
+ - &#x23F6; [Server Pass Summary](README.md)

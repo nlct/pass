@@ -270,4 +270,4 @@ Users with "admin" status can access the Admin pages.
 
 ---
 
-Up: [Documentation Home](../README.md)
+ - &#x23F6; [Documentation Summary](../README.md)

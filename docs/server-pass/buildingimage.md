@@ -57,6 +57,7 @@ to `/var/www/html` if it hasn't changed).
 
 ---
 
- - Prev: Installation ⏵ [Setting Up the Frontend](setupfrontend.md)
- - Next: Installation ⏵ [Setting Up the Backend](setupbackend.md)
+ - &#x23EE; Installation ⏵ [Setting Up the Frontend](setupfrontend.md)
+ - &#x23ED; Installation ⏵ [Setting Up the Backend](setupbackend.md)
+ - &#x23F6; [Server Pass Summary](README.md)
 

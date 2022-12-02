@@ -58,6 +58,7 @@
    + [Pass GUI](passgui.md)
    + [Pass Editor](passeditor.md)
    + [Pass CLI](passcli.md)
+   + [Pass Checker](passchecker.md)
  - [Server Pass](server-pass/README.md)
 
 See also <https://www.dickimaw-books.com/software/pass/faq.php> for

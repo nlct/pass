@@ -76,5 +76,6 @@ with that submission ID set in the search parameters.
 
 ---
 
-Previous : Admin ⏵  [Users](admin-uploaddirs.md)
-Next : Admin ⏵  [Process Logs](admin-whosonline.md)
+ - &#x23EE; Admin ⏵  [Users](admin-uploaddirs.md)
+ - &#x23ED; Admin ⏵  [Process Logs](admin-whosonline.md)
+ - &#x23F6; [Server Pass Summary](README.md)

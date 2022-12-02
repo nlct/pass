@@ -104,6 +104,7 @@ person.
 
 ---
 
-Previous : [README](README.md)
-Next : Admin ⏵  [Users](admin-users.md)
+ - &#x23EE; [Server Pass Summary](README.md)
+ - &#x23ED; Admin ⏵  [Users](admin-users.md)
+ - &#x23F6; [Server Pass Summary](README.md)
  

@@ -56,5 +56,6 @@ need both Java and TeX installed, see [`README.md`](README.md).
 
 ---
 
- - Prev: [Compiling the Source Code](compile.md)
- - Next: XML File Specifications ⏵ [Resource Files (Courses and Settings)](resourcexml.md)
+ - &#x23EE; [Compiling the Source Code](compile.md)
+ - &#x23ED; XML File Specifications ⏵ [Resource Files (Courses and Settings)](resourcexml.md)
+ - &#x23F6; [Documentation Summary](README.md)

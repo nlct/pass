@@ -27,5 +27,6 @@ delete request.
 
 ---
 
-Previous : Admin ⏵  [Session Data](admin-sessiondata.md)
-Next : Admin ⏵  [Backend Maintenance](admin-maintenance.md)
+ - &#x23EE; Admin ⏵  [Session Data](admin-sessiondata.md)
+ - &#x23ED; Admin ⏵  [Backend Maintenance](admin-maintenance.md)
+ - &#x23F6; [Server Pass Summary](README.md)

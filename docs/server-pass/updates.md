@@ -40,5 +40,7 @@ make sure you create them again with the correct permissions.)
 
 ---
 
- - Prev: Installation ⏵ [Setting Up the Backend](setupbackend.md)
+ - &#x23EE; Installation ⏵ [Setting Up the Backend](setupbackend.md)
+ - &#x23ED; [Server Pass Summary](README.md)
+ - &#x23F6; [Server Pass Summary](README.md)
 

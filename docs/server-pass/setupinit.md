@@ -68,5 +68,6 @@ instructions below.
 
 ---
 
- - Previous: [README](README.md)
- - Next: Installation ⏵ [Setting Up the Frontend](setupfrontend.md)
+ - &#x23EE; [Server Pass Summary](README.md)
+ - &#x23ED; Installation ⏵ [Setting Up the Frontend](setupfrontend.md)
+ - &#x23F6; [Server Pass Summary](README.md)
