@@ -139,6 +139,16 @@ function process_params()
       {
          array_push($filetypes, 'BINARY');
       }
+
+      if (!isset($assignmentdata['language']))
+      {
+         $lang = $pass->getDefaultLanguage($assignmentdata);
+
+         if ($lang !== false)
+         {
+            $assignmentdata['language'] = $lang;
+         }
+      }
    }
 
    if (!($pass->isParam('action', 'listcourses') 
@@ -1216,47 +1226,10 @@ agreeelem.addEventListener("change", (event) =>
     return true;
  }
 
-const subPathsElem = document.getElementById("sub_paths");
-
-if (subPathsElem)
-{
-  subPathsElem.addEventListener("click", function()
-   {
-      var elem = document.getElementById("sub_paths_note");
-  
-      if (elem)
-      {
-         if (this.checked)
-         {
-            elem.style.display="block";
-         }
-         else
-         {
-            elem.style.display="none";
-         }
-      }
-
-      var subPathElems = document.getElementsByClassName("sub_path");
-
-      for (var i = 0; i < subPathElems.length; i++)
-      {
-         if (this.checked)
-         {
-            subPathElems[i].style.display="inline";
-         }
-         else
-         {
-            subPathElems[i].style.display="none";
-         }
-      }
-   }
-   );
-}
 
  function addExtraFields()
  {
-    var subPathsButton = document.getElementById("sub_paths");
-    var enableSubPaths = subPathsButton.checked;
+    var enableSubPaths = <?php echo has_sub_paths() ? 'true' : 'false' ; ?>;
     var div = document.getElementById("supplementalfiles");
     var numExtra = document.getElementById("num_extra");
     var elems = document.getElementsByClassName("additionalfile");
@@ -1311,6 +1284,41 @@ if (subPathsElem)
        inputNode.setAttribute("type", "file");
        inputNode.classList.add("additionalfile");
        parNode.appendChild(inputNode);
+
+       parNode.appendChild(document.createTextNode(" "));
+
+       var selectNode = document.createElement("select");
+       selectNode.name = "additionalfilelang[]";
+
+<?php
+   $defLang = $pass->getParamElement('assignmentdata', 'language');
+
+   if (empty($defLang))
+   {
+      $defLang = 'Plain Text';
+   }
+
+   foreach ($pass->getParam('filetypes') as $lang)
+   {
+?>
+       var optionNode = document.createElement("option");
+       optionNode.value = "<?php echo $lang; ?>";
+       optionNode.innerText="<?php echo $lang; ?>";
+
+<?php
+       if ($lang === $defLang)
+       {
+?>
+          optionNode.selected = true;
+<?php
+       }
+?>
+
+       selectNode.appendChild(optionNode);
+<?php
+   }
+?>
+       parNode.appendChild(selectNode);
     }
  }
 </script>
