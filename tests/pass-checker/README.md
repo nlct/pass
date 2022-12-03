@@ -10,3 +10,5 @@
    but process date after due date (Server PASS, Job ID 3241)
  - `subdirs-abc01xyz.pdf` : late submission (Server Pass, Job ID
    3243)
+
+See [Pass Checker documentation](../../docs/passchecker.md).
