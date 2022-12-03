@@ -65,6 +65,8 @@ class PassConfig
    const PREV_LABEL = '&#x23F4; Previous';
    const NEXT_LABEL = 'Next &#x23F5;';
 
+   const MENU_SEP = ' &#x23F5; ';
+
    const MAIL_SUBJECT_PREFIX = 'Server Pass: ';
    const MAIL_MESSAGE_PREFIX = "Dear Server Pass User\r\n\r\n";
    const MAIL_MESSAGE_SUFFIX = "\r\n\r\nServer Pass";
