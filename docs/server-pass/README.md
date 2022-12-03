@@ -11,6 +11,33 @@ See [documentation home](../README.md) for general PASS information.
  - [Setting Up the Backend](setupbackend.md)
  - [Updates](updates.md)
 
+## Website Documentation
+
+### General Web Pages
+
+ - [Create Account](create-account.md)
+ - [Account Details](account.md)
+ - [Upload Project](upload-project.md)
+ - [List Uploads](list-uploads.md)
+
+### Staff Web Pages
+
+ - [Final Uploads](final-uploads.md)
+
+### Admin Pages
+
+Users with "admin" status can access the Admin pages.
+
+ - [Configuration](admin-config.md)
+ - [Users](admin-users.md)
+ - [Upload Directories](admin-uploaddir.md)
+ - [Process Logs](admin-processlogs.md)
+ - [Who's Online](admin-whosonline.md)
+ - [Session Data](admin-sessiondata.md)
+ - [Action Recorder](admin-recorder.md)
+ - [Backend Maintenance](admin-maintenance.md)
+ - [PHP Info](admin-info.md)
+
 ## How Server Pass Works
 
 The frontend is a website where students create an account, log in
@@ -246,28 +273,6 @@ This cookie simply contains the session ID.
 There is one optional cookie, which has a lifespan of 30 days, and
 is an opt-in trust setting to allow 2FA to be skipped.
 This cookie stores the trust token.
-
-## Website Documentation
-
-🚧 
-
-### General Web Pages
-
- - [List Uploads](list-uploads.md)
-
-### Admin Pages
-
-Users with "admin" status can access the Admin pages.
-
- - [Configuration](admin-config.md)
- - [Users](admin-users.md)
- - [Upload Directories](admin-uploaddir.md)
- - [Process Logs](admin-processlogs.md)
- - [Who's Online](admin-whosonline.md)
- - [Session Data](admin-sessiondata.md)
- - [Action Recorder](admin-recorder.md)
- - [Backend Maintenance](admin-maintenance.md)
- - [PHP Info](admin-info.md)
 
 ---
 

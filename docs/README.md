@@ -18,10 +18,10 @@
    `ans`. She doesn't have a student registration number because
    she's not a student.
 
-   + Bob is a student. His university username is `vqs23ygl`
+   + Bob Jones is a student. His university username is `vqs23ygl`
    and his student registration number is 327509401.
 
-   + Carol is a student. Her university username is `jwh22ird`
+   + Carol Brown is a student. Her university username is `jwh22ird`
    and her student registration number is 423901355.
 
  - Department devices:
