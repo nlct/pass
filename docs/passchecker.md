@@ -169,17 +169,17 @@ time for Pass Checker.
 
 ## Examples
 
-The `tests/pass-checker` directory contains PDF files simulating
-student submissions for the dummy course. After you have compiled
-Pass Checker with `make`, you can then run `make test`, which will
-run Pass Checker on the test files.
+The [`tests/pass-checker`](../tests/pass-checker/README.md) directory contains PDF files simulating
+student submissions for the dummy course. After you have
+[compiled](compile.md) Pass Checker with `make`, you can then run
+`make test`, which will run Pass Checker on the test files.
 
 Two files represent late submissions: `helloworldjava-abc01xyz.pdf`
 and `subdirs-abc01xyz.pdf`.
 
 The file `helloworldbash-vqs23ygl.pdf` was created by Pass GUI but I
 then modified the zip file in the temporary directory while Pass GUI
-was still running and reran LaTeX to created the modified PDF. The
+was still running and reran LaTeX to create the modified PDF. The
 original zip file contains `helloworldbash/helloworld`. I edited the
 echo line in the `helloworld` script to `echo "Hello World (Edited)!"`
 and updated the zip file. This means that the zip file is now
