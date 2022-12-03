@@ -9,7 +9,7 @@ without the domain.
 
 For example, Bob Jones is a student at the "University
 of Example", where the university's domain is `example.com`, and he has
-an account `vqs23ygl@example.com`, so he needs to enter `vqs23ygl`.
+a university account `vqs23ygl@example.com`, so he needs to enter `vqs23ygl`.
 (Bob may also have an email alias that contains his name, for
 example, `bob.jones@example.com` but he shouldn't use this.)
 
@@ -31,7 +31,7 @@ which you can copy and paste instead. In this case, you can
 navigate your way to the verification page by following the link to
 the login page from the Server Pass homepage and then follow the
 "verification page" link. Paste the token in the token field and
-click on the "Submit" button. If you token has expired, you can use
+click on the "Submit" button. If your token has expired, you can use
 the "Need a new token?" link to send a new token.
 
 Once you have verified your account, you can then login by following

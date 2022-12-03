@@ -548,7 +548,7 @@ compares it with other information in the PDF file to determine the
 likelihood that the PDF file has been altered after Pass created it.
 It will flag any late submissions or possible discrepancies.
 
-See the [documentation](docs/compile.md) for further details.
+See the [documentation](docs/passchecker.md) for further details.
 
 ## DISCLAIMER
 

@@ -14,11 +14,10 @@ JavaScript enabled, you will move onto the fallback web page when
 you click on the first "Next" button. The file upload section also
 has a link to the fallback which you can use if you have a problem
 with the file upload widgets.
-
-The fallback page does have some JavaScript, but it can function
+The fallback page does have some JavaScript but can function
 without it.
 
-The upload page starts with the same blurb shown on the
+The upload page starts with the same blurb that's shown on the
 unauthenticated home page.
 
 > This is a web-script alternative to the desktop PASS (Preparing
@@ -108,7 +107,7 @@ The default file uploads page uses JavaScript to make it easier to
 upload multiple files.
 
 > File names may only contain alphanumerics (a–z, A–Z, 0–9),
-> underscores _ or hyphens - or plus + (and a dot for the
+> underscores `_` or hyphens `-` or plus `+` (and a dot for the
 > extension). **File names are case-sensitive.** 
 
 Binary files (except PDF or Word) are normally prohibited, but if your
@@ -187,8 +186,8 @@ filename in the "Required Files" section (if applicable) and the
 
 The "Required Files" section lists each required file with a file
 selector button followed by the text "No file selected" if you
-haven't yet selected that file or a tick ✅ if you have selected it
-correctly or a cross ❌ and an error message if there was a problem
+haven't yet selected that file or a tick &#x2705; if you have selected it
+correctly or a cross &#x274C; and an error message if there was a problem
 with the selected file.
 
 For example, the "Shop" assignment requires the files
@@ -200,6 +199,24 @@ starts out as:
 > Shop.java <kbd>📂</kbd> No file selected.  
 > Main.java <kbd>📂</kbd> No file selected.  
 > UnknownProductException.java <kbd>📂</kbd> No file selected.  
+
+The Shop assignment has an accompanying file called `products.csv`
+that Shop application needs to read. This should not be uploaded,
+but it's listed in the "Supplied Project Files" section. This
+section will be omitted if there are no supplied project files.
+
+> This project has 1 supplied file which will automatically be fetched by PASS. This file should not be uploaded.
+>
+> products.csv
+
+The Shop assignment requires the project application to create a
+file called `receipt.txt`. This should also not be uploaded, but is
+listed in the "Project Result Files" section. This section will be
+omitted if there are no required result files.
+
+> This project has 1 result file which should be created by your application. This files should not be uploaded.
+>
+> receipt.txt
 
 Each additional file is listed in a separate row as:
 
@@ -217,58 +234,70 @@ them all in that.
 
 A confirmation message appears at the bottom of the drop area:
 
-> ✅ 5 files added.
+> &#x2705; 5 files added.
+
+If Bob accidentally selected the `products.csv` file, the above
+message will be followed by:
+
+> &#x274C; 1 file omitted (forbidden type or filename contains forbidden characters or filename conflicts with supplied project file).
 
 The Required Files section now has:
 
-> Product.java <kbd>📂</kbd> ✅  
-> Shop.java <kbd>📂</kbd> ✅  
-> Main.java <kbd>📂</kbd> ✅  
-> UnknownProductException.java <kbd>📂</kbd> ✅
+> Product.java <kbd>📂</kbd> &#x2705;  
+> Shop.java <kbd>📂</kbd> &#x2705;  
+> Main.java <kbd>📂</kbd> &#x2705;  
+> UnknownProductException.java <kbd>📂</kbd> &#x2705;
 
 The Additional Files section has:
 
-> Supplementary File 1: <kbd>&#x1F4C2;</kbd> Currency.java ✅ <kbd>Java&#x23F7;</kbd>
+> Supplementary File 1: <kbd>&#x1F4C2;</kbd> Currency.java &#x2705; <kbd>Java&#x23F7;</kbd>
+
+If a required file is listed as an additional file after dragging
+and dropping it or using the multi-file selector, double-check the
+filename (including the case).
 
 Bob and Carol also have image files used by their application that
 are in a sub-directory called `icons`. This directory structure
 needs to be preserved, so Bob scrolls back up and checks the
 "Project has sub-directories" checkbox. This adds a text field for
-the sub-directory for each file with the default value `.` (current
-directory):
+the sub-directory for each file with the default value `.` (project
+base directory):
 
-> `.`/Product.java <kbd>📂</kbd> ✅  
-> `.`/Shop.java <kbd>📂</kbd> ✅  
-> `.`/Main.java <kbd>📂</kbd> ✅  
-> `.`/UnknownProductException.java <kbd>📂</kbd> ✅
+> `.`/Product.java <kbd>📂</kbd> &#x2705;  
+> `.`/Shop.java <kbd>📂</kbd> &#x2705;  
+> `.`/Main.java <kbd>📂</kbd> &#x2705;  
+> `.`/UnknownProductException.java <kbd>📂</kbd> &#x2705;
 >
-> Supplementary File 1: <kbd>&#x1F4C2;</kbd> `.`/Currency.java ✅ <kbd>Java&#x23F7;</kbd>
+> Supplementary File 1: <kbd>&#x1F4C2;</kbd> `.`/Currency.java &#x2705; <kbd>Java&#x23F7;</kbd>
 
 Bob goes back to the File Explorer, selects all the image files
 (`logo.png` and `sample.png`) and drags and drops them onto the drop
 area (or uses the multi-file selector). These are added to the
 "Additional Files" section.
 
-> Supplementary File 1: <kbd>&#x1F4C2;</kbd> `.`/Currency.java ✅ <kbd>Java&#x23F7;</kbd>
-> Supplementary File 2: <kbd>&#x1F4C2;</kbd> `.`/logo.png ✅ <kbd>BINARY&#x23F7;</kbd>
-> Supplementary File 3: <kbd>&#x1F4C2;</kbd> `.`/sample.png ✅ <kbd>BINARY&#x23F7;</kbd>
+> Supplementary File 1: <kbd>&#x1F4C2;</kbd> `.`/Currency.java &#x2705; <kbd>Java&#x23F7;</kbd>  
+> Supplementary File 2: <kbd>&#x1F4C2;</kbd> `.`/logo.png &#x2705; <kbd>BINARY&#x23F7;</kbd>  
+> Supplementary File 3: <kbd>&#x1F4C2;</kbd> `.`/sample.png &#x2705; <kbd>BINARY&#x23F7;</kbd>
 
 Bob now needs to change the subpath from the default `.` to `icons`
 (no trailing slash). If the path consists of multiple elements, use
 a forward slash to separate them.
 
 There are four supplementary file fields by default.  If you need
-more, enter the number of extra fields in and click on the "Add"
+more, enter the number of extra fields in the selector and click on the "Add"
 button.
 
 > <kbd>Add</kbd> `1`⇳ more file field(s).
 
 Note that it's not possible to search your device for project files
-in the way that Pass GUI can do. Web browsers don't allow this for
-your privacy and security. There's no provision to upload an archive
-of all your files. Only upload the actual project source code and
-allowed binaries. Don't upload version control files or IDE files or
-binary files that haven't been listed as allowed.
+in the way that Pass GUI can do. Browsers don't allow websites to
+access your filing system for your privacy and security. The file
+selector only tells the website the base filename not the full file path.
+
+There's no provision to upload an archive of all your files. Only
+upload the actual project source code and allowed binaries. Don't
+upload version control files or IDE files or binary files that
+haven't been listed as allowed.
 
 Once you have selected all your project files, check the agreement
 box and click the "Next" button to continue.
@@ -365,6 +394,9 @@ your device.
 > Shop.java <kbd>Browse...</kbd> No file selected.
 > Main.java <kbd>Browse...</kbd> No file selected.
 > UnknownProductException.java <kbd>Browse...</kbd> No file selected.
+
+As with the main upload page, if the project has supplied files or
+required result files, these will also be listed.
 
 If you specified a number of additional files, there will an
 "Additional Files (Optional)" section with a row corresponding to

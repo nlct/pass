@@ -85,6 +85,9 @@ The columns of the upload list are described below.
 | Status | The job status. If queued, the place in the queue will be shown. If processed, admin and staff can also view the exit code in parentheses. This should be 0 if the process exited successfully. |
 | Downloads | If the job has been processed, this will have links to the PDF (if successfully created) and the log file. |
 
+**Note**: a zero exit code means that a PDF was created. This
+doesn't mean that the source code compiled successfully.
+
 ## Export (Staff)
 
 Staff and admin users can click on the "Export" button to export the

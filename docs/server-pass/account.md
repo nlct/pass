@@ -5,7 +5,7 @@ Once you have logged in, you can view your account details using the
 
 ## General
 
-The general section shows you username and account type (which you
+The general section shows your username and account type (which you
 can't change). It also shows your student registration number if it
 has been set. It must be set before you can upload a project. Use
 the "Set Registration Number" link to set it.
@@ -18,7 +18,7 @@ authentication). You will need an authenticator app to complete this
 step. You can either scan the QR image or use the key shown below
 the image to manually add the entry to your authenticator app.
 
-Once you have setup 2FA, you can additional create a set of
+Once you have setup 2FA, you can additionally create a set of
 single-use recovery codes to use in the event that you're unable to
 access your authenticator app.
 
