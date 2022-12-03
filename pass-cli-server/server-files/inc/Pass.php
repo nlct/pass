@@ -5579,7 +5579,8 @@ class Pass
     */ 
    public function getParamElement($name, $key)
    {
-      return $this->params[$name][$key];
+      return (isset($this->params[$name]) && isset($this->params[$name][$key])) ?
+         $this->params[$name][$key] : null;
    }
 
    /**
