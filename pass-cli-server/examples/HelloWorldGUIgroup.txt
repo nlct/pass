@@ -1,0 +1,11 @@
+Student: vqs23ygl	327509401
+Student: jwh22ird	423901355
+Course: CMP-123XY
+Assignment: helloworldgui
+Base-path: ../tests/HelloWorldGUI/
+File: HelloWorldGUI.java
+File: icons/logo.png	BINARY
+File: icons/sample.png	BINARY
+Agree: true
+Pdf-result: ../tests/results/helloworldgui-vqs23ygl.pdf
+Submission-timestamp: 2022-12-01T142601000+0000

@@ -9,7 +9,7 @@
 ../dist	:
 	mkdir -p ../dist
 
-tests	: test-hello test-subdirs test-hellogui
+tests	: test-hello test-subdirs test-hellogui test-helloguigroup
 
 test-hello	: lib/pass-cli-server.jar
 		bin/pass-cli-server -F examples/HelloWorldJava.txt
@@ -19,6 +19,9 @@ test-subdirs	: lib/pass-cli-server.jar
 
 test-hellogui	: lib/pass-cli-server.jar
 		bin/pass-cli-server -F examples/HelloWorldGUI.txt
+
+test-helloguigroup	: lib/pass-cli-server.jar
+		bin/pass-cli-server -F examples/HelloWorldGUIgroup.txt
 
 lib/pass-cli-server.jar	: lib/pass-cli-lib.jar java/Manifest.txt classes/com/dickimawbooks/passcli/server/PassCliServer.class
 	cd classes; \

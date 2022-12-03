@@ -4,4 +4,4 @@ Assignment: helloworldjava
 File: ../tests/HelloWorldJava/HelloWorld.java
 Agree: true
 Pdf-result: ../tests/results/helloworldjava-abc01xyz.pdf
-Submission-timestamp: 2022-11-14T133800000+0000
+Submission-timestamp: 2020-10-25T133800000+0000

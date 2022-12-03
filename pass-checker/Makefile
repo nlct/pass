@@ -6,7 +6,7 @@
 	mkdir -p ../dist
 
 test	: lib/pass-checker.jar
-	bin/pass-checker ../tests/results/*.pdf
+	bin/pass-checker ../tests/pass-checker/*.pdf
 
 lib/pass-checker.jar	: java/Manifest.txt classes/com/dickimawbooks/passchecker/PassChecker.class
 	make -C ../pass-lib lib/passlib.jar
