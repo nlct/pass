@@ -173,11 +173,11 @@ The [`tests/pass-checker`](../tests/pass-checker/README.md) directory contains P
 student submissions for the dummy course and a simulated Server Pass export file [`uploads.tsv`](../tests/pass-checker/uploads.tsv). After you have
 [compiled](compile.md) Pass Checker with `make`, you can then run
 `make test`, which will run Pass Checker on the test files and save
-the results to a file called `results.tsv`.
+the results to a file called `results.tsv` in the same test
+directory.
 
-Two files represent late submissions: `helloworldjava-abc01xyz.pdf`
-and `subdirs-abc01xyz.pdf`. The Notes column for both of these will
-contain "Late Submission".
+One PDF file represents a late submission: `subdirs-abc01xyz.pdf`.
+The Notes column contains "Late Submission".
 
 The file `helloworldbash-vqs23ygl.pdf` was created by Pass GUI but I
 then modified the zip file in the temporary directory while Pass GUI
@@ -186,12 +186,19 @@ original zip file contains `helloworldbash/helloworld`. I edited the
 echo line in the `helloworld` script to `echo "Hello World (Edited)!"`
 and updated the zip file. This means that the zip file is now
 240 bytes, which is larger than the original zip file (which was 197 bytes).
+This modification has also changed the zip file's checksum.
+The time taken to make the modification exceeds the allowed time
+difference of 10 seconds between the creation date and the modification date.
 
 This results in warnings written to STDERR:
 
-> Warning: Embedded attachment 'PushPin' claims to be size 197 but more than 197 bytes found  
+> Warning: helloworldbash-vqs23ygl.pdf: Embedded attachment 'helloworldbash-vqs23ygl.zip' claims to be size 197 but more than 197 bytes found  
 > Warning: helloworldbash-vqs23ygl.pdf: Mismatched zip checksum.
 
+The Notes column for this file contains:
+
+> Mismatched zip checksum.  
+> Modification date \> creation date + 10 seconds.
 
 ---
 
