@@ -195,6 +195,11 @@ This results in warnings written to STDERR:
 > Warning: helloworldbash-vqs23ygl.pdf: Embedded attachment 'helloworldbash-vqs23ygl.zip' claims to be size 197 but more than 197 bytes found  
 > Warning: helloworldbash-vqs23ygl.pdf: Mismatched zip checksum.
 
+Note that if the declared size is smaller than the actual size, the
+calculated checksum will be incorrect as it will only be the
+checksum for the declared subset. The size mismatch is a sufficient
+alert that something is wrong regardless of the checksum.
+
 The Notes column for this file contains:
 
 > Mismatched zip checksum.  

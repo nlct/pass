@@ -580,6 +580,14 @@ public class PassChecker extends Vector<AssignmentMetaData>
                              attachment.getFile().getFile(), size));
                         }
    
+                        /*
+                         * If the declared size is actually smaller
+                         * than the actual size, the checksum won't
+                         * be correct, as it will only be the
+                         * checksum for the bytes read in, however
+                         * the size discrepancy should already be a
+                         * warning of possible tampering.
+                        */
                         MessageDigest md = MessageDigest.getInstance("SHA-256");
                         byte[] hash = md.digest(array);
    
