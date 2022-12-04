@@ -438,6 +438,21 @@ public class AssignmentMetaData
             }
          }
       }
+
+      if (decryptedSubmissionDate != null && decryptedAuthor != null)
+      {
+         jobData = passChecker.getJobData(pdfFile, decryptedAuthor,
+            decryptedSubmissionDate);
+      }
+   }
+
+   /**
+    * Gets the job ID or -1 if not set.
+    * @return the job ID or -1
+    */ 
+   public int getJobID()
+   {
+      return jobData == null ? -1 : jobData.getJobID();
    }
 
    private String pdfAuthor, decryptedAuthor;
@@ -449,6 +464,8 @@ public class AssignmentMetaData
    private StringBuilder info = null;
 
    private File pdfFile;
+
+   private ServerJobData jobData = null;
 
    private PassChecker passChecker;
 }

@@ -6,7 +6,7 @@
 	mkdir -p ../dist
 
 test	: lib/pass-checker.jar
-	bin/pass-checker ../tests/pass-checker/*.pdf
+	bin/pass-checker -j ../tests/pass-checker/uploads.tsv -o ../tests/pass-checker/results.tsv ../tests/pass-checker/*.pdf
 
 lib/pass-checker.jar	: java/Manifest.txt classes/com/dickimawbooks/passchecker/PassChecker.class
 	make -C ../pass-lib lib/passlib.jar
@@ -17,6 +17,8 @@ lib/pass-checker.jar	: java/Manifest.txt classes/com/dickimawbooks/passchecker/P
 classes/com/dickimawbooks/passchecker/PassChecker.class	: classes/com/dickimawbooks/passchecker \
 	java/AssignmentMetaData.java \
 	java/MessageSystem.java \
+	java/ServerJobData.java \
+	java/FileFormatException.java \
 	java/PassChecker.java
 	cd java; \
 	javac -cp .:../lib/passlib.jar:../lib/pdfbox.jar:../lib/commons-logging.jar \

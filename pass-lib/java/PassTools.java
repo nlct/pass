@@ -288,6 +288,7 @@ public class PassTools
     * Gets a choice message from the dictionary.
     * @param key the label identifying the message
     * @param param the choice value
+    * @param msgParams message parameters
     * @return the localised message
     */
    public String getChoiceMessage(String key, double param, Object... msgParams)

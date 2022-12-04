@@ -29,6 +29,12 @@ Prints version details and exits.
 
 Writes the output to I<file> instead of to STDOUT.
 
+=item B<--job> I<file> or B<-j> I<file>
+
+Reads Server Pass submission date from  I<file> (which can be exported via the
+Uploads page). This switch has a cumulative action. Each instance
+will add a new set of job data to the internal list.
+
 =item B<--max-time-diff> I<n> or B<-m> I<n>
 
 Sets the maximum time deviation in seconds.

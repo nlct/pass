@@ -136,12 +136,11 @@ output format is TAB separated with the following fields:
  - PASS Version (the version of PASS that created the PDF)
  - Application (the PASS application that created the PDF)
  - Submission Date (Server PASS Only)
+ - Job ID (only present if `--job` switch used)
  - Notes
 
-Any missing or empty data is denoted with a dash (`―`). This will be
-shown in the submission date column for PDFs that weren't created by
-Server Pass. Ideally, the notes column should also simply have a
-dash. If not, it will have all the notes raised for the given PDF.
+Any missing or empty data is denoted with a dash (`―`), except for
+the Notes column, which will simply be empty if no issues are raised.
 Alerts (warning and error messages) are written to STDERR.
 
 ## Command Line Options
@@ -152,6 +151,7 @@ The following command line options are available:
   - `--help` or `-h` : print help and exit.
   - `--debug` : write debugging information.
   - `--out` _filename_ (or `-o`) : write output to _filename_.
+  - `--job` _filename_ (or `-j`) : (cumulative action) read Server Pass submission date from  _filename_ (which can be exported via the [Uploads](server-pass/list-uploads.md) page).
   - `--max-time-diff` _seconds_ : maximum difference for
     modification timestamps.
   - `--flag-identical-checksums` (or `-c`) : flag coincident zip
@@ -170,12 +170,14 @@ time for Pass Checker.
 ## Examples
 
 The [`tests/pass-checker`](../tests/pass-checker/README.md) directory contains PDF files simulating
-student submissions for the dummy course. After you have
+student submissions for the dummy course and a simulated Server Pass export file [`uploads.tsv`](../tests/pass-checker/uploads.tsv). After you have
 [compiled](compile.md) Pass Checker with `make`, you can then run
-`make test`, which will run Pass Checker on the test files.
+`make test`, which will run Pass Checker on the test files and save
+the results to a file called `results.tsv`.
 
 Two files represent late submissions: `helloworldjava-abc01xyz.pdf`
-and `subdirs-abc01xyz.pdf`.
+and `subdirs-abc01xyz.pdf`. The Notes column for both of these will
+contain "Late Submission".
 
 The file `helloworldbash-vqs23ygl.pdf` was created by Pass GUI but I
 then modified the zip file in the temporary directory while Pass GUI
@@ -184,6 +186,12 @@ original zip file contains `helloworldbash/helloworld`. I edited the
 echo line in the `helloworld` script to `echo "Hello World (Edited)!"`
 and updated the zip file. This means that the zip file is now
 240 bytes, which is larger than the original zip file (which was 197 bytes).
+
+This results in warnings written to STDERR:
+
+> Warning: Embedded attachment 'PushPin' claims to be size 197 but more than 197 bytes found  
+> Warning: helloworldbash-vqs23ygl.pdf: Mismatched zip checksum.
+
 
 ---
 

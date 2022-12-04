@@ -15,6 +15,7 @@
 <entry key="header.pass_version">PASS Version</entry>
 <entry key="header.application">Application</entry>
 <entry key="header.submission_date">Submission Date (Server PASS Only)</entry>
+<entry key="header.submission_id">Job ID</entry>
 <entry key="header.notes">Notes</entry>
 
 <entry key="syntax.filenames">One or more filenames are required.</entry>
@@ -24,6 +25,8 @@
 <entry key="syntax.debug">{0}			Run in debug mode.</entry>
 <entry key="syntax.out">{0} &lt;TSV file&gt; (or {1})
 			Save the results to given TAB separated variable file.</entry>
+<entry key="syntax.job">{0} &lt;TSV file&gt; (or {1})
+			Read submission data exported from Server Pass.</entry>
 <entry key="syntax.max_time_diff">{0} &lt;n&gt;	Set the maximum time difference to &lt;n&gt; (seconds).
 			(Default: {1,number} seconds.)</entry>
 <entry key="syntax.flag.identical.checksums">{0} (or {1})	Flag coincident zip checksums.</entry>
@@ -31,9 +34,14 @@
 
 <entry key="warning">Warning: {0}</entry>
 <entry key="warning.invalid_no_appname">No application name found. Old version of PASS possibly used.</entry>
-<entry key="warning.attach_size_less">Embedded attachment ''{0}'' claims to be size {1,number} but only {2,number} bytes found</entry>
-<entry key="warning.attach_size_more">Embedded attachment ''{0}'' claims to be size {1,number} but more than {1,number} bytes found</entry>
-<entry key="warning.page_mimetype">Page {0,number}: found attachment that has MIME type ''{1}''</entry>
+<entry key="warning.attach_size_less">{0}: Embedded attachment ''{1}'' claims to be size {2,number} but only {3,number} bytes found</entry>
+<entry key="warning.attach_size_more">{0}: Embedded attachment ''{1}'' claims to be size {2,number} but more than {2,number} bytes found</entry>
+<entry key="warning.page_mimetype">{0}: Page {1,number}: found attachment that has MIME type ''{2}''</entry>
+<entry key="warning.checksum_matched.choice">1#job ID|1&lt;job IDs</entry>
+<entry key="warning.checksum_match_on_group_member">{0}: PDF checksum match for group member not uploader for {1} {2}</entry>
+<entry key="warning.checksum_match_not_user">{0}: PDF checksum match but no match on username for {1} {2}</entry>
+<entry key="warning.checksum_match_not_date">{0}: PDF checksum match but no match on submission date for {1} {2}</entry>
+<entry key="warning.no_job">{0}: No job found matching username {1}, submission date {2} and checksum {3}</entry>
 
 <entry key="error">Error: {0}</entry>
 <entry key="error.invalid_key">Invalid key (decrypt failed).</entry>
@@ -50,6 +58,10 @@
 <entry key="error.process_failed">Failed to process {0}</entry>
 <entry key="error.parsing_failed">PDF parsing failed</entry>
 
+<entry key="error.parse_tsv.invalid_line">Invalid TSV format. Expected {0,number} columns but found {1,number}.</entry>
+<entry key="error.parse_tsv.invalid_jobid">Unable to parse submission ID: {0}.</entry>
+<entry key="error.parse_tsv.invalid_date">Unable to parse date: {0}.</entry>
+
 <entry key="error.syntax.no_filenames">At least one file name required. Use {0} for help.</entry>
 <entry key="error.syntax.unknown">Unknown option ''{0}''. Use {1} for help.</entry>
 <entry key="error.syntax.missing_arg">Missing argument for option: {0}</entry>
@@ -60,7 +72,7 @@
 <entry key="info.missing_pdf_author">Missing PDF author.</entry>
 <entry key="info.mismatched_author">Mismatched author.</entry>
 <entry key="info.invalid_or_missing_checksum">Invalid or missing encrypted checksum.</entry>
-<entry key="info.mismatched_checksum">Mismatched checksum.</entry>
+<entry key="info.mismatched_checksum">Mismatched zip checksum.</entry>
 <entry key="info.invalid_or_missing_version">Invalid or missing encrypted version.</entry>
 <entry key="info.invalid_or_missing_date">Invalid or missing encrypted date.</entry>
 <entry key="info.missing_pdf_creation_date">Missing PDF creation date.</entry>

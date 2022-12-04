@@ -338,6 +338,7 @@ directory.
 
 ## PASS Checker
 
+Java 17+ required.
 The Pass Checker application requires [PDF Box](https://pdfbox.apache.org/),
 which in turn requires the [Apache Commons Logging](https://pdfbox.apache.org/) library.
 PDF Box can be downloaded from Apache or it can be installed using

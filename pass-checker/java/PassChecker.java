@@ -96,6 +96,48 @@ public class PassChecker extends Vector<AssignmentMetaData>
    }
 
    /**
+    * Parses submission data exported from Server PASS.
+    * @param name TSV filename
+    */ 
+   public void parseSubmissions(String name)
+   throws IOException
+   {
+      if (serverData == null)
+      {
+         serverData = ServerJobData.parse(this, new File(name));
+      }
+      else
+      {
+         ServerJobData.parse(serverData, this, new File(name));
+      }
+   }
+
+   public ServerJobData getJobData(File pdfFile, String author, Date date)
+   {
+      if (serverData == null) return null;
+
+      ServerJobData job = null;
+
+      try
+      {
+         job = ServerJobData.getSubmission(serverData, this, pdfFile, author, date);
+
+         if (job.getJobID() == -1)
+         {
+            warning(getMessage("warning.no_job", pdfFile.getName(), 
+              author, ServerJobData.ISO_DATETIME_FORMAT.format(date),
+              job.getCheckSum()));
+         }
+      }
+      catch (Exception e)
+      {
+         error(e);
+      }
+
+      return job;
+   }
+
+   /**
     * Sets the debugging level
     */ 
    public void setDebugLevel(int level)
@@ -265,7 +307,7 @@ public class PassChecker extends Vector<AssignmentMetaData>
    public AssignmentData getAssignment() { return null; }
 
    @Override
-   public String getEncoding() { return null; }
+   public String getEncoding() { return "UTF-8"; }
 
    @Override
    public boolean isGroupProject() { return false; }
@@ -528,14 +570,14 @@ public class PassChecker extends Vector<AssignmentMetaData>
                         if (result < size)
                         {
                            warning(getMessage(
-                             "warning.attach_size_less",
-                             attachment.getAttachmentName(), size, result));
+                             "warning.attach_size_less", file.getName(),
+                             attachment.getFile().getFile(), size, result));
                         }
                         else if (in.read() != -1)
                         {
                            warning(getMessage(
-                             "warning.attach_size_more",
-                             attachment.getAttachmentName(), size));
+                             "warning.attach_size_more", file.getName(),
+                             attachment.getFile().getFile(), size));
                         }
    
                         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -554,7 +596,7 @@ public class PassChecker extends Vector<AssignmentMetaData>
                   else
                   {
                      warning(getMessage("warning.page_mimetype", 
-                       1, fileType));
+                       file.getName(), 1, fileType));
                   }
                }
             }
@@ -660,6 +702,16 @@ public class PassChecker extends Vector<AssignmentMetaData>
    }
 
    /**
+    * Gets the formatted numeric ID.
+    * @param id the ID or -1 for none
+    * @return the ID or em-dash if -1
+    */ 
+   public static String format(int id)
+   {
+      return id == -1 ? "\u2015" : ""+id;
+   }
+
+   /**
     * Runs PASS Checker in batch mode. This method is retained 
     * to allow for the possibility of adding GUI
     * support in the future.
@@ -706,18 +758,39 @@ public class PassChecker extends Vector<AssignmentMetaData>
             writer = new PrintWriter(outfilename);
          }
 
-         String header = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
-            getMessage("header.filename"),
-            getMessage("header.author"),
-            getMessage("header.author_check"),
-            getMessage("header.date_check"),
-            getMessage("header.creation_date"),
-            getMessage("header.mod_date"),
-            getMessage("header.pass_version"),
-            getMessage("header.application"),
-            getMessage("header.submission_date"),
-            getMessage("header.notes")
-         );
+         String header;
+
+         if (serverData == null)
+         {
+            header = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+               getMessage("header.filename"),
+               getMessage("header.author"),
+               getMessage("header.author_check"),
+               getMessage("header.date_check"),
+               getMessage("header.creation_date"),
+               getMessage("header.mod_date"),
+               getMessage("header.pass_version"),
+               getMessage("header.application"),
+               getMessage("header.submission_date"),
+               getMessage("header.notes")
+            );
+         }
+         else
+         {
+            header = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+               getMessage("header.filename"),
+               getMessage("header.author"),
+               getMessage("header.author_check"),
+               getMessage("header.date_check"),
+               getMessage("header.creation_date"),
+               getMessage("header.mod_date"),
+               getMessage("header.pass_version"),
+               getMessage("header.application"),
+               getMessage("header.submission_date"),
+               getMessage("header.submission_id"),
+               getMessage("header.notes")
+            );
+         }
    
          if (writer == null)
          {
@@ -732,18 +805,39 @@ public class PassChecker extends Vector<AssignmentMetaData>
          {
             String info = data.getInfo();
 
-            String row = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
-               format(data.getPdfFile()),
-               format(data.getPdfAuthor()),
-               format(data.getDecryptedAuthor()),
-               format(data.getDecryptedDate()),
-               format(data.getPdfCreationDate()),
-               format(data.getPdfModDate()),
-               format(data.getDecryptedVersion()),
-               format(data.getDecryptedApplicationName()),
-               format(data.getDecryptedSubmissionDate()),
-               info == null ? "" : String.format("\"%s\"", info)
-            );
+            String row;
+
+            if (serverData == null)
+            {
+               row = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+                  format(data.getPdfFile()),
+                  format(data.getPdfAuthor()),
+                  format(data.getDecryptedAuthor()),
+                  format(data.getDecryptedDate()),
+                  format(data.getPdfCreationDate()),
+                  format(data.getPdfModDate()),
+                  format(data.getDecryptedVersion()),
+                  format(data.getDecryptedApplicationName()),
+                  format(data.getDecryptedSubmissionDate()),
+                  info == null ? "" : String.format("\"%s\"", info)
+               );
+            }
+            else
+            {
+               row = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+                  format(data.getPdfFile()),
+                  format(data.getPdfAuthor()),
+                  format(data.getDecryptedAuthor()),
+                  format(data.getDecryptedDate()),
+                  format(data.getPdfCreationDate()),
+                  format(data.getPdfModDate()),
+                  format(data.getDecryptedVersion()),
+                  format(data.getDecryptedApplicationName()),
+                  format(data.getDecryptedSubmissionDate()),
+                  format(data.getJobID()),
+                  info == null ? "" : String.format("\"%s\"", info)
+               );
+            }
 
             if (writer == null)
             {
@@ -799,8 +893,11 @@ public class PassChecker extends Vector<AssignmentMetaData>
       System.out.println(getMessage("syntax.debug", "--debug"));
 
       System.out.println();
-      System.out.println("--out <TSV file> (or -o <TSV file>)");
       System.out.println(getMessage("syntax.out", "--out", "-o"));
+
+      System.out.println();
+      System.out.println(getMessage("syntax.job", "--job", "-j"));
+
       System.out.println();
       System.out.println(getMessage("syntax.max_time_diff", "--max-time-diff",
          getMaxTimeDiff()));
@@ -881,6 +978,19 @@ public class PassChecker extends Vector<AssignmentMetaData>
             }
 
             setOutFileName(args[i]);
+         }
+         else if (args[i].equals("--job") || args[i].equals("-j"))
+         {
+            String opt = args[i];
+            i++;
+
+            if (i == args.length)
+            {
+               throw new IllegalArgumentException(
+                 getMessage("error.syntax.missing_arg", opt));
+            }
+
+            parseSubmissions(args[i]);
          }
          else if (args[i].equals("--help") || args[i].equals("-h"))
          {
@@ -963,10 +1073,12 @@ public class PassChecker extends Vector<AssignmentMetaData>
    private int maxTimeDiff = 10;
    private boolean flagIdenticalCheckSums=false;
 
+   private Vector<ServerJobData> serverData;
+
    public static final String NAME="PASS Checker";
    public static final String INVOKER_NAME="pass-checker";
    public static final String VERSION="1.4";
-   public static final String VERSION_DATE="2022-12-02";
+   public static final String VERSION_DATE="2022-12-04";
    public static final int COPYRIGHT_START_YEAR=2018;
 
    public static final SimpleDateFormat DATE_FORMAT
