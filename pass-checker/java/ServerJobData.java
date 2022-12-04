@@ -31,6 +31,8 @@ import java.util.Base64;
 
 /**
  * Submission data exported from Server Pass.
+ * Note that it's possible for the checksum to be empty, which
+ * indicates a fatal error occurred and the PDF wasn't created.
  */
 public class ServerJobData
 {
