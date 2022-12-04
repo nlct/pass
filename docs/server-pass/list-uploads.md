@@ -105,6 +105,8 @@ search results as a tab-separated (TSV) file with the following columns:
  - PDF MD5 checksum (if blank then the PDF wasn't created, the exit
    code should be non-zero).
 
+This file can then be supplied to [Pass Checker's `--job` switch](../passchecker.md).
+
 ---
 
  - &#x23EE; [Upload Project](upload-project.md)
