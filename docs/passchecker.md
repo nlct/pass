@@ -68,6 +68,8 @@ The custom metadata set by PASS consists of:
 With Server Pass, you can also obtain the submission date from the
 staff tools on the frontend as well as a checksum of the original
 PDF, which can be compared with the checksum of the submitted PDF.
+You can use Pass Checker with `--job` to match the submitted PDF
+files with their corresponding job ID.
 
 ## Validation
 
@@ -112,12 +114,16 @@ following.
    later than the due date, a note is added.
 
 Finally, if the `--flag-identical-checksums` setting is on and
-multiple PDF files are processed at the same time, then
-there's a check for any that have identical checksums for the
-attached zip files. This can happen by coincidence and only
-indicates if the attachments are identical. It doesn't pick up near
-identical solutions. PASS doesn't provide any plagiarism detection.
-Some learning management systems provide this.
+multiple PDF files are processed at the same time, then there's a
+check for any that have identical checksums for the attached zip
+files. This is unlikely to actually happen, even if the archives have
+identical content as the timestamps within the archive are likely to
+be different. It is also possible to have a false positive as two
+files can coincidentally have identical checksums.
+
+Pass Checker doesn't detect near identical solutions or any other
+form of plagiarism detection. Some learning management systems
+provide this.
 
 ## Output
 
@@ -151,7 +157,7 @@ The following command line options are available:
   - `--help` or `-h` : print help and exit.
   - `--debug` : write debugging information.
   - `--out` _filename_ (or `-o`) : write output to _filename_.
-  - `--job` _filename_ (or `-j`) : (cumulative action) read Server Pass submission date from  _filename_ (which can be exported via the [Uploads](server-pass/list-uploads.md) page).
+  - `--job` _filename_ (or `-j`) : (cumulative action) read Server Pass submission data from  _filename_ (which can be exported via the [Uploads](server-pass/list-uploads.md) page).
   - `--max-time-diff` _seconds_ : maximum difference for
     modification timestamps.
   - `--flag-identical-checksums` (or `-c`) : flag coincident zip
