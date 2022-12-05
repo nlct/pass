@@ -15,6 +15,10 @@
  */
 package com.dickimawbooks.passchecker;
 
+/**
+ * This interface was added to allow for a GUI alternative. Retained
+ * in case it's implemented in future.
+ */
 public interface MessageSystem
 {
    public void debugMessage(String message, Throwable throwable);

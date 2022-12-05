@@ -514,7 +514,7 @@ public class AssignmentProcess
 
             if (zipFile != null)
             {
-               checksum = config.getCheckSum(zipFile);
+               checksum = passTools.getCheckSum(zipFile);
             }
 
             out.print("\\pdfinfo{");

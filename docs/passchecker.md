@@ -176,8 +176,25 @@ student submissions for the dummy course and a simulated Server Pass export file
 the results to a file called `results.tsv` in the same test
 directory.
 
-One PDF file represents a late submission: `subdirs-abc01xyz.pdf`.
-The Notes column contains "Late Submission".
+The file `subdirs-abc01xyz.pdf` represents a late submission for
+student `abc01xyz`. The Notes column contains "Late Submission".
+
+The file `helloworldgui-jwh22ird.pdf` was created by Pass GUI with
+the Bob example username `vqs23ygl` and registration number 327509401.
+While Pass GUI was still running, I edited the LaTeX source and
+performed a global search and replace to switch Bob's details with
+Carol's (username `jwh22ird` and registration number 423901355). I
+changed the date from 5th Dec 2022 to 1st Dec 2022 for both the PDF
+creation date and the date on the title page. I also changed the
+name of the zip file from `helloworldgui-vqs23ygl` to
+`helloworldgui-jwh22ird.zip`. I then reran LuaLaTeX twice and saved
+the PDF file as `helloworldgui-jwh22ird.pdf`. The Notes column for
+this file contains:
+
+> Mismatched author.  
+> Mismatched creation date.  
+> Modification date \> creation date + 10 seconds.  
+> Late submission.
 
 The file `helloworldbash-vqs23ygl.pdf` was created by Pass GUI but I
 then modified the zip file in the temporary directory while Pass GUI
@@ -204,6 +221,10 @@ The Notes column for this file contains:
 
 > Mismatched zip checksum.  
 > Modification date \> creation date + 10 seconds.
+
+This is the only example file that writes an alert to STDERR,
+because it's a serious concern when the zip file doesn't match the
+checksum calculated by PASS after it created the file.
 
 ---
 

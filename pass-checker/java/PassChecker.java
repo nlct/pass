@@ -581,17 +581,15 @@ public class PassChecker extends Vector<AssignmentMetaData>
                         }
    
                         /*
-                         * If the declared size is actually smaller
+                         * If the declared size is smaller
                          * than the actual size, the checksum won't
                          * be correct, as it will only be the
                          * checksum for the bytes read in, however
                          * the size discrepancy should already be a
                          * warning of possible tampering.
                         */
-                        MessageDigest md = MessageDigest.getInstance("SHA-256");
-                        byte[] hash = md.digest(array);
    
-                        data.setZipCheckSum(Base64.getEncoder().encodeToString(hash));
+                        data.setZipCheckSum(passTools.getConfig().getCheckSum(array));
                      }
                      finally
                      {
@@ -1086,7 +1084,7 @@ public class PassChecker extends Vector<AssignmentMetaData>
    public static final String NAME="PASS Checker";
    public static final String INVOKER_NAME="pass-checker";
    public static final String VERSION="1.4";
-   public static final String VERSION_DATE="2022-12-04";
+   public static final String VERSION_DATE="2022-12-05";
    public static final int COPYRIGHT_START_YEAR=2018;
 
    public static final SimpleDateFormat DATE_FORMAT

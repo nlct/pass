@@ -87,6 +87,10 @@ public class AssignmentMetaData
 
    /**
     * Sets the zip file attachment's decrypted checksum.
+    * The zip checksum is calculated by PASS using
+    * AssignmentProcessConfig.getCheckSum(File) which uses SHA-256
+    * with base 64 encoding so the supplied checksum should be in
+    * that format.
     * @param checksum the zip file attachment's decrypted checksum obtained
     * from the encrypted data
     */ 

@@ -27,6 +27,7 @@ import java.text.Format;
 import java.text.MessageFormat;
 import java.text.ChoiceFormat;
 import java.text.NumberFormat;
+import java.security.NoSuchAlgorithmException;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.InputSource;
@@ -1501,6 +1502,17 @@ public class PassTools
       }
 
       return assignment.hasFile(filename);
+   }
+
+   /**
+    * Gets the checksum for the given file.
+    * @param file the file
+    * @return the checksum
+    */
+   public String getCheckSum(File file)
+     throws IOException, NoSuchAlgorithmException
+   {
+      return config.getCheckSum(Files.readAllBytes(file.toPath()));
    }
 
    private HashMap<String,File> applications = null;
