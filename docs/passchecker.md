@@ -246,14 +246,19 @@ also altered this to 240, in which case there wouldn't be a warning
 about the size mismatch, but the checksum will be calculated and
 won't match the encrypted checksum.
 
-The Notes column for this file contains:
+The Notes column for this file contains (`--flag-identical-checksums`):
 
 > Mismatched zip checksum.  
 > Modification date \> creation date + 10 seconds.
 
+or (`--noflag-identical-checksums`)
+
+> zip checksum not calculated.  
+> Modification date \> creation date + 10 seconds.
+
 This is the only example file that writes an alert to STDERR,
 because it's a serious concern when the zip file doesn't match the
-checksum calculated by PASS after it created the file.
+size or checksum calculated by PASS after it created the file.
 
 ---
 

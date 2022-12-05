@@ -75,6 +75,7 @@
 <entry key="info.mismatched_author">Mismatched author.</entry>
 <entry key="info.invalid_or_missing_checksum">Invalid or missing encrypted checksum.</entry>
 <entry key="info.mismatched_checksum">Mismatched zip checksum.</entry>
+<entry key="info.checksum_not_calculated">zip checksum not calculated.</entry>
 <entry key="info.invalid_or_missing_version">Invalid or missing encrypted version.</entry>
 <entry key="info.invalid_or_missing_date">Invalid or missing encrypted date.</entry>
 <entry key="info.missing_pdf_creation_date">Missing PDF creation date.</entry>
