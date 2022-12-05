@@ -188,7 +188,7 @@ The file `subdirs-abc01xyz.pdf` represents a late submission for
 student `abc01xyz`. The Notes column contains "Late Submission".
 
 The file `helloworldgui-jwh22ird.pdf` was created by Pass GUI with
-the Bob example username `vqs23ygl` and registration number 327509401.
+the [Bob example](README.md) username `vqs23ygl` and registration number 327509401.
 While Pass GUI was still running, I edited the LaTeX source and
 performed a global search and replace to switch Bob's details with
 Carol's (username `jwh22ird` and registration number 423901355). I
