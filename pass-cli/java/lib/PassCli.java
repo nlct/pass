@@ -1562,8 +1562,8 @@ public class PassCli implements Pass
    protected boolean allowDebugCourse = true;
 
    public static final String APP_NAME="pass-cli";
-   public static final String APP_VERSION="1.3.2";
-   public static final String APP_DATE="2022-11-24";
+   public static final String APP_VERSION="1.4";
+   public static final String APP_DATE="2022-12-05";
    public static final String COPYRIGHT_START_YEAR="2020";
 
    private static final String COPYRIGHT_OWNER="Nicola L.C. Talbot";
