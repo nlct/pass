@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Vector;
@@ -359,17 +360,20 @@ public class PassChecker extends Vector<AssignmentMetaData>
       {
          for (AssignmentMetaData d : this)
          {
-            if (decryptedCheckSum != null 
-                  && decryptedCheckSum.equals(d.getDecryptedCheckSum()))
+            if (decryptedCheckSum.equals(d.getDecryptedCheckSum()))
             {
                data.appendInfo(getMessage("message.decrypted_checksum_identical",
                   d.getPdfFile().getName()));
+               d.appendInfo(getMessage("message.decrypted_checksum_identical",
+                  data.getPdfFile().getName()));
             }
 
-            if (checkSum != null && checkSum.equals(d.getZipCheckSum()))
+            if (checkSum.equals(d.getZipCheckSum()))
             {
                data.appendInfo(getMessage("message.calculated_checksum_identical",
                  d.getPdfFile().getName()));
+               d.appendInfo(getMessage("message.calculated_checksum_identical",
+                 data.getPdfFile().getName()));
             }
          }
       }
@@ -563,33 +567,19 @@ public class PassChecker extends Vector<AssignmentMetaData>
                      {
                         in = embeddedFile.createInputStream();
    
-                        byte[] array = new byte[size];
+                        byte[] array = readBytes(in, size,
+                           file.getName(), attachment.getFile().getFile());
    
-                        int result = in.read(array);
-   
-                        if (result < size)
+                        if (array != null)
                         {
-                           warning(getMessage(
-                             "warning.attach_size_less", file.getName(),
-                             attachment.getFile().getFile(), size, result));
+                           data.setZipCheckSum(passTools.getConfig().getCheckSum(array));
                         }
-                        else if (in.read() != -1)
+                        else
                         {
-                           warning(getMessage(
-                             "warning.attach_size_more", file.getName(),
-                             attachment.getFile().getFile(), size));
+                         // set to empty to indicate that the attachment is present
+                         // but the checksum hasn't been calculated
+                           data.setZipCheckSum("");
                         }
-   
-                        /*
-                         * If the declared size is smaller
-                         * than the actual size, the checksum won't
-                         * be correct, as it will only be the
-                         * checksum for the bytes read in, however
-                         * the size discrepancy should already be a
-                         * warning of possible tampering.
-                        */
-   
-                        data.setZipCheckSum(passTools.getConfig().getCheckSum(array));
                      }
                      finally
                      {
@@ -635,6 +625,108 @@ public class PassChecker extends Vector<AssignmentMetaData>
       data.validate();
 
       return data;
+   }
+
+   /**
+    * Reads bytes from input stream for zip attachment.
+    * The size should match the declared size. If not, it's likely
+    * that some corruption or tampering has occurred.
+    * If there is a size mismatch then the actual byte array will
+    * only be returned if the flag identical setting is on,
+    * otherwise null will be returned if the size is incorrect.
+    * @param in the input stream
+    * @param size the declared size
+    * @param pdfName the name of the PDF file
+    * @param zipName the name of the zip attachment
+    * @return the byte array or null
+    */ 
+   private byte[] readBytes(InputStream in, int size, String pdfName, String zipName)
+   throws IOException
+   {
+      byte[] array = new byte[size];
+   
+      int result = in.read(array);
+
+      if (result == -1)
+      {// input stream has ended
+
+         warning(getMessage(
+            "warning.attach_empty", pdfName, zipName, size));
+
+         return null;
+      }
+      else if (result < size)
+      {
+         // actual size less than declared size
+
+         warning(getMessage(
+            "warning.attach_size_less", pdfName, zipName, size, result));
+
+         if (flagIdenticalCheckSums)
+         {
+            byte[] newArray = new byte[result];
+
+            for (int i = 0; i < result; i++)
+            {
+               newArray[i] = array[i];
+            }
+
+            return newArray;
+         }
+         else
+         {
+            return null;
+         }
+      }
+
+      int b = in.read();
+
+      if (b == -1)
+      {// all bytes have been read
+         return array;
+      }
+
+      // larger than declared size
+
+      if (!flagIdenticalCheckSums)
+      {
+         // Don't bother to read anything else if flag identical
+         // checksums isn't on. The size mismatch is a sufficient
+         // alert.
+
+         warning(getMessage(
+            "warning.attach_size_more", pdfName, zipName, size));
+
+         return null;
+      }
+
+      Vector<Byte> byteList = new Vector<Byte>(size+1);
+
+      for (int i = 0; i < array.length; i++)
+      {
+         byteList.add(Byte.valueOf(array[i]));
+      }
+
+      while (b != -1)
+      {
+         byteList.add(Byte.valueOf((byte)b));
+
+         b = in.read();
+      }
+
+      int actualSize = byteList.size();
+
+      warning(getMessage(
+         "warning.attach_size_larger", pdfName, zipName, size, actualSize));
+
+      array = new byte[actualSize];
+
+      for (int i = 0; i < actualSize; i++)
+      {
+         array[i] = byteList.get(i).byteValue();
+      }
+
+      return array;
    }
 
    /**

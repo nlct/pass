@@ -165,7 +165,9 @@ compile and run the application (where applicable) when determining
 the appropriate timestamp tolerance.
 
 The `--flag-identical-checksums` setting will cause a longer run
-time for Pass Checker.
+time for Pass Checker, and it's not guaranteed to find identical
+archives (as demonstrated in the example below). It's therefore not
+on by default.
 
 ## Examples
 
@@ -196,6 +198,15 @@ this file contains:
 > Modification date \> creation date + 10 seconds.  
 > Late submission.
 
+Note that the zip attachment for `helloworldgui-jwh22ird.pdf` has a
+different checksum to the zip attachment for
+`helloworldgui-vqs23ygl.pdf`. Although both archives have identical
+files, the files have different timestamps and the PNG files are listed
+in a different order. This means that even with the
+`--flag-identical-checksums` setting, they won't be flagged as
+identical. For this example, I simply renamed the zip file that PASS
+created, so the encrypted checksum still matches.
+
 The file `helloworldbash-vqs23ygl.pdf` was created by Pass GUI but I
 then modified the zip file in the temporary directory while Pass GUI
 was still running and reran LaTeX to create the modified PDF. The
@@ -207,15 +218,27 @@ This modification has also changed the zip file's checksum.
 The time taken to make the modification exceeds the allowed time
 difference of 10 seconds between the creation date and the modification date.
 
-This results in warnings written to STDERR:
+This results in one or two warnings written to STDERR, depending on
+whether or not `--flag-identical-checksums` is used. With this
+option on, there are two warnings:
 
-> Warning: helloworldbash-vqs23ygl.pdf: Embedded attachment 'helloworldbash-vqs23ygl.zip' claims to be size 197 but more than 197 bytes found  
+> Warning: helloworldbash-vqs23ygl.pdf: Embedded attachment 'helloworldbash-vqs23ygl.zip' claims to be size 197 but 240 bytes found    
 > Warning: helloworldbash-vqs23ygl.pdf: Mismatched zip checksum.
 
-Note that if the declared size is smaller than the actual size, the
-calculated checksum will be incorrect as it will only be the
-checksum for the declared subset. The size mismatch is a sufficient
-alert that something is wrong regardless of the checksum.
+With the default `--noflag-identical-checksums`, only one warning
+occurs:
+
+> Warning: helloworldbash-vqs23ygl.pdf: Embedded attachment 'helloworldbash-vqs23ygl.zip' claims to be size 197 but more than 197 bytes found
+
+In this case, the checksum isn't calculated if the size doesn't
+match (any remaining bytes aren't read, which is why the actual size
+isn't shown in the warning). The size mismatch is a sufficient alert
+that something is wrong regardless of the checksum.
+
+The size is written in plain text in the LaTeX file, so I could have
+also altered this to 240, in which case there wouldn't be a warning
+about the size mismatch, but the checksum will be calculated and
+won't match the encrypted checksum.
 
 The Notes column for this file contains:
 

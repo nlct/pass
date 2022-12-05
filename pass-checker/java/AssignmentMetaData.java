@@ -355,7 +355,8 @@ public class AssignmentMetaData
       {
          appendInfo(passChecker.getMessage("info.invalid_or_missing_checksum"));
       }
-      else if (!decryptedCheckSum.equals(zipCheckSum))
+      else if (zipCheckSum != null && !zipCheckSum.isEmpty()
+                && !decryptedCheckSum.equals(zipCheckSum))
       {
          String msg = passChecker.getMessage("info.mismatched_checksum");
          passChecker.warning(String.format("%s: %s", pdfFile.getName(), msg));
