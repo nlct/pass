@@ -2610,12 +2610,16 @@ class Pass
     */
    public function logout()
    {
+      $user_id = null;
+
       // clear all expired who's online data
       $sql = "DELETE FROM whos_online WHERE time_last_clicked < DATE_SUB(CURDATE(), INTERVAL 1 HOUR)";
 
       if (isset($_SESSION['user_id']) && is_numeric($_SESSION['user_id']))
       {
          $sql .= " OR user_id=" . $_SESSION['user_id'];
+
+         $user_id = $_SESSION['user_id'];
       }
 
       if (!$this->db_query($sql))
@@ -2627,9 +2631,57 @@ class Pass
       $_SESSION = array();
       session_start();
 
-      if (isset($this->user) && isset($this->user['id']))
+      if (isset($user_id))
       {
-         $this->record_action('logout', 'Session cleared');
+         $this->record_action('logout',
+           "Session cleared for user ID $user_id");
+      }
+
+      unset($this->user);
+   }
+
+   /**
+    * Logs user out and clears all session data for the user. This
+    * means that if they are also logged in on other devices, the
+    * session data on the other devices will be invalidated. Note
+    * that this doesn't delete the session cookies on the other devices but
+    * their token won't be valid any more.
+    */ 
+   public function logout_all()
+   {
+      $user_id = null;
+
+      // clear all expired who's online data
+      $sql = "DELETE FROM whos_online WHERE time_last_clicked < DATE_SUB(CURDATE(), INTERVAL 1 HOUR)";
+
+      if (isset($_SESSION['user_id']) && is_numeric($_SESSION['user_id']))
+      {
+         $sql .= " OR user_id=" . $_SESSION['user_id'];
+
+         $user_id = $_SESSION['user_id'];
+      }
+
+      if (!$this->db_query($sql))
+      {
+         error_log("Query failed: ".$sql);
+      }
+
+      if (isset($user_id))
+      {
+         // Delete all session data associated with this user ID
+
+         $this->db_query(sprintf("DELETE FROM sessions WHERE user_id=%d",
+           $user_id));
+      }
+
+      session_destroy();
+      $_SESSION = array();
+      session_start();
+
+      if (isset($user_id))
+      {
+         $this->record_action('logout',
+            "All sessions cleared for user ID $user_id");
       }
 
       unset($this->user);
