@@ -9,7 +9,8 @@ CREATE TABLE sessions
    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    session_id CHAR(26),
    data TEXT,
-   date_touched INT
+   date_touched INT,
+   user_id INT DEFAULT NULL
 );
 
 CREATE TABLE users
