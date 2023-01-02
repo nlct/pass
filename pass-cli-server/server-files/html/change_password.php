@@ -30,7 +30,8 @@ if ($pass->isParam('action', 'update')
  && $pass->update_password($pass->getParam('newpassword')))
 {
    $_SESSION['confirmation_message'] = 'Password changed.';
-   $pass->redirect_header($pass->getAccountRef());
+   $pass->logout_all();
+   $pass->redirect_header($pass->getLoginRef());
 }
 elseif ($pass->isParam('action', 'cancel'))
 {
