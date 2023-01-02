@@ -6380,7 +6380,7 @@ class Pass
        || preg_match('/^9+$/', $password)
        || preg_match('/^(01|10|69|12)+$/', $password)
        || preg_match('/^(zaq1?|1?qaz)(2?wsx|xsw2?)$/i', $password)
-       || preg_match('/^(ilove(yo)?u|monkey|dragon|leopard|pussy|myn[o0][o0]b|google|asdfghjkl|zxcvbnm|18atcskd2w|1q2w3e(4r(t5(y6)?)?)?|3rjs1la7qe|princess|football|baseball|letmein|login|sunshine|shadow|trustno(one)?|access|master|admin|lovely|hottie|whatever|loveme|starwars|donald|superman|batman|welcome|hello|qazwsx(edc)?|azerty|jesus|michael|ashley|aaron|jordan|jennifer|ninja|flower|mustang|fuck(er|off|(yo)?u)?|killer|picture|senha|million|omgpop|unknown|chatbooks|jacket|bangbang|jobandtalent|default|changeme|biteme|matrix|freedom|a[s\$]{2}h[o0][l1]e|secret)[\d!\$@\.]*$/i', $password))
+       || preg_match('/^(ilove(yo)?u|monkey|dragon|leopard|pussy|myn[o0][o0]b|google|asdfghjkl|zxcvbnm|18atcskd2w|1q2w3e(4r(t5(y6)?)?)?|3rjs1la7qe|princess|football|baseball|letmein|log(me)?in|sunshine|shadow|trustno(one)?|access|master|admin|lovely|hottie|whatever|loveme|starwars|donald|superman|batman|welcome|hello|qazwsx(edc)?|azerty|jesus|michael|ashley|aaron|jordan|jennifer|ninja|flower|mustang|fuck(er|off|(yo)?u)?|killer|picture|senha|million|omgpop|unknown|chatbooks|jacket|bangbang|jobandtalent|default|changeme|biteme|matrix|freedom|server-?pass|a[s\$]{2}h[o0][l1]e|secret)[\d!\$@\.]*$/i', $password))
       {
          return true;
       }
