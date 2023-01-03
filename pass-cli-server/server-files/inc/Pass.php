@@ -7381,7 +7381,7 @@ class Pass
     * Writes HTML code for a "Previous" button.
     * @param $attrs the element attributes or null for defaults
     */ 
-   public function form_prev_button($attrs=null)
+   public function form_prev_button($attrs=null, $title=null)
    {
       if (!isset($attrs))
       {
@@ -7408,7 +7408,12 @@ class Pass
          $attrs['formenctype'] = 'application/x-www-form-urlencoded';
       }
 
-      echo '<button', process_attributes($attrs), '>', $this->getPrevLabel(),
+      if (!isset($title))
+      {
+         $title = $this->getPrevLabel();
+      }
+
+      echo '<button', process_attributes($attrs), '>', $title,
 	   '</button>';
    }
 

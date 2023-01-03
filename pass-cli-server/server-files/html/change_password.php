@@ -29,8 +29,8 @@ process_params();
 if ($pass->isParam('action', 'update') 
  && $pass->update_password($pass->getParam('newpassword')))
 {
-   $_SESSION['confirmation_message'] = 'Password changed.';
    $pass->logout_all();
+   $_SESSION['confirmation_message'] = 'Password changed. You need to login again to access your account.';
    $pass->redirect_header($pass->getLoginRef());
 }
 elseif ($pass->isParam('action', 'cancel'))

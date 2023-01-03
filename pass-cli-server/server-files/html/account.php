@@ -344,7 +344,7 @@ so the platform and browser details may be incorrect or unavailable.
 
       $pass->start_form();
 
-      echo $pass->form_prev_button(['value'=>'summary'], 'Back to Summary');
+      echo back_to_summary_button();
       echo '</form>';
 
       return;
@@ -415,7 +415,7 @@ so the platform and browser details may be incorrect or unavailable.
 <p class="alignleft">
 <?php
 
-   echo $pass->form_prev_button(['value'=>'summary'], 'Back to Summary');
+   echo back_to_summary_button();
 ?>
 </p>
 <p class="alignright">
@@ -521,7 +521,7 @@ Each code can only be used once.
 <p class="alignleft">
 <?php
 
-   echo $pass->form_prev_button(['value'=>'cancel'], 'Back to Summary');
+   echo back_to_summary_button();
 ?>
 </p>
 <p class="alignright">
@@ -570,9 +570,16 @@ Store them in a safe place. Each code can only be used once.
 
    $pass->start_form();
 
-   echo $pass->form_prev_button(['value'=>'summary'], 'Back to Summary');
+   echo back_to_summary_button();
 
    echo '</form>';
+}
+
+function back_to_summary_button($text='&#x23F4; Back to Summary')
+{
+   global $pass;
+
+   echo $pass->form_prev_button(['value'=>'summary'], $text);
 }
 
 function back_to_summary($text='&#x23F4; Back to Summary')
@@ -668,9 +675,10 @@ such as Google Authenticator, installed on your mobile device.
 
       echo $pass->href_self('action=querydisable2fa', 'Disable 2FA');
       echo ' | ';
-      echo $pass->href_self('action=view2fa', 'Re-verify 2FA Key'); 
+      echo $pass->href_self('action=view2fa', 'Re-verify Existing 2FA Key'); 
 ?>
   </div>
+  <br>(If you need a new key, <?php echo $pass->href_self('action=delete2fa', 'delete the existing key'); ?> and re-enable 2FA.)<p>
 <?php
    }
    else
