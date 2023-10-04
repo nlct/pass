@@ -186,7 +186,7 @@ the <?php echo $pass->get_admin_config_link('configuration page'); ?>.
 <li>Download <?php echo $pass->getPassServerCliDownloadLink(); ?>.
 <li>Copy the file to the server:
 <pre>
-<?php echo $pass->getSftpInstructions(); ?>
+<?php echo $pass->getSftpInstructions(), PHP_EOL; ?>
 put pass-cli-server.tgz
 quit
 </pre>
