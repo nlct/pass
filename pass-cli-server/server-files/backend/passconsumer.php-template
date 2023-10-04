@@ -100,16 +100,21 @@ function cleanup_connection($connection)
  * Shuts down the connection.
  * @param $connection the connection
  */
-function shutdown($connection)
+function shutdown()
 {
+   global $channel;
+   global $connection;
+
    if ($channel !== null)
    {
       $channel->close();
+      $channel = null;
    }
 
    if ($connection !== null)
    {
       $connection->close();
+      $connection = null;
    }
 }
 
@@ -121,7 +126,7 @@ while (true)
       checkRabbitMQRunning();
 
       $connection = connectConsumer();
-      register_shutdown_function('shutdown', $connection);
+      register_shutdown_function('shutdown');
 
       $channel = $connection->channel();
       $channel->queue_declare('pass', false, false, false, false);
