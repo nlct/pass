@@ -81,17 +81,22 @@ $callback = function($msg)
  * Cleans up connection.
  * See https://github.com/php-amqplib/php-amqplib/blob/master/demo/connection_recovery_consume.php
 */
-function cleanup_connection($connection)
+function cleanup_connection()
 {
+   global $connection;
+
    // Connection might already be closed.
    // Ignoring exceptions.
    try
    {
-      if($connection !== null)
+      if ($connection !== null)
       {
          $connection->close();
+         $connection = null;
       }
-   } catch (\ErrorException $e)
+
+   }
+   catch (\ErrorException $e)
    {
    }
 }
@@ -131,7 +136,9 @@ while (true)
       $channel = $connection->channel();
       $channel->queue_declare('pass', false, false, false, false);
 
-      $channel->basic_consume('pass', '', false, true, false, false, $callback);
+      $channel->basic_consume('pass', '', false, 
+        false, // no-ack
+        false, false, $callback);
 
       while ($channel->is_consuming())
       {
@@ -141,19 +148,19 @@ while (true)
    catch(AMQPRuntimeException $e)
    {
        errorMessage('AMQPRuntime exception '. $e->getMessage());
-       cleanup_connection($connection);
+       cleanup_connection();
        usleep(WAIT_BEFORE_RECONNECT_uS);
    }
    catch(\RuntimeException $e)
    {
        errorMessage('Runtime exception '. $e->getMessage());
-       cleanup_connection($connection);
+       cleanup_connection();
        usleep(WAIT_BEFORE_RECONNECT_uS);
    }
    catch(\ErrorException $e)
    {
        errorMessage('Error exception '. $e->getMessage());
-       cleanup_connection($connection);
+       cleanup_connection();
        usleep(WAIT_BEFORE_RECONNECT_uS);
    }
 }
